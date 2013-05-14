@@ -1,15 +1,17 @@
 package pkg.talu.lowa.s4.tweaker;
 
 import android.os.Bundle;
-import android.app.Activity;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.view.Menu;
 
-public class Main extends Activity {
+public class Main extends PreferenceActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
+		//setContentView(R.layout.main);
 	}
 
 	@Override
@@ -18,5 +20,15 @@ public class Main extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	public static class MyPreferenceFragment extends PreferenceFragment
+    {
+        @Override
+        public void onCreate(final Bundle savedInstanceState)
+        {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.main_pref);
+        }
+    }
 
 }
