@@ -8,20 +8,29 @@
         android:minSdkVersion="16"
         android:targetSdkVersion="17" />
 
+        <supports-screens
+        android:anyDensity="true"
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:resizeable="true"
+        android:xlargeScreens="true" />
+        
+    
     <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:icon="@drawable/ic_action_name"
+        android:label="@string/maintext" android:allowBackup="true">
         <activity
             android:name="pkg.talu.lowa.s4.tweaker.Main"
-            android:label="@string/app_name" >
+            android:label="@string/maintext" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="pkg.talu.lowa.s4.tweaker.about.About"
+            android:icon="@drawable/ic_about"></activity>
     </application>
 
 </manifest>
