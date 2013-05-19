@@ -9,6 +9,8 @@
     <string name="title_main">S4 Tweaker for Dreamkernel</string>
 
     <string name="menu_about">About S4 Tweaker</string>
+    
+    <string name="menu_soundtweaks">Sound Tweaks</string>
 
     <string name="about_app_name">S4 Tweaker for DreamKernel</string>
 
@@ -17,4 +19,5 @@
     <string name="about_lowerland">Lowerland</string>
 
     <string name="about_talustus">Talustus</string>
+    
 </resources>
