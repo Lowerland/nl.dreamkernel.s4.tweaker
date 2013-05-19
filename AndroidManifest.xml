@@ -16,6 +16,7 @@
         android:resizeable="true"
         android:xlargeScreens="true" />
         
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
     <application
         android:icon="@drawable/ic_action_name"
@@ -31,6 +32,8 @@
         </activity>
         <activity android:name="pkg.talu.lowa.s4.tweaker.about.About"
             android:icon="@drawable/ic_about"></activity>
+        <activity android:name="pkg.talu.lowa.s4.tweaker.soundtweaks.SoundTweaks"
+            android:icon="@drawable/ic_soundtweaks"></activity>
     </application>
 
 </manifest>
