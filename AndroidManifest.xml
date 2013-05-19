@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pkg.talu.lowa.s4.tweaker"
+    package="nl.dreamkernel.s4.tweaker"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -22,7 +22,7 @@
         android:icon="@drawable/ic_action_name"
         android:label="@string/maintext" android:allowBackup="true">
         <activity
-            android:name="pkg.talu.lowa.s4.tweaker.Main"
+            android:name="nl.dreamkernel.s4.tweaker.Main"
             android:label="@string/maintext" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,9 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="pkg.talu.lowa.s4.tweaker.about.About"
+        <activity android:name="nl.dreamkernel.s4.tweaker.about.About"
             android:icon="@drawable/ic_about"></activity>
-        <activity android:name="pkg.talu.lowa.s4.tweaker.soundtweaks.SoundTweaks"
+        <activity android:name="nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks"
             android:icon="@drawable/ic_soundtweaks"></activity>
     </application>
 

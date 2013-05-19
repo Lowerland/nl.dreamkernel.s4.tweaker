@@ -1,4 +1,4 @@
-package pkg.talu.lowa.s4.tweaker.util;
+package nl.dreamkernel.s4.tweaker.util;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

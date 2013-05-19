@@ -1,6 +1,7 @@
-package pkg.talu.lowa.s4.tweaker.soundtweaks;
+package nl.dreamkernel.s4.tweaker.soundtweaks;
 
-import pkg.talu.lowa.s4.tweaker.R;
+import nl.dreamkernel.s4.tweaker.util.RootProcess;
+import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.util.Log;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import pkg.talu.lowa.s4.tweaker.util.RootProcess;
 
 public class SoundTweaks extends Activity {
 	

@@ -1,5 +1,7 @@
-package pkg.talu.lowa.s4.tweaker;
+package nl.dreamkernel.s4.tweaker;
 
+
+import nl.dreamkernel.s4.tweaker.R;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;

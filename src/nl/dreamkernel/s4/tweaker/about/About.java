@@ -1,6 +1,6 @@
-package pkg.talu.lowa.s4.tweaker.about;
+package nl.dreamkernel.s4.tweaker.about;
 
-import pkg.talu.lowa.s4.tweaker.R;
+import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
 import android.os.Bundle;
 

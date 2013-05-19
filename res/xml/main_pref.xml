@@ -7,16 +7,16 @@
         android:icon="@drawable/ic_soundtweaks">
         <intent
             android:action="android.intent.action.MAIN"
-            android:targetPackage="pkg.talu.lowa.s4.tweaker"
-            android:targetClass="pkg.talu.lowa.s4.tweaker.soundtweaks.SoundTweaks" />
+            android:targetPackage="nl.dreamkernel.s4.tweaker"
+            android:targetClass="nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks" />
     </PreferenceScreen>
     <PreferenceScreen
         android:title="@string/menu_about"
         android:icon="@drawable/ic_about">
         <intent
             android:action="android.intent.action.MAIN"
-            android:targetPackage="pkg.talu.lowa.s4.tweaker"
-            android:targetClass="pkg.talu.lowa.s4.tweaker.about.About" />
+            android:targetPackage="nl.dreamkernel.s4.tweaker"
+            android:targetClass="nl.dreamkernel.s4.tweaker.about.About" />
     </PreferenceScreen>
 
 </PreferenceScreen>
