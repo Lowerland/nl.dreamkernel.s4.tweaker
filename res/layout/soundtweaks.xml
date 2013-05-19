@@ -89,7 +89,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@+id/gplmicgain"
-        android:layout_toLeftOf="@+id/textViewProgress" />
+        android:layout_toLeftOf="@+id/gplmicgainprogress" />
         
         <TextView
         android:id="@+id/gplmicgainprogress"
@@ -97,6 +97,154 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/gplmicgain"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="2dp"
+        android:background="@drawable/back"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:typeface="sans" />
+        
+           	 <TextView
+        android:id="@+id/gplcammicgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gplmicgain"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/gpl_cam_mic_gain"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+        <SeekBar
+        android:id="@+id/sb_gpl_cam_mic_gain"
+        android:max="30"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/gplcammicgain"
+        android:layout_toLeftOf="@+id/gplcammicgainprogress" />
+        
+        <TextView
+        android:id="@+id/gplcammicgainprogress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/gplcammicgain"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="2dp"
+        android:background="@drawable/back"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:typeface="sans" />
+        
+        <TextView
+        android:id="@+id/gplheadphonegain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gplcammicgain"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/gpl_headphone_gain"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+        <SeekBar
+        android:id="@+id/sb_gpl_headphone_gain"
+        android:max="30"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/gplheadphonegain"
+        android:layout_toLeftOf="@+id/gplheadphonegainprogress" />
+        
+        <TextView
+        android:id="@+id/gplheadphonegainprogress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/gplheadphonegain"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="2dp"
+        android:background="@drawable/back"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:typeface="sans" />
+        
+        <TextView
+        android:id="@+id/gplhdmispkrgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gplheadphonegain"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/gpl_hdmi_spkr_gain"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+        <SeekBar
+        android:id="@+id/sb_gpl_hdmi_spkr_gain"
+        android:max="30"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/gplhdmispkrgain"
+        android:layout_toLeftOf="@+id/gplhdmispkrgainprogress" />
+        
+        <TextView
+        android:id="@+id/gplhdmispkrgainprogress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/gplhdmispkrgain"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="2dp"
+        android:background="@drawable/back"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:typeface="sans" />
+        
+                <TextView
+        android:id="@+id/gplheadsetmicgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gplhdmispkrgain"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/gpl_headset_mic_gain"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+        <SeekBar
+        android:id="@+id/sb_gpl_headset_mic_gain"
+        android:max="30"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/gplheadsetmicgain"
+        android:layout_toLeftOf="@+id/gplheadsetmicgainprogress" />
+        
+        <TextView
+        android:id="@+id/gplheadsetmicgainprogress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/gplheadsetmicgain"
         android:layout_marginTop="1dp"
         android:layout_marginRight="2dp"
         android:background="@drawable/back"
