@@ -11,6 +11,15 @@
     <string name="menu_about">About S4 Tweaker</string>
     
     <string name="menu_soundtweaks">Sound Tweaks</string>
+    <string name="set_on_boot">Set On Boot:</string>
+    <string name="gain_control">Gain Control:</string>
+    <string name="gpl_speaker_gain">gpl Speaker Gain:</string>
+    <string name="gpl_mic_gain">gpl Mic Gain:</string>
+    <string name="gpl_cam_mic_gain">gpl Cam Mic Gain:</string>
+    <string name="gpl_headphone_gain">gpl Headphone Gain:</string>
+    <string name="gpl_hdmi_spkr_gain">gpl Hdmi Spkr Gain:</string>
+    <string name="gpl_headset_mic_gain">gpl Headset Mic Gain:</string>
+    
 
     <string name="about_app_name">S4 Tweaker for DreamKernel</string>
 
