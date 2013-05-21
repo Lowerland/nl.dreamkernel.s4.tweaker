@@ -39,7 +39,7 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="40dp"
-        android:text="@string/about_coders"
+        android:text="@string/about_coders_app"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
