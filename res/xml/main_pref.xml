@@ -16,8 +16,7 @@
  *  limitations under the License.
  */
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
-        android:title="@string/title_main">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"  >
 
      <PreferenceScreen
         android:title="@string/menu_soundtweaks"
