@@ -21,8 +21,12 @@ import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.SeekBar;
+import android.widget.Switch;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
@@ -45,6 +49,8 @@ public class SoundTweaks extends Activity {
     private TextView textgplheadphoneProcess;
     private TextView textgplhdmispkrgainProgress;
     private TextView textgplheadsetmicgainProgress;
+    
+    private Switch sound_tweaks_set_on_boot;
 	
 	//a variable to store the value
 	private int gpl_speaker_gain;
@@ -73,13 +79,16 @@ public class SoundTweaks extends Activity {
 	private int Value_gpl_headphone_gain;
 	private int Value_gpl_hdmi_speaker_gain;
 	private int Value_gpl_headset_mic_gain;
-	////
+	
+    ////
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.soundtweaks);
 		setTitle(R.string.menu_soundtweaks);
+		
+		getActionBar().hide();
 					
 		// Read in the Values from files
 		RootProcess rootProcess = new RootProcess();
@@ -135,7 +144,9 @@ public class SoundTweaks extends Activity {
         rootProcess = null;
         ////
         
-
+        // Start on boot switch   		
+        sound_tweaks_set_on_boot = (Switch) findViewById(R.id.sound_tweaks_on_boot); 
+        
     	
 		// make text label for progress value
 		textProgress = (TextView)findViewById(R.id.textViewProgress);
@@ -520,5 +531,24 @@ public class SoundTweaks extends Activity {
       		});	
 
 	}
+	
+	// Start on boot switch
+	public void onBoot(View view) {
+	     // Is the toggle on?     
+		 boolean on = ((Switch) view).isChecked();
+		 if (on) {
+			 Log.d("onBoot", "onBoot Enabled for SoundTweaks");
+			 //Toast.makeText(this,"Sorry Function is not implemented yet !",Toast.LENGTH_LONG).show();
+			 //Toast.makeText(this,"!!!! BE PATIENT !!!!",Toast.LENGTH_SHORT).show();
+			 //Toast.makeText(this,"...  xD  ...",Toast.LENGTH_LONG).show();
+		 // Enable vibrate     
+		 } else {
+			 Log.d("onBoot", "onBoot Disabled for SoundTweaks");
+			 //Toast.makeText(this,"Sorry Function is not implemented yet !",Toast.LENGTH_LONG).show();
+			 //Toast.makeText(this,"!!!! BE PATIENT !!!!",Toast.LENGTH_SHORT).show();
+			 //Toast.makeText(this,"...  xD  ...",Toast.LENGTH_LONG).show();
+		 // Disable vibrate    
+		 }
+		 }
 
 }
