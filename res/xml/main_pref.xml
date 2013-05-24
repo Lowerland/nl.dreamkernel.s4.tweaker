@@ -27,6 +27,14 @@
             android:targetPackage="nl.dreamkernel.s4.tweaker"
             android:targetClass="nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks" />
     </PreferenceScreen>
+         <PreferenceScreen
+        android:title="@string/menu_misc_tweaks"
+        android:icon="@drawable/ic_settings">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="nl.dreamkernel.s4.tweaker"
+            android:targetClass="nl.dreamkernel.s4.tweaker.misc.Misc" />
+    </PreferenceScreen>
     <PreferenceScreen
         android:title="@string/menu_about"
         android:icon="@drawable/ic_about">
