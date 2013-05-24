@@ -37,13 +37,14 @@
     
     <application
         android:icon="@drawable/ic_settings"
-        android:label="@string/maintext" android:allowBackup="true">
-        <activity
+        android:label="@string/maintext" 
+        android:allowBackup="true" >
+              <activity
             android:name="nl.dreamkernel.s4.tweaker.Main"
-            android:label="@string/maintext" >
+            android:label="@string/maintext"
+            android:icon="@drawable/ic_settings" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
