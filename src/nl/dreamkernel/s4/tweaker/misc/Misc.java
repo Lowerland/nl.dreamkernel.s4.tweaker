@@ -19,14 +19,15 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class Misc extends Activity {
 
 	// variables for the Textviews
-	private TextView textInternalValue;
-	private TextView textExternalValue;
+	private TextView InternalValue;
+	private TextView ExternalValue;
 
 	// Variables for file paths
-	private static final SysFs vCheck_internalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler");
-	//private static final SysFs vCheck_internalscheduler = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/internalscheduler");
-	//private static final SysFs vCheck_externalscheduler = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/externalscheduler");
-	private static final SysFs vCheck_externalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.2/mmc_host/mmc2/mmc2:0002/block/mmcblk1/queue/scheduler");
+	//private static final SysFs vCheck_internalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler");
+	//private static final SysFs vCheck_externalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.2/mmc_host/mmc2/mmc2:0002/block/mmcblk1/queue/scheduler");
+	private static final SysFs vCheck_internalscheduler = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/internalscheduler");
+	private static final SysFs vCheck_externalscheduler = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/externalscheduler");
+	
 	
 	private String file_value_internal;
 	private String file_value_temp;
@@ -85,12 +86,12 @@ public class Misc extends Activity {
 		////
 		
 		// Find current value views
-		textInternalValue = (TextView)findViewById(R.id.textInternalValue);
-		textExternalValue = (TextView)findViewById(R.id.textExternalValue);
+		InternalValue = (TextView)findViewById(R.id.InternalValue);
+		ExternalValue = (TextView)findViewById(R.id.ExternalValue);
 		
 		// Set current value views
-		textInternalValue.setText(""+file_value_internal);
-		textExternalValue.setText(""+file_value_external);
+		InternalValue.setText(""+file_value_internal);
+		ExternalValue.setText(""+file_value_external);
 
 		
 		
