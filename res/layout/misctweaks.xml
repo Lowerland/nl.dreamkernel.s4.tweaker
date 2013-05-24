@@ -120,8 +120,7 @@
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/textIOschedulerinternal"
         android:drawSelectorOnTop="true"
-        
-        android:prompt="@string/spinner_internal" />
+       />
     
     
     <!-- Line between 2 options i/o schedulers -->
@@ -188,7 +187,7 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="18dp"
         android:drawSelectorOnTop="true"
-        android:prompt="@string/spinner_internal" />
+       />
 
     
 </RelativeLayout>
