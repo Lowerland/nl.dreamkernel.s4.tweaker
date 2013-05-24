@@ -7,6 +7,7 @@ import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,8 +39,8 @@ public class Misc extends Activity {
 	// Variables
 
 	// variables to store the shared pref in
-	private String InternalPrefValue;
-	private String ExternalPrefValue;
+	private int InternalPrefValue;
+	private int ExternalPrefValue;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,10 @@ public class Misc extends Activity {
 		setContentView(R.layout.misctweaks);
 		setTitle(R.string.menu_misc_tweaks);
 		getActionBar().hide();
+		
+
+		
+
 
 		// Read in the Values from files
 		RootProcess rootProcess = new RootProcess();
@@ -93,7 +98,10 @@ public class Misc extends Activity {
 		InternalValue.setText(""+file_value_internal);
 		ExternalValue.setText(""+file_value_external);
 
-		
+		//get the Shared Prefs
+		final SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+		InternalPrefValue = sharedPreferences.getInt("InternalPref", 0);
+		ExternalPrefValue = sharedPreferences.getInt("ExternalPref", 0);
 		
 		
 		
@@ -106,34 +114,48 @@ public class Misc extends Activity {
 		internaladapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		sInternal.setAdapter(internaladapter);
+		//set the option based on the sharedprefs
+		sInternal.setSelection(InternalPrefValue, true);
 		sInternal.setOnItemSelectedListener(new OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				// showToast("sInternal: position=" + position + " id=" + id);
+		    	SharedPreferences.Editor editor = sharedPreferences.edit();
+      			editor.putInt("InternalPref", position);
+      			editor.commit(); 
+				Log.d("internaladapter","internaladapter: position=" + position + " id=" + id);
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
-				// showToast("sInternal: unselected");
+				Log.d("internaladapter","internaladapter: Nothing selected");
 			}
 		});
+		
+		
 
+		
 		// Dropdown menu for I/O Scheduler External
 		Spinner sExternal = (Spinner) findViewById(R.id.externalspinner);
-
+		
 		ArrayAdapter<CharSequence> externaladapter = ArrayAdapter
 				.createFromResource(this, R.array.ioExternal,
 						android.R.layout.simple_spinner_item);
 		externaladapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		sExternal.setAdapter(externaladapter);
+		//set the option based on the sharedprefs
+		sExternal.setSelection(ExternalPrefValue, true);
 		sExternal.setOnItemSelectedListener(new OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				// showToast("sExternal: position=" + position + " id=" + id);
+								
+		    	SharedPreferences.Editor editor = sharedPreferences.edit();
+      			editor.putInt("ExternalPref", position);
+      			editor.commit(); 
+				Log.d("externaladapter","externaladapter: position=" + position + " id=" + id);
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
-				// showToast("sExternal: unselected");
+				Log.d("externaladapter","externaladapter: Nothing selected");
 			}
 		});
 
