@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+
+  Copyright 2013-2014 Jeroen Gorter <Lowerland@hotmail.com>
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:gravity="left"
+    android:orientation="vertical" >
+    
+            <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo_smaller" />
+        
+        <View
+    	android:layout_width="fill_parent"
+    	android:layout_height="1dip"
+    	android:background="#698bdd"
+    	android:layout_below="@+id/logo"
+    	android:layout_marginTop="5dp"	/>
+    
+                <TextView
+        android:id="@+id/textIOscheduler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:text="@string/io_scheduler"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/textIOschedulerinternal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/textIOscheduler"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/internal"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="16sp" />
+                
+                    <Spinner android:id="@+id/internalspinner"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+        			android:drawSelectorOnTop="true"
+        			android:layout_alignParentLeft="true"
+        			android:layout_below="@+id/textIOschedulerinternal"
+        			android:layout_marginTop="10dp"
+        			android:layout_marginLeft="5dp"
+        			android:prompt="@string/spinner_internal" />
+                    
+                        <TextView
+       					 android:id="@+id/textInternalValue"
+       					 android:layout_width="wrap_content"
+       					 android:layout_height="wrap_content"
+       					 android:layout_alignParentRight="true"
+    					 android:layout_below="@+id/textIOscheduler"
+     					 android:layout_marginTop="18dp"
+       					 android:layout_marginRight="6dp"
+      					 android:background="@drawable/back"
+     					 android:text=""
+     					 android:textAppearance="?android:attr/textAppearanceMedium"
+    				  	 android:textSize="16sp"
+        				 android:textStyle="normal"
+      					 android:typeface="sans" />
+
+                <TextView
+                    android:id="@+id/textIOschedulerexternal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/internalspinner"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginLeft="4dp"
+                    android:text="@string/external"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="16sp" />
+                
+                    <Spinner android:id="@+id/externalspinner"
+        			android:layout_width="wrap_content"
+        			android:layout_height="wrap_content"
+        			android:drawSelectorOnTop="true"
+        			android:layout_alignParentLeft="true"
+        			android:layout_below="@+id/textIOschedulerexternal"
+        			android:layout_marginTop="10dp"
+        			android:layout_marginLeft="5dp"
+        			android:prompt="@string/spinner_internal" />
+                    
+                                         <TextView
+       					 android:id="@+id/textExternalValue"
+       					 android:layout_width="wrap_content"
+       					 android:layout_height="wrap_content"
+       					 android:layout_alignParentRight="true"
+    					 android:layout_below="@+id/internalspinner"
+     					 android:layout_marginTop="32dp"
+       					 android:layout_marginRight="6dp"
+      					 android:background="@drawable/back"
+     					 android:text=""
+     					 android:textAppearance="?android:attr/textAppearanceMedium"
+    				  	 android:textSize="16sp"
+        				 android:textStyle="normal"
+      					 android:typeface="sans" />
+
+</RelativeLayout>
