@@ -27,6 +27,7 @@ public class About extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
 		setTitle(R.string.menu_about);
+		getActionBar().hide();
 
 	
 	}
