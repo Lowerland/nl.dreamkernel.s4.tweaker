@@ -36,7 +36,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
     <application
-        android:icon="@drawable/ic_action_name"
+        android:icon="@drawable/ic_settings"
         android:label="@string/maintext" android:allowBackup="true">
         <activity
             android:name="nl.dreamkernel.s4.tweaker.Main"
@@ -51,6 +51,8 @@
             android:icon="@drawable/ic_about"></activity>
         <activity android:name="nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks"
             android:icon="@drawable/ic_soundtweaks"></activity>
+        <activity android:name="nl.dreamkernel.s4.tweaker.misc.Misc"
+            android:icon="@drawable/ic_settings"></activity>
     </application>
 
 </manifest>
