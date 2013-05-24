@@ -32,11 +32,11 @@
     <string name="menu_misc_tweaks">Misc Tweaks</string>
     
     <string name="io_scheduler">I/O-Schedulers</string>
-    <string name="internal">Internal Storage:</string>
-    <string name="external">External Storage:</string>
+    <string name="internal">Int. Scheduler:</string>
+    <string name="external">Ext. Scheduler:</string>
     
-    <string name="spinner_internal">internal spinner</string>
-    <string name="spinner_external">external spinner</string>
+    <string name="spinner_internal">internalspinner</string>
+    <string name="spinner_external">externalspinner</string>
     
     
     
