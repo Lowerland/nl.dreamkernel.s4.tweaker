@@ -78,5 +78,7 @@
         android:text="@string/about_coders_app"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
+    
+    
 
 </RelativeLayout>
