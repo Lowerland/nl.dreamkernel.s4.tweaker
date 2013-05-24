@@ -20,6 +20,7 @@
     <string name="app_name">S4-Tweaker</string>
     <string name="version">Version 1.0.1</string>
     <string name="version_small">v1.0.1</string>
+    <string name="empty_string"></string>
     
     
     <string name="action_settings">Settings</string>
@@ -32,8 +33,10 @@
     <string name="menu_misc_tweaks">Misc Tweaks</string>
     
     <string name="io_scheduler">I/O-Schedulers</string>
-    <string name="internal">Int. Scheduler:</string>
-    <string name="external">Ext. Scheduler:</string>
+    <string name="internal">Set Int. Scheduler:</string>
+    <string name="external">Set Ext. Scheduler:</string>
+    <string name="current_int">Current Int. Scheduler:</string>
+    <string name="current_ext">Current Ext. Scheduler:</string>
     
     <string name="spinner_internal">internalspinner</string>
     <string name="spinner_external">externalspinner</string>
