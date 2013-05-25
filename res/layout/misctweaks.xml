@@ -188,6 +188,58 @@
         android:layout_marginTop="18dp"
         android:drawSelectorOnTop="true"
        />
+    
+    
+    <!-- Text vibrator_intensity -->
+
+    <TextView
+        android:id="@+id/textvibrator_intensity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textIOschedulerexternal"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/vibrator_intensity"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <!-- Line below vibrator_intensity -->
+    <View
+        android:id="@+id/iddummy4"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:layout_below="@+id/textvibrator_intensity"
+        android:layout_marginTop="2dp"
+        android:background="@color/gray_line" />
+    
+    <!-- Seekbar vibrator_intensity -->
+     <SeekBar
+        android:id="@+id/sb_vibrator_intensity"
+        android:max="100"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/iddummy4"
+        android:layout_toLeftOf="@+id/value_vibrator_intensity" />
+        
+     <!-- Value displayer -->
+        <TextView
+        android:id="@+id/value_vibrator_intensity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/iddummy4"
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="2dp"
+        android:background="@drawable/back"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:typeface="sans" />
 
     
 </RelativeLayout>
