@@ -35,12 +35,14 @@
             android:src="@drawable/logo_smaller" />
         
         <View
+            android:id="@+id/dummyvalue"
     	android:layout_width="fill_parent"
     	android:layout_height="1dip"
     	android:background="#698bdd"
     	android:layout_below="@+id/logo"
     	android:layout_marginTop="4dp"	/>
 
+        <!-- 
         <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -49,8 +51,9 @@
         android:layout_below="@+id/logo"
         android:layout_marginTop="16dp"
         android:text="@string/set_on_boot"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />  -->
         
+        <!-- 
         <Switch
         android:id="@+id/sound_tweaks_on_boot"
         android:layout_width="wrap_content"
@@ -58,15 +61,16 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/logo"
         android:onClick="onBoot"
-        android:layout_marginTop="14dp" />
+        android:layout_marginTop="14dp" />	-->
         
+        <!-- 
         <View
         android:id="@+id/dummyvalue"
     	android:layout_width="fill_parent"
     	android:layout_height="1dip"
     	android:background="#3b3b3b"
     	android:layout_below="@+id/textView2"
-    	android:layout_marginTop="8dp"	/>
+    	android:layout_marginTop="8dp"	/> -->
         
         <TextView
         android:id="@+id/gaincontrol"
