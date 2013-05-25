@@ -41,7 +41,7 @@
     <string name="spinner_internal">internalspinner</string>
     <string name="spinner_external">externalspinner</string>
     
-    <string name="vibrator_intensity">VvVVvVVVibraaaator intensity</string>
+    <string name="vibrator_intensity">Vibrator Intensity</string>
     
     
     <string name="set_on_boot">Set On Boot:</string>
