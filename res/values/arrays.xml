@@ -46,6 +46,30 @@
         <item>userspace</item>
         <item>powersave</item>
         <item>performance</item>
-    </string-array>   
+    </string-array>
+    
+    <!-- CPU Scaling Min Freq -->
+    <string-array name="CPUminfreqArray">
+        <item>162 MHz</item>
+        <item>216 MHz</item>
+        <item>270 MHz</item>
+        <item>324 MHz</item>
+        <item>378 MHz</item>
+        <item>384 MHz</item>
+        <item>486 MHz</item>
+        <item>594 MHz</item>
+    </string-array>
+    
+    <!-- CPU Scaling Max Freq -->
+    <string-array name="CPUmaxfreqArray">
+        <item>1566 MHz</item>
+        <item>1674 MHz</item>
+        <item>1782 MHz</item>
+        <item>1890 MHz</item>
+        <item>1944 MHz</item>
+        <item>1998 MHz</item>
+        <item>2052 MHz</item>
+        <item>2106 MHz</item>
+    </string-array>
     
 </resources>
