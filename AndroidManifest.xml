@@ -54,6 +54,9 @@
             android:icon="@drawable/ic_soundtweaks"></activity>
         <activity android:name="nl.dreamkernel.s4.tweaker.misc.Misc"
             android:icon="@drawable/ic_settings"></activity>
+        <activity android:name="nl.dreamkernel.s4.tweaker.cpu.CpuTweaks"
+            android:icon="@drawable/ic_settings"></activity>
+        
     </application>
 
 </manifest>
