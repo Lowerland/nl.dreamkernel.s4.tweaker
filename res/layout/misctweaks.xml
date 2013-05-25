@@ -240,6 +240,37 @@
         android:textSize="16sp"
         android:textStyle="normal"
         android:typeface="sans" />
+        
+        
+            <!-- Line below vibrator_intensity -->
+    <View
+        android:id="@+id/iddummy5"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_below="@+id/sb_vibrator_intensity"
+        android:layout_marginTop="3dp"
+        android:background="@color/gray_line" />
+        
+        <!-- USB Fast Charge -->
+        <TextView
+        android:id="@+id/usb_fast_charge_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/iddummy5"
+        android:layout_marginTop="16dp"
+        android:text="@string/usb_fast_charge"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+         <!-- USB Fast Charge Switch -->
+        <Switch
+        android:id="@+id/usb_fast_charge_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/iddummy5"
+        android:onClick="onUSBFASTSWITCH"
+        android:layout_marginTop="16dp" />
 
     
 </RelativeLayout>
