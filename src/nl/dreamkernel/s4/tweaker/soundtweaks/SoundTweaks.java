@@ -145,7 +145,7 @@ public class SoundTweaks extends Activity {
         ////
         
         // Start on boot switch   		
-        sound_tweaks_set_on_boot = (Switch) findViewById(R.id.sound_tweaks_on_boot); 
+       // sound_tweaks_set_on_boot = (Switch) findViewById(R.id.sound_tweaks_on_boot); 
         
     	
 		// make text label for progress value
