@@ -31,6 +31,11 @@
     <string name="menu_about">About S4 Tweaker</string>
     <string name="menu_soundtweaks">Sound Tweaks</string>
     <string name="menu_misc_tweaks">Misc Tweaks</string>
+    <string name="menu_cpu_tweaks">Cpu Tweaks</string>
+    
+    <string name="cpu_governor">CPU Governor</string>
+    <string name="current_cpu_governor">Current CPU Governor:</string>
+    <string name="set_cpu_governor">Set CPU Governor:</string>
     
     <string name="io_scheduler">I/O-Schedulers</string>
     <string name="internal">Set Int. Scheduler:</string>
