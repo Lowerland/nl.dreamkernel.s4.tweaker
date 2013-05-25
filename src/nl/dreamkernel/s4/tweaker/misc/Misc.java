@@ -32,6 +32,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -47,6 +48,8 @@ public class Misc extends Activity  {
 	private static final SysFs vCheck_internalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler");
 	private static final SysFs vCheck_externalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.2/mmc_host/mmc2/mmc2:0002/block/mmcblk1/queue/scheduler");
 	private static final SysFs vCheck_vibrator_intensity = new SysFs("/sys/vibrator/pwm_val");
+	private static final SysFs vCheck_Usb_Fast_charge = new SysFs("/sys/kernel/fast_charge/force_fast_charge");
+	//private static final SysFs vCheck_Usb_Fast_charge = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/force_fast_charge");
 	//private static final SysFs vCheck_internalscheduler = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/internalscheduler");
 	//private static final SysFs vCheck_externalscheduler = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/externalscheduler");
 		
@@ -57,6 +60,8 @@ public class Misc extends Activity  {
 	private String file_value_temp2;
 	private int value_vibrator;
 	private int value_vibrator_temp;
+	private boolean usb_switch_value;
+	private int usb_switch_value_temp;
 
 	
 	//the seek bar variable
@@ -64,6 +69,9 @@ public class Misc extends Activity  {
 		
 	// declare text label objects
     private TextView vibratorProgress;
+    
+	// declare text label objects
+    private Switch usbfastchargeswitch;
 	
 	// variables to store the shared pref in
 	private int InternalPrefValue;
@@ -84,10 +92,14 @@ public class Misc extends Activity  {
 		//get the seek bar
 		seekbar_vibrator = (SeekBar) findViewById(R.id.sb_vibrator_intensity);
 		
+		// Start on boot switch   		
+		usbfastchargeswitch = (Switch) findViewById(R.id.usb_fast_charge_switch); 
+		
 		//get the Shared Prefs
 		final SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 		InternalPrefValue = sharedPreferences.getInt("InternalPref", 0);
 		ExternalPrefValue = sharedPreferences.getInt("ExternalPref", 0);
+		
 		
 		// read the files value
 		ValueReader();
@@ -329,6 +341,21 @@ public class Misc extends Activity  {
 			 value_vibrator_temp = Integer.parseInt(vCheck_vibrator_intensity.read(rootProcess));
 			 value_vibrator = value_vibrator_temp;
 	        } else { value_vibrator = 0; }
+		 
+		 
+		 if (vCheck_Usb_Fast_charge.exists()) {
+			usb_switch_value_temp = Integer.parseInt(vCheck_Usb_Fast_charge.read(rootProcess));
+			if (usb_switch_value_temp == 1) {
+				usb_switch_value = true;
+			}
+			if (usb_switch_value_temp == 0) {
+				usb_switch_value = false;
+			}
+			 //usb_switch_value_temp = Boolean.parseBoolean(vCheck_Usb_Fast_charge.read(rootProcess));
+			 //usb_switch_value = usb_switch_value_temp;
+			 Log.d("","Boolean usb_switch_value_temp = "+usb_switch_value_temp);
+			 Log.d("","Boolean usb_switch_value = "+usb_switch_value);
+			} else { usb_switch_value = false; 	}
 
 		rootProcess.term();
 		rootProcess = null;
@@ -337,5 +364,38 @@ public class Misc extends Activity  {
 		// Set current value views
 		InternalValue.setText(""+file_value_internal);
 		ExternalValue.setText(""+file_value_external);
+		usbfastchargeswitch.setChecked(usb_switch_value);
+		 }
+	
+	// Start on boot switch
+	public void onUSBFASTSWITCH(View view) {
+	     // Is the toggle on?     
+		 boolean on = ((Switch) view).isChecked();
+		 if (on) {
+			//calls RootProcess
+				RootProcess process = new RootProcess();
+				if (!process.init()) {
+				    return;
+				}
+			 process.write("echo 1 > /sys/kernel/fast_charge/force_fast_charge\n");
+				//process.write("echo 1 > /data/data/nl.dreamkernel.s4.tweaker/files/force_fast_charge\n");
+			 Log.d("onUSBFASTSWITCH", "on USB FAST SWITCH Enabled");
+			 process.term();		
+			 ValueReader();
+
+		     
+		 } else {
+				//calls RootProcess
+				RootProcess process = new RootProcess();
+				if (!process.init()) {
+				    return;
+				}
+			 process.write("echo 0 > /sys/kernel/fast_charge/force_fast_charge\n");
+			//process.write("echo 0 > /data/data/nl.dreamkernel.s4.tweaker/files/force_fast_charge\n");
+			 Log.d("onUSBFASTSWITCH", "on USB FAST SWITCH Disabled");
+			 process.term();		
+			 ValueReader();
+		
+		 }
 		 }
 }
