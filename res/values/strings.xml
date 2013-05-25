@@ -37,6 +37,12 @@
     <string name="current_cpu_governor">Current CPU Governor:</string>
     <string name="set_cpu_governor">Set CPU Governor:</string>
     
+    <string name="cpu_freq_scaling_title">CPU Freq Scaling</string>
+    <string name="current_freq_scaling_min">Current Min Freq Scaling:</string>
+    <string name="set_freq_scaling_min">Set Min Freq Scaling</string>
+    <string name="current_freq_scaling_max">Current Max Freq Scaling:</string>
+    <string name="set_freq_scaling_max">Set Max Freq Scaling</string>
+    
     <string name="usb_fast_charge">USB Fast Charge</string>
     <string name="current_usb_fast_charge">Current USB Fast Charge</string>
     <string name="set_usb_fast_charge">Set USB Fast Charge</string>
