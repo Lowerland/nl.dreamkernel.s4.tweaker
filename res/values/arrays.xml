@@ -26,7 +26,7 @@
         <item>sio</item>
     </string-array>   
     
-        <!-- I/O-Scheduler External -->
+    <!-- I/O-Scheduler External -->
     <string-array name="ioExternal">
         <item>noop</item>
         <item>deadline</item>
@@ -34,6 +34,18 @@
         <item>bfq</item>
         <item>fiops</item>
         <item>sio</item>
+    </string-array>   
+    
+    <!-- CPU Governor -->
+    <string-array name="CPUgovernorArray">
+        <item>msm-dcvs</item>
+        <item>intellidemand</item>
+        <item>interactive</item>
+        <item>conservative</item>
+        <item>ondemand</item>
+        <item>userspace</item>
+        <item>powersave</item>
+        <item>performance</item>
     </string-array>   
     
 </resources>
