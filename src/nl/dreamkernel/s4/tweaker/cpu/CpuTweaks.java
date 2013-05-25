@@ -134,14 +134,22 @@ public class CpuTweaks extends Activity {
 						    	Log.d("cpuprefadapter","echo'd ondemand to  CPU Governor");
 								break;
 						    case 5:
+							process.write("echo wheatley > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							Log.d("cpuprefadapter","echo'd wheatley to  CPU Governor");
+								break;
+						    case 6:
+                                                        process.write("echo smartmax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+                                                        Log.d("cpuprefadapter","echo'd smartmax to  CPU Governor");
+                                                                break;
+						    case 7:
 						    	process.write("echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 						    	Log.d("cpuprefadapter","echo'd userspace to  CPU Governor");
 								break;
-						    case 6:
+						    case 8:
 						    	process.write("echo powersave > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 						    	Log.d("cpuprefadapter","echo'd powersave to  CPU Governor");
 								break;
-						    case 7:
+						    case 9:
 						    	process.write("echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 						    	Log.d("cpuprefadapter","echo'd performance to  CPU Governor");
 								break;

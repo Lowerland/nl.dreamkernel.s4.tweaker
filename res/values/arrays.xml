@@ -43,6 +43,8 @@
         <item>interactive</item>
         <item>conservative</item>
         <item>ondemand</item>
+	<item>wheatley</item>
+	<item>smartmax</item>
         <item>userspace</item>
         <item>powersave</item>
         <item>performance</item>
