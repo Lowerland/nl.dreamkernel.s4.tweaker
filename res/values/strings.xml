@@ -20,8 +20,18 @@
     <string name="app_name">S4-Tweaker</string>
     <string name="version">Beta Version 1.0.1</string>
     <string name="version_small">v1.0.1</string>
-    <string name="empty_string"></string>
+   
     
+    <string name="empty_string"></string>
+    <string name="compatibility_alert_title">Version Difference</string>
+    <string name="compatibility_alert_body">"Uncompatible Dreamkernel Version
+Some Options are disabled
+
+Consider to update Dreamkernel. 
+"</string>
+    <string name="disabled_option_text">Not Supported</string>
+    <string name="alert_dialog_ok">OK</string>
+    <string name="alert_dialog_cancel">Cancel</string>
     
     <string name="action_settings">Settings</string>
     <string name="maintext">S4 Tweaker</string>
