@@ -38,7 +38,7 @@
     <application
         android:icon="@drawable/ic_s4launcher"
         android:label="@string/maintext" 
-        android:allowBackup="true" >
+        android:allowBackup="true">
               <activity
             android:name="nl.dreamkernel.s4.tweaker.Main"
             android:label="@string/maintext"
@@ -55,7 +55,7 @@
         <activity android:name="nl.dreamkernel.s4.tweaker.misc.Misc"
             android:icon="@drawable/ic_settings"></activity>
         <activity android:name="nl.dreamkernel.s4.tweaker.cpu.CpuTweaks"
-            android:icon="@drawable/ic_settings"></activity>
+            android:icon="@drawable/ic_cpu"></activity>
         
     </application>
 
