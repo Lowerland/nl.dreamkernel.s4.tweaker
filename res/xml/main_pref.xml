@@ -26,7 +26,7 @@
             android:targetPackage="nl.dreamkernel.s4.tweaker"
             android:targetClass="nl.dreamkernel.s4.tweaker.cpu.CpuTweaks" />
     </PreferenceScreen>
-        <PreferenceScreen
+    <PreferenceScreen
         android:title="@string/menu_misc_tweaks"
         android:icon="@drawable/ic_settings">
         <intent
