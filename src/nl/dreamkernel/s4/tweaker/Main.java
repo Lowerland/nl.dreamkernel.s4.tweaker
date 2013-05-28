@@ -18,17 +18,28 @@ package nl.dreamkernel.s4.tweaker;
 
 import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.util.Log;
 
 public class Main extends Activity {
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
 		//setContentView(R.layout.main);
 		//getActionBar().hide();
+		
+		// Usage counter
+        SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+        int usage_counter = sharedPreferences.getInt("usage_counter", 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putInt("usage_counter", usage_counter+1);
+		editor.commit(); 
+		Log.d("Main", "Runned This App "+ usage_counter +" Times now");
 	}
 
 	/*
