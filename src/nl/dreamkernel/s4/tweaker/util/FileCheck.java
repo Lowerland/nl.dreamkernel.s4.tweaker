@@ -19,6 +19,9 @@ package nl.dreamkernel.s4.tweaker.util;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 import nl.dreamkernel.s4.tweaker.R;
 import nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks;
@@ -88,7 +91,7 @@ public class FileCheck {
 	    }
 		// Show Incompatible Alert because things arent right here.
 		if (incompatible == true) {
-	    	AlertDialog alert = new AlertDialog.Builder(context).create();
+	    	/*AlertDialog alert = new AlertDialog.Builder(context).create();
 	    	alert.setIconAttribute(android.R.attr.alertDialogIcon);
 	    	alert.setTitle(R.string.compatibility_alert_title);
 	    	alert.setMessage(getCompatibility_Alert(context));
@@ -97,8 +100,27 @@ public class FileCheck {
                 public void onClick(DialogInterface dialog, int whichButton) {
                 	// Button OK Clicked
                 }
+            });	    	
+	    	alert.show();*/
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				
+            //.setTitle("My title")
+            //.setMessage("Enter password");
+			final FrameLayout frameView = new FrameLayout(context);
+			builder.setView(frameView);
+
+			final AlertDialog alertDialog = builder.create();
+					alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                    "OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                	// Button OK Clicked
+                }
             });
-	    	alert.show();
+			LayoutInflater inflater = alertDialog.getLayoutInflater();
+			
+			View dialoglayout = inflater.inflate(R.layout.dialog_alert, frameView);
+			alertDialog.show();
 	    }
 	}	
 }
