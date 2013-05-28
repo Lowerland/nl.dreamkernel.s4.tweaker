@@ -23,11 +23,11 @@
    
     
     <string name="empty_string"></string>
-    <string name="compatibility_alert_title">Version Difference</string>
+    <string name="compatibility_alert_title">Some Options are disabled</string>
     <string name="compatibility_alert_body">"Uncompatible Dreamkernel Version
-Some Options are disabled
 
-Consider to update Dreamkernel. 
+HOWTO Solve this issue:
+Update or Install Latest Dreamkernel
 "</string>
     <string name="disabled_option_text">Not Supported</string>
     <string name="alert_dialog_ok">OK</string>
