@@ -91,6 +91,18 @@
         android:layout_marginTop="6dp"
         android:text="@string/gpl_speaker_gain"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+        <TextView
+        android:id="@+id/gpl_spkr_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gaincontrol"
+        android:layout_toRightOf="@+id/textView1"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/textViewProgress"
@@ -116,7 +128,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@+id/textView1"
-        android:layout_toLeftOf="@+id/textViewProgress" />
+        android:layout_toLeftOf="@+id/textViewProgress"
+         />
 
    	 <TextView
         android:id="@+id/gplmicgain"
@@ -127,6 +140,18 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="35dp"
         android:text="@string/gpl_mic_gain"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+   	 
+   	   <TextView
+        android:id="@+id/gpl_spkr_alert2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_toRightOf="@+id/gplmicgain"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="35dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
         <SeekBar
@@ -165,6 +190,18 @@
         android:layout_marginTop="35dp"
         android:text="@string/gpl_cam_mic_gain"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+           	 
+        <TextView
+        android:id="@+id/gpl_spkr_alert3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gplmicgain"
+        android:layout_toRightOf="@+id/gplcammicgain"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="35dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
     
         <SeekBar
         android:id="@+id/sb_gpl_cam_mic_gain"
@@ -201,6 +238,18 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="35dp"
         android:text="@string/gpl_headphone_gain"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+        <TextView
+        android:id="@+id/gpl_spkr_alert4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gplcammicgain"
+        android:layout_toRightOf="@+id/gplheadphonegain"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="35dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
         <SeekBar
@@ -239,6 +288,18 @@
         android:layout_marginTop="35dp"
         android:text="@string/gpl_hdmi_spkr_gain"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+        <TextView
+        android:id="@+id/gpl_spkr_alert5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gplheadphonegain"
+        android:layout_toRightOf="@+id/gplhdmispkrgain"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="35dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
     
         <SeekBar
         android:id="@+id/sb_gpl_hdmi_spkr_gain"
@@ -275,6 +336,18 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="35dp"
         android:text="@string/gpl_headset_mic_gain"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+                <TextView
+        android:id="@+id/gpl_spkr_alert6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gplhdmispkrgain"
+        android:layout_toRightOf="@+id/gplheadsetmicgain"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="35dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
         <SeekBar
