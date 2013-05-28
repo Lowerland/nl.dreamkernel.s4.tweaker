@@ -69,20 +69,20 @@ public class SoundTweaks extends Activity {
 	private String headphonesubstring;
 
 	// Static Constants for file value checking
-	/*public static final SysFs vCheck_gpl_speaker_gain = new SysFs("/sys/kernel/sound_control/gpl_speaker_gain");
+	public static final SysFs vCheck_gpl_speaker_gain = new SysFs("/sys/kernel/sound_control/gpl_speaker_gain");
 	public static final SysFs vCheck_gpl_mic_gain = new SysFs("/sys/kernel/sound_control/gpl_mic_gain");
 	public static final SysFs vCheck_gpl_cam_mic_gain = new SysFs("/sys/kernel/sound_control/gpl_cam_mic_gain");
 	public static final SysFs vCheck_gpl_headphone_gain = new SysFs("/sys/kernel/sound_control/gpl_headphone_gain");
 	public static final SysFs vCheck_gpl_hdmi_speaker_gain = new SysFs("/sys/kernel/sound_control/gpl_hdmi_spkr_gain");
 	public static final SysFs vCheck_gpl_headset_mic_gain = new SysFs("/sys/kernel/sound_control/gpl_headset_mic_gain");
-	*/
-	public static final SysFs vCheck_gpl_speaker_gain = new SysFs("/mnt/sdcard/testfiles/gpl_speaker_gain");
+	
+	/*public static final SysFs vCheck_gpl_speaker_gain = new SysFs("/mnt/sdcard/testfiles/gpl_speaker_gain");
 	public static final SysFs vCheck_gpl_mic_gain = new SysFs("/mnt/sdcard/testfiles/gpl_mic_gain");
 	public static final SysFs vCheck_gpl_cam_mic_gain = new SysFs("/mnt/sdcard/testfiles/gpl_cam_mic_gain");
 	public static final SysFs vCheck_gpl_headphone_gain = new SysFs("/mnt/sdcard/testfiles/gpl_headphone_gain");
 	public static final SysFs vCheck_gpl_hdmi_speaker_gain = new SysFs("/mnt/sdcard/testfiles/gpl_hdmi_spkr_gain");
 	public static final SysFs vCheck_gpl_headset_mic_gain = new SysFs("/mnt/sdcard/testfiles/gpl_headset_mic_gain");
-
+*/
 	private int Value_gpl_speaker_gain;
 	private int Value_gpl_mic_gain;
 	private int Value_gpl_cam_mic_gain;
