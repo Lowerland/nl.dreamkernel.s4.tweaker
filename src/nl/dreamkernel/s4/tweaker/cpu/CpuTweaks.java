@@ -16,6 +16,8 @@
 
 package nl.dreamkernel.s4.tweaker.cpu;
 
+import nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks;
+import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
@@ -34,18 +36,22 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class CpuTweaks extends Activity {
 	
 	// variables for the Textviews
-	private TextView CpuCurrentValue;
-	private TextView CpuMinFREQValue;
-	private TextView CpuMaxFREQValue;
+	private static TextView CpuCurrentValue;
+	private static TextView CpuMinFREQValue;
+	private static TextView CpuMaxFREQValue;
+    private static TextView textuncompatibel;
+    private static TextView textuncompatibel2;
+    private static TextView textuncompatibel3;
 	
 	// Variables for file paths
-	private static final SysFs vCheck_CPU_GOVERNOR = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
-	private static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
-	private static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
-	//private static final SysFs vCheck_CPU_GOVERNOR = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/scaling_governor");
-	//private static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/scaling_min_freq");
-	//private static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/scaling_max_freq");
+	public static final SysFs vCheck_CPU_GOVERNOR = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
+	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
 	
+    /*public static final SysFs vCheck_CPU_GOVERNOR = new SysFs("/mnt/sdcard/testfiles/scaling_governor");
+    public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs("/mnt/sdcard/testfiles/scaling_min_freq");
+    public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs("/mnt/sdcard/testfiles/scaling_max_freq");
+	*/
 	
 	// variables storing the real file values
 	private String file_CPU_GOVERNOR;
@@ -59,6 +65,11 @@ public class CpuTweaks extends Activity {
 	private int CpuGovernorPrefValue;
 	private int CpuMinFREQPrefValue;
 	private int CpuMaxFREQPrefValue;
+
+	// variables for the spinners
+	private static Spinner sCPUspinner;
+	private static Spinner sCPUminFREQspinner;
+	private static Spinner sCPUmaxFREQspinner;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,23 +81,26 @@ public class CpuTweaks extends Activity {
 		
 		// Find current value views
 		CpuCurrentValue = (TextView)findViewById(R.id.CpuCurrentValue);
-		
 		CpuMinFREQValue = (TextView)findViewById(R.id.CpuMinFreqValue);
 		CpuMaxFREQValue = (TextView)findViewById(R.id.CpuMaxFreqValue);
 		
-		
+		//Find Views
+  		textuncompatibel = (TextView)findViewById(R.id.uncompatible_alert);
+  		textuncompatibel2 = (TextView)findViewById(R.id.uncompatible_alert2);
+  		textuncompatibel3 = (TextView)findViewById(R.id.uncompatible_alert3);
+
 		//get the Shared Prefs
 		final SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 		CpuGovernorPrefValue = sharedPreferences.getInt("CpuGovernorPref", 0);
-		
+
 		CpuMinFREQPrefValue = sharedPreferences.getInt("CpuMinFREQPref", 0);
 		CpuMaxFREQPrefValue = sharedPreferences.getInt("CpuMaxFREQPref", 0);
-		
+
 		// read the files value
 		ValueReader();
-		
+
 		// Dropdown menu for I/O Scheduler Internal
-				Spinner sCPUspinner = (Spinner) findViewById(R.id.cpuspinner);
+				sCPUspinner = (Spinner) findViewById(R.id.cpuspinner);
 
 				ArrayAdapter<CharSequence> internaladapter = ArrayAdapter
 						.createFromResource(this, R.array.CPUgovernorArray,
@@ -171,7 +185,7 @@ public class CpuTweaks extends Activity {
 				});
 				
 				// Dropdown menu for scaling_min_freq
-				Spinner sCPUminFREQspinner = (Spinner) findViewById(R.id.cpuminfreqspinner);
+				sCPUminFREQspinner = (Spinner) findViewById(R.id.cpuminfreqspinner);
 
 				ArrayAdapter<CharSequence> cpuminfreqadapter = ArrayAdapter
 						.createFromResource(this, R.array.CPUminfreqArray,
@@ -248,7 +262,7 @@ public class CpuTweaks extends Activity {
 				});
 				
 				// Dropdown menu for scaling_max_freq
-				Spinner sCPUmaxFREQspinner = (Spinner) findViewById(R.id.cpumaxfreqspinner);
+				sCPUmaxFREQspinner = (Spinner) findViewById(R.id.cpumaxfreqspinner);
 
 				ArrayAdapter<CharSequence> cpumaxfreqadapter = ArrayAdapter
 						.createFromResource(this, R.array.CPUmaxfreqArray,
@@ -363,6 +377,33 @@ public class CpuTweaks extends Activity {
 		CpuMaxFREQValue.setText(""+file_CPU_MaxFREQ);
 		
 		 }
-	
 
+	static void OptionsHider() {
+		Log.d("cpuGovernor_hide","OptionsHider() cpuGovernor_hide = "+FileCheck.cpuGovernor_hide);
+  		if(FileCheck.cpuGovernor_hide == 1) {
+  			sCPUspinner.setVisibility(View.GONE);
+  			CpuCurrentValue.setVisibility(View.GONE);
+  			textuncompatibel.setText(R.string.disabled_option_text);
+  		}
+  		Log.d("cpuMinFreq_hide","OptionsHider() cpuMinFreq_hide = "+FileCheck.cpuMinFreq_hide);
+  		if(FileCheck.cpuMinFreq_hide == 1) {
+  			sCPUminFREQspinner.setVisibility(View.GONE);
+  			CpuMinFREQValue.setVisibility(View.GONE);
+  			textuncompatibel2.setText(R.string.disabled_option_text);
+  		}
+  		Log.d("cpuMaxFreq_hide","OptionsHider() cpuMaxFreq_hide = "+FileCheck.cpuMaxFreq_hide);
+  		if(FileCheck.cpuMaxFreq_hide == 1) {
+  			sCPUmaxFREQspinner.setVisibility(View.GONE);
+  			CpuMaxFREQValue.setVisibility(View.GONE);
+  			textuncompatibel3.setText(R.string.disabled_option_text);
+  		}
+		
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		FileCheck.CheckCPUOptions(CpuTweaks.this);
+		OptionsHider();		
+	}
 }
