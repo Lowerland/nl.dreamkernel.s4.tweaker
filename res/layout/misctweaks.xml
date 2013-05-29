@@ -109,6 +109,19 @@
         android:text="@string/internal"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="16sp" />
+    
+    <!-- Not Supported Text -->
+    <TextView
+        android:id="@+id/internal_scheduler_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iddummy2"
+        android:layout_toRightOf="@+id/textIOschedulerinternal"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="29dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <!-- Dropdownmenu Int. Scheduler -->
     <Spinner
@@ -175,6 +188,19 @@
         android:text="@string/external"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="16sp" />
+    
+    <!-- Not Supported Text -->
+    <TextView
+        android:id="@+id/external_scheduler_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iddummy3"
+        android:layout_toRightOf="@+id/textIOschedulerexternal"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="28dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <!-- Dropdownmenu External Storage -->
 
@@ -202,6 +228,19 @@
         android:layout_marginTop="12dp"
         android:text="@string/vibrator_intensity"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <!-- Not Supported Text -->
+     <TextView
+        android:id="@+id/vibrator_intensity_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textIOschedulerexternal"
+        android:layout_toRightOf="@+id/textvibrator_intensity"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="17dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <!-- Line below vibrator_intensity -->
     <View
@@ -224,6 +263,8 @@
         android:layout_marginRight="10dp"
         android:layout_below="@+id/iddummy4"
         android:layout_toLeftOf="@+id/value_vibrator_intensity" />
+     
+     
         
      <!-- Value displayer -->
         <TextView
@@ -261,6 +302,19 @@
         android:layout_marginTop="16dp"
         android:text="@string/usb_fast_charge"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <!-- Not Supported Text -->
+    	<TextView
+        android:id="@+id/usb_fast_charge_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iddummy5"
+        android:layout_toRightOf="@+id/usb_fast_charge_text"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="21dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
         
          <!-- USB Fast Charge Switch -->
         <Switch
