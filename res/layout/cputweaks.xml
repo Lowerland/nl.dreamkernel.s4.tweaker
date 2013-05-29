@@ -111,6 +111,19 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="16sp" />
 
+    <!-- Not Supported Text -->
+    <TextView
+        android:id="@+id/uncompatible_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iddummy2"
+        android:layout_toRightOf="@+id/setcpugovernortext"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="29dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <!-- Dropdownmenu CPU Governor -->
     <Spinner
         android:id="@+id/cpuspinner"
@@ -198,6 +211,19 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="16sp" />
 
+    <!-- Not Supported Text -->
+    <TextView
+        android:id="@+id/uncompatible_alert2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iddummy4"
+        android:layout_toRightOf="@+id/textsetcpuminfreqscaling"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="31dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <!-- Dropdownmenu CPU min Freq Scaling -->
     <Spinner
         android:id="@+id/cpuminfreqspinner"
@@ -253,6 +279,19 @@
         android:text="@string/set_freq_scaling_max"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="16sp" />
+
+    <!-- Not Supported Text -->
+    <TextView
+        android:id="@+id/uncompatible_alert3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textcurrentmaxfreqscale"
+        android:layout_toRightOf="@+id/textsetcpumaxfreqscaling"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="9dp"
+        android:textColor="@color/red_alert"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <!-- Dropdownmenu CPU max Freq Scaling -->
     <Spinner
