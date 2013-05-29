@@ -75,7 +75,7 @@ public class SoundTweaks extends Activity {
 	public static final SysFs vCheck_gpl_headphone_gain = new SysFs("/sys/kernel/sound_control/gpl_headphone_gain");
 	public static final SysFs vCheck_gpl_hdmi_speaker_gain = new SysFs("/sys/kernel/sound_control/gpl_hdmi_spkr_gain");
 	public static final SysFs vCheck_gpl_headset_mic_gain = new SysFs("/sys/kernel/sound_control/gpl_headset_mic_gain");
-	
+
 	/*public static final SysFs vCheck_gpl_speaker_gain = new SysFs("/mnt/sdcard/testfiles/gpl_speaker_gain");
 	public static final SysFs vCheck_gpl_mic_gain = new SysFs("/mnt/sdcard/testfiles/gpl_mic_gain");
 	public static final SysFs vCheck_gpl_cam_mic_gain = new SysFs("/mnt/sdcard/testfiles/gpl_cam_mic_gain");
@@ -524,7 +524,7 @@ public class SoundTweaks extends Activity {
 		 }
 		}
 
-	public static void OptionsHider() {
+	static void OptionsHider() {
 
 		Log.d("gpl_spk_hide","OptionsHider() gpl_spk_hide = "+FileCheck.gpl_spk_hide);
   		if(FileCheck.gpl_spk_hide == 1) {
@@ -572,7 +572,7 @@ public class SoundTweaks extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		FileCheck.CheckOptions(SoundTweaks.this);
+		FileCheck.CheckSoundOptions(SoundTweaks.this);
 		OptionsHider();
 	}
 }
