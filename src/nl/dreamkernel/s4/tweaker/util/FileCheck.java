@@ -24,37 +24,31 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import nl.dreamkernel.s4.tweaker.R;
+import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
 import nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks;
 
 
 public class FileCheck {
-	
-	
-	
-	
-	public static String getCompatibility_Alert(Context context) {
-        return context.getString(R.string.compatibility_alert_body);
-    }	
 
-
-	/*public boolean gpl_cam_mic_hide=false;
-	public boolean gpl_headphone_hide=false;
-	public boolean gpl_hdmi_spkr_hide=false;
-	public boolean gpl_headset_mic_hide=false;*/
-	
-
-	
-	
+	// Initialize Variables for SoundTweaks
 	public static int gpl_spk_hide;
 	public static int gpl_mic_hide;
 	public static int gpl_cam_mic_hide;
 	public static int gpl_headphone_hide;
 	public static int gpl_hdmi_spkr_hide;
 	public static int gpl_headset_mic_hide;
+	// Initialize Variables for CpuTweaks
+	public static int cpuGovernor_hide;
+	public static int cpuMinFreq_hide;
+	public static int cpuMaxFreq_hide;
+	
+	// Initialize Boolean AlertDialog Warning
 	static boolean incompatible;
 	
 	// Check if options are compatibel with the filesystem
-	public static void CheckOptions(Context context) {
+	
+	// SoundTweaks FileChecking Method
+	public static void CheckSoundOptions(Context context) {
 		
 		incompatible = false;
 		gpl_spk_hide = 0;
@@ -62,9 +56,8 @@ public class FileCheck {
 		gpl_cam_mic_hide = 0;
 		gpl_headphone_hide = 0;
 		gpl_hdmi_spkr_hide = 0;
-		gpl_headset_mic_hide = 0;
+		gpl_headset_mic_hide = 0;		
 		
-		// SoundTweaks FileChecks
 		if (!SoundTweaks.vCheck_gpl_speaker_gain.exists()) {
 			gpl_spk_hide = 1;
 			incompatible = true;
@@ -89,38 +82,51 @@ public class FileCheck {
 			gpl_headset_mic_hide = 1;
 			incompatible = true;	    	
 	    }
-		// Show Incompatible Alert because things arent right here.
+		AlertDialog(context);		
+	}
+	
+	// CpuTweaks FileChecking Method
+	public static void CheckCPUOptions(Context context) {
+		
+		incompatible = false;
+		cpuGovernor_hide = 0;
+		cpuMinFreq_hide = 0;
+		cpuMaxFreq_hide = 0;
+		
+		if (!CpuTweaks.vCheck_CPU_GOVERNOR.exists()) {
+			cpuGovernor_hide = 1;
+			incompatible = true;
+			}
+		if (!CpuTweaks.vCheck_CPU_CpuMinFREQ.exists()) {
+			cpuMinFreq_hide = 1;
+			incompatible = true;
+			}
+		if (!CpuTweaks.vCheck_CPU_CpuMaxFREQ.exists()) {
+			cpuMaxFreq_hide = 1;
+			incompatible = true;
+			}
+		AlertDialog(context);
+		}
+
+
+
+	// Show Incompatible Alert because things arent right here.
+	public static void AlertDialog(Context context) {
 		if (incompatible == true) {
-	    	/*AlertDialog alert = new AlertDialog.Builder(context).create();
-	    	alert.setIconAttribute(android.R.attr.alertDialogIcon);
-	    	alert.setTitle(R.string.compatibility_alert_title);
-	    	alert.setMessage(getCompatibility_Alert(context));
-	    	alert.setButton(DialogInterface.BUTTON_POSITIVE,
-                    "OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                	// Button OK Clicked
-                }
-            });	    	
-	    	alert.show();*/
-			
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				
-            //.setTitle("My title")
-            //.setMessage("Enter password");
 			final FrameLayout frameView = new FrameLayout(context);
 			builder.setView(frameView);
-
 			final AlertDialog alertDialog = builder.create();
-					alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                    "OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                	// Button OK Clicked
-                }
-            });
+			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+					"OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					// Button OK Clicked
+					}
+				});
 			LayoutInflater inflater = alertDialog.getLayoutInflater();
-			
 			View dialoglayout = inflater.inflate(R.layout.dialog_alert, frameView);
 			alertDialog.show();
-	    }
-	}	
+		}
+	}
+	
 }
