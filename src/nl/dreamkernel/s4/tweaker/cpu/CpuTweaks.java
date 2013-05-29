@@ -16,7 +16,6 @@
 
 package nl.dreamkernel.s4.tweaker.cpu;
 
-import nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
