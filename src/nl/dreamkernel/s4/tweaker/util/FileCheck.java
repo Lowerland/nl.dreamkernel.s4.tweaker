@@ -25,6 +25,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 import nl.dreamkernel.s4.tweaker.R;
 import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
+import nl.dreamkernel.s4.tweaker.misc.Misc;
 import nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks;
 
 
@@ -41,12 +42,18 @@ public class FileCheck {
 	public static int cpuGovernor_hide;
 	public static int cpuMinFreq_hide;
 	public static int cpuMaxFreq_hide;
-	
-	// Initialize Boolean AlertDialog Warning
+	// Initialize Variables for MiscTweaks
+	public static int internal_scheduler_hide;
+	public static int external_scheduler_hide;
+	public static int vibrator_intensity_hide;
+	public static int Usb_Fast_charge_hide;
+	// Initialize Boolean AlertDialog
 	static boolean incompatible;
 	
-	// Check if options are compatibel with the filesystem
-	
+	//////
+	// FileChecking Methods
+	/////
+
 	// SoundTweaks FileChecking Method
 	public static void CheckSoundOptions(Context context) {
 		
@@ -108,9 +115,35 @@ public class FileCheck {
 		AlertDialog(context);
 		}
 
+	// MiscTweaks FileChecking Method
+	public static void CheckMiscOptions(Context context) {
+		
+		incompatible = false;
+		internal_scheduler_hide = 0;
+		external_scheduler_hide = 0;
+		vibrator_intensity_hide = 0;
+		Usb_Fast_charge_hide = 0;
 
+		if (!Misc.vCheck_internalscheduler.exists()) {
+			internal_scheduler_hide = 1;
+			incompatible = true;
+			}
+		if (!Misc.vCheck_externalscheduler.exists()) {
+			external_scheduler_hide = 1;
+			incompatible = true;
+			}
+		if (!Misc.vCheck_vibrator_intensity.exists()) {
+			vibrator_intensity_hide = 1;
+			incompatible = true;
+			}
+		if (!Misc.vCheck_Usb_Fast_charge.exists()) {
+			Usb_Fast_charge_hide = 1;
+			incompatible = true;
+			}
+		AlertDialog(context);
+	}
 
-	// Show Incompatible Alert because things arent right here.
+	// Show Incompatible Alert if things arent right
 	public static void AlertDialog(Context context) {
 		if (incompatible == true) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
