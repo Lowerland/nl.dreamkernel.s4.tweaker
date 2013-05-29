@@ -49,9 +49,9 @@ Update or Install Latest Dreamkernel
     
     <string name="cpu_freq_scaling_title">CPU Frequency Scaling</string>
     <string name="current_freq_scaling_min">Current Min Scaling Freq:</string>
-    <string name="set_freq_scaling_min">Set Min Scaling Freq</string>
+    <string name="set_freq_scaling_min">Set Min Scaling Freq:</string>
     <string name="current_freq_scaling_max">Current Max Scaling Freq:</string>
-    <string name="set_freq_scaling_max">Set Max Scaling Freq</string>
+    <string name="set_freq_scaling_max">Set Max Scaling Freq:</string>
     
     <string name="usb_fast_charge">USB Fast Charge</string>
     <string name="current_usb_fast_charge">Current USB Fast Charge</string>
