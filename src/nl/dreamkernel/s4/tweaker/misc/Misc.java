@@ -19,6 +19,7 @@ package nl.dreamkernel.s4.tweaker.misc;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
@@ -40,18 +41,24 @@ import android.widget.Toast;
 public class Misc extends Activity  {
 	    
 	// variables for the Textviews
-	private TextView InternalValue;
-	private TextView ExternalValue;
+	private static TextView InternalValue;
+	private static TextView ExternalValue;
+	private static TextView textuncompatibel;
+    private static TextView textuncompatibel2;
+    private static TextView textuncompatibel3;
+	private static TextView textuncompatibel4;
 
 	// Variables for file paths
-	private static final SysFs vCheck_internalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler");
-	private static final SysFs vCheck_externalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.2/mmc_host/mmc2/mmc2:0002/block/mmcblk1/queue/scheduler");
-	private static final SysFs vCheck_vibrator_intensity = new SysFs("/sys/vibrator/pwm_val");
-	private static final SysFs vCheck_Usb_Fast_charge = new SysFs("/sys/kernel/fast_charge/force_fast_charge");
-	//private static final SysFs vCheck_Usb_Fast_charge = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/force_fast_charge");
-	//private static final SysFs vCheck_internalscheduler = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/internalscheduler");
-	//private static final SysFs vCheck_externalscheduler = new SysFs("/data/data/nl.dreamkernel.s4.tweaker/files/externalscheduler");
-		
+	public static final SysFs vCheck_internalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler");
+	public static final SysFs vCheck_externalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.2/mmc_host/mmc2/mmc2:0002/block/mmcblk1/queue/scheduler");
+	public static final SysFs vCheck_vibrator_intensity = new SysFs("/sys/vibrator/pwm_val");
+	public static final SysFs vCheck_Usb_Fast_charge = new SysFs("/sys/kernel/fast_charge/force_fast_charge");
+/*
+	public static final SysFs vCheck_internalscheduler = new SysFs("/mnt/sdcard/testfiles/internalscheduler");
+	public static final SysFs vCheck_externalscheduler = new SysFs("/mnt/sdcard/testfiles/externalscheduler");
+	public static final SysFs vCheck_vibrator_intensity = new SysFs("/mnt/sdcard/testfiles/pwm_val");
+	public static final SysFs vCheck_Usb_Fast_charge = new SysFs("/mnt/sdcard/testfiles/force_fast_charge");
+*/
 	// variables storing the real file values
 	private String file_value_internal;
 	private String file_value_external;	
@@ -62,16 +69,16 @@ public class Misc extends Activity  {
 	private boolean usb_switch_value;
 	private int usb_switch_value_temp;
 
-	
 	//the seek bar variable
-	private SeekBar seekbar_vibrator;
-		
+	private static SeekBar seekbar_vibrator;
 	// declare text label objects
-    private TextView vibratorProgress;
-    
-	// declare text label objects
-    private Switch usbfastchargeswitch;
-	
+    private static TextView vibratorProgress;
+    // declare text label objects
+    private static Switch usbfastchargeswitch;
+    // declare the spinners
+ 	private static Spinner sInternal;
+ 	private static Spinner sExternal;
+ 	
 	// variables to store the shared pref in
 	private int InternalPrefValue;
 	private int ExternalPrefValue;
@@ -87,6 +94,11 @@ public class Misc extends Activity  {
 		InternalValue = (TextView)findViewById(R.id.InternalValue);
 		ExternalValue = (TextView)findViewById(R.id.ExternalValue);
 		vibratorProgress = (TextView)findViewById(R.id.value_vibrator_intensity);
+		//Find Views
+  		textuncompatibel = (TextView)findViewById(R.id.internal_scheduler_alert);
+  		textuncompatibel2 = (TextView)findViewById(R.id.external_scheduler_alert);
+  		textuncompatibel3 = (TextView)findViewById(R.id.vibrator_intensity_alert);
+  		textuncompatibel4 = (TextView)findViewById(R.id.usb_fast_charge_alert);
 
 		//get the seek bar
 		seekbar_vibrator = (SeekBar) findViewById(R.id.sb_vibrator_intensity);
@@ -164,7 +176,7 @@ public class Misc extends Activity  {
       		});	
 		
 		// Dropdown menu for I/O Scheduler Internal
-		Spinner sInternal = (Spinner) findViewById(R.id.internalspinner);
+		sInternal = (Spinner) findViewById(R.id.internalspinner);
 
 		ArrayAdapter<CharSequence> internaladapter = ArrayAdapter
 				.createFromResource(this, R.array.ioInternal,
@@ -236,7 +248,7 @@ public class Misc extends Activity  {
 
 		
 		// Dropdown menu for I/O Scheduler External
-		Spinner sExternal = (Spinner) findViewById(R.id.externalspinner);
+		sExternal = (Spinner) findViewById(R.id.externalspinner);
 		
 		ArrayAdapter<CharSequence> externaladapter = ArrayAdapter
 				.createFromResource(this, R.array.ioExternal,
@@ -397,4 +409,38 @@ public class Misc extends Activity  {
 		
 		 }
 		 }
+
+	static void OptionsHider() {
+
+		Log.d("internal_scheduler_hide","OptionsHider() internal_scheduler_hide = "+FileCheck.internal_scheduler_hide);
+  		if(FileCheck.internal_scheduler_hide == 1) {
+  			sInternal.setVisibility(View.GONE);
+  			InternalValue.setVisibility(View.GONE);
+  	  		textuncompatibel.setText(R.string.disabled_option_text);
+  		}
+  		if(FileCheck.external_scheduler_hide == 1) {
+  			Log.d("external_scheduler_hide","OptionsHider() external_scheduler_hide = "+FileCheck.external_scheduler_hide);
+  			sExternal.setVisibility(View.GONE);
+  			ExternalValue.setVisibility(View.GONE);
+  	  		textuncompatibel2.setText(R.string.disabled_option_text);
+  		}
+  		if(FileCheck.vibrator_intensity_hide == 1) {
+  			Log.d("vibrator_intensity_hide","OptionsHider() vibrator_intensity_hide = "+FileCheck.vibrator_intensity_hide);
+  			seekbar_vibrator.setVisibility(View.GONE);
+  			vibratorProgress.setVisibility(View.GONE);
+  	  		textuncompatibel3.setText(R.string.disabled_option_text);
+  		}
+  		if(FileCheck.Usb_Fast_charge_hide == 1) {
+  			Log.d("Usb_Fast_charge_hide","OptionsHider() Usb_Fast_charge_hide = "+FileCheck.Usb_Fast_charge_hide);
+  			usbfastchargeswitch.setVisibility(View.GONE);
+  			textuncompatibel4.setText(R.string.disabled_option_text);
+  		}  		
+  	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		FileCheck.CheckMiscOptions(Misc.this);
+		OptionsHider();
+	}
 }
