@@ -24,6 +24,8 @@
         <item>bfq</item>
         <item>fiops</item>
         <item>sio</item>
+	 <item>vr</item>
+	 <item>zen</item>
     </string-array>   
     
     <!-- I/O-Scheduler External -->
@@ -43,11 +45,19 @@
         <item>interactive</item>
         <item>conservative</item>
         <item>ondemand</item>
-	<item>wheatley</item>
-	<item>smartmax</item>
+	 <item>wheatley</item>
+	 <item>smartmax</item>
         <item>userspace</item>
         <item>powersave</item>
         <item>performance</item>
+        <item>abyssplug</item>
+        <item>adaptive</item>
+        <item>asswax</item>
+        <item>badass</item>
+        <item>dancedance</item>
+        <item>nightmare</item>
+        <item>pegasusq</item>
+        <item>smartassh3</item>
     </string-array>
     
     <!-- CPU Scaling Min Freq -->

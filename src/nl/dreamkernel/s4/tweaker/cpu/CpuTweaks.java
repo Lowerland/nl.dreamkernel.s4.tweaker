@@ -151,9 +151,9 @@ public class CpuTweaks extends Activity {
 						    	Log.d("cpuprefadapter","echo'd wheatley to  CPU Governor");
 								break;
 						    case 6:
-                                process.write("echo smartmax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-                                Log.d("cpuprefadapter","echo'd smartmax to  CPU Governor");
-                                break;
+							process.write("echo smartmax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							Log.d("cpuprefadapter","echo'd smartmax to  CPU Governor");
+								break;
 						    case 7:
 						    	process.write("echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 						    	Log.d("cpuprefadapter","echo'd userspace to  CPU Governor");
@@ -165,6 +165,38 @@ public class CpuTweaks extends Activity {
 						    case 9:
 						    	process.write("echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 						    	Log.d("cpuprefadapter","echo'd performance to  CPU Governor");
+								break;
+						    case 10:
+							process.write("echo abyssplug > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							Log.d("cpuprefadapter","echo'd abyssplug to  CPU Governor");
+								break;
+						    case 11:
+							process.write("echo adaptive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							Log.d("cpuprefadapter","echo'd adaptive to  CPU Governor");
+								break;
+						    case 12:
+							process.write("echo asswax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							Log.d("cpuprefadapter","echo'd asswax to  CPU Governor");
+								break;
+						    case 13:
+							process.write("echo badass > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							Log.d("cpuprefadapter","echo'd badass to  CPU Governor");
+								break;
+						    case 14:
+							process.write("echo dancedance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							Log.d("cpuprefadapter","echo'd dancedance to  CPU Governor");
+								break;
+						    case 15:
+							process.write("echo nightmare > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							Log.d("cpuprefadapter","echo'd nightmare to  CPU Governor");
+								break;
+						    case 16:
+							process.write("echo pegasusq > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							Log.d("cpuprefadapter","echo'd pegasusq to  CPU Governor");
+								break;
+						    case 17:
+							process.write("echo smartassH3 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+							Log.d("cpuprefadapter","echo'd smartassH3 to  CPU Governor");
 								break;
 						    default:
 						    	break;

@@ -227,6 +227,14 @@ public class Misc extends Activity  {
 				    	process.write("echo sio > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
 				    	Log.d("process","echo'd sio to internalscheduler");
 				    	break;
+				    case 6:
+					process.write("echo vr > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
+					Log.d("process","echo'd vr to internalscheduler");
+					break;
+				    case 7:
+					process.write("echo zen > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
+					Log.d("process","echo'd zen to internalscheduler");
+					break;
 				    default:
 				    	break;
 				     }
@@ -298,6 +306,14 @@ public class Misc extends Activity  {
 				    	process.write("echo sio > /sys/devices/platform/msm_sdcc.2/mmc_host/mmc2/mmc2:0002/block/mmcblk1/queue/scheduler\n");
 				       	Log.d("process","echo'd sio to externalscheduler");
 				    	break;
+				    case 6:
+					process.write("echo vr > /sys/devices/platform/msm_sdcc.2/mmc_host/mmc2/mmc2:0002/block/mmcblk1/queue/scheduler\n");
+					Log.d("process","echo'd vr to externalscheduler");
+					break;
+				    case 7:
+					process.write("echo zen > /sys/devices/platform/msm_sdcc.2/mmc_host/mmc2/mmc2:0002/block/mmcblk1/queue/scheduler\n");
+					Log.d("process","echo'd zen to externalscheduler");
+					break;
 				    default:
 				    	break;
 				     }
