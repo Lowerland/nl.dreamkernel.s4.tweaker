@@ -17,18 +17,23 @@
 package nl.dreamkernel.s4.tweaker;
 
 import nl.dreamkernel.s4.tweaker.R;
+import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
 
 public class Main extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
 		//setContentView(R.layout.main);
 		//getActionBar().hide();
@@ -49,7 +54,7 @@ public class Main extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}*/
-	
+
 	public static class MyPreferenceFragment extends PreferenceFragment
     {
         @Override
@@ -60,4 +65,29 @@ public class Main extends Activity {
         }
     }
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		Log.d("onResume()","onResume()"+FileCheck.isRootEnabled());
+        if (FileCheck.isRootEnabled() == false) {
+        	Log.d("RootDisabled","Root is disabled show alert");
+        	// Show Root required alert
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final FrameLayout frameView = new FrameLayout(this);
+            builder.setView(frameView);
+            final AlertDialog norootDialog = builder.create();
+            norootDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+            		"OK", new DialogInterface.OnClickListener() {
+            	public void onClick(DialogInterface dialog, int whichButton) {
+            		// Button OK Clicked
+            		// Exit App
+            		finish();
+            		}
+            	});
+            LayoutInflater inflater = norootDialog.getLayoutInflater();
+            View dialoglayout = inflater.inflate(R.layout.no_root_alert, frameView);
+            norootDialog.show();
+        }
+		}
 }
