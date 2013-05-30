@@ -23,6 +23,12 @@
    
     
     <string name="empty_string"></string>
+    <string name="no_root_access">ROOT ACCESS NEEDED</string>
+    <string name="no_root_alert_body">"Looks like this device ,
+isn't rooted or don't have access to root.
+
+Root Access is REQUIRED for this app.
+"</string>
     <string name="compatibility_alert_title">Some Options are disabled</string>
     <string name="compatibility_alert_body">"Uncompatible Dreamkernel Version
 
