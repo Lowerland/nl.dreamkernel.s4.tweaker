@@ -23,6 +23,6 @@
    <corners
         android:radius="2dp" />
         
-   <solid android:color="#1c1c1c" />
-   <stroke android:width="2dip" android:color="#3b3b3b"/>
+   <solid android:color="@color/blue_bg_box" />
+   <stroke android:width="2dip" android:color="@color/blue_outline"/>
 </shape>
