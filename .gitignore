@@ -1,3 +1,5 @@
 bin
 gen
 doc
+ant.properties
+local.properties
