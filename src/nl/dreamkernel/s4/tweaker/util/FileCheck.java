@@ -34,8 +34,6 @@ import nl.dreamkernel.s4.tweaker.util.SysFs;
 public class FileCheck {
 	
 	// Set File Constants
-	public static final SysFs vCheck_SU_FILE_BIN = new SysFs("/system/bin/su");
-	public static final SysFs vCheck_SU_FILE2_XBIN = new SysFs("/system/xbin/su");
 	public static final SysFs vCheck_BUSYBOX = new SysFs("/system/xbin/busybox");
 	
 	
@@ -57,9 +55,6 @@ public class FileCheck {
 	public static int Usb_Fast_charge_hide;
 	// Initialize Boolean AlertDialog
 	static boolean incompatible;
-	// Initialize Variables for Rooted Check Method
-	static boolean noROOTaccess;
-	public static int mainEXIT;
 	//////
 	// FileChecking Methods
 	/////
@@ -154,38 +149,17 @@ public class FileCheck {
 	}
 	
 	// Root acces check
-	public static void isRootEnabled(Context context) {
+	public static boolean isRootEnabled() {
         File file = new File("/system/bin/su");
         if (file.exists()) {
-        	noROOTaccess = true;
+            return true;
         }
-        file = new File("/system/xbin/su");
-        if (file.exists()) {
-            noROOTaccess = true;
+        File file2 = new File("/system/xbin/su");
+        if (file2.exists()) {
+            return true;
         }
-        RootAlertDialog(context);
+        return false;
     }
-	
-	// Show Root required alert
-	public static void RootAlertDialog(Context context) {
-		if (noROOTaccess == true) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			final FrameLayout frameView = new FrameLayout(context);
-			builder.setView(frameView);
-			final AlertDialog norootDialog = builder.create();
-			norootDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-					"OK", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					mainEXIT = 1;
-					// Button OK Clicked
-					}
-			});
-			LayoutInflater inflater = norootDialog.getLayoutInflater();
-			@SuppressWarnings("unused")
-			View dialoglayout = inflater.inflate(R.layout.no_root_alert, frameView);
-			norootDialog.show();
-			}
-		}
 
 	// Show Incompatible Alert if things arent right
 	public static void AlertDialog(Context context) {
