@@ -39,6 +39,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 public class Misc extends Activity  {
+	static final String TAG = "S4Tweaker";
 	    
 	// variables for the Textviews
 	private static TextView InternalValue;
@@ -139,7 +140,7 @@ public class Misc extends Activity  {
       			  
       			// Try catch block for if it may go wrong 
       			try {
-      				Log.d("process","vibrator: "+ value_vibrator);
+      				Log.d(TAG,"vibrator: "+ value_vibrator);
       				//calls RootProcess
 					RootProcess process = new RootProcess();
 					if (!process.init()) {
@@ -147,11 +148,11 @@ public class Misc extends Activity  {
 					}
 					// Writing the values to the files 
 					process.write("echo "+ value_vibrator +" > /sys/vibrator/pwm_val\n");
-					Log.d("process","echo value_vibrator : "+ value_vibrator);
+					Log.d(TAG,"echo value_vibrator : "+ value_vibrator);
 					process.term();
 				} catch (Exception e) {
-					Log.e("Error","crashed"+e);
-					Log.d("Error","error"+e);
+					Log.e(TAG,"Error crashed "+e);
+					Log.d(TAG,"error "+e);
 				}
       			  
 
@@ -168,8 +169,8 @@ public class Misc extends Activity  {
       				// sets the minimal level
       				int siz=progress;
       				value_vibrator = siz;
-      				Log.d("progress","Progressbar: "+siz);
-      				Log.d("progress","Progressbar: "+value_vibrator);
+      				Log.d(TAG,"Progressbar: "+siz);
+      				Log.d(TAG,"Progressbar: "+value_vibrator);
      				
       				// change progress text label with current seekbar value
       				vibratorProgress.setText(""+value_vibrator);
@@ -193,7 +194,7 @@ public class Misc extends Activity  {
 		    	SharedPreferences.Editor editor = sharedPreferences.edit();
       			editor.putInt("InternalPref", position);
       			editor.commit(); 
-				Log.d("internaladapter","internaladapter: position=" + position + " id=" + id);
+				Log.d(TAG,"internaladapter: position=" + position + " id=" + id);
 				
       			// Try catch block for if it may go wrong 
       			try {
@@ -206,35 +207,35 @@ public class Misc extends Activity  {
 					switch (position){				     
 				    case 0:
 				    	process.write("echo noop > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d("process","echo'd noop to internalscheduler");
+				    	Log.d(TAG,"echo'd noop to internalscheduler");
 						break;
 				    case 1:
 				    	process.write("echo deadline > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d("process","echo'd deadline to internalscheduler");
+				    	Log.d(TAG,"echo'd deadline to internalscheduler");
 				    	break;
 				    case 2:
 				    	process.write("echo cfq > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d("process","echo'd cfq to internalscheduler");
+				    	Log.d(TAG,"echo'd cfq to internalscheduler");
 				    	break;
 				    case 3:
 				    	process.write("echo bfq > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d("process","echo'd bfq to internalscheduler");
+				    	Log.d(TAG,"echo'd bfq to internalscheduler");
 				    	break;
 				    case 4:
 				    	process.write("echo fiops > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d("process","echo'd fiops to internalscheduler");
+				    	Log.d(TAG,"echo'd fiops to internalscheduler");
 				    	break;
 				    case 5:
 				    	process.write("echo sio > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d("process","echo'd sio to internalscheduler");
+				    	Log.d(TAG,"echo'd sio to internalscheduler");
 				    	break;
 				    case 6:
 					process.write("echo vr > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-					Log.d("process","echo'd vr to internalscheduler");
+					Log.d(TAG,"echo'd vr to internalscheduler");
 					break;
 				    case 7:
 					process.write("echo zen > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-					Log.d("process","echo'd zen to internalscheduler");
+					Log.d(TAG,"echo'd zen to internalscheduler");
 					break;
 				    default:
 				    	break;
@@ -243,13 +244,13 @@ public class Misc extends Activity  {
 					process.term();
 					ValueReader();
 				} catch (Exception e) {
-					Log.e("Error","crashed"+e);
-					Log.d("Error","error"+e);
+					Log.e(TAG,"Error crashed "+e);
+					Log.d(TAG,"Error "+e);
 				}
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
-				Log.d("internaladapter","internaladapter: Nothing selected");
+				Log.d(TAG,"internaladapter: Nothing selected");
 			}
 		});
 		
@@ -347,9 +348,9 @@ public class Misc extends Activity  {
 	private void ValueReader(){
 		// Read in the Values from files
 		RootProcess rootProcess = new RootProcess();
-		Log.d("MiscTweaks", "Misc Tweaks, Root init s");
+		Log.d(TAG, "Misc Tweaks, Root init s");
 		rootProcess.init();
-		Log.d("MiscTweaks", "Misc Tweaks, Root init e");
+		Log.d(TAG, "Misc Tweaks, Root init e");
 
 		if (vCheck_internalscheduler.exists()) {
 			file_value_temp = vCheck_internalscheduler.read(rootProcess);
@@ -389,8 +390,8 @@ public class Misc extends Activity  {
 			}
 			 //usb_switch_value_temp = Boolean.parseBoolean(vCheck_Usb_Fast_charge.read(rootProcess));
 			 //usb_switch_value = usb_switch_value_temp;
-			 Log.d("","Boolean usb_switch_value_temp = "+usb_switch_value_temp);
-			 Log.d("","Boolean usb_switch_value = "+usb_switch_value);
+			 Log.d(TAG,"Boolean usb_switch_value_temp = "+usb_switch_value_temp);
+			 Log.d(TAG,"Boolean usb_switch_value = "+usb_switch_value);
 			} else { usb_switch_value = false; 	}
 
 		rootProcess.term();
@@ -415,7 +416,7 @@ public class Misc extends Activity  {
 				}
 			 process.write("echo 1 > /sys/kernel/fast_charge/force_fast_charge\n");
 				//process.write("echo 1 > /data/data/nl.dreamkernel.s4.tweaker/files/force_fast_charge\n");
-			 Log.d("onUSBFASTSWITCH", "on USB FAST SWITCH Enabled");
+			 Log.d(TAG, "on USB FAST SWITCH Enabled");
 			 process.term();		
 			 ValueReader();
 
@@ -428,7 +429,7 @@ public class Misc extends Activity  {
 				}
 			 process.write("echo 0 > /sys/kernel/fast_charge/force_fast_charge\n");
 			//process.write("echo 0 > /data/data/nl.dreamkernel.s4.tweaker/files/force_fast_charge\n");
-			 Log.d("onUSBFASTSWITCH", "on USB FAST SWITCH Disabled");
+			 Log.d(TAG, "on USB FAST SWITCH Disabled");
 			 process.term();		
 			 ValueReader();
 		
@@ -437,7 +438,7 @@ public class Misc extends Activity  {
 
 	static void OptionsHider() {
 
-		Log.d("internal_scheduler_hide","OptionsHider() internal_scheduler_hide = "+FileCheck.internal_scheduler_hide);
+		Log.d(TAG,"OptionsHider() internal_scheduler_hide = "+FileCheck.internal_scheduler_hide);
   		if(FileCheck.internal_scheduler_hide == 1) {
   			sInternal.setVisibility(View.GONE);
   			InternalValue.setVisibility(View.GONE);
@@ -450,13 +451,13 @@ public class Misc extends Activity  {
   	  	//	textuncompatibel2.setText(R.string.disabled_option_text);// <--- TEMP DISABLED
   		//}
   		if(FileCheck.vibrator_intensity_hide == 1) {
-  			Log.d("vibrator_intensity_hide","OptionsHider() vibrator_intensity_hide = "+FileCheck.vibrator_intensity_hide);
+  			Log.d(TAG,"OptionsHider() vibrator_intensity_hide = "+FileCheck.vibrator_intensity_hide);
   			seekbar_vibrator.setVisibility(View.GONE);
   			vibratorProgress.setVisibility(View.GONE);
   	  		textuncompatibel3.setText(R.string.disabled_option_text);
   		}
   		if(FileCheck.Usb_Fast_charge_hide == 1) {
-  			Log.d("Usb_Fast_charge_hide","OptionsHider() Usb_Fast_charge_hide = "+FileCheck.Usb_Fast_charge_hide);
+  			Log.d(TAG,"OptionsHider() Usb_Fast_charge_hide = "+FileCheck.Usb_Fast_charge_hide);
   			usbfastchargeswitch.setVisibility(View.GONE);
   			textuncompatibel4.setText(R.string.disabled_option_text);
   		}  		
