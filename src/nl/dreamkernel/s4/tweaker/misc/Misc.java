@@ -44,26 +44,26 @@ public class Misc extends Activity  {
 	private static TextView InternalValue;
 	private static TextView ExternalValue;
 	private static TextView textuncompatibel;
-    private static TextView textuncompatibel2;
+   // private static TextView textuncompatibel2;// <--- TEMP DISABLED
     private static TextView textuncompatibel3;
 	private static TextView textuncompatibel4;
 
 	// Variables for file paths
 	public static final SysFs vCheck_internalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler");
-	public static final SysFs vCheck_externalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.2/mmc_host/mmc2/mmc2:0002/block/mmcblk1/queue/scheduler");
+	//public static final SysFs vCheck_externalscheduler = new SysFs("/sys/devices/platform/msm_sdcc.2/mmc_host/mmc2/mmc2:0002/block/mmcblk1/queue/scheduler");// <--- TEMP DISABLED
 	public static final SysFs vCheck_vibrator_intensity = new SysFs("/sys/vibrator/pwm_val");
 	public static final SysFs vCheck_Usb_Fast_charge = new SysFs("/sys/kernel/fast_charge/force_fast_charge");
 /*
 	public static final SysFs vCheck_internalscheduler = new SysFs("/mnt/sdcard/testfiles/internalscheduler");
-	public static final SysFs vCheck_externalscheduler = new SysFs("/mnt/sdcard/testfiles/externalscheduler");
+	//public static final SysFs vCheck_externalscheduler = new SysFs("/mnt/sdcard/testfiles/externalscheduler");// <--- TEMP DISABLED
 	public static final SysFs vCheck_vibrator_intensity = new SysFs("/mnt/sdcard/testfiles/pwm_val");
 	public static final SysFs vCheck_Usb_Fast_charge = new SysFs("/mnt/sdcard/testfiles/force_fast_charge");
 */
 	// variables storing the real file values
 	private String file_value_internal;
-	private String file_value_external;	
+	//private String file_value_external;	// <--- TEMP DISABLED
 	private String file_value_temp;	
-	private String file_value_temp2;
+	//private String file_value_temp2;// <--- TEMP DISABLED
 	private int value_vibrator;
 	private int value_vibrator_temp;
 	private boolean usb_switch_value;
@@ -73,15 +73,16 @@ public class Misc extends Activity  {
 	private static SeekBar seekbar_vibrator;
 	// declare text label objects
     private static TextView vibratorProgress;
-    // declare text label objects
+    // declare Switch objects
     private static Switch usbfastchargeswitch;
+    private static Switch hide_misc_alert_switch;
     // declare the spinners
  	private static Spinner sInternal;
  	private static Spinner sExternal;
  	
 	// variables to store the shared pref in
 	private int InternalPrefValue;
-	private int ExternalPrefValue;
+	//private int ExternalPrefValue;// <--- TEMP DISABLED
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +97,7 @@ public class Misc extends Activity  {
 		vibratorProgress = (TextView)findViewById(R.id.value_vibrator_intensity);
 		//Find Views
   		textuncompatibel = (TextView)findViewById(R.id.internal_scheduler_alert);
-  		textuncompatibel2 = (TextView)findViewById(R.id.external_scheduler_alert);
+  		//textuncompatibel2 = (TextView)findViewById(R.id.external_scheduler_alert);// <--- TEMP DISABLED
   		textuncompatibel3 = (TextView)findViewById(R.id.vibrator_intensity_alert);
   		textuncompatibel4 = (TextView)findViewById(R.id.usb_fast_charge_alert);
 
@@ -109,7 +110,7 @@ public class Misc extends Activity  {
 		//get the Shared Prefs
 		final SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 		InternalPrefValue = sharedPreferences.getInt("InternalPref", 0);
-		ExternalPrefValue = sharedPreferences.getInt("ExternalPref", 0);
+		//ExternalPrefValue = sharedPreferences.getInt("ExternalPref", 0); // <--- TEMP DISABLED
 		
 		
 		// read the files value
@@ -256,9 +257,17 @@ public class Misc extends Activity  {
 
 		
 		// Dropdown menu for I/O Scheduler External
-		sExternal = (Spinner) findViewById(R.id.externalspinner);
-		
-		ArrayAdapter<CharSequence> externaladapter = ArrayAdapter
+		sExternal = (Spinner) findViewById(R.id.externalspinner); // Original line
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		TextView tempexternalhidetext = (TextView) findViewById(R.id.current_ext); // DELETE ME TO ENABLE EXT SCHEDULER
+		TextView tempexternalhidetext2 = (TextView) findViewById(R.id.textIOschedulerexternal); // DELETE ME TO ENABLE EXT SCHEDULER
+		tempexternalhidetext.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
+		tempexternalhidetext2.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
+		sExternal.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
+  		ExternalValue.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
+  		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*		ArrayAdapter<CharSequence> externaladapter = ArrayAdapter
 				.createFromResource(this, R.array.ioExternal,
 						android.R.layout.simple_spinner_item);
 		externaladapter
@@ -326,7 +335,7 @@ public class Misc extends Activity  {
 			public void onNothingSelected(AdapterView<?> parent) {
 				Log.d("externaladapter","externaladapter: Nothing selected");
 			}
-		});
+		});*/
 		
 
 	}
@@ -353,7 +362,7 @@ public class Misc extends Activity  {
 			}			
 		} else { file_value_internal = "File Not Found"; 	}
 		
-		if (vCheck_externalscheduler.exists()) {
+/*		if (vCheck_externalscheduler.exists()) {
 			file_value_temp2 = vCheck_externalscheduler.read(rootProcess);
 			
 			Pattern a = Pattern.compile("\\[((.*?)\\])");
@@ -362,7 +371,7 @@ public class Misc extends Activity  {
 				file_value_external = b.toMatchResult().group(0);
 				file_value_external = file_value_external.replace("[", "").replace("]", "");
 			}
-		} else { file_value_external = "File Not Found";	}
+		} else { file_value_external = "File Not Found";	}*/
 		
 		 if (vCheck_vibrator_intensity.exists()) {
 			 value_vibrator_temp = Integer.parseInt(vCheck_vibrator_intensity.read(rootProcess));
@@ -390,7 +399,7 @@ public class Misc extends Activity  {
 		
 		// Set current value views
 		InternalValue.setText(""+file_value_internal);
-		ExternalValue.setText(""+file_value_external);
+		//ExternalValue.setText(""+file_value_external);// <--- TEMP DISABLED
 		usbfastchargeswitch.setChecked(usb_switch_value);
 		 }
 	
@@ -434,12 +443,12 @@ public class Misc extends Activity  {
   			InternalValue.setVisibility(View.GONE);
   	  		textuncompatibel.setText(R.string.disabled_option_text);
   		}
-  		if(FileCheck.external_scheduler_hide == 1) {
-  			Log.d("external_scheduler_hide","OptionsHider() external_scheduler_hide = "+FileCheck.external_scheduler_hide);
-  			sExternal.setVisibility(View.GONE);
-  			ExternalValue.setVisibility(View.GONE);
-  	  		textuncompatibel2.setText(R.string.disabled_option_text);
-  		}
+  		//if(FileCheck.external_scheduler_hide == 1) {  // <--- TEMP DISABLED
+  		//	Log.d("external_scheduler_hide","OptionsHider() external_scheduler_hide = "+FileCheck.external_scheduler_hide);// <--- TEMP DISABLED
+  		//	sExternal.setVisibility(View.GONE);// <--- TEMP DISABLED
+  		//	ExternalValue.setVisibility(View.GONE);// <--- TEMP DISABLED
+  	  	//	textuncompatibel2.setText(R.string.disabled_option_text);// <--- TEMP DISABLED
+  		//}
   		if(FileCheck.vibrator_intensity_hide == 1) {
   			Log.d("vibrator_intensity_hide","OptionsHider() vibrator_intensity_hide = "+FileCheck.vibrator_intensity_hide);
   			seekbar_vibrator.setVisibility(View.GONE);
@@ -456,6 +465,7 @@ public class Misc extends Activity  {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		hide_misc_alert_switch = (Switch) findViewById(R.id.checkBoxHIDEALERT);
 		FileCheck.CheckMiscOptions(Misc.this);
 		OptionsHider();
 	}
