@@ -72,9 +72,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_marginBottom="10dp"
-        android:text="Don't show again"
+        android:text="@string/disable_popup_text"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/white"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:onClick="on_HIDE_ALERT" />
 
 </RelativeLayout>
