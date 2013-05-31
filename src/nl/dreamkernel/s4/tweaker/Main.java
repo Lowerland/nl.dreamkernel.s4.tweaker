@@ -86,8 +86,9 @@ public class Main extends Activity {
             		}
             	});
             LayoutInflater inflater = norootDialog.getLayoutInflater();
-            View dialoglayout = inflater.inflate(R.layout.no_root_alert, frameView);
+            @SuppressWarnings("unused")
+			View dialoglayout = inflater.inflate(R.layout.no_root_alert, frameView);
             norootDialog.show();
         }
-		}
+	}
 }
