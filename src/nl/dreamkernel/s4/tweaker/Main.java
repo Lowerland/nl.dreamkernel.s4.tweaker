@@ -30,7 +30,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 public class Main extends Activity {
-	
+	static final String TAG = "S4Tweaker";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,7 +45,7 @@ public class Main extends Activity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putInt("usage_counter", usage_counter+1);
 		editor.commit(); 
-		Log.d("Main", "Runned This App "+ usage_counter +" Times now");
+		Log.d(TAG, "Runned This App "+ usage_counter +" Times now");
 	}
 
 	/*
@@ -69,9 +70,9 @@ public class Main extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		Log.d("onResume()","onResume()"+FileCheck.isRootEnabled());
+		Log.d(TAG,"onResume() "+FileCheck.isRootEnabled());
         if (FileCheck.isRootEnabled() == false) {
-        	Log.d("RootDisabled","Root is disabled show alert");
+        	Log.d(TAG,"Root is disabled show alert");
         	// Show Root required alert
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             final FrameLayout frameView = new FrameLayout(this);
