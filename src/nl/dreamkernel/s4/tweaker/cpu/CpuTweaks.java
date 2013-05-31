@@ -33,6 +33,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class CpuTweaks extends Activity {
+	static final String TAG = "S4Tweaker";
 	
 	// variables for the Textviews
 	private static TextView CpuCurrentValue;
@@ -46,11 +47,11 @@ public class CpuTweaks extends Activity {
 	public static final SysFs vCheck_CPU_GOVERNOR = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
 	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
 	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
-	
-    /*public static final SysFs vCheck_CPU_GOVERNOR = new SysFs("/mnt/sdcard/testfiles/scaling_governor");
+/*
+    public static final SysFs vCheck_CPU_GOVERNOR = new SysFs("/mnt/sdcard/testfiles/scaling_governor");
     public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs("/mnt/sdcard/testfiles/scaling_min_freq");
     public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs("/mnt/sdcard/testfiles/scaling_max_freq");
-	*/
+*/
 	
 	// variables storing the real file values
 	private String file_CPU_GOVERNOR;
@@ -115,7 +116,7 @@ public class CpuTweaks extends Activity {
 				    	SharedPreferences.Editor editor = sharedPreferences.edit();
 		      			editor.putInt("CpuGovernorPref", position);
 		      			editor.commit(); 
-						Log.d("cpuprefadapter","CpuGovernorPref: position=" + position + " id=" + id);
+						Log.d(TAG,"CpuGovernorPref: position=" + position + " id=" + id);
 						
 		      			// Try catch block for if it may go wrong 
 		      			try {
@@ -128,75 +129,75 @@ public class CpuTweaks extends Activity {
 							switch (position){				     
 						    case 0:
 						    	process.write("echo msm-dcvs > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						    	Log.d("cpuprefadapter","echo'd msm-dcvs to  CPU Governor");
+						    	Log.d(TAG,"echo'd msm-dcvs to  CPU Governor");
 								break;
 						    case 1:
 						    	process.write("echo intellidemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						    	Log.d("cpuprefadapter","echo'd intellidemand to  CPU Governor");
+						    	Log.d(TAG,"echo'd intellidemand to  CPU Governor");
 								break;
 						    case 2:
 						    	process.write("echo interactive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						    	Log.d("cpuprefadapter","echo'd interactive to  CPU Governor");
+						    	Log.d(TAG,"echo'd interactive to  CPU Governor");
 								break;
 						    case 3:
 						    	process.write("echo conservative > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						    	Log.d("cpuprefadapter","echo'd conservative to  CPU Governor");
+						    	Log.d(TAG,"echo'd conservative to  CPU Governor");
 								break;
 						    case 4:
 						    	process.write("echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						    	Log.d("cpuprefadapter","echo'd ondemand to  CPU Governor");
+						    	Log.d(TAG,"echo'd ondemand to  CPU Governor");
 								break;
 						    case 5:
 						    	process.write("echo wheatley > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						    	Log.d("cpuprefadapter","echo'd wheatley to  CPU Governor");
+						    	Log.d(TAG,"echo'd wheatley to  CPU Governor");
 								break;
 						    case 6:
 							process.write("echo smartmax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d("cpuprefadapter","echo'd smartmax to  CPU Governor");
+							Log.d(TAG,"echo'd smartmax to  CPU Governor");
 								break;
 						    case 7:
 						    	process.write("echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						    	Log.d("cpuprefadapter","echo'd userspace to  CPU Governor");
+						    	Log.d(TAG,"echo'd userspace to  CPU Governor");
 								break;
 						    case 8:
 						    	process.write("echo powersave > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						    	Log.d("cpuprefadapter","echo'd powersave to  CPU Governor");
+						    	Log.d(TAG,"echo'd powersave to  CPU Governor");
 								break;
 						    case 9:
 						    	process.write("echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						    	Log.d("cpuprefadapter","echo'd performance to  CPU Governor");
+						    	Log.d(TAG,"echo'd performance to  CPU Governor");
 								break;
 						    case 10:
 							process.write("echo abyssplug > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d("cpuprefadapter","echo'd abyssplug to  CPU Governor");
+							Log.d(TAG,"echo'd abyssplug to  CPU Governor");
 								break;
 						    case 11:
 							process.write("echo adaptive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d("cpuprefadapter","echo'd adaptive to  CPU Governor");
+							Log.d(TAG,"echo'd adaptive to  CPU Governor");
 								break;
 						    case 12:
 							process.write("echo asswax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d("cpuprefadapter","echo'd asswax to  CPU Governor");
+							Log.d(TAG,"echo'd asswax to  CPU Governor");
 								break;
 						    case 13:
 							process.write("echo badass > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d("cpuprefadapter","echo'd badass to  CPU Governor");
+							Log.d(TAG,"echo'd badass to  CPU Governor");
 								break;
 						    case 14:
 							process.write("echo dancedance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d("cpuprefadapter","echo'd dancedance to  CPU Governor");
+							Log.d(TAG,"echo'd dancedance to  CPU Governor");
 								break;
 						    case 15:
 							process.write("echo nightmare > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d("cpuprefadapter","echo'd nightmare to  CPU Governor");
+							Log.d(TAG,"echo'd nightmare to  CPU Governor");
 								break;
 						    case 16:
 							process.write("echo pegasusq > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d("cpuprefadapter","echo'd pegasusq to  CPU Governor");
+							Log.d(TAG,"echo'd pegasusq to  CPU Governor");
 								break;
 						    case 17:
 							process.write("echo smartassH3 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d("cpuprefadapter","echo'd smartassH3 to  CPU Governor");
+							Log.d(TAG,"echo'd smartassH3 to  CPU Governor");
 								break;
 						    default:
 						    	break;
@@ -205,13 +206,13 @@ public class CpuTweaks extends Activity {
 							process.term();
 							ValueReader();
 						} catch (Exception e) {
-							Log.e("Error","crashed"+e);
-							Log.d("Error","error"+e);
+							Log.e(TAG,"Error crashed "+e);
+							Log.d(TAG,"Error "+e);
 						}
 					}
 
 					public void onNothingSelected(AdapterView<?> parent) {
-						Log.d("cpuprefadapter","cpuprefadapter: Nothing selected");
+						Log.d(TAG,"cpuprefadapter: Nothing selected");
 					}
 				});
 				
@@ -232,7 +233,7 @@ public class CpuTweaks extends Activity {
 				    	SharedPreferences.Editor editor = sharedPreferences.edit();
 		      			editor.putInt("CpuMinFREQPref", position);
 		      			editor.commit(); 
-						Log.d("cpuminprefadapter","CpuMinFREQPref: position=" + position + " id=" + id);
+						Log.d(TAG,"CpuMinFREQPref: position=" + position + " id=" + id);
 						
 		      			// Try catch block for if it may go wrong 
 		      			try {
@@ -245,35 +246,35 @@ public class CpuTweaks extends Activity {
 							switch (position){				     
 						    case 0:
 						    	process.write("echo 162000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-						    	Log.d("cpuminprefadapter","echo'd 162000 to Cpu Min FREQ");
+						    	Log.d(TAG,"echo'd 162000 to Cpu Min FREQ");
 								break;
 						    case 1:
 						    	process.write("echo 216000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-						    	Log.d("cpuminprefadapter","echo'd 216000 to Cpu Min FREQ");
+						    	Log.d(TAG,"echo'd 216000 to Cpu Min FREQ");
 								break;
 						    case 2:
 						    	process.write("echo 270000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-						    	Log.d("cpuminprefadapter","echo'd 270000 to Cpu Min FREQ");
+						    	Log.d(TAG,"echo'd 270000 to Cpu Min FREQ");
 								break;
 						    case 3:
 						    	process.write("echo 324000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-						    	Log.d("cpuminprefadapter","echo'd 324000 to Cpu Min FREQ");
+						    	Log.d(TAG,"echo'd 324000 to Cpu Min FREQ");
 								break;
 						    case 4:
 						    	process.write("echo 378000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-						    	Log.d("cpuminprefadapter","echo'd 378000 to Cpu Min FREQ");
+						    	Log.d(TAG,"echo'd 378000 to Cpu Min FREQ");
 								break;
 						    case 5:
 						    	process.write("echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-						    	Log.d("cpuminprefadapter","echo'd 384000 to Cpu Min FREQ");
+						    	Log.d(TAG,"echo'd 384000 to Cpu Min FREQ");
 								break;
 						    case 6:
 						    	process.write("echo 486000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-						    	Log.d("cpuminprefadapter","echo'd 486000 to Cpu Min FREQ");
+						    	Log.d(TAG,"echo'd 486000 to Cpu Min FREQ");
 								break;
 						    case 7:
 						    	process.write("echo 594000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-						    	Log.d("cpuminprefadapter","echo'd 594000 to Cpu Min FREQ");
+						    	Log.d(TAG,"echo'd 594000 to Cpu Min FREQ");
 								break;
 						    default:
 						    	break;
@@ -282,13 +283,13 @@ public class CpuTweaks extends Activity {
 							process.term();
 							ValueReader();
 						} catch (Exception e) {
-							Log.e("Error","crashed"+e);
-							Log.d("Error","error"+e);
+							Log.e(TAG,"Error crashed "+e);
+							Log.d(TAG,"Error "+e);
 						}
 					}
 
 					public void onNothingSelected(AdapterView<?> parent) {
-						Log.d("cpuminprefadapter","CpuMinFREQPref: Nothing selected");
+						Log.d(TAG,"CpuMinFREQPref: Nothing selected");
 					}
 				});
 				
@@ -309,7 +310,7 @@ public class CpuTweaks extends Activity {
 				    	SharedPreferences.Editor editor = sharedPreferences.edit();
 		      			editor.putInt("CpuMaxFREQPref", position);
 		      			editor.commit(); 
-						Log.d("cpumaxfreqadapter","CpuMaxFREQPref: position=" + position + " id=" + id);
+						Log.d(TAG,"CpuMaxFREQPref: position=" + position + " id=" + id);
 						
 		      			// Try catch block for if it may go wrong 
 		      			try {
@@ -322,35 +323,35 @@ public class CpuTweaks extends Activity {
 							switch (position){				     
 						    case 0:
 						    	process.write("echo 1566000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-						    	Log.d("cpumaxfreqadapter","echo'd 1566000 to Cpu Max FREQ");
+						    	Log.d(TAG,"echo'd 1566000 to Cpu Max FREQ");
 								break;
 						    case 1:
 						    	process.write("echo 1674000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-						    	Log.d("cpumaxfreqadapter","echo'd 1674000 to Cpu Max FREQ");
+						    	Log.d(TAG,"echo'd 1674000 to Cpu Max FREQ");
 								break;
 						    case 2:
 						    	process.write("echo 1782000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-						    	Log.d("cpumaxfreqadapter","echo'd 1782000 to Cpu Max FREQ");
+						    	Log.d(TAG,"echo'd 1782000 to Cpu Max FREQ");
 								break;
 						    case 3:
 						    	process.write("echo 1890000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-						    	Log.d("cpumaxfreqadapter","echo'd 1890000 to Cpu Max FREQ");
+						    	Log.d(TAG,"echo'd 1890000 to Cpu Max FREQ");
 								break;
 						    case 4:
 						    	process.write("echo 1944000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-						    	Log.d("cpumaxfreqadapter","echo'd 1944000 to Cpu Max FREQ");
+						    	Log.d(TAG,"echo'd 1944000 to Cpu Max FREQ");
 								break;
 						    case 5:
 						    	process.write("echo 1998000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-						    	Log.d("cpumaxfreqadapter","echo'd 1998000 to Cpu Max FREQ");
+						    	Log.d(TAG,"echo'd 1998000 to Cpu Max FREQ");
 								break;
 						    case 6:
 						    	process.write("echo 2052000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-						    	Log.d("cpumaxfreqadapter","echo'd 2052000 to Cpu Max FREQ");
+						    	Log.d(TAG,"echo'd 2052000 to Cpu Max FREQ");
 								break;
 						    case 7:
 						    	process.write("echo 2106000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-						    	Log.d("cpumaxfreqadapter","echo'd 2106000 to Cpu Max FREQ");
+						    	Log.d(TAG,"echo'd 2106000 to Cpu Max FREQ");
 								break;
 						    default:
 						    	break;
@@ -359,13 +360,13 @@ public class CpuTweaks extends Activity {
 							process.term();
 							ValueReader();
 						} catch (Exception e) {
-							Log.e("Error","crashed"+e);
-							Log.d("Error","error"+e);
+							Log.e(TAG,"Error crashed "+e);
+							Log.d(TAG,"error "+e);
 						}
 					}
 
 					public void onNothingSelected(AdapterView<?> parent) {
-						Log.d("cpumaxfreqadapter","CpuMaxFREQPref: Nothing selected");
+						Log.d(TAG,"CpuMaxFREQPref: Nothing selected");
 					}
 				});
 				
@@ -379,9 +380,9 @@ public class CpuTweaks extends Activity {
 	private void ValueReader(){
 		// Read in the Values from files
 		RootProcess rootProcess = new RootProcess();
-		Log.d("CPUTweaks", "CPU Tweaks, Root init s");
+		Log.d(TAG, "CPU Tweaks, Root init s");
 		rootProcess.init();
-		Log.d("CPUTweaks", "CPU Tweaks, Root init e");
+		Log.d(TAG, "CPU Tweaks, Root init e");
 
 		if (vCheck_CPU_GOVERNOR.exists()) {
 			file_CPU_GOVERNOR_temp = vCheck_CPU_GOVERNOR.read(rootProcess);
@@ -410,19 +411,19 @@ public class CpuTweaks extends Activity {
 		 }
 
 	static void OptionsHider() {
-		Log.d("cpuGovernor_hide","OptionsHider() cpuGovernor_hide = "+FileCheck.cpuGovernor_hide);
+		Log.d(TAG,"OptionsHider() cpuGovernor_hide = "+FileCheck.cpuGovernor_hide);
   		if(FileCheck.cpuGovernor_hide == 1) {
   			sCPUspinner.setVisibility(View.GONE);
   			CpuCurrentValue.setVisibility(View.GONE);
   			textuncompatibel.setText(R.string.disabled_option_text);
   		}
-  		Log.d("cpuMinFreq_hide","OptionsHider() cpuMinFreq_hide = "+FileCheck.cpuMinFreq_hide);
+  		Log.d(TAG,"OptionsHider() cpuMinFreq_hide = "+FileCheck.cpuMinFreq_hide);
   		if(FileCheck.cpuMinFreq_hide == 1) {
   			sCPUminFREQspinner.setVisibility(View.GONE);
   			CpuMinFREQValue.setVisibility(View.GONE);
   			textuncompatibel2.setText(R.string.disabled_option_text);
   		}
-  		Log.d("cpuMaxFreq_hide","OptionsHider() cpuMaxFreq_hide = "+FileCheck.cpuMaxFreq_hide);
+  		Log.d(TAG,"OptionsHider() cpuMaxFreq_hide = "+FileCheck.cpuMaxFreq_hide);
   		if(FileCheck.cpuMaxFreq_hide == 1) {
   			sCPUmaxFREQspinner.setVisibility(View.GONE);
   			CpuMaxFREQValue.setVisibility(View.GONE);
