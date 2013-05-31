@@ -38,6 +38,7 @@ Update or Install Latest Dreamkernel
     <string name="disabled_option_text">Not Supported</string>
     <string name="alert_dialog_ok">OK</string>
     <string name="alert_dialog_cancel">Cancel</string>
+    <string name="disable_popup_text">Don\'t show again</string>
     
     <string name="action_settings">Settings</string>
     <string name="maintext">S4 Tweaker</string>
