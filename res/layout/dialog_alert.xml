@@ -66,6 +66,15 @@
         android:textColor="@color/white"
         android:textSize="14sp" />
 
-
+    <CheckBox
+        android:id="@+id/checkBoxHIDEALERT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginBottom="10dp"
+        android:text="Don't show again"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
 
 </RelativeLayout>
