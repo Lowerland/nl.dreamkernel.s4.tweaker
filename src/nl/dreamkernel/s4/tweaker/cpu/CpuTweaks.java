@@ -168,34 +168,30 @@ public class CpuTweaks extends Activity {
 						    	Log.d(TAG,"echo'd performance to  CPU Governor");
 								break;
 						    case 10:
-							process.write("echo abyssplug > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d(TAG,"echo'd abyssplug to  CPU Governor");
-								break;
-						    case 11:
 							process.write("echo adaptive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 							Log.d(TAG,"echo'd adaptive to  CPU Governor");
 								break;
-						    case 12:
+						    case 11:
 							process.write("echo asswax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 							Log.d(TAG,"echo'd asswax to  CPU Governor");
 								break;
-						    case 13:
+						    case 12:
 							process.write("echo badass > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 							Log.d(TAG,"echo'd badass to  CPU Governor");
 								break;
-						    case 14:
+						    case 13:
 							process.write("echo dancedance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 							Log.d(TAG,"echo'd dancedance to  CPU Governor");
 								break;
-						    case 15:
+						    case 14:
 							process.write("echo nightmare > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 							Log.d(TAG,"echo'd nightmare to  CPU Governor");
 								break;
-						    case 16:
+						    case 15:
 							process.write("echo pegasusq > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 							Log.d(TAG,"echo'd pegasusq to  CPU Governor");
 								break;
-						    case 17:
+						    case 16:
 							process.write("echo smartassH3 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 							Log.d(TAG,"echo'd smartassH3 to  CPU Governor");
 								break;
