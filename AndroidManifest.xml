@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
 /*
  *  Copyright 2013-2014 Jeroen Gorter <Lowerland@hotmail.com>
  *
@@ -25,37 +25,56 @@
         android:minSdkVersion="16"
         android:targetSdkVersion="17" />
 
-        <supports-screens
+    <supports-screens
         android:anyDensity="true"
-        android:smallScreens="true"
-        android:normalScreens="true"
         android:largeScreens="true"
+        android:normalScreens="true"
         android:resizeable="true"
+        android:smallScreens="true"
         android:xlargeScreens="true" />
-        
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
+
     <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_s4launcher"
-        android:label="@string/maintext" 
-        android:allowBackup="true">
-              <activity
+        android:label="@string/maintext" >
+        <activity
             android:name="nl.dreamkernel.s4.tweaker.Main"
+            android:icon="@drawable/ic_s4launcher"
             android:label="@string/maintext"
-            android:icon="@drawable/ic_s4launcher" >
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="nl.dreamkernel.s4.tweaker.about.About"
-            android:icon="@drawable/ic_about"></activity>
-        <activity android:name="nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks"
-            android:icon="@drawable/ic_soundtweaks"></activity>
-        <activity android:name="nl.dreamkernel.s4.tweaker.misc.Misc"
-            android:icon="@drawable/ic_settings"></activity>
-        <activity android:name="nl.dreamkernel.s4.tweaker.cpu.CpuTweaks"
-            android:icon="@drawable/ic_cpu"></activity>
+        <activity
+            android:name="nl.dreamkernel.s4.tweaker.about.About"
+            android:icon="@drawable/ic_about"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks"
+            android:icon="@drawable/ic_soundtweaks"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="nl.dreamkernel.s4.tweaker.misc.Misc"
+            android:icon="@drawable/ic_settings"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="nl.dreamkernel.s4.tweaker.cpu.CpuTweaks"
+            android:icon="@drawable/ic_cpu"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="nl.dreamkernel.s4.tweaker.util.DialogActivity"
+            android:theme="@android:style/Theme.Holo.Dialog" >
+        </activity>
+        
         
     </application>
 
