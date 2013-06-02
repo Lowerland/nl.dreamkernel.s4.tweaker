@@ -66,6 +66,7 @@ Update or Install Latest Dreamkernel
     
     <string name="io_scheduler">I/O-Schedulers</string>
     <string name="internal">Set Int. Scheduler:</string>
+    <string name="text_Internal_Scheduler">Internal Scheduler</string>
     <string name="external">Set Ext. Scheduler:</string>
     <string name="current_int">Current Int. Scheduler:</string>
     <string name="current_ext">Current Ext. Scheduler:</string>
