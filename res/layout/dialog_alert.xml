@@ -18,7 +18,8 @@
     android:id="@+id/dialog_alert"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:gravity="center_horizontal" >
 
 	<ImageView
         android:id="@+id/Warningsign"
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+         android:layout_marginTop="2dp"
         android:layout_marginLeft="10dp"
         android:contentDescription="@string/compatibility_alert_title"
         android:src="@drawable/ic_warning" />
@@ -36,7 +38,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/Warningsign"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:text="@string/compatibility_alert_title"
         android:textSize="17sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -50,7 +52,7 @@
     	android:layout_below="@+id/compatibility_alert_title"
     	android:layout_marginTop="0dp"
     	android:layout_marginLeft="0dp"
-    	android:layout_marginRight="0dp"	/>
+    	android:layout_marginRight="0dp"/>
 
     <TextView
         android:id="@+id/textView1"
@@ -75,7 +77,27 @@
         android:text="@string/disable_popup_text"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/white"
-        android:textSize="14sp"
-        android:onClick="on_HIDE_ALERT" />
+        android:textSize="14sp" />
+    
+    	<View
+		android:id="@+id/dummyvalue2"
+    	android:layout_width="fill_parent"
+    	android:layout_height="1dip"
+    	android:background="@color/dialog_box_gray_line"
+    	android:layout_below="@+id/checkBoxHIDEALERT"
+    	android:layout_marginTop="0dp"
+    	android:layout_marginLeft="0dp"
+    	android:layout_marginRight="0dp"/>
+    
+    <Button
+            android:id="@+id/btn_dialog_ok"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_below="@+id/checkBoxHIDEALERT"
+            android:layout_marginTop="1dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alert_dialog_ok"
+            android:onClick="onDialogOK" />
 
 </RelativeLayout>
