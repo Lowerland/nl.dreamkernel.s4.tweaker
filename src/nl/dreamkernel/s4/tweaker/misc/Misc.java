@@ -19,11 +19,13 @@ package nl.dreamkernel.s4.tweaker.misc;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,7 +78,7 @@ public class Misc extends Activity  {
     private static TextView vibratorProgress;
     // declare Switch objects
     private static Switch usbfastchargeswitch;
-    private static Switch hide_misc_alert_switch;
+
     // declare the spinners
  	private static Spinner sInternal;
  	private static Spinner sExternal;
@@ -84,6 +86,7 @@ public class Misc extends Activity  {
 	// variables to store the shared pref in
 	private int InternalPrefValue;
 	//private int ExternalPrefValue;// <--- TEMP DISABLED
+	public static int misc_hide_dialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,8 @@ public class Misc extends Activity  {
 		setContentView(R.layout.misctweaks);
 		setTitle(R.string.menu_misc_tweaks);
 		getActionBar().hide();
+		
+		final SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 		
 		// Find current value views
 		InternalValue = (TextView)findViewById(R.id.InternalValue);
@@ -109,7 +114,7 @@ public class Misc extends Activity  {
 		usbfastchargeswitch = (Switch) findViewById(R.id.usb_fast_charge_switch); 
 		
 		//get the Shared Prefs
-		final SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+
 		InternalPrefValue = sharedPreferences.getInt("InternalPref", 0);
 		//ExternalPrefValue = sharedPreferences.getInt("ExternalPref", 0); // <--- TEMP DISABLED
 		
@@ -337,10 +342,30 @@ public class Misc extends Activity  {
 				Log.d("externaladapter","externaladapter: Nothing selected");
 			}
 		});*/
-		
+  		
+  		// Filechecking part
+  		misc_hide_dialog = sharedPreferences.getInt("misc_hide_dialog", 0);
+        Log.d(TAG,"onCreate misc_hide_dialog = "+misc_hide_dialog);
+
+        FileCheck.CheckMiscOptions(Misc.this);
+		OptionsHider();
+
+		if (FileCheck.incompatible == true) {
+			if(misc_hide_dialog == 1){
+	    		Log.d(TAG,"hide the dialog");
+	    	} else {
+	    			Log.d(TAG,"show dialog");
+	 	           Intent intent = new Intent(Misc.this, DialogActivity.class);
+	 	           startActivityForResult(intent, GET_CODE);
+	    	}
+			Log.d(TAG,"incompatible = "+FileCheck.incompatible);
+		} else {
+			Log.d(TAG,"incompatible = "+FileCheck.incompatible);
+        }
+
 
 	}
-	
+
 	void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
@@ -463,11 +488,25 @@ public class Misc extends Activity  {
   		}  		
   	}
 
+	// Method Used for retreiving data from the AlertDialog
 	@Override
-	protected void onResume() {
-		super.onResume();
-		hide_misc_alert_switch = (Switch) findViewById(R.id.checkBoxHIDEALERT);
-		FileCheck.CheckMiscOptions(Misc.this);
-		OptionsHider();
-	}
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent data) {
+		if (requestCode == GET_CODE) {
+			if (resultCode == RESULT_CANCELED) {
+				} else {
+					@SuppressWarnings("unused")
+					String resultlog = Integer.toString(resultCode);
+					if (data != null) {
+						Log.d(TAG,"RESULT_DATA = "+data.getAction());
+	                	SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+	                    SharedPreferences.Editor editor = sharedPreferences.edit();
+	            		editor.putInt("misc_hide_dialog", Integer.parseInt(data.getAction()));
+	            		editor.commit();
+	            		}
+					}
+			}
+		}
+	// Definition of the one requestCode we use for receiving resuls.
+	static final private int GET_CODE = 0;
 }
