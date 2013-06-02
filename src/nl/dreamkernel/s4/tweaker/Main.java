@@ -17,12 +17,10 @@
 package nl.dreamkernel.s4.tweaker;
 
 import nl.dreamkernel.s4.tweaker.R;
-import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -73,9 +71,9 @@ public class Main extends Activity {
 		// TODO Auto-generated method stub
 		super.onResume();
 		Log.d(TAG,"onResume() "+FileCheck.isRootEnabled());
-        if (FileCheck.isRootEnabled() == true) {
-        	Log.d(TAG,"root access");
-        	/*// Show Root required alert
+        if (!FileCheck.isRootEnabled() == true) {
+        	Log.d(TAG,"FileCheck.isRootEnabled() = "+FileCheck.isRootEnabled());
+        	// Show Root required alert
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             final FrameLayout frameView = new FrameLayout(this);
             builder.setView(frameView);
@@ -85,15 +83,15 @@ public class Main extends Activity {
             	public void onClick(DialogInterface dialog, int whichButton) {
             		// Button OK Clicked
             		// Exit App
-            		//finish();
+            		finish();
             		}
             	});
             LayoutInflater inflater = norootDialog.getLayoutInflater();
             @SuppressWarnings("unused")
 			View dialoglayout = inflater.inflate(R.layout.no_root_alert, frameView);
-            norootDialog.show();*/
+            norootDialog.show();
         } else {
-        	Log.d(TAG,"Got no root access");        	
+        	Log.d(TAG,"Got root access");        	
         }
 	}
 }
