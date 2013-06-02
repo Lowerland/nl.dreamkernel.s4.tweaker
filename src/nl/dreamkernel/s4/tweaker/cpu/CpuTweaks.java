@@ -16,11 +16,13 @@
 
 package nl.dreamkernel.s4.tweaker.cpu;
 
+import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,6 +67,7 @@ public class CpuTweaks extends Activity {
 	private int CpuGovernorPrefValue;
 	private int CpuMinFREQPrefValue;
 	private int CpuMaxFREQPrefValue;
+	public static int cpu_hide_dialog;
 
 	// variables for the spinners
 	private static Spinner sCPUspinner;
@@ -78,19 +81,20 @@ public class CpuTweaks extends Activity {
 		setContentView(R.layout.cputweaks);
 		setTitle(R.string.menu_cpu_tweaks);
 		getActionBar().hide();
-		
+
+		final SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+
 		// Find current value views
 		CpuCurrentValue = (TextView)findViewById(R.id.CpuCurrentValue);
 		CpuMinFREQValue = (TextView)findViewById(R.id.CpuMinFreqValue);
 		CpuMaxFREQValue = (TextView)findViewById(R.id.CpuMaxFreqValue);
-		
+
 		//Find Views
   		textuncompatibel = (TextView)findViewById(R.id.uncompatible_alert);
   		textuncompatibel2 = (TextView)findViewById(R.id.uncompatible_alert2);
   		textuncompatibel3 = (TextView)findViewById(R.id.uncompatible_alert3);
 
 		//get the Shared Prefs
-		final SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 		CpuGovernorPrefValue = sharedPreferences.getInt("CpuGovernorPref", 0);
 
 		CpuMinFREQPrefValue = sharedPreferences.getInt("CpuMinFREQPref", 0);
@@ -369,14 +373,32 @@ public class CpuTweaks extends Activity {
 						Log.d(TAG,"CpuMaxFREQPref: Nothing selected");
 					}
 				});
-				
-				
+
+				// Filechecking part
+				cpu_hide_dialog = sharedPreferences.getInt("cpu_hide_dialog", 0);
+		        Log.d(TAG,"onCreate cpu_hide_dialog = "+cpu_hide_dialog);
+
+		        FileCheck.CheckCPUOptions(CpuTweaks.this);
+				OptionsHider();
+
+				if (FileCheck.incompatible == true) {
+					if(cpu_hide_dialog == 1){
+			    		Log.d(TAG,"hide the dialog");
+			    	} else {
+			    		Log.d(TAG,"show dialog");
+			    		Intent intent = new Intent(CpuTweaks.this, DialogActivity.class);
+			    		startActivityForResult(intent, GET_CODE);
+			    		}
+					Log.d(TAG,"incompatible = "+FileCheck.incompatible);
+				} else {
+					Log.d(TAG,"incompatible = "+FileCheck.incompatible);
+					}
 	}
 
 	void showToast(CharSequence msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
-	
+
 	private void ValueReader(){
 		// Read in the Values from files
 		RootProcess rootProcess = new RootProcess();
@@ -410,6 +432,7 @@ public class CpuTweaks extends Activity {
 		
 		 }
 
+	// Options Hide if it isn't compatible
 	static void OptionsHider() {
 		Log.d(TAG,"OptionsHider() cpuGovernor_hide = "+FileCheck.cpuGovernor_hide);
   		if(FileCheck.cpuGovernor_hide == 1) {
@@ -429,13 +452,27 @@ public class CpuTweaks extends Activity {
   			CpuMaxFREQValue.setVisibility(View.GONE);
   			textuncompatibel3.setText(R.string.disabled_option_text);
   		}
-		
 	}
 
+	// Method Used for retreiving data from the AlertDialog
 	@Override
-	protected void onResume() {
-		super.onResume();
-		FileCheck.CheckCPUOptions(CpuTweaks.this);
-		OptionsHider();		
-	}
+	protected void onActivityResult(int requestCode, int resultCode,
+		Intent data) {
+        if (requestCode == GET_CODE) {
+            if (resultCode == RESULT_CANCELED) {
+            } else {
+            	@SuppressWarnings("unused")
+				String resultlog = Integer.toString(resultCode);
+                if (data != null) {
+                	Log.d(TAG,"RESULT_DATA = "+data.getAction());
+                	SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+            		editor.putInt("cpu_hide_dialog", Integer.parseInt(data.getAction()));
+            		editor.commit(); 
+                }
+            }
+        }
+    }
+	// Definition of the one requestCode we use for receiving resuls.
+    static final private int GET_CODE = 0;
 }
