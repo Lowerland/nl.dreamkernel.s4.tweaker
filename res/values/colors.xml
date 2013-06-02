@@ -6,6 +6,7 @@
     <color name="blue_line">#698bdd</color>
     <color name="light_blue_line">#33b5e5</color>
     <color name="gray_line">#3b3b3b</color>
+    <color name="dialog_box_gray_line">#404040</color>
     <color name="logoblue">#7298f3</color>
     <color name="red_alert">#ef3d3d</color>
     <color name="blue_outline">#046ea9</color>
