@@ -79,7 +79,7 @@ public class Misc extends Activity  {
     private static Switch usbfastchargeswitch;
 
     // declare the spinners
- 	private static Spinner sInternal;
+ 	//private static Spinner sInternal;
  	private static Spinner sExternal;
  	
 	// variables to store the shared pref in
@@ -477,7 +477,7 @@ public class Misc extends Activity  {
 
 		Log.d(TAG,"OptionsHider() internal_scheduler_hide = "+FileCheck.internal_scheduler_hide);
   		if(FileCheck.internal_scheduler_hide == 1) {
-  			sInternal.setVisibility(View.GONE);
+  			//sInternal.setVisibility(View.GONE);
   			InternalValue.setVisibility(View.GONE);
   	  		textuncompatibel.setText(R.string.disabled_option_text);
   		}
