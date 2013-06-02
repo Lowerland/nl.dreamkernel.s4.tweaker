@@ -18,13 +18,7 @@ package nl.dreamkernel.s4.tweaker.util;
 
 import java.io.File;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.FrameLayout;
-import nl.dreamkernel.s4.tweaker.R;
 import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
 import nl.dreamkernel.s4.tweaker.misc.Misc;
 import nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks;
@@ -54,7 +48,7 @@ public class FileCheck {
 	public static int vibrator_intensity_hide;
 	public static int Usb_Fast_charge_hide;
 	// Initialize Boolean AlertDialog
-	static boolean incompatible;
+	public static boolean incompatible;
 	//////
 	// FileChecking Methods
 	/////
@@ -94,7 +88,6 @@ public class FileCheck {
 			gpl_headset_mic_hide = 1;
 			incompatible = true;	    	
 	    }
-		AlertDialog(context);		
 	}
 	
 	// CpuTweaks FileChecking Method
@@ -117,7 +110,6 @@ public class FileCheck {
 			cpuMaxFreq_hide = 1;
 			incompatible = true;
 			}
-		AlertDialog(context);
 		}
 
 	// MiscTweaks FileChecking Method
@@ -145,7 +137,6 @@ public class FileCheck {
 			Usb_Fast_charge_hide = 1;
 			incompatible = true;
 			}
-		AlertDialog(context);
 	}
 	
 	// Root acces check
@@ -160,25 +151,4 @@ public class FileCheck {
         }
         return false;
     }
-
-	// Show Incompatible Alert if things arent right
-	public static void AlertDialog(Context context) {
-		if (incompatible == true) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			final FrameLayout frameView = new FrameLayout(context);
-			builder.setView(frameView);
-			final AlertDialog alertDialog = builder.create();
-			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-					"OK", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					// Button OK Clicked
-					}
-				});
-			LayoutInflater inflater = alertDialog.getLayoutInflater();
-			@SuppressWarnings("unused")
-			View dialoglayout = inflater.inflate(R.layout.dialog_alert, frameView);
-			alertDialog.show();
-		}
-	}
-	
 }
