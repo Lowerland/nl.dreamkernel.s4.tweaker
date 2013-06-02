@@ -192,10 +192,6 @@ public class CpuTweaks extends Activity {
 							Log.d(TAG,"echo'd nightmare to  CPU Governor");
 								break;
 						    case 15:
-							process.write("echo pegasusq > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-							Log.d(TAG,"echo'd pegasusq to  CPU Governor");
-								break;
-						    case 16:
 							process.write("echo smartassH3 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 							Log.d(TAG,"echo'd smartassH3 to  CPU Governor");
 								break;
