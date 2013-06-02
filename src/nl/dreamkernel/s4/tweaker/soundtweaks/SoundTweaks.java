@@ -16,11 +16,14 @@
 
 package nl.dreamkernel.s4.tweaker.soundtweaks;
 
+import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -65,6 +68,7 @@ public class SoundTweaks extends Activity {
 	private int gpl_hdmi_spkr_gain;
 	private int gpl_headset_mic_gain;
 	private int value_default;
+	public static int soundtweaks_hide_dialog;
 	
 	private String headphonevalueconvert;
 	private String headphonesubstring;
@@ -97,6 +101,8 @@ public class SoundTweaks extends Activity {
 		setContentView(R.layout.soundtweaks);
 		setTitle(R.string.menu_soundtweaks);
 		getActionBar().hide();
+
+		final SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 
 		// Root init s/e
 		RootProcess rootProcess = new RootProcess();
@@ -503,7 +509,28 @@ public class SoundTweaks extends Activity {
       				// change progress text label with current seekbar value
       				textgplheadsetmicgainProgress.setText(""+gpl_headset_mic_gain);
       			}
-      		});	
+      		});
+
+
+		// Filechecking part
+        soundtweaks_hide_dialog = sharedPreferences.getInt("soundtweaks_hide_dialog", 0);
+        Log.d(TAG,"onCreate cpu_hide_dialog = "+soundtweaks_hide_dialog);
+
+        FileCheck.CheckSoundOptions(SoundTweaks.this);
+		OptionsHider();
+
+		if (FileCheck.incompatible == true) {
+			if(soundtweaks_hide_dialog == 1){
+	    		Log.d(TAG,"hide the dialog");
+	    	} else {
+	    		Log.d(TAG,"show dialog");
+	    		Intent intent = new Intent(SoundTweaks.this, DialogActivity.class);
+	    		startActivityForResult(intent, GET_CODE);
+	    	}
+			Log.d(TAG,"incompatible = "+FileCheck.incompatible);
+		} else {
+			Log.d(TAG,"incompatible = "+FileCheck.incompatible);
+        }
 	}
 
 	// Start on boot switch
@@ -569,11 +596,26 @@ public class SoundTweaks extends Activity {
 			textuncompatibel6.setText(R.string.disabled_option_text);
 		}
 	}
-
+	
+	// Method Used for retreiving data from the AlertDialog
 	@Override
-	protected void onResume() {
-		super.onResume();
-		FileCheck.CheckSoundOptions(SoundTweaks.this);
-		OptionsHider();
-	}
+	protected void onActivityResult(int requestCode, int resultCode,
+	Intent data) {
+		if (requestCode == GET_CODE) {
+			if (resultCode == RESULT_CANCELED) {
+				} else {
+					@SuppressWarnings("unused")
+					String resultlog = Integer.toString(resultCode);
+	                if (data != null) {
+	                	Log.d(TAG,"RESULT_DATA = "+data.getAction());
+	                	SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+	                    SharedPreferences.Editor editor = sharedPreferences.edit();
+	            		editor.putInt("soundtweaks_hide_dialog", Integer.parseInt(data.getAction()));
+	            		editor.commit(); 
+	                }
+	            }
+	        }
+	    }
+	// Definition of the one requestCode we use for receiving resuls.
+	static final private int GET_CODE = 0;
 }
