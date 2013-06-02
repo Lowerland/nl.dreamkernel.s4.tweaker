@@ -25,18 +25,17 @@ import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
@@ -87,6 +86,9 @@ public class Misc extends Activity  {
 	private int InternalPrefValue;
 	//private int ExternalPrefValue;// <--- TEMP DISABLED
 	public static int misc_hide_dialog;
+	
+	// TEMP Int used by dialogs
+	private static int dialog_temp_internal;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -181,87 +183,7 @@ public class Misc extends Activity  {
       				vibratorProgress.setText(""+value_vibrator);
       			}
       		});	
-		
-		// Dropdown menu for I/O Scheduler Internal
-		sInternal = (Spinner) findViewById(R.id.internalspinner);
 
-		ArrayAdapter<CharSequence> internaladapter = ArrayAdapter
-				.createFromResource(this, R.array.ioInternal,
-						android.R.layout.simple_spinner_item);
-		internaladapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		sInternal.setAdapter(internaladapter);
-		//set the option based on the sharedprefs
-		sInternal.setSelection(InternalPrefValue, true);
-		sInternal.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-		    	SharedPreferences.Editor editor = sharedPreferences.edit();
-      			editor.putInt("InternalPref", position);
-      			editor.commit(); 
-				Log.d(TAG,"internaladapter: position=" + position + " id=" + id);
-				
-      			// Try catch block for if it may go wrong 
-      			try {
-      				//calls RootProcess
-					RootProcess process = new RootProcess();
-					if (!process.init()) {
-					    return;
-					}
-					// Writing the selected value to file 
-					switch (position){				     
-				    case 0:
-				    	process.write("echo noop > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d(TAG,"echo'd noop to internalscheduler");
-						break;
-				    case 1:
-				    	process.write("echo deadline > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d(TAG,"echo'd deadline to internalscheduler");
-				    	break;
-				    case 2:
-				    	process.write("echo cfq > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d(TAG,"echo'd cfq to internalscheduler");
-				    	break;
-				    case 3:
-				    	process.write("echo bfq > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d(TAG,"echo'd bfq to internalscheduler");
-				    	break;
-				    case 4:
-				    	process.write("echo fiops > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d(TAG,"echo'd fiops to internalscheduler");
-				    	break;
-				    case 5:
-				    	process.write("echo sio > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-				    	Log.d(TAG,"echo'd sio to internalscheduler");
-				    	break;
-				    case 6:
-					process.write("echo vr > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-					Log.d(TAG,"echo'd vr to internalscheduler");
-					break;
-				    case 7:
-					process.write("echo zen > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
-					Log.d(TAG,"echo'd zen to internalscheduler");
-					break;
-				    default:
-				    	break;
-				     }
-
-					process.term();
-					ValueReader();
-				} catch (Exception e) {
-					Log.e(TAG,"Error crashed "+e);
-					Log.d(TAG,"Error "+e);
-				}
-			}
-
-			public void onNothingSelected(AdapterView<?> parent) {
-				Log.d(TAG,"internaladapter: Nothing selected");
-			}
-		});
-		
-		
-
-		
 		// Dropdown menu for I/O Scheduler External
 		sExternal = (Spinner) findViewById(R.id.externalspinner); // Original line
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -459,7 +381,97 @@ public class Misc extends Activity  {
 			 ValueReader();
 		
 		 }
-		 }
+	}
+	
+	public void onINTERNAL(View View) {
+		Log.d(TAG, "Internal value clicked");
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	      //final FrameLayout frameView = new FrameLayout(this);
+	     // builder.setView(frameView);
+	      builder.setSingleChoiceItems(R.array.ioInternal, 0, new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface dialog, int whichButton) {
+
+	                /* User clicked on a radio button do some stuff */
+	            	Log.d(TAG,"User clicked on radio button "+whichButton);
+	            	dialog_temp_internal = whichButton;
+	            	
+	            }
+	        });
+	      final AlertDialog alertDialog = builder.create();
+	      alertDialog.setTitle(R.string.text_Internal_Scheduler);
+	      
+	      alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+	          "OK", new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int whichButton) {
+	          // Button OK Clicked
+	        	Log.d(TAG,"Button ok clicked");        	
+	        	Log.d(TAG,"Store Selected = "+dialog_temp_internal);
+	        	SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+	        	SharedPreferences.Editor editor = sharedPreferences.edit();
+      			editor.putInt("InternalPref", dialog_temp_internal);
+      			editor.commit();
+
+      			DialogSaver();
+				ValueReader();
+				}
+	        });
+	      
+	      /*LayoutInflater inflater = alertDialog.getLayoutInflater();
+	      @SuppressWarnings("unused")
+	      View dialoglayout = inflater.inflate(R.layout.dialog_alert, frameView);*/
+	      alertDialog.show();
+	}
+
+	private void DialogSaver(){
+		Log.d(TAG,"DialogSaver intervalue = "+dialog_temp_internal);
+		//calls RootProcess
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+			}
+
+		// Write Values to the filesystem
+		switch (dialog_temp_internal){
+		case 0:
+			Log.d(TAG,"echo'd noop to internalscheduler");
+			process.write("echo noop > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
+			Log.d(TAG,"echo'd noop to internalscheduler");
+		break;
+		case 1:
+			process.write("echo deadline > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
+			Log.d(TAG,"echo'd deadline to internalscheduler");
+		break;
+		case 2:
+			process.write("echo cfq > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
+			Log.d(TAG,"echo'd cfq to internalscheduler");
+    	break;
+    	case 3:
+    		process.write("echo bfq > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
+    		Log.d(TAG,"echo'd bfq to internalscheduler");
+    	break;
+    	case 4:
+    		process.write("echo fiops > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
+    		Log.d(TAG,"echo'd fiops to internalscheduler");
+    	break;
+    	case 5:
+    		process.write("echo sio > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
+    		Log.d(TAG,"echo'd sio to internalscheduler");
+    	break;
+    	case 6:
+    		process.write("echo vr > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
+    		Log.d(TAG,"echo'd vr to internalscheduler");
+    	break;
+    	case 7:
+    		process.write("echo zen > /sys/devices/platform/msm_sdcc.1/mmc_host/mmc0/mmc0:0001/block/mmcblk0/queue/scheduler\n");
+    		Log.d(TAG,"echo'd zen to internalscheduler");
+    	break;
+    	default:
+    	break;
+	}
+	process.term();
+	Log.d(TAG,"DialogSaver intervalue end= "+dialog_temp_internal);
+}
 
 	static void OptionsHider() {
 
