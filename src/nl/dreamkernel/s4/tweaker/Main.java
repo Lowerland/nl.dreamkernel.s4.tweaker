@@ -35,63 +35,65 @@ public class Main extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
-		//setContentView(R.layout.main);
-		//getActionBar().hide();
-		
+		getFragmentManager().beginTransaction()
+				.replace(android.R.id.content, new MyPreferenceFragment())
+				.commit();
+		// setContentView(R.layout.main);
+		// getActionBar().hide();
+
 		// Usage counter
-        SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
-        int usage_counter = sharedPreferences.getInt("usage_counter", 0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-		editor.putInt("usage_counter", usage_counter+1);
-		editor.commit(); 
-		Log.d(TAG, "Runned This App "+ usage_counter +" Times now");
+		SharedPreferences sharedPreferences = getSharedPreferences(
+				"MY_SHARED_PREF", 0);
+		int usage_counter = sharedPreferences.getInt("usage_counter", 0);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putInt("usage_counter", usage_counter + 1);
+		editor.commit();
+		Log.d(TAG, "Runned This App " + usage_counter + " Times now");
 	}
 
 	/*
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}*/
+	 * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
+	 * menu; this adds items to the action bar if it is present.
+	 * getMenuInflater().inflate(R.menu.main, menu); return true; }
+	 */
 
-	public static class MyPreferenceFragment extends PreferenceFragment
-    {
-        @Override
-        public void onCreate(final Bundle savedInstanceState)
-        {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.main_pref);
-        }
-    }
+	public static class MyPreferenceFragment extends PreferenceFragment {
+		@Override
+		public void onCreate(final Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(R.xml.main_pref);
+		}
+	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		Log.d(TAG,"onResume() "+FileCheck.isRootEnabled());
-        if (!FileCheck.isRootEnabled() == true) {
-        	Log.d(TAG,"FileCheck.isRootEnabled() = "+FileCheck.isRootEnabled());
-        	// Show Root required alert
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            final FrameLayout frameView = new FrameLayout(this);
-            builder.setView(frameView);
-            final AlertDialog norootDialog = builder.create();
-            norootDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-            		"OK", new DialogInterface.OnClickListener() {
-            	public void onClick(DialogInterface dialog, int whichButton) {
-            		// Button OK Clicked
-            		// Exit App
-            		finish();
-            		}
-            	});
-            LayoutInflater inflater = norootDialog.getLayoutInflater();
-            @SuppressWarnings("unused")
-			View dialoglayout = inflater.inflate(R.layout.no_root_alert, frameView);
-            norootDialog.show();
-        } else {
-        	Log.d(TAG,"Got root access");        	
-        }
+		Log.d(TAG, "onResume() " + FileCheck.isRootEnabled());
+		if (!FileCheck.isRootEnabled() == true) {
+			Log.d(TAG,
+					"FileCheck.isRootEnabled() = " + FileCheck.isRootEnabled());
+			// Show Root required alert
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			final FrameLayout frameView = new FrameLayout(this);
+			builder.setView(frameView);
+			final AlertDialog norootDialog = builder.create();
+			norootDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							// Button OK Clicked
+							// Exit App
+							finish();
+						}
+					});
+			LayoutInflater inflater = norootDialog.getLayoutInflater();
+			@SuppressWarnings("unused")
+			View dialoglayout = inflater.inflate(R.layout.no_root_alert,
+					frameView);
+			norootDialog.show();
+		} else {
+			Log.d(TAG, "Got root access");
+		}
 	}
 }

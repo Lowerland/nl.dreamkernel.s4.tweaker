@@ -33,19 +33,15 @@ public class About extends Activity {
 		setTitle(R.string.menu_about);
 		getActionBar().hide();
 	}
-	
-	 public void onDonate (View view) {
-	        goToUrl ( "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RW5FTGU89GMUN");
-	    }
-	 
-	 private void goToUrl (String url) {
-	        Uri uriUrl = Uri.parse(url);
-	        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-	        startActivity(launchBrowser);
-	    }
 
-	
-	
-	
+	public void onDonate(View view) {
+		goToUrl("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RW5FTGU89GMUN");
+	}
+
+	private void goToUrl(String url) {
+		Uri uriUrl = Uri.parse(url);
+		Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+		startActivity(launchBrowser);
+	}
 
 }
