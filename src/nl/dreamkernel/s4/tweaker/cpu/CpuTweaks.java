@@ -48,21 +48,21 @@ public class CpuTweaks extends Activity {
 	private static TextView textuncompatibel3;
 
 	// Variables for file paths
-	/*
-	 * public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
-	 * "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"); public static
-	 * final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
-	 * "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"); public static
-	 * final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
-	 * "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
-	 */
+	
+	  public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
+	  "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"); public static
+	  final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
+	  "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"); public static
+	  final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
+	  "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+/*
 	public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
 			"/mnt/sdcard/testfiles/scaling_governor");
 	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
 			"/mnt/sdcard/testfiles/scaling_min_freq");
 	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
 			"/mnt/sdcard/testfiles/scaling_max_freq");
-
+*/
 	// variables storing the real file values
 	private String file_CPU_GOVERNOR;
 	private String file_CPU_GOVERNOR_temp;
