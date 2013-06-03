@@ -11,6 +11,7 @@
     <color name="red_alert">#ef3d3d</color>
     <color name="blue_outline">#046ea9</color>
     <color name="blue_bg_box">#04283c</color>
+    <color name="translucent">#00FFFFFF</color>
     
     <color name="android_blue">#33b5e5</color>
 	<color name="android_blue_dark">#0099cc</color>
