@@ -51,13 +51,13 @@ Update or Install Latest Dreamkernel
     <string name="menu_cpu_tweaks">Cpu Tweaks</string>
     
     <string name="cpu_governor">CPU Governor</string>
-    <string name="current_cpu_governor">Current CPU Governor:</string>
+    <string name="current_cpu_governor">CPU Governor</string>
     <string name="set_cpu_governor">Set CPU Governor:</string>
     
     <string name="cpu_freq_scaling_title">CPU Frequency Scaling</string>
-    <string name="current_freq_scaling_min">Current Min Scaling Freq:</string>
+    <string name="min_frequency_scaling">Min Frequency Scaling</string>
     <string name="set_freq_scaling_min">Set Min Scaling Freq:</string>
-    <string name="current_freq_scaling_max">Current Max Scaling Freq:</string>
+    <string name="max_fequency_scaling">Max Frequency Scaling</string>
     <string name="set_freq_scaling_max">Set Max Scaling Freq:</string>
     
     <string name="usb_fast_charge">USB Fast Charge</string>
