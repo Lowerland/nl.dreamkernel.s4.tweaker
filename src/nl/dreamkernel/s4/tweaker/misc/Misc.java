@@ -44,7 +44,7 @@ public class Misc extends Activity  {
 	    
 	// variables for the Textviews
 	private static TextView InternalValue;
-	private static TextView ExternalValue;
+	//private static TextView ExternalValue;
 	private static TextView textuncompatibel;
    // private static TextView textuncompatibel2;// <--- TEMP DISABLED
     private static TextView textuncompatibel3;
@@ -80,7 +80,7 @@ public class Misc extends Activity  {
 
     // declare the spinners
  	//private static Spinner sInternal;
- 	private static Spinner sExternal;
+ 	//private static Spinner sExternal;
  	
 	// variables to store the shared pref in
 	private int InternalPrefValue;
@@ -101,7 +101,7 @@ public class Misc extends Activity  {
 		
 		// Find current value views
 		InternalValue = (TextView)findViewById(R.id.InternalValue);
-		ExternalValue = (TextView)findViewById(R.id.ExternalValue);
+		//ExternalValue = (TextView)findViewById(R.id.ExternalValue);
 		vibratorProgress = (TextView)findViewById(R.id.value_vibrator_intensity);
 		//Find Views
   		textuncompatibel = (TextView)findViewById(R.id.internal_scheduler_alert);
@@ -185,14 +185,14 @@ public class Misc extends Activity  {
       		});	
 
 		// Dropdown menu for I/O Scheduler External
-		sExternal = (Spinner) findViewById(R.id.externalspinner); // Original line
+		//sExternal = (Spinner) findViewById(R.id.externalspinner); // Original line
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
-		TextView tempexternalhidetext = (TextView) findViewById(R.id.current_ext); // DELETE ME TO ENABLE EXT SCHEDULER
-		TextView tempexternalhidetext2 = (TextView) findViewById(R.id.textIOschedulerexternal); // DELETE ME TO ENABLE EXT SCHEDULER
-		tempexternalhidetext.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
-		tempexternalhidetext2.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
-		sExternal.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
-  		ExternalValue.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
+		//TextView tempexternalhidetext = (TextView) findViewById(R.id.current_ext); // DELETE ME TO ENABLE EXT SCHEDULER
+		//TextView tempexternalhidetext2 = (TextView) findViewById(R.id.textIOschedulerexternal); // DELETE ME TO ENABLE EXT SCHEDULER
+		//tempexternalhidetext.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
+		//tempexternalhidetext2.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
+		//sExternal.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
+  		//ExternalValue.setVisibility(View.GONE); // DELETE ME TO ENABLE EXT SCHEDULER
   		//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*		ArrayAdapter<CharSequence> externaladapter = ArrayAdapter
