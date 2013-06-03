@@ -22,6 +22,8 @@ import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -46,20 +48,20 @@ public class CpuTweaks extends Activity {
 	private static TextView textuncompatibel3;
 
 	// Variables for file paths
-	public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
-			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
-	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
-			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
-	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
-			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
 	/*
-	 * public static final SysFs vCheck_CPU_GOVERNOR = new
-	 * SysFs("/mnt/sdcard/testfiles/scaling_governor"); public static final
-	 * SysFs vCheck_CPU_CpuMinFREQ = new
-	 * SysFs("/mnt/sdcard/testfiles/scaling_min_freq"); public static final
-	 * SysFs vCheck_CPU_CpuMaxFREQ = new
-	 * SysFs("/mnt/sdcard/testfiles/scaling_max_freq");
+	 * public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
+	 * "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"); public static
+	 * final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
+	 * "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"); public static
+	 * final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
+	 * "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
 	 */
+	public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
+			"/mnt/sdcard/testfiles/scaling_governor");
+	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
+			"/mnt/sdcard/testfiles/scaling_min_freq");
+	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
+			"/mnt/sdcard/testfiles/scaling_max_freq");
 
 	// variables storing the real file values
 	private String file_CPU_GOVERNOR;
@@ -76,9 +78,14 @@ public class CpuTweaks extends Activity {
 	public static int cpu_hide_dialog;
 
 	// variables for the spinners
-	private static Spinner sCPUspinner;
-	private static Spinner sCPUminFREQspinner;
-	private static Spinner sCPUmaxFREQspinner;
+	// private static Spinner sCPUspinner;
+	// private static Spinner sCPUminFREQspinner;
+	// private static Spinner sCPUmaxFREQspinner;
+
+	// TEMP Int used by dialogs
+	private static int dialog_temp_cpu_gov;
+	private static int dialog_temp_min_scheduler;
+	private static int dialog_temp_max_scheduler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,270 +118,189 @@ public class CpuTweaks extends Activity {
 		ValueReader();
 
 		// Dropdown menu for I/O Scheduler Internal
-		sCPUspinner = (Spinner) findViewById(R.id.cpuspinner);
-
-		ArrayAdapter<CharSequence> internaladapter = ArrayAdapter
-				.createFromResource(this, R.array.CPUgovernorArray,
-						android.R.layout.simple_spinner_item);
-		internaladapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		sCPUspinner.setAdapter(internaladapter);
-		// set the option based on the sharedprefs
-		sCPUspinner.setSelection(CpuGovernorPrefValue, true);
-		sCPUspinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				SharedPreferences.Editor editor = sharedPreferences.edit();
-				editor.putInt("CpuGovernorPref", position);
-				editor.commit();
-				Log.d(TAG, "CpuGovernorPref: position=" + position + " id="
-						+ id);
-
-				// Try catch block for if it may go wrong
-				try {
-					// calls RootProcess
-					RootProcess process = new RootProcess();
-					if (!process.init()) {
-						return;
-					}
-					// Writing the selected value to file
-					switch (position) {
-					case 0:
-						process.write("echo msm-dcvs > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd msm-dcvs to  CPU Governor");
-						break;
-					case 1:
-						process.write("echo intellidemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd intellidemand to  CPU Governor");
-						break;
-					case 2:
-						process.write("echo interactive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd interactive to  CPU Governor");
-						break;
-					case 3:
-						process.write("echo conservative > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd conservative to  CPU Governor");
-						break;
-					case 4:
-						process.write("echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd ondemand to  CPU Governor");
-						break;
-					case 5:
-						process.write("echo wheatley > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd wheatley to  CPU Governor");
-						break;
-					case 6:
-						process.write("echo smartmax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd smartmax to  CPU Governor");
-						break;
-					case 7:
-						process.write("echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd userspace to  CPU Governor");
-						break;
-					case 8:
-						process.write("echo powersave > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd powersave to  CPU Governor");
-						break;
-					case 9:
-						process.write("echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd performance to  CPU Governor");
-						break;
-					case 10:
-						process.write("echo adaptive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd adaptive to  CPU Governor");
-						break;
-					case 11:
-						process.write("echo asswax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd asswax to  CPU Governor");
-						break;
-					case 12:
-						process.write("echo badass > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd badass to  CPU Governor");
-						break;
-					case 13:
-						process.write("echo dancedance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd dancedance to  CPU Governor");
-						break;
-					case 14:
-						process.write("echo smartassH3 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-						Log.d(TAG, "echo'd smartassH3 to  CPU Governor");
-						break;
-					default:
-						break;
-					}
-
-					process.term();
-					ValueReader();
-				} catch (Exception e) {
-					Log.e(TAG, "Error crashed " + e);
-					Log.d(TAG, "Error " + e);
-				}
-			}
-
-			public void onNothingSelected(AdapterView<?> parent) {
-				Log.d(TAG, "cpuprefadapter: Nothing selected");
-			}
-		});
+		/*
+		 * sCPUspinner = (Spinner) findViewById(R.id.cpuspinner);
+		 * 
+		 * ArrayAdapter<CharSequence> internaladapter = ArrayAdapter
+		 * .createFromResource(this, R.array.CPUgovernorArray,
+		 * android.R.layout.simple_spinner_item); internaladapter
+		 * .setDropDownViewResource
+		 * (android.R.layout.simple_spinner_dropdown_item);
+		 * sCPUspinner.setAdapter(internaladapter); // set the option based on
+		 * the sharedprefs sCPUspinner.setSelection(CpuGovernorPrefValue, true);
+		 * sCPUspinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		 * public void onItemSelected(AdapterView<?> parent, View view, int
+		 * position, long id) { SharedPreferences.Editor editor =
+		 * sharedPreferences.edit(); editor.putInt("CpuGovernorPref", position);
+		 * editor.commit(); Log.d(TAG, "CpuGovernorPref: position=" + position +
+		 * " id=" + id);
+		 * 
+		 * // Try catch block for if it may go wrong try { // calls RootProcess
+		 * RootProcess process = new RootProcess(); if (!process.init()) {
+		 * return; } // Writing the selected value to file switch (position) {
+		 * case 0: process.write(
+		 * "echo msm-dcvs > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd msm-dcvs to  CPU Governor"); break; case 1:
+		 * process.write(
+		 * "echo intellidemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd intellidemand to  CPU Governor"); break; case
+		 * 2: process.write(
+		 * "echo interactive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd interactive to  CPU Governor"); break; case 3:
+		 * process.write(
+		 * "echo conservative > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd conservative to  CPU Governor"); break; case 4:
+		 * process.write(
+		 * "echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd ondemand to  CPU Governor"); break; case 5:
+		 * process.write(
+		 * "echo wheatley > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd wheatley to  CPU Governor"); break; case 6:
+		 * process.write(
+		 * "echo smartmax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd smartmax to  CPU Governor"); break; case 7:
+		 * process.write(
+		 * "echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd userspace to  CPU Governor"); break; case 8:
+		 * process.write(
+		 * "echo powersave > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd powersave to  CPU Governor"); break; case 9:
+		 * process.write(
+		 * "echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd performance to  CPU Governor"); break; case 10:
+		 * process.write(
+		 * "echo adaptive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd adaptive to  CPU Governor"); break; case 11:
+		 * process.write(
+		 * "echo asswax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd asswax to  CPU Governor"); break; case 12:
+		 * process.write(
+		 * "echo badass > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd badass to  CPU Governor"); break; case 13:
+		 * process.write(
+		 * "echo dancedance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd dancedance to  CPU Governor"); break; case 14:
+		 * process.write(
+		 * "echo smartassH3 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n"
+		 * ); Log.d(TAG, "echo'd smartassH3 to  CPU Governor"); break; default:
+		 * break; }
+		 * 
+		 * process.term(); ValueReader(); } catch (Exception e) { Log.e(TAG,
+		 * "Error crashed " + e); Log.d(TAG, "Error " + e); } }
+		 * 
+		 * public void onNothingSelected(AdapterView<?> parent) { Log.d(TAG,
+		 * "cpuprefadapter: Nothing selected"); } });
+		 */
 
 		// Dropdown menu for scaling_min_freq
-		sCPUminFREQspinner = (Spinner) findViewById(R.id.cpuminfreqspinner);
-
-		ArrayAdapter<CharSequence> cpuminfreqadapter = ArrayAdapter
-				.createFromResource(this, R.array.CPUminfreqArray,
-						android.R.layout.simple_spinner_item);
-		cpuminfreqadapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		sCPUminFREQspinner.setAdapter(cpuminfreqadapter);
-		// set the option based on the sharedprefs
-		sCPUminFREQspinner.setSelection(CpuMinFREQPrefValue, true);
-		sCPUminFREQspinner
-				.setOnItemSelectedListener(new OnItemSelectedListener() {
-					public void onItemSelected(AdapterView<?> parent,
-							View view, int position, long id) {
-						SharedPreferences.Editor editor = sharedPreferences
-								.edit();
-						editor.putInt("CpuMinFREQPref", position);
-						editor.commit();
-						Log.d(TAG, "CpuMinFREQPref: position=" + position
-								+ " id=" + id);
-
-						// Try catch block for if it may go wrong
-						try {
-							// calls RootProcess
-							RootProcess process = new RootProcess();
-							if (!process.init()) {
-								return;
-							}
-							// Writing the selected value to file
-							switch (position) {
-							case 0:
-								process.write("echo 162000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-								Log.d(TAG, "echo'd 162000 to Cpu Min FREQ");
-								break;
-							case 1:
-								process.write("echo 216000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-								Log.d(TAG, "echo'd 216000 to Cpu Min FREQ");
-								break;
-							case 2:
-								process.write("echo 270000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-								Log.d(TAG, "echo'd 270000 to Cpu Min FREQ");
-								break;
-							case 3:
-								process.write("echo 324000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-								Log.d(TAG, "echo'd 324000 to Cpu Min FREQ");
-								break;
-							case 4:
-								process.write("echo 378000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-								Log.d(TAG, "echo'd 378000 to Cpu Min FREQ");
-								break;
-							case 5:
-								process.write("echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-								Log.d(TAG, "echo'd 384000 to Cpu Min FREQ");
-								break;
-							case 6:
-								process.write("echo 486000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-								Log.d(TAG, "echo'd 486000 to Cpu Min FREQ");
-								break;
-							case 7:
-								process.write("echo 594000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-								Log.d(TAG, "echo'd 594000 to Cpu Min FREQ");
-								break;
-							default:
-								break;
-							}
-
-							process.term();
-							ValueReader();
-						} catch (Exception e) {
-							Log.e(TAG, "Error crashed " + e);
-							Log.d(TAG, "Error " + e);
-						}
-					}
-
-					public void onNothingSelected(AdapterView<?> parent) {
-						Log.d(TAG, "CpuMinFREQPref: Nothing selected");
-					}
-				});
+		/*
+		 * sCPUminFREQspinner = (Spinner) findViewById(R.id.cpuminfreqspinner);
+		 * 
+		 * ArrayAdapter<CharSequence> cpuminfreqadapter = ArrayAdapter
+		 * .createFromResource(this, R.array.CPUminfreqArray,
+		 * android.R.layout.simple_spinner_item); cpuminfreqadapter
+		 * .setDropDownViewResource
+		 * (android.R.layout.simple_spinner_dropdown_item);
+		 * sCPUminFREQspinner.setAdapter(cpuminfreqadapter); // set the option
+		 * based on the sharedprefs
+		 * sCPUminFREQspinner.setSelection(CpuMinFREQPrefValue, true);
+		 * sCPUminFREQspinner .setOnItemSelectedListener(new
+		 * OnItemSelectedListener() { public void onItemSelected(AdapterView<?>
+		 * parent, View view, int position, long id) { SharedPreferences.Editor
+		 * editor = sharedPreferences .edit(); editor.putInt("CpuMinFREQPref",
+		 * position); editor.commit(); Log.d(TAG, "CpuMinFREQPref: position=" +
+		 * position + " id=" + id);
+		 * 
+		 * // Try catch block for if it may go wrong try { // calls RootProcess
+		 * RootProcess process = new RootProcess(); if (!process.init()) {
+		 * return; } // Writing the selected value to file switch (position) {
+		 * case 0: process.write(
+		 * "echo 162000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); Log.d(TAG, "echo'd 162000 to Cpu Min FREQ"); break; case 1:
+		 * process.write(
+		 * "echo 216000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); Log.d(TAG, "echo'd 216000 to Cpu Min FREQ"); break; case 2:
+		 * process.write(
+		 * "echo 270000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); Log.d(TAG, "echo'd 270000 to Cpu Min FREQ"); break; case 3:
+		 * process.write(
+		 * "echo 324000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); Log.d(TAG, "echo'd 324000 to Cpu Min FREQ"); break; case 4:
+		 * process.write(
+		 * "echo 378000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); Log.d(TAG, "echo'd 378000 to Cpu Min FREQ"); break; case 5:
+		 * process.write(
+		 * "echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); Log.d(TAG, "echo'd 384000 to Cpu Min FREQ"); break; case 6:
+		 * process.write(
+		 * "echo 486000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); Log.d(TAG, "echo'd 486000 to Cpu Min FREQ"); break; case 7:
+		 * process.write(
+		 * "echo 594000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); Log.d(TAG, "echo'd 594000 to Cpu Min FREQ"); break; default:
+		 * break; }
+		 * 
+		 * process.term(); ValueReader(); } catch (Exception e) { Log.e(TAG,
+		 * "Error crashed " + e); Log.d(TAG, "Error " + e); } }
+		 * 
+		 * public void onNothingSelected(AdapterView<?> parent) { Log.d(TAG,
+		 * "CpuMinFREQPref: Nothing selected"); } });
+		 */
 
 		// Dropdown menu for scaling_max_freq
-		sCPUmaxFREQspinner = (Spinner) findViewById(R.id.cpumaxfreqspinner);
-
-		ArrayAdapter<CharSequence> cpumaxfreqadapter = ArrayAdapter
-				.createFromResource(this, R.array.CPUmaxfreqArray,
-						android.R.layout.simple_spinner_item);
-		cpumaxfreqadapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		sCPUmaxFREQspinner.setAdapter(cpumaxfreqadapter);
-		// set the option based on the sharedprefs
-		sCPUmaxFREQspinner.setSelection(CpuMaxFREQPrefValue, true);
-		sCPUmaxFREQspinner
-				.setOnItemSelectedListener(new OnItemSelectedListener() {
-					public void onItemSelected(AdapterView<?> parent,
-							View view, int position, long id) {
-						SharedPreferences.Editor editor = sharedPreferences
-								.edit();
-						editor.putInt("CpuMaxFREQPref", position);
-						editor.commit();
-						Log.d(TAG, "CpuMaxFREQPref: position=" + position
-								+ " id=" + id);
-
-						// Try catch block for if it may go wrong
-						try {
-							// calls RootProcess
-							RootProcess process = new RootProcess();
-							if (!process.init()) {
-								return;
-							}
-							// Writing the selected value to file
-							switch (position) {
-							case 0:
-								process.write("echo 1566000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-								Log.d(TAG, "echo'd 1566000 to Cpu Max FREQ");
-								break;
-							case 1:
-								process.write("echo 1674000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-								Log.d(TAG, "echo'd 1674000 to Cpu Max FREQ");
-								break;
-							case 2:
-								process.write("echo 1782000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-								Log.d(TAG, "echo'd 1782000 to Cpu Max FREQ");
-								break;
-							case 3:
-								process.write("echo 1890000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-								Log.d(TAG, "echo'd 1890000 to Cpu Max FREQ");
-								break;
-							case 4:
-								process.write("echo 1944000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-								Log.d(TAG, "echo'd 1944000 to Cpu Max FREQ");
-								break;
-							case 5:
-								process.write("echo 1998000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-								Log.d(TAG, "echo'd 1998000 to Cpu Max FREQ");
-								break;
-							case 6:
-								process.write("echo 2052000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-								Log.d(TAG, "echo'd 2052000 to Cpu Max FREQ");
-								break;
-							case 7:
-								process.write("echo 2106000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-								Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
-								break;
-							default:
-								break;
-							}
-
-							process.term();
-							ValueReader();
-						} catch (Exception e) {
-							Log.e(TAG, "Error crashed " + e);
-							Log.d(TAG, "error " + e);
-						}
-					}
-
-					public void onNothingSelected(AdapterView<?> parent) {
-						Log.d(TAG, "CpuMaxFREQPref: Nothing selected");
-					}
-				});
+		/*
+		 * sCPUmaxFREQspinner = (Spinner) findViewById(R.id.cpumaxfreqspinner);
+		 * 
+		 * ArrayAdapter<CharSequence> cpumaxfreqadapter = ArrayAdapter
+		 * .createFromResource(this, R.array.CPUmaxfreqArray,
+		 * android.R.layout.simple_spinner_item); cpumaxfreqadapter
+		 * .setDropDownViewResource
+		 * (android.R.layout.simple_spinner_dropdown_item);
+		 * sCPUmaxFREQspinner.setAdapter(cpumaxfreqadapter); // set the option
+		 * based on the sharedprefs
+		 * sCPUmaxFREQspinner.setSelection(CpuMaxFREQPrefValue, true);
+		 * sCPUmaxFREQspinner .setOnItemSelectedListener(new
+		 * OnItemSelectedListener() { public void onItemSelected(AdapterView<?>
+		 * parent, View view, int position, long id) { SharedPreferences.Editor
+		 * editor = sharedPreferences .edit(); editor.putInt("CpuMaxFREQPref",
+		 * position); editor.commit(); Log.d(TAG, "CpuMaxFREQPref: position=" +
+		 * position + " id=" + id);
+		 * 
+		 * // Try catch block for if it may go wrong try { // calls RootProcess
+		 * RootProcess process = new RootProcess(); if (!process.init()) {
+		 * return; } // Writing the selected value to file switch (position) {
+		 * case 0: process.write(
+		 * "echo 1566000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); Log.d(TAG, "echo'd 1566000 to Cpu Max FREQ"); break; case 1:
+		 * process.write(
+		 * "echo 1674000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); Log.d(TAG, "echo'd 1674000 to Cpu Max FREQ"); break; case 2:
+		 * process.write(
+		 * "echo 1782000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); Log.d(TAG, "echo'd 1782000 to Cpu Max FREQ"); break; case 3:
+		 * process.write(
+		 * "echo 1890000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); Log.d(TAG, "echo'd 1890000 to Cpu Max FREQ"); break; case 4:
+		 * process.write(
+		 * "echo 1944000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); Log.d(TAG, "echo'd 1944000 to Cpu Max FREQ"); break; case 5:
+		 * process.write(
+		 * "echo 1998000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); Log.d(TAG, "echo'd 1998000 to Cpu Max FREQ"); break; case 6:
+		 * process.write(
+		 * "echo 2052000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); Log.d(TAG, "echo'd 2052000 to Cpu Max FREQ"); break; case 7:
+		 * process.write(
+		 * "echo 2106000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ"); break; default:
+		 * break; }
+		 * 
+		 * process.term(); ValueReader(); } catch (Exception e) { Log.e(TAG,
+		 * "Error crashed " + e); Log.d(TAG, "error " + e); } }
+		 * 
+		 * public void onNothingSelected(AdapterView<?> parent) { Log.d(TAG,
+		 * "CpuMaxFREQPref: Nothing selected"); } });
+		 */
 
 		// Filechecking part
 		cpu_hide_dialog = sharedPreferences.getInt("cpu_hide_dialog", 0);
@@ -395,6 +321,324 @@ public class CpuTweaks extends Activity {
 		} else {
 			Log.d(TAG, "incompatible = " + FileCheck.incompatible);
 		}
+	}
+
+	public void onCPUGOVERNOR(View View) {
+		Log.d(TAG, "Cpu Governor value clicked");
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		// final FrameLayout frameView = new FrameLayout(this);
+		// builder.setView(frameView);
+		builder.setSingleChoiceItems(R.array.CPUgovernorArray, 0,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+
+						/* User clicked on a radio button do some stuff */
+						Log.d(TAG, "User clicked on radio button "
+								+ whichButton);
+						dialog_temp_cpu_gov = whichButton;
+
+					}
+				});
+		final AlertDialog alertDialog = builder.create();
+		alertDialog.setTitle(R.string.cpu_governor);
+
+		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						// Button OK Clicked
+						Log.d(TAG, "Button ok clicked");
+						Log.d(TAG, "Store Selected = " + dialog_temp_cpu_gov);
+						SharedPreferences sharedPreferences = getSharedPreferences(
+								"MY_SHARED_PREF", 0);
+						SharedPreferences.Editor editor = sharedPreferences
+								.edit();
+						editor.putInt("CpuGovernorPref", dialog_temp_cpu_gov);
+						editor.commit();
+
+						CPUGovernorDialogSaver();
+						ValueReader();
+					}
+				});
+
+		/*
+		 * LayoutInflater inflater = alertDialog.getLayoutInflater();
+		 * 
+		 * @SuppressWarnings("unused") View dialoglayout =
+		 * inflater.inflate(R.layout.dialog_alert, frameView);
+		 */
+		alertDialog.show();
+	}
+
+	private void CPUGovernorDialogSaver() {
+		Log.d(TAG, "CPUGovernorDialogSaver value = " + dialog_temp_cpu_gov);
+		// calls RootProcess
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+		}
+
+		// Write Values to the filesystem
+		switch (dialog_temp_cpu_gov) {
+		case 0:
+			process.write("echo msm-dcvs > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd msm-dcvs to  CPU Governor");
+			break;
+		case 1:
+			process.write("echo intellidemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd intellidemand to  CPU Governor");
+			break;
+		case 2:
+			process.write("echo interactive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd interactive to  CPU Governor");
+			break;
+		case 3:
+			process.write("echo conservative > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd conservative to  CPU Governor");
+			break;
+		case 4:
+			process.write("echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd ondemand to  CPU Governor");
+			break;
+		case 5:
+			process.write("echo wheatley > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd wheatley to  CPU Governor");
+			break;
+		case 6:
+			process.write("echo smartmax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd smartmax to  CPU Governor");
+			break;
+		case 7:
+			process.write("echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd userspace to  CPU Governor");
+			break;
+		case 8:
+			process.write("echo powersave > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd powersave to  CPU Governor");
+			break;
+		case 9:
+			process.write("echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd performance to  CPU Governor");
+			break;
+		case 10:
+			process.write("echo adaptive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd adaptive to  CPU Governor");
+			break;
+		case 11:
+			process.write("echo asswax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd asswax to  CPU Governor");
+			break;
+		case 12:
+			process.write("echo badass > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd badass to  CPU Governor");
+			break;
+		case 13:
+			process.write("echo dancedance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd dancedance to  CPU Governor");
+			break;
+		case 14:
+			process.write("echo smartassH3 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
+			Log.d(TAG, "echo'd smartassH3 to  CPU Governor");
+			break;
+		default:
+			break;
+		}
+		process.term();
+	}
+
+	public void onMINFREQSCALING(View View) {
+		Log.d(TAG, "onMINFREQSCALING value clicked");
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		// final FrameLayout frameView = new FrameLayout(this);
+		// builder.setView(frameView);
+		builder.setSingleChoiceItems(R.array.CPUminfreqArray, 0,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+
+						/* User clicked on a radio button do some stuff */
+						Log.d(TAG, "User clicked on radio button "
+								+ whichButton);
+						dialog_temp_min_scheduler = whichButton;
+
+					}
+				});
+		final AlertDialog alertDialog = builder.create();
+		alertDialog.setTitle(R.string.min_frequency_scaling);
+
+		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						// Button OK Clicked
+						Log.d(TAG, "Button ok clicked");
+						Log.d(TAG, "Store Selected = "
+								+ dialog_temp_min_scheduler);
+						SharedPreferences sharedPreferences = getSharedPreferences(
+								"MY_SHARED_PREF", 0);
+						SharedPreferences.Editor editor = sharedPreferences
+								.edit();
+						editor.putInt("CpuMinFREQPref",
+								dialog_temp_min_scheduler);
+						editor.commit();
+
+						MIN_FREQ_DialogSaver();
+						ValueReader();
+					}
+				});
+
+		/*
+		 * LayoutInflater inflater = alertDialog.getLayoutInflater();
+		 * 
+		 * @SuppressWarnings("unused") View dialoglayout =
+		 * inflater.inflate(R.layout.dialog_alert, frameView);
+		 */
+		alertDialog.show();
+	}
+
+	private void MIN_FREQ_DialogSaver() {
+		Log.d(TAG, "DialogSaver intervalue = " + dialog_temp_min_scheduler);
+		// calls RootProcess
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+		}
+
+		// Write Values to the filesystem
+		switch (dialog_temp_min_scheduler) {
+		case 0:
+			process.write("echo 162000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			Log.d(TAG, "echo'd 162000 to Cpu Min FREQ");
+			break;
+		case 1:
+			process.write("echo 216000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			Log.d(TAG, "echo'd 216000 to Cpu Min FREQ");
+			break;
+		case 2:
+			process.write("echo 270000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			Log.d(TAG, "echo'd 270000 to Cpu Min FREQ");
+			break;
+		case 3:
+			process.write("echo 324000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			Log.d(TAG, "echo'd 324000 to Cpu Min FREQ");
+			break;
+		case 4:
+			process.write("echo 378000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			Log.d(TAG, "echo'd 378000 to Cpu Min FREQ");
+			break;
+		case 5:
+			process.write("echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			Log.d(TAG, "echo'd 384000 to Cpu Min FREQ");
+			break;
+		case 6:
+			process.write("echo 486000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			Log.d(TAG, "echo'd 486000 to Cpu Min FREQ");
+			break;
+		case 7:
+			process.write("echo 594000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			Log.d(TAG, "echo'd 594000 to Cpu Min FREQ");
+			break;
+		default:
+			break;
+		}
+		process.term();
+	}
+
+	public void onMAXFREQSCALING(View View) {
+		Log.d(TAG, "onMAXFREQSCALING value clicked");
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		// final FrameLayout frameView = new FrameLayout(this);
+		// builder.setView(frameView);
+		builder.setSingleChoiceItems(R.array.CPUmaxfreqArray, 0,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+
+						/* User clicked on a radio button do some stuff */
+						Log.d(TAG, "User clicked on radio button "
+								+ whichButton);
+						dialog_temp_max_scheduler = whichButton;
+
+					}
+				});
+		final AlertDialog alertDialog = builder.create();
+		alertDialog.setTitle(R.string.max_fequency_scaling);
+
+		alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						// Button OK Clicked
+						Log.d(TAG, "Button ok clicked");
+						Log.d(TAG, "Store Selected = "
+								+ dialog_temp_max_scheduler);
+						SharedPreferences sharedPreferences = getSharedPreferences(
+								"MY_SHARED_PREF", 0);
+						SharedPreferences.Editor editor = sharedPreferences
+								.edit();
+						editor.putInt("CpuMaxFREQPref",
+								dialog_temp_max_scheduler);
+						editor.commit();
+
+						MAX_FREQ_DialogSaver();
+						ValueReader();
+					}
+				});
+
+		/*
+		 * LayoutInflater inflater = alertDialog.getLayoutInflater();
+		 * 
+		 * @SuppressWarnings("unused") View dialoglayout =
+		 * inflater.inflate(R.layout.dialog_alert, frameView);
+		 */
+		alertDialog.show();
+	}
+
+	private void MAX_FREQ_DialogSaver() {
+		Log.d(TAG, "MAX_FREQ_DialogSaver intervalue = "
+				+ dialog_temp_max_scheduler);
+		// calls RootProcess
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+		}
+
+		// Write Values to the filesystem
+		switch (dialog_temp_max_scheduler) {
+		case 0:
+			process.write("echo 1566000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			Log.d(TAG, "echo'd 1566000 to Cpu Max FREQ");
+			break;
+		case 1:
+			process.write("echo 1674000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			Log.d(TAG, "echo'd 1674000 to Cpu Max FREQ");
+			break;
+		case 2:
+			process.write("echo 1782000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			Log.d(TAG, "echo'd 1782000 to Cpu Max FREQ");
+			break;
+		case 3:
+			process.write("echo 1890000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			Log.d(TAG, "echo'd 1890000 to Cpu Max FREQ");
+			break;
+		case 4:
+			process.write("echo 1944000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			Log.d(TAG, "echo'd 1944000 to Cpu Max FREQ");
+			break;
+		case 5:
+			process.write("echo 1998000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			Log.d(TAG, "echo'd 1998000 to Cpu Max FREQ");
+			break;
+		case 6:
+			process.write("echo 2052000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			Log.d(TAG, "echo'd 2052000 to Cpu Max FREQ");
+			break;
+		case 7:
+			process.write("echo 2106000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
+			break;
+		default:
+			break;
+		}
+		process.term();
 	}
 
 	void showToast(CharSequence msg) {
@@ -445,21 +689,21 @@ public class CpuTweaks extends Activity {
 		Log.d(TAG, "OptionsHider() cpuGovernor_hide = "
 				+ FileCheck.cpuGovernor_hide);
 		if (FileCheck.cpuGovernor_hide == 1) {
-			sCPUspinner.setVisibility(View.GONE);
+			// sCPUspinner.setVisibility(View.GONE);
 			CpuCurrentValue.setVisibility(View.GONE);
 			textuncompatibel.setText(R.string.disabled_option_text);
 		}
 		Log.d(TAG, "OptionsHider() cpuMinFreq_hide = "
 				+ FileCheck.cpuMinFreq_hide);
 		if (FileCheck.cpuMinFreq_hide == 1) {
-			sCPUminFREQspinner.setVisibility(View.GONE);
+			// sCPUminFREQspinner.setVisibility(View.GONE);
 			CpuMinFREQValue.setVisibility(View.GONE);
 			textuncompatibel2.setText(R.string.disabled_option_text);
 		}
 		Log.d(TAG, "OptionsHider() cpuMaxFreq_hide = "
 				+ FileCheck.cpuMaxFreq_hide);
 		if (FileCheck.cpuMaxFreq_hide == 1) {
-			sCPUmaxFREQspinner.setVisibility(View.GONE);
+			// sCPUmaxFREQspinner.setVisibility(View.GONE);
 			CpuMaxFREQValue.setVisibility(View.GONE);
 			textuncompatibel3.setText(R.string.disabled_option_text);
 		}
