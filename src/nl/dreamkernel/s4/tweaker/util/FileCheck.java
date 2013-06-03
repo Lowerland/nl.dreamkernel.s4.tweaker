@@ -125,10 +125,10 @@ public class FileCheck {
 			internal_scheduler_hide = 1;
 			incompatible = true;
 			}
-		/*if (!Misc.vCheck_externalscheduler.exists()) {  // <--- TEMP DISABLED
+		if (!Misc.vCheck_externalscheduler.exists()) {  // <--- TEMP DISABLED
 			external_scheduler_hide = 1;
 			incompatible = true;
-			}*/
+			}
 		if (!Misc.vCheck_vibrator_intensity.exists()) {
 			vibrator_intensity_hide = 1;
 			incompatible = true;
