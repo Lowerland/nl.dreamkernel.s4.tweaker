@@ -12,7 +12,8 @@
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
-  limitations under the License. -->
+  limitations under the License.
+-->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -52,29 +53,44 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/logo"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="12dp"
         android:text="@string/cpu_governor"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <!-- Line below CPU Governor -->
+
     <View
         android:id="@+id/iddummy2"
         android:layout_width="fill_parent"
         android:layout_height="2dip"
         android:layout_below="@+id/cpugovernortitle"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_marginTop="2dp"
         android:background="@color/gray_line" />
-    
-    
-    <!-- text Current CPU Governor -->
+
+    <!-- *NEW* Touching BLOCK -->
+
+    <View
+        android:id="@+id/cpugovernortouchblock"
+        android:layout_width="fill_parent"
+        android:layout_height="52dip"
+        android:layout_below="@+id/iddummy2"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/translucent_box"
+        android:clickable="true"
+        android:onClick="onCPUGOVERNOR" />
+
+    <!-- text Option CPU Governor -->
+
     <TextView
         android:id="@+id/current_governor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/cpugovernortitle"
-        android:layout_marginLeft="4dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="6dp"
         android:text="@string/current_cpu_governor"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -83,226 +99,192 @@
         android:typeface="sans" />
 
     <!-- Value CPU Governor -->
+
     <TextView
         android:id="@+id/CpuCurrentValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cpugovernortitle"
-        android:layout_toRightOf="@+id/current_governor"
-        android:layout_marginLeft="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/current_governor"
+        android:layout_marginLeft="12dp"
         android:layout_marginRight="6dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="2dp"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="16sp"
-       
         android:typeface="sans" />
 
-    <!-- Text Set CPU Governor -->
-    <TextView
-        android:id="@+id/setcpugovernortext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/iddummy2"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="27dp"
-        android:text="@string/set_cpu_governor"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="16sp" />
-
     <!-- Not Supported Text -->
+
     <TextView
         android:id="@+id/uncompatible_alert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iddummy2"
-        android:layout_toRightOf="@+id/setcpugovernortext"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="29dp"
-        android:textColor="@color/red_alert"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/current_governor"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="2dp"
         android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/red_alert" />
 
-    <!-- Dropdownmenu CPU Governor -->
-    <Spinner
-        android:id="@+id/cpuspinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iddummy2"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/setcpugovernortext"
-        android:drawSelectorOnTop="true"
-       />
-    
-    <!-- Line below Set CPU Governor -->
+    <!-- Line below CPU Governor -->
+
     <View
         android:id="@+id/iddummy3"
         android:layout_width="fill_parent"
         android:layout_height="1dip"
-        android:layout_below="@+id/setcpugovernortext"
-        android:layout_marginTop="6dp"
-        android:background="@color/gray_line" />
-    
-    
-    
-    <!-- Text CPU Freq Scaling -->
+        android:layout_below="@+id/current_governor"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="29dp"
+        android:background="@color/translucent" />
+
+    <!-- Text CPU Frequency Scaling -->
+
     <TextView
         android:id="@+id/cpufreqscaletitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/setcpugovernortext"
-        android:layout_marginLeft="4dp"
+        android:layout_below="@+id/iddummy3"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="15dp"
         android:text="@string/cpu_freq_scaling_title"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <!-- Line below CPU Freq Scaling -->
+
     <View
         android:id="@+id/iddummy4"
         android:layout_width="fill_parent"
         android:layout_height="2dip"
         android:layout_below="@+id/cpufreqscaletitle"
-        android:layout_marginTop="2dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="3dp"
         android:background="@color/gray_line" />
-    
+
+    <!-- *NEW* Touching BLOCK -->
+
+    <View
+        android:id="@+id/minfreqscalingtouchblock"
+        android:layout_width="fill_parent"
+        android:layout_height="52dip"
+        android:layout_below="@+id/iddummy4"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/translucent_box"
+        android:clickable="true"
+        android:onClick="onMINFREQSCALING" />
+
     <!-- text Current CPU min Freq Scaling -->
+
     <TextView
         android:id="@+id/textcurrentminfreqscale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/cpufreqscaletitle"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="6dp"
-        android:text="@string/current_freq_scaling_min"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:typeface="sans" />
+        android:layout_below="@+id/iddummy4"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/min_frequency_scaling"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <!-- Value CPU min Freq Scaling -->
+
     <TextView
         android:id="@+id/CpuMinFreqValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cpufreqscaletitle"
-        android:layout_toRightOf="@+id/textcurrentminfreqscale"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginTop="6dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"       
-        android:typeface="sans" />
-    
-    <!-- Text Set CPU min Freq Scaling -->
-    <TextView
-        android:id="@+id/textsetcpuminfreqscaling"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/iddummy4"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="29dp"
-        android:text="@string/set_freq_scaling_min"
+        android:layout_below="@+id/textcurrentminfreqscale"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="2dp"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:typeface="sans" />
 
     <!-- Not Supported Text -->
+
     <TextView
         android:id="@+id/uncompatible_alert2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iddummy4"
-        android:layout_toRightOf="@+id/textsetcpuminfreqscaling"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="31dp"
-        android:textColor="@color/red_alert"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textcurrentminfreqscale"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="2dp"
         android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/red_alert" />
 
-    <!-- Dropdownmenu CPU min Freq Scaling -->
-    <Spinner
-        android:id="@+id/cpuminfreqspinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iddummy4"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="25dp"
-        android:layout_toRightOf="@+id/textsetcpuminfreqscaling"
-        android:drawSelectorOnTop="true"
-       />
-    
-    
-    <!-- text Current CPU max Freq Scaling -->
+    <!-- Line between Min scaling and max scaling -->
+
+    <View
+        android:id="@+id/iddummy5"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/textcurrentminfreqscale"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="29dp"
+        android:background="@color/gray_line" />
+
+    <!-- *NEW* Touching BLOCK -->
+
+    <View
+        android:id="@+id/maxfreqscalingtouchblock"
+        android:layout_width="fill_parent"
+        android:layout_height="52dip"
+        android:layout_below="@+id/iddummy5"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/translucent_box"
+        android:clickable="true"
+        android:onClick="onMAXFREQSCALING" />
+
+    <!-- text max Frequency Scaling -->
+
     <TextView
         android:id="@+id/textcurrentmaxfreqscale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textsetcpuminfreqscaling"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="26dp"
-        android:text="@string/current_freq_scaling_max"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:typeface="sans" />
+        android:layout_below="@+id/iddummy5"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/max_fequency_scaling"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <!-- Value CPU max Freq Scaling -->
+
     <TextView
         android:id="@+id/CpuMaxFreqValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textsetcpuminfreqscaling"
-        android:layout_toRightOf="@+id/textcurrentminfreqscale"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginTop="26dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"       
-        android:typeface="sans" />
-    
-        <!-- Text Set CPU max Freq Scaling -->
-    <TextView
-        android:id="@+id/textsetcpumaxfreqscaling"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textcurrentmaxfreqscale"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="7dp"
-        android:text="@string/set_freq_scaling_max"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="2dp"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:typeface="sans" />
 
     <!-- Not Supported Text -->
+
     <TextView
         android:id="@+id/uncompatible_alert3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/textcurrentmaxfreqscale"
-        android:layout_toRightOf="@+id/textsetcpumaxfreqscaling"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="9dp"
-        android:textColor="@color/red_alert"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="2dp"
         android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/red_alert" />
 
-    <!-- Dropdownmenu CPU max Freq Scaling -->
-    <Spinner
-        android:id="@+id/cpumaxfreqspinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textcurrentmaxfreqscale"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="3dp"
-        android:layout_toRightOf="@+id/textsetcpumaxfreqscaling"
-        android:drawSelectorOnTop="true"
-       />
-    
 </RelativeLayout>
