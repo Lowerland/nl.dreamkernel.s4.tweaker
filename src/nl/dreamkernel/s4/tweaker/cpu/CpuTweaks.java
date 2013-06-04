@@ -47,6 +47,11 @@ public class CpuTweaks extends Activity {
 	private static TextView textuncompatibel2;
 	private static TextView textuncompatibel3;
 
+	// variables for touch blocks
+	public static View Touch_block_governor;
+	public static View Touch_block_min_freq;
+	public static View Touch_block_max_freq;
+
 	// Variables for file paths
 	
 	  public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
@@ -107,6 +112,11 @@ public class CpuTweaks extends Activity {
 		textuncompatibel = (TextView) findViewById(R.id.uncompatible_alert);
 		textuncompatibel2 = (TextView) findViewById(R.id.uncompatible_alert2);
 		textuncompatibel3 = (TextView) findViewById(R.id.uncompatible_alert3);
+
+		// Find Thouch Blocks so we can could disable them
+		Touch_block_governor = (View) findViewById(R.id.cpugovernortouchblock);
+		Touch_block_min_freq = (View) findViewById(R.id.minfreqscalingtouchblock);
+		Touch_block_max_freq = (View) findViewById(R.id.maxfreqscalingtouchblock);
 
 		// get the Shared Prefs
 		CpuGovernorPrefValue = sharedPreferences.getInt("CpuGovernorPref", 0);
@@ -689,21 +699,21 @@ public class CpuTweaks extends Activity {
 		Log.d(TAG, "OptionsHider() cpuGovernor_hide = "
 				+ FileCheck.cpuGovernor_hide);
 		if (FileCheck.cpuGovernor_hide == 1) {
-			// sCPUspinner.setVisibility(View.GONE);
+			Touch_block_governor.setVisibility(View.GONE);
 			CpuCurrentValue.setVisibility(View.GONE);
 			textuncompatibel.setText(R.string.disabled_option_text);
 		}
 		Log.d(TAG, "OptionsHider() cpuMinFreq_hide = "
 				+ FileCheck.cpuMinFreq_hide);
 		if (FileCheck.cpuMinFreq_hide == 1) {
-			// sCPUminFREQspinner.setVisibility(View.GONE);
+			Touch_block_min_freq.setVisibility(View.GONE);
 			CpuMinFREQValue.setVisibility(View.GONE);
 			textuncompatibel2.setText(R.string.disabled_option_text);
 		}
 		Log.d(TAG, "OptionsHider() cpuMaxFreq_hide = "
 				+ FileCheck.cpuMaxFreq_hide);
 		if (FileCheck.cpuMaxFreq_hide == 1) {
-			// sCPUmaxFREQspinner.setVisibility(View.GONE);
+			Touch_block_max_freq.setVisibility(View.GONE);
 			CpuMaxFREQValue.setVisibility(View.GONE);
 			textuncompatibel3.setText(R.string.disabled_option_text);
 		}
