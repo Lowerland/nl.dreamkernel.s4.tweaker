@@ -69,7 +69,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="2dp"
-        android:background="@color/gray_line" />
+        android:background="@color/android_blue" />
 
     <!-- *NEW* Touching BLOCK -->
 
@@ -162,7 +162,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="4dp"
-        android:background="@color/gray_line" />
+        android:background="@color/android_blue" />
 
     <!-- *NEW* Touching BLOCK -->
 
@@ -229,7 +229,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="29dp"
-        android:background="@color/gray_line" />
+        android:background="@color/android_blue_dark" />
 
     <!-- *NEW* Touching BLOCK -->
 
