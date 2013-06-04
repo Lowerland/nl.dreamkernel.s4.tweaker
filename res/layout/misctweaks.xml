@@ -47,15 +47,16 @@
     <!-- Text I/O Schedulers -->
 
 	<TextView
-        android:id="@+id/textIOscheduler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/logo"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/io_scheduler"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    android:id="@+id/textIOscheduler"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/logo"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginTop="16dp"
+	    android:text="@string/io_scheduler"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:textColor="@color/android_blue" />
 
 	<!-- Line below I/O schedulers -->
 	<View
@@ -191,16 +192,18 @@
         android:background="@color/gray_line" />
 
     <!-- Text vibrator_intensity -->
+
 	<TextView
-        android:id="@+id/textvibrator_intensity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/idline2"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="2dp"
-        android:text="@string/vibrator_intensity"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    android:id="@+id/textvibrator_intensity"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/idline2"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginTop="2dp"
+	    android:text="@string/vibrator_intensity"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:textColor="@color/android_blue" />
 
 	<!-- Not Supported Text -->
 	<TextView
@@ -257,16 +260,18 @@
         android:background="@color/gray_line" />
 
 	<!-- USB Fast Charge -->
+
 	<TextView
-        android:id="@+id/usb_fast_charge_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/iddummy5"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="20dp"
-        android:text="@string/usb_fast_charge"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    android:id="@+id/usb_fast_charge_text"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/iddummy5"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginTop="4dp"
+	    android:text="@string/usb_fast_charge"
+	    android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:textColor="@color/android_blue" />
 
 	<!-- Not Supported Text -->
     <TextView
