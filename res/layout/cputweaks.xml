@@ -33,7 +33,7 @@
         android:layout_marginTop="2dp"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo_smaller" />
+        android:src="@drawable/logo_cpu_tweaks" />
 
     <!-- Line below logo -->
 
