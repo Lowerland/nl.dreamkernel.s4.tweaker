@@ -100,7 +100,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="12dp"
-        android:background="@color/gray_line" />
+        android:background="@color/android_blue" />
 
     <!-- Text gpl Speaker Gain -->
 
