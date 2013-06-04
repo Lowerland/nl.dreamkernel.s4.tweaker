@@ -73,33 +73,42 @@ public class SoundTweaks extends Activity {
 	private String headphonevalueconvert;
 	private String headphonesubstring;
 
+	// vars needed for the + - assigning
+	public static String gpl_speaker_temp_sign;
+	public static String gpl_mic_temp_sign;
+	public static String gpl_cam_mic_temp_sign;
+	public static String gpl_headphone_temp_sign;
+	public static String gpl_hdmi_spkr_temp_sign;
+	public static String gpl_headset_mic_temp_sign;
+
 	// Static Constants for file value checking
+
+	 public static final SysFs vCheck_gpl_speaker_gain = new SysFs(
+	 "/sys/kernel/sound_control/gpl_speaker_gain"); public static final SysFs
+	 vCheck_gpl_mic_gain = new SysFs(
+	 "/sys/kernel/sound_control/gpl_mic_gain"); public static final SysFs
+	 vCheck_gpl_cam_mic_gain = new SysFs(
+	 "/sys/kernel/sound_control/gpl_cam_mic_gain"); public static final SysFs
+	 vCheck_gpl_headphone_gain = new SysFs(
+	 "/sys/kernel/sound_control/gpl_headphone_gain"); public static final
+	 SysFs vCheck_gpl_hdmi_speaker_gain = new SysFs(
+	 "/sys/kernel/sound_control/gpl_hdmi_spkr_gain"); public static final
+	 SysFs vCheck_gpl_headset_mic_gain = new SysFs(
+	 "/sys/kernel/sound_control/gpl_headset_mic_gain");
+/*
 	public static final SysFs vCheck_gpl_speaker_gain = new SysFs(
-			"/sys/kernel/sound_control/gpl_speaker_gain");
+			"/mnt/sdcard/testfiles/gpl_speaker_gain");
 	public static final SysFs vCheck_gpl_mic_gain = new SysFs(
-			"/sys/kernel/sound_control/gpl_mic_gain");
+			"/mnt/sdcard/testfiles/gpl_mic_gain");
 	public static final SysFs vCheck_gpl_cam_mic_gain = new SysFs(
-			"/sys/kernel/sound_control/gpl_cam_mic_gain");
+			"/mnt/sdcard/testfiles/gpl_cam_mic_gain");
 	public static final SysFs vCheck_gpl_headphone_gain = new SysFs(
-			"/sys/kernel/sound_control/gpl_headphone_gain");
+			"/mnt/sdcard/testfiles/gpl_headphone_gain");
 	public static final SysFs vCheck_gpl_hdmi_speaker_gain = new SysFs(
-			"/sys/kernel/sound_control/gpl_hdmi_spkr_gain");
+			"/mnt/sdcard/testfiles/gpl_hdmi_spkr_gain");
 	public static final SysFs vCheck_gpl_headset_mic_gain = new SysFs(
-			"/sys/kernel/sound_control/gpl_headset_mic_gain");
-	/*
-	 * public static final SysFs vCheck_gpl_speaker_gain = new
-	 * SysFs("/mnt/sdcard/testfiles/gpl_speaker_gain"); public static final
-	 * SysFs vCheck_gpl_mic_gain = new
-	 * SysFs("/mnt/sdcard/testfiles/gpl_mic_gain"); public static final SysFs
-	 * vCheck_gpl_cam_mic_gain = new
-	 * SysFs("/mnt/sdcard/testfiles/gpl_cam_mic_gain"); public static final
-	 * SysFs vCheck_gpl_headphone_gain = new
-	 * SysFs("/mnt/sdcard/testfiles/gpl_headphone_gain"); public static final
-	 * SysFs vCheck_gpl_hdmi_speaker_gain = new
-	 * SysFs("/mnt/sdcard/testfiles/gpl_hdmi_spkr_gain"); public static final
-	 * SysFs vCheck_gpl_headset_mic_gain = new
-	 * SysFs("/mnt/sdcard/testfiles/gpl_headset_mic_gain");
-	 */
+			"/mnt/sdcard/testfiles/gpl_headset_mic_gain");
+*/
 	private int Value_gpl_speaker_gain;
 	private int Value_gpl_mic_gain;
 	private int Value_gpl_cam_mic_gain;
@@ -216,13 +225,61 @@ public class SoundTweaks extends Activity {
 		// gpl_headset_mic_gain =
 		// sharedPreferences.getInt("gpl_headset_mic_gain", 0);
 
+		// set progress text + signs
+		int gpl_speaker_gain_sign_temp = gpl_speaker_gain - 40;
+		gpl_speaker_temp_sign = "";
+		if (gpl_speaker_gain_sign_temp > 0) {
+			gpl_speaker_temp_sign = "+";
+		}
+		String gpl_speaker_gain_sign = gpl_speaker_temp_sign
+				+ gpl_speaker_gain_sign_temp;
+
+		int gpl_mic_gain_sign_temp = gpl_mic_gain - 40;
+		gpl_mic_temp_sign = "";
+		if (gpl_mic_gain_sign_temp > 0) {
+			gpl_mic_temp_sign = "+";
+		}
+		String gpl_mic_gain_sign = gpl_mic_temp_sign + gpl_mic_gain_sign_temp;
+
+		int gpl_cam_mic_gain_sign_temp = gpl_cam_mic_gain - 40;
+		gpl_cam_mic_temp_sign = "";
+		if (gpl_cam_mic_gain_sign_temp > 0) {
+			gpl_cam_mic_temp_sign = "+";
+		}
+		String gpl_cam_mic_gain_sign = gpl_cam_mic_temp_sign
+				+ gpl_cam_mic_gain_sign_temp;
+
+		int gpl_headphone_gain_sign_temp = gpl_headphone_gain - 40;
+		gpl_headphone_temp_sign = "";
+		if (gpl_headphone_gain_sign_temp > 0) {
+			gpl_headphone_temp_sign = "+";
+		}
+		String gpl_headphone_gain_sign = gpl_headphone_temp_sign
+				+ gpl_headphone_gain_sign_temp;
+
+		int gpl_hdmi_spkr_gain_sign_temp = gpl_hdmi_spkr_gain - 40;
+		gpl_hdmi_spkr_temp_sign = "";
+		if (gpl_hdmi_spkr_gain_sign_temp > 0) {
+			gpl_hdmi_spkr_temp_sign = "+";
+		}
+		String gpl_hdmi_spkr_gain_sign = gpl_hdmi_spkr_temp_sign
+				+ gpl_hdmi_spkr_gain_sign_temp;
+
+		int gpl_headset_mic_gain_sign_temp = gpl_headset_mic_gain - 40;
+		gpl_headset_mic_temp_sign = "";
+		if (gpl_headset_mic_gain_sign_temp > 0) {
+			gpl_headset_mic_temp_sign = "+";
+		}
+		String gpl_headset_mic_gain_sign = gpl_headset_mic_temp_sign
+				+ gpl_headset_mic_gain_sign_temp;
+
 		// set progress text
-		textProgress.setText("" + gpl_speaker_gain);
-		textgplmicProgress.setText("" + gpl_mic_gain);
-		textgplcammicProgress.setText("" + gpl_cam_mic_gain);
-		textgplheadphoneProcess.setText("" + gpl_headphone_gain);
-		textgplhdmispkrgainProgress.setText("" + gpl_hdmi_spkr_gain);
-		textgplheadsetmicgainProgress.setText("" + gpl_headset_mic_gain);
+		textProgress.setText("" + gpl_speaker_gain_sign);
+		textgplmicProgress.setText("" + gpl_mic_gain_sign);
+		textgplcammicProgress.setText("" + gpl_cam_mic_gain_sign);
+		textgplheadphoneProcess.setText("" + gpl_headphone_gain_sign);
+		textgplhdmispkrgainProgress.setText("" + gpl_hdmi_spkr_gain_sign);
+		textgplheadsetmicgainProgress.setText("" + gpl_headset_mic_gain_sign);
 
 		// Find Views
 		textuncompatibel = (TextView) findViewById(R.id.gpl_spkr_alert);
@@ -309,7 +366,15 @@ public class SoundTweaks extends Activity {
 				Log.d(TAG, "Progressbar: " + gpl_speaker_gain);
 
 				// change progress text label with current seekbar value
-				textProgress.setText("" + gpl_speaker_gain);
+				int gpl_speaker_gain_sign_temp = gpl_speaker_gain - 40;
+				gpl_speaker_temp_sign = "";
+				if (gpl_speaker_gain_sign_temp > 0) {
+					gpl_speaker_temp_sign = "+";
+				}
+				String gpl_speaker_gain_sign = gpl_speaker_temp_sign
+						+ gpl_speaker_gain_sign_temp;
+				textProgress.setText("" + gpl_speaker_gain_sign);
+				// textProgress.setText("" +gpl_speaker_gain);
 			}
 		});
 
@@ -363,7 +428,15 @@ public class SoundTweaks extends Activity {
 						Log.d(TAG, "Progressbar: " + gpl_mic_gain);
 
 						// change progress text label with current seekbar value
-						textgplmicProgress.setText("" + gpl_mic_gain);
+						int gpl_mic_gain_sign_temp = gpl_mic_gain - 40;
+						gpl_mic_temp_sign = "";
+						if (gpl_mic_gain_sign_temp > 0) {
+							gpl_mic_temp_sign = "+";
+						}
+						String gpl_mic_gain_sign = gpl_mic_temp_sign
+								+ gpl_mic_gain_sign_temp;
+						textgplmicProgress.setText("" + gpl_mic_gain_sign);
+						// textgplmicProgress.setText("" + gpl_mic_gain);
 					}
 				});
 
@@ -419,7 +492,16 @@ public class SoundTweaks extends Activity {
 						Log.d(TAG, "Progressbar: " + gpl_cam_mic_gain);
 
 						// change progress text label with current seekbar value
-						textgplcammicProgress.setText("" + gpl_cam_mic_gain);
+						int gpl_cam_mic_gain_sign_temp = gpl_cam_mic_gain - 40;
+						gpl_cam_mic_temp_sign = "";
+						if (gpl_cam_mic_gain_sign_temp > 0) {
+							gpl_cam_mic_temp_sign = "+";
+						}
+						String gpl_cam_mic_gain_sign = gpl_cam_mic_temp_sign
+								+ gpl_cam_mic_gain_sign_temp;
+						textgplcammicProgress.setText(""
+								+ gpl_cam_mic_gain_sign);
+						// textgplcammicProgress.setText("" + gpl_cam_mic_gain);
 					}
 				});
 
@@ -479,8 +561,17 @@ public class SoundTweaks extends Activity {
 						Log.d(TAG, "Progressbar: " + gpl_headphone_gain);
 
 						// change progress text label with current seekbar value
-						textgplheadphoneProcess
-								.setText("" + gpl_headphone_gain);
+						int gpl_headphone_gain_sign_temp = gpl_headphone_gain - 40;
+						gpl_headphone_temp_sign = "";
+						if (gpl_headphone_gain_sign_temp > 0) {
+							gpl_headphone_temp_sign = "+";
+						}
+						String gpl_headphone_gain_sign = gpl_headphone_temp_sign
+								+ gpl_headphone_gain_sign_temp;
+						textgplheadphoneProcess.setText(""
+								+ gpl_headphone_gain_sign);
+						// textgplheadphoneProcess.setText("" +
+						// gpl_headphone_gain);
 					}
 				});
 
@@ -536,8 +627,17 @@ public class SoundTweaks extends Activity {
 						Log.d(TAG, "Progressbar: " + gpl_hdmi_spkr_gain);
 
 						// change progress text label with current seekbar value
+						int gpl_hdmi_spkr_gain_sign_temp = gpl_hdmi_spkr_gain - 40;
+						gpl_hdmi_spkr_temp_sign = "";
+						if (gpl_hdmi_spkr_gain_sign_temp > 0) {
+							gpl_hdmi_spkr_temp_sign = "+";
+						}
+						String gpl_hdmi_spkr_gain_sign = gpl_hdmi_spkr_temp_sign
+								+ gpl_hdmi_spkr_gain_sign_temp;
 						textgplhdmispkrgainProgress.setText(""
-								+ gpl_hdmi_spkr_gain);
+								+ gpl_hdmi_spkr_gain_sign);
+						// textgplhdmispkrgainProgress.setText(""+
+						// gpl_hdmi_spkr_gain);
 					}
 				});
 
@@ -593,8 +693,17 @@ public class SoundTweaks extends Activity {
 						Log.d(TAG, "Progressbar: " + gpl_headset_mic_gain);
 
 						// change progress text label with current seekbar value
+						int gpl_headset_mic_gain_sign_temp = gpl_headset_mic_gain - 40;
+						gpl_headset_mic_temp_sign = "";
+						if (gpl_headset_mic_gain_sign_temp > 0) {
+							gpl_headset_mic_temp_sign = "+";
+						}
+						String gpl_headset_mic_gain_sign = gpl_headset_mic_temp_sign
+								+ gpl_headset_mic_gain_sign_temp;
 						textgplheadsetmicgainProgress.setText(""
-								+ gpl_headset_mic_gain);
+								+ gpl_headset_mic_gain_sign);
+						// textgplheadsetmicgainProgress.setText(""+
+						// gpl_headset_mic_gain);
 					}
 				});
 
