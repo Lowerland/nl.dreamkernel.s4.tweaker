@@ -52,8 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/logo"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
         android:text="@string/io_scheduler"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -61,11 +61,11 @@
 	<View
         android:id="@+id/iddummy2"
         android:layout_width="fill_parent"
-        android:layout_height="2dip"
+        android:layout_height="1dip"
         android:layout_below="@+id/textIOscheduler"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:background="@color/gray_line" />
 
 	<!-- *NEW* Touching BLOCK -->
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/iddummy2"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="2dp"
         android:text="@string/text_Internal_Scheduler"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textInternalschedulerinternalnew"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="2dp"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textInternalschedulerinternalnew"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="13dp"
+        android:layout_marginLeft="21dp"
         android:layout_marginTop="2dp"
         android:textColor="@color/red_alert"
         android:text="@string/empty_string"
@@ -125,8 +125,8 @@
         android:layout_height="1dip"
         android:layout_below="@+id/textInternalschedulerinternalnew"
         android:layout_marginTop="29dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/gray_line" />
 
 	<!-- *NEW* External Touching BLOCK -->
@@ -147,7 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/idline"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="2dp"
         android:text="@string/text_External_Scheduler"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -159,7 +159,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textExternalschedulerinternalnew"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="2dp"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -173,7 +173,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textExternalschedulerinternalnew"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="13dp"
+        android:layout_marginLeft="21dp"
         android:layout_marginTop="2dp"
         android:textColor="@color/red_alert"
         android:text="@string/empty_string"
@@ -186,8 +186,8 @@
         android:layout_height="1dip"
         android:layout_below="@+id/textExternalschedulerinternalnew"
         android:layout_marginTop="29dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/gray_line" />
 
     <!-- Text vibrator_intensity -->
@@ -197,7 +197,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/idline2"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="2dp"
         android:text="@string/vibrator_intensity"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -209,7 +209,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textvibrator_intensity"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="13dp"
+        android:layout_marginLeft="21dp"
         android:layout_marginTop="2dp"
         android:textColor="@color/red_alert"
         android:text="@string/empty_string"
@@ -223,8 +223,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="28dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_below="@+id/idline2"
         android:layout_toLeftOf="@+id/value_vibrator_intensity" />
 
@@ -236,7 +236,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/idline2"
         android:layout_marginTop="28dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/back"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -252,8 +252,8 @@
         android:layout_height="1dip"
         android:layout_below="@+id/textvibrator_intensity"
         android:layout_marginTop="46dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/gray_line" />
 
 	<!-- USB Fast Charge -->
@@ -263,8 +263,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/iddummy5"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="20dp"
         android:text="@string/usb_fast_charge"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -275,7 +275,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/usb_fast_charge_text"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="13dp"
+        android:layout_marginLeft="21dp"
         android:layout_marginTop="2dp"
         android:textColor="@color/red_alert"
         android:text="@string/empty_string"
@@ -287,8 +287,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="12dp"
+        android:layout_marginRight="20dp"
         android:layout_below="@+id/iddummy5"
         android:onClick="onUSBFASTSWITCH"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="8dp" />
 </RelativeLayout>
