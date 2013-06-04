@@ -80,7 +80,6 @@
         android:layout_below="@+id/iddummy2"
         android:layout_marginTop="0dp"
         android:background="@drawable/translucent_box"
-        android:clickable="true"
         android:onClick="onCPUGOVERNOR" />
 
     <!-- text Option CPU Governor -->
@@ -173,7 +172,6 @@
         android:layout_below="@+id/iddummy4"
         android:layout_marginTop="0dp"
         android:background="@drawable/translucent_box"
-        android:clickable="true"
         android:onClick="onMINFREQSCALING" />
 
     <!-- text Current CPU min Freq Scaling -->
@@ -240,7 +238,6 @@
         android:layout_below="@+id/iddummy5"
         android:layout_marginTop="0dp"
         android:background="@drawable/translucent_box"
-        android:clickable="true"
         android:onClick="onMAXFREQSCALING" />
 
     <!-- text max Frequency Scaling -->
