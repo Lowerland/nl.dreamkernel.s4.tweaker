@@ -77,7 +77,6 @@
         android:layout_below="@+id/iddummy2"
         android:layout_marginTop="0dp"
         android:background="@drawable/translucent_box"
-        android:clickable="true"
         android:onClick="onINTERNAL" />
 
 	<!-- *NEW* Internal Scheduler Text -->
@@ -138,7 +137,6 @@
         android:layout_below="@+id/idline"
         android:layout_marginTop="0dp"
         android:background="@drawable/translucent_box"
-        android:clickable="true"
         android:onClick="onEXTERNAL" />
 
 	<!-- *NEW* External Scheduler Text -->
