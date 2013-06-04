@@ -88,7 +88,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
         android:text="@string/gain_control"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/android_blue" />
 
     <!-- Line Below Gain Control -->
     <View
