@@ -54,7 +54,7 @@ public class Misc extends Activity {
 	public static View Touch_block_ext_scheduler;
 
 	// Variables for file paths
-/*
+
 	public static final SysFs vCheck_internalscheduler = new SysFs(
 			"/sys/block/mmcblk0/queue/scheduler");
 	public static final SysFs vCheck_externalscheduler = new SysFs(
@@ -63,15 +63,15 @@ public class Misc extends Activity {
 			"/sys/vibrator/pwm_val");
 	public static final SysFs vCheck_Usb_Fast_charge = new SysFs(
 			"/sys/kernel/fast_charge/force_fast_charge");
-*/
-	  public static final SysFs vCheck_internalscheduler = new SysFs(
-	  "/mnt/sdcard/testfiles/internalscheduler"); public static final SysFs
-	  vCheck_externalscheduler = new SysFs(
-	  "/mnt/sdcard/testfiles/externalscheduler"); public static final SysFs
-	  vCheck_vibrator_intensity = new SysFs( "/mnt/sdcard/testfiles/pwm_val");
-	  public static final SysFs vCheck_Usb_Fast_charge = new SysFs(
-	  "/mnt/sdcard/testfiles/force_fast_charge");
-	 
+	/*
+	 * public static final SysFs vCheck_internalscheduler = new SysFs(
+	 * "/mnt/sdcard/testfiles/internalscheduler"); public static final SysFs
+	 * vCheck_externalscheduler = new SysFs(
+	 * "/mnt/sdcard/testfiles/externalscheduler"); public static final SysFs
+	 * vCheck_vibrator_intensity = new SysFs( "/mnt/sdcard/testfiles/pwm_val");
+	 * public static final SysFs vCheck_Usb_Fast_charge = new SysFs(
+	 * "/mnt/sdcard/testfiles/force_fast_charge");
+	 */
 
 	// variables storing the real file values
 	private String file_value_internal;
