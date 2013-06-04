@@ -49,8 +49,12 @@ public class Misc extends Activity {
 	private static TextView textuncompatibel3;
 	private static TextView textuncompatibel4;
 
-	// Variables for file paths
+	// variables for touch blocks
+	public static View Touch_block_int_scheduler;
+	public static View Touch_block_ext_scheduler;
 
+	// Variables for file paths
+/*
 	public static final SysFs vCheck_internalscheduler = new SysFs(
 			"/sys/block/mmcblk0/queue/scheduler");
 	public static final SysFs vCheck_externalscheduler = new SysFs(
@@ -59,15 +63,15 @@ public class Misc extends Activity {
 			"/sys/vibrator/pwm_val");
 	public static final SysFs vCheck_Usb_Fast_charge = new SysFs(
 			"/sys/kernel/fast_charge/force_fast_charge");
-	/*
-	 * public static final SysFs vCheck_internalscheduler = new SysFs(
-	 * "/mnt/sdcard/testfiles/internalscheduler"); public static final SysFs
-	 * vCheck_externalscheduler = new SysFs(
-	 * "/mnt/sdcard/testfiles/externalscheduler"); public static final SysFs
-	 * vCheck_vibrator_intensity = new SysFs( "/mnt/sdcard/testfiles/pwm_val");
-	 * public static final SysFs vCheck_Usb_Fast_charge = new SysFs(
-	 * "/mnt/sdcard/testfiles/force_fast_charge");
-	 */
+*/
+	  public static final SysFs vCheck_internalscheduler = new SysFs(
+	  "/mnt/sdcard/testfiles/internalscheduler"); public static final SysFs
+	  vCheck_externalscheduler = new SysFs(
+	  "/mnt/sdcard/testfiles/externalscheduler"); public static final SysFs
+	  vCheck_vibrator_intensity = new SysFs( "/mnt/sdcard/testfiles/pwm_val");
+	  public static final SysFs vCheck_Usb_Fast_charge = new SysFs(
+	  "/mnt/sdcard/testfiles/force_fast_charge");
+	 
 
 	// variables storing the real file values
 	private String file_value_internal;
@@ -126,8 +130,11 @@ public class Misc extends Activity {
 		// Start on boot switch
 		usbfastchargeswitch = (Switch) findViewById(R.id.usb_fast_charge_switch);
 
-		// get the Shared Prefs
+		// Find Thouch Blocks so we can could disable them
+		Touch_block_int_scheduler = (View) findViewById(R.id.internaltouchblock);
+		Touch_block_ext_scheduler = (View) findViewById(R.id.externaltouchblock);
 
+		// get the Shared Prefs
 		InternalPrefValue = sharedPreferences.getInt("InternalPref", 0);
 		ExternalPrefValue = sharedPreferences.getInt("ExternalPref", 0);
 
@@ -523,7 +530,7 @@ public class Misc extends Activity {
 		Log.d(TAG, "OptionsHider() internal_scheduler_hide = "
 				+ FileCheck.internal_scheduler_hide);
 		if (FileCheck.internal_scheduler_hide == 1) {
-			// sInternal.setVisibility(View.GONE);
+			Touch_block_int_scheduler.setVisibility(View.GONE);
 			InternalValue.setVisibility(View.GONE);
 			textuncompatibel.setText(R.string.disabled_option_text);
 		}
@@ -532,7 +539,7 @@ public class Misc extends Activity {
 						+ FileCheck.external_scheduler_hide);
 
 		if (FileCheck.external_scheduler_hide == 1) {
-			// sExternal.setVisibility(View.GONE);
+			Touch_block_ext_scheduler.setVisibility(View.GONE);
 			ExternalValue.setVisibility(View.GONE);
 			textuncompatibel2.setText(R.string.disabled_option_text);
 		}
