@@ -67,7 +67,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/gray_line" />
+        android:background="@color/android_blue" />
 
 	<!-- *NEW* Touching BLOCK -->
 	<View
@@ -128,7 +128,7 @@
         android:layout_marginTop="29dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@color/gray_line" />
+        android:background="@color/android_blue_dark" />
 
 	<!-- *NEW* External Touching BLOCK -->
 	<View
@@ -189,7 +189,7 @@
         android:layout_marginTop="29dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@color/gray_line" />
+        android:background="@color/android_blue" />
 
     <!-- Text vibrator_intensity -->
 
@@ -257,7 +257,7 @@
         android:layout_marginTop="46dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@color/gray_line" />
+        android:background="@color/android_blue" />
 
 	<!-- USB Fast Charge -->
 
