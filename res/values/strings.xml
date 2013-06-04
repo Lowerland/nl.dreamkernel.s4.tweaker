@@ -79,7 +79,7 @@ Update or Install Latest Dreamkernel
     
     
     <string name="set_on_boot">Set On Boot:</string>
-    <string name="gain_control">Gain Control:</string>
+    <string name="gain_control">Gain Control</string>
     <string name="gpl_speaker_gain">gpl Speaker Gain:</string>
     <string name="gpl_mic_gain">gpl Mic Gain:</string>
     <string name="gpl_cam_mic_gain">gpl Cam Mic Gain:</string>
