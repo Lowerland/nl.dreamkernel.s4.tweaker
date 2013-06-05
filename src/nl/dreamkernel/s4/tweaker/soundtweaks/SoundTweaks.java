@@ -18,6 +18,7 @@ package nl.dreamkernel.s4.tweaker.soundtweaks;
 
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
+import nl.dreamkernel.s4.tweaker.util.OptionsHider;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
@@ -37,26 +38,26 @@ public class SoundTweaks extends Activity {
 
 	// UI objects
 	// the seek bar variable
-	private static SeekBar seekbar_gpl;
-	private static SeekBar seekbar_mic_gain;
-	private static SeekBar seekbar_cam_mic_gain;
-	private static SeekBar seekbar_headphone_gain;
-	private static SeekBar seekbar_hdmi_spkr_gain;
-	private static SeekBar seekbar_headset_mic_gain;
+	public static SeekBar seekbar_gpl;
+	public static SeekBar seekbar_mic_gain;
+	public static SeekBar seekbar_cam_mic_gain;
+	public static SeekBar seekbar_headphone_gain;
+	public static SeekBar seekbar_hdmi_spkr_gain;
+	public static SeekBar seekbar_headset_mic_gain;
 
 	// declare text label objects
-	private static TextView textProgress;
-	private static TextView textgplmicProgress;
-	private static TextView textgplcammicProgress;
-	private static TextView textgplheadphoneProcess;
-	private static TextView textgplhdmispkrgainProgress;
-	private static TextView textgplheadsetmicgainProgress;
-	private static TextView textuncompatibel;
-	private static TextView textuncompatibel2;
-	private static TextView textuncompatibel3;
-	private static TextView textuncompatibel4;
-	private static TextView textuncompatibel5;
-	private static TextView textuncompatibel6;
+	public static TextView textProgress;
+	public static TextView textgplmicProgress;
+	public static TextView textgplcammicProgress;
+	public static TextView textgplheadphoneProcess;
+	public static TextView textgplhdmispkrgainProgress;
+	public static TextView textgplheadsetmicgainProgress;
+	public static TextView textuncompatibel;
+	public static TextView textuncompatibel2;
+	public static TextView textuncompatibel3;
+	public static TextView textuncompatibel4;
+	public static TextView textuncompatibel5;
+	public static TextView textuncompatibel6;
 
 	// private Switch sound_tweaks_set_on_boot;
 
@@ -83,32 +84,32 @@ public class SoundTweaks extends Activity {
 
 	// Static Constants for file value checking
 
-	 public static final SysFs vCheck_gpl_speaker_gain = new SysFs(
-	 "/sys/kernel/sound_control/gpl_speaker_gain"); public static final SysFs
-	 vCheck_gpl_mic_gain = new SysFs(
-	 "/sys/kernel/sound_control/gpl_mic_gain"); public static final SysFs
-	 vCheck_gpl_cam_mic_gain = new SysFs(
-	 "/sys/kernel/sound_control/gpl_cam_mic_gain"); public static final SysFs
-	 vCheck_gpl_headphone_gain = new SysFs(
-	 "/sys/kernel/sound_control/gpl_headphone_gain"); public static final
-	 SysFs vCheck_gpl_hdmi_speaker_gain = new SysFs(
-	 "/sys/kernel/sound_control/gpl_hdmi_spkr_gain"); public static final
-	 SysFs vCheck_gpl_headset_mic_gain = new SysFs(
-	 "/sys/kernel/sound_control/gpl_headset_mic_gain");
-/*
 	public static final SysFs vCheck_gpl_speaker_gain = new SysFs(
-			"/mnt/sdcard/testfiles/gpl_speaker_gain");
+			"/sys/kernel/sound_control/gpl_speaker_gain");
 	public static final SysFs vCheck_gpl_mic_gain = new SysFs(
-			"/mnt/sdcard/testfiles/gpl_mic_gain");
+			"/sys/kernel/sound_control/gpl_mic_gain");
 	public static final SysFs vCheck_gpl_cam_mic_gain = new SysFs(
-			"/mnt/sdcard/testfiles/gpl_cam_mic_gain");
+			"/sys/kernel/sound_control/gpl_cam_mic_gain");
 	public static final SysFs vCheck_gpl_headphone_gain = new SysFs(
-			"/mnt/sdcard/testfiles/gpl_headphone_gain");
+			"/sys/kernel/sound_control/gpl_headphone_gain");
 	public static final SysFs vCheck_gpl_hdmi_speaker_gain = new SysFs(
-			"/mnt/sdcard/testfiles/gpl_hdmi_spkr_gain");
+			"/sys/kernel/sound_control/gpl_hdmi_spkr_gain");
 	public static final SysFs vCheck_gpl_headset_mic_gain = new SysFs(
-			"/mnt/sdcard/testfiles/gpl_headset_mic_gain");
-*/
+			"/sys/kernel/sound_control/gpl_headset_mic_gain");
+	/*
+	 * public static final SysFs vCheck_gpl_speaker_gain = new SysFs(
+	 * "/mnt/sdcard/testfiles/gpl_speaker_gain"); public static final SysFs
+	 * vCheck_gpl_mic_gain = new SysFs( "/mnt/sdcard/testfiles/gpl_mic_gain");
+	 * public static final SysFs vCheck_gpl_cam_mic_gain = new SysFs(
+	 * "/mnt/sdcard/testfiles/gpl_cam_mic_gain"); public static final SysFs
+	 * vCheck_gpl_headphone_gain = new SysFs(
+	 * "/mnt/sdcard/testfiles/gpl_headphone_gain"); public static final SysFs
+	 * vCheck_gpl_hdmi_speaker_gain = new SysFs(
+	 * "/mnt/sdcard/testfiles/gpl_hdmi_spkr_gain"); public static final SysFs
+	 * vCheck_gpl_headset_mic_gain = new SysFs(
+	 * "/mnt/sdcard/testfiles/gpl_headset_mic_gain");
+	 */
+
 	private int Value_gpl_speaker_gain;
 	private int Value_gpl_mic_gain;
 	private int Value_gpl_cam_mic_gain;
@@ -712,8 +713,10 @@ public class SoundTweaks extends Activity {
 				"soundtweaks_hide_dialog", 0);
 		Log.d(TAG, "onCreate cpu_hide_dialog = " + soundtweaks_hide_dialog);
 
+		// Options Compatible Check
 		FileCheck.CheckSoundOptions(SoundTweaks.this);
-		OptionsHider();
+		// Hide Options if it isn't compatible
+		OptionsHider.SoundTweaksHider(SoundTweaks.this);
 
 		if (FileCheck.incompatible == true) {
 			if (soundtweaks_hide_dialog == 1) {
@@ -746,57 +749,6 @@ public class SoundTweaks extends Activity {
 			// Toast.makeText(this,"!!!! BE PATIENT !!!!",Toast.LENGTH_SHORT).show();
 			// Toast.makeText(this,"...  xD  ...",Toast.LENGTH_LONG).show();
 			// Disable vibrate
-		}
-	}
-
-	static void OptionsHider() {
-
-		Log.d("gpl_spk_hide", "OptionsHider() gpl_spk_hide = "
-				+ FileCheck.gpl_spk_hide);
-		if (FileCheck.gpl_spk_hide == 1) {
-			seekbar_gpl.setVisibility(View.GONE);
-			textProgress.setVisibility(View.GONE);
-			textuncompatibel.setText(R.string.disabled_option_text);
-		}
-
-		Log.d("gpl_mic_hide", "OptionsHider() gpl_mic_hide = "
-				+ FileCheck.gpl_mic_hide);
-		if (FileCheck.gpl_mic_hide == 1) {
-			seekbar_mic_gain.setVisibility(View.GONE);
-			textgplmicProgress.setVisibility(View.GONE);
-			textuncompatibel2.setText(R.string.disabled_option_text);
-		}
-
-		Log.d("gpl_mic_hide", "OptionsHider() gpl_cam_mic_hide = "
-				+ FileCheck.gpl_cam_mic_hide);
-		if (FileCheck.gpl_cam_mic_hide == 1) {
-			seekbar_cam_mic_gain.setVisibility(View.GONE);
-			textgplcammicProgress.setVisibility(View.GONE);
-			textuncompatibel3.setText(R.string.disabled_option_text);
-		}
-
-		Log.d("gpl_mic_hide", "OptionsHider() gpl_headphone_hide = "
-				+ FileCheck.gpl_headphone_hide);
-		if (FileCheck.gpl_headphone_hide == 1) {
-			seekbar_headphone_gain.setVisibility(View.GONE);
-			textgplheadphoneProcess.setVisibility(View.GONE);
-			textuncompatibel4.setText(R.string.disabled_option_text);
-		}
-
-		Log.d("gpl_mic_hide", "OptionsHider() gpl_hdmi_spkr_hide = "
-				+ FileCheck.gpl_hdmi_spkr_hide);
-		if (FileCheck.gpl_hdmi_spkr_hide == 1) {
-			seekbar_hdmi_spkr_gain.setVisibility(View.GONE);
-			textgplhdmispkrgainProgress.setVisibility(View.GONE);
-			textuncompatibel5.setText(R.string.disabled_option_text);
-		}
-
-		Log.d("gpl_mic_hide", "OptionsHider() gpl_headset_mic_hide = "
-				+ FileCheck.gpl_headset_mic_hide);
-		if (FileCheck.gpl_headset_mic_hide == 1) {
-			seekbar_headset_mic_gain.setVisibility(View.GONE);
-			textgplheadsetmicgainProgress.setVisibility(View.GONE);
-			textuncompatibel6.setText(R.string.disabled_option_text);
 		}
 	}
 
