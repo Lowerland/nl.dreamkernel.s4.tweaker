@@ -19,6 +19,7 @@ package nl.dreamkernel.s4.tweaker.util;
 import nl.dreamkernel.s4.tweaker.R;
 import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
 import nl.dreamkernel.s4.tweaker.misc.Misc;
+import nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +54,7 @@ public class OptionsHider {
 		}
 	}
 
+	// Hiding Method for Misc Tweaks
 	public static void MiscTweaksHider(Context context) {
 
 		Log.d(TAG, "OptionsHider() internal_scheduler_hide = "
@@ -84,6 +86,58 @@ public class OptionsHider {
 			Misc.usbfastchargeswitch.setVisibility(View.GONE);
 			Misc.textuncompatibel4.setText(R.string.disabled_option_text);
 		}
+	}
+
+	// Hiding Method for Sound Tweaks
+	public static void SoundTweaksHider(Context context){
+
+	Log.d("gpl_spk_hide", "OptionsHider() gpl_spk_hide = "
+			+ FileCheck.gpl_spk_hide);
+	if (FileCheck.gpl_spk_hide == 1) {
+		SoundTweaks.seekbar_gpl.setVisibility(View.GONE);
+		SoundTweaks.textProgress.setVisibility(View.GONE);
+		SoundTweaks.textuncompatibel.setText(R.string.disabled_option_text);
+	}
+
+	Log.d("gpl_mic_hide", "OptionsHider() gpl_mic_hide = "
+			+ FileCheck.gpl_mic_hide);
+	if (FileCheck.gpl_mic_hide == 1) {
+		SoundTweaks.seekbar_mic_gain.setVisibility(View.GONE);
+		SoundTweaks.textgplmicProgress.setVisibility(View.GONE);
+		SoundTweaks.textuncompatibel2.setText(R.string.disabled_option_text);
+	}
+
+	Log.d("gpl_mic_hide", "OptionsHider() gpl_cam_mic_hide = "
+			+ FileCheck.gpl_cam_mic_hide);
+	if (FileCheck.gpl_cam_mic_hide == 1) {
+		SoundTweaks.seekbar_cam_mic_gain.setVisibility(View.GONE);
+		SoundTweaks.textgplcammicProgress.setVisibility(View.GONE);
+		SoundTweaks.textuncompatibel3.setText(R.string.disabled_option_text);
+	}
+
+	Log.d("gpl_mic_hide", "OptionsHider() gpl_headphone_hide = "
+			+ FileCheck.gpl_headphone_hide);
+	if (FileCheck.gpl_headphone_hide == 1) {
+		SoundTweaks.seekbar_headphone_gain.setVisibility(View.GONE);
+		SoundTweaks.textgplheadphoneProcess.setVisibility(View.GONE);
+		SoundTweaks.textuncompatibel4.setText(R.string.disabled_option_text);
+	}
+
+	Log.d("gpl_mic_hide", "OptionsHider() gpl_hdmi_spkr_hide = "
+			+ FileCheck.gpl_hdmi_spkr_hide);
+	if (FileCheck.gpl_hdmi_spkr_hide == 1) {
+		SoundTweaks.seekbar_hdmi_spkr_gain.setVisibility(View.GONE);
+		SoundTweaks.textgplhdmispkrgainProgress.setVisibility(View.GONE);
+		SoundTweaks.textuncompatibel5.setText(R.string.disabled_option_text);
+	}
+
+	Log.d("gpl_mic_hide", "OptionsHider() gpl_headset_mic_hide = "
+			+ FileCheck.gpl_headset_mic_hide);
+	if (FileCheck.gpl_headset_mic_hide == 1) {
+		SoundTweaks.seekbar_headset_mic_gain.setVisibility(View.GONE);
+		SoundTweaks.textgplheadsetmicgainProgress.setVisibility(View.GONE);
+		SoundTweaks.textuncompatibel6.setText(R.string.disabled_option_text);
+	}
 	}
 
 }
