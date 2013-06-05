@@ -18,6 +18,7 @@ package nl.dreamkernel.s4.tweaker.cpu;
 
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
+import nl.dreamkernel.s4.tweaker.util.OptionsHider;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
@@ -40,12 +41,12 @@ public class CpuTweaks extends Activity {
 	static final String TAG = "S4Tweaker";
 
 	// variables for the Textviews
-	private static TextView CpuCurrentValue;
-	private static TextView CpuMinFREQValue;
-	private static TextView CpuMaxFREQValue;
-	private static TextView textuncompatibel;
-	private static TextView textuncompatibel2;
-	private static TextView textuncompatibel3;
+	public static TextView CpuCurrentValue;
+	public static TextView CpuMinFREQValue;
+	public static TextView CpuMaxFREQValue;
+	public static TextView textuncompatibel;
+	public static TextView textuncompatibel2;
+	public static TextView textuncompatibel3;
 
 	// variables for touch blocks
 	public static View Touch_block_governor;
@@ -53,21 +54,21 @@ public class CpuTweaks extends Activity {
 	public static View Touch_block_max_freq;
 
 	// Variables for file paths
-	
-	  public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
-	  "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"); public static
-	  final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
-	  "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"); public static
-	  final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
-	  "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
-/*
+
 	public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
-			"/mnt/sdcard/testfiles/scaling_governor");
+			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
 	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
-			"/mnt/sdcard/testfiles/scaling_min_freq");
+			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
 	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
-			"/mnt/sdcard/testfiles/scaling_max_freq");
-*/
+			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+	/*
+	 * public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
+	 * "/mnt/sdcard/testfiles/scaling_governor"); public static final SysFs
+	 * vCheck_CPU_CpuMinFREQ = new SysFs(
+	 * "/mnt/sdcard/testfiles/scaling_min_freq"); public static final SysFs
+	 * vCheck_CPU_CpuMaxFREQ = new SysFs(
+	 * "/mnt/sdcard/testfiles/scaling_max_freq");
+	 */
 	// variables storing the real file values
 	private String file_CPU_GOVERNOR;
 	private String file_CPU_GOVERNOR_temp;
@@ -316,8 +317,10 @@ public class CpuTweaks extends Activity {
 		cpu_hide_dialog = sharedPreferences.getInt("cpu_hide_dialog", 0);
 		Log.d(TAG, "onCreate cpu_hide_dialog = " + cpu_hide_dialog);
 
+		// Options Compatible Check
 		FileCheck.CheckCPUOptions(CpuTweaks.this);
-		OptionsHider();
+		// Hide Options if it isn't compatible
+		OptionsHider.CpuTweaksHider(CpuTweaks.this);
 
 		if (FileCheck.incompatible == true) {
 			if (cpu_hide_dialog == 1) {
@@ -692,31 +695,6 @@ public class CpuTweaks extends Activity {
 		CpuMinFREQValue.setText("" + file_CPU_MinFREQ);
 		CpuMaxFREQValue.setText("" + file_CPU_MaxFREQ);
 
-	}
-
-	// Options Hide if it isn't compatible
-	static void OptionsHider() {
-		Log.d(TAG, "OptionsHider() cpuGovernor_hide = "
-				+ FileCheck.cpuGovernor_hide);
-		if (FileCheck.cpuGovernor_hide == 1) {
-			Touch_block_governor.setVisibility(View.GONE);
-			CpuCurrentValue.setVisibility(View.GONE);
-			textuncompatibel.setText(R.string.disabled_option_text);
-		}
-		Log.d(TAG, "OptionsHider() cpuMinFreq_hide = "
-				+ FileCheck.cpuMinFreq_hide);
-		if (FileCheck.cpuMinFreq_hide == 1) {
-			Touch_block_min_freq.setVisibility(View.GONE);
-			CpuMinFREQValue.setVisibility(View.GONE);
-			textuncompatibel2.setText(R.string.disabled_option_text);
-		}
-		Log.d(TAG, "OptionsHider() cpuMaxFreq_hide = "
-				+ FileCheck.cpuMaxFreq_hide);
-		if (FileCheck.cpuMaxFreq_hide == 1) {
-			Touch_block_max_freq.setVisibility(View.GONE);
-			CpuMaxFREQValue.setVisibility(View.GONE);
-			textuncompatibel3.setText(R.string.disabled_option_text);
-		}
 	}
 
 	// Method Used for retreiving data from the AlertDialog
