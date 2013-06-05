@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
+import nl.dreamkernel.s4.tweaker.util.OptionsHider;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
@@ -42,12 +43,12 @@ public class Misc extends Activity {
 	static final String TAG = "S4Tweaker";
 
 	// variables for the Textviews
-	private static TextView InternalValue;
-	private static TextView ExternalValue;
-	private static TextView textuncompatibel;
-	private static TextView textuncompatibel2;
-	private static TextView textuncompatibel3;
-	private static TextView textuncompatibel4;
+	public static TextView InternalValue;
+	public static TextView ExternalValue;
+	public static TextView textuncompatibel;
+	public static TextView textuncompatibel2;
+	public static TextView textuncompatibel3;
+	public static TextView textuncompatibel4;
 
 	// variables for touch blocks
 	public static View Touch_block_int_scheduler;
@@ -84,11 +85,11 @@ public class Misc extends Activity {
 	private int usb_switch_value_temp;
 
 	// the seek bar variable
-	private static SeekBar seekbar_vibrator;
+	public static SeekBar seekbar_vibrator;
 	// declare text label objects
-	private static TextView vibratorProgress;
+	public static TextView vibratorProgress;
 	// declare Switch objects
-	private static Switch usbfastchargeswitch;
+	public static Switch usbfastchargeswitch;
 
 	// declare the spinners
 	// private static Spinner sInternal;
@@ -209,8 +210,10 @@ public class Misc extends Activity {
 		misc_hide_dialog = sharedPreferences.getInt("misc_hide_dialog", 0);
 		Log.d(TAG, "onCreate misc_hide_dialog = " + misc_hide_dialog);
 
+		// Options Compatible Check
 		FileCheck.CheckMiscOptions(Misc.this);
-		OptionsHider();
+		// Hide Options if it isn't compatible
+		OptionsHider.MiscTweaksHider(Misc.this);
 
 		if (FileCheck.incompatible == true) {
 			if (misc_hide_dialog == 1) {
@@ -523,39 +526,6 @@ public class Misc extends Activity {
 			break;
 		}
 		process.term();
-	}
-
-	static void OptionsHider() {
-
-		Log.d(TAG, "OptionsHider() internal_scheduler_hide = "
-				+ FileCheck.internal_scheduler_hide);
-		if (FileCheck.internal_scheduler_hide == 1) {
-			Touch_block_int_scheduler.setVisibility(View.GONE);
-			InternalValue.setVisibility(View.GONE);
-			textuncompatibel.setText(R.string.disabled_option_text);
-		}
-		Log.d("external_scheduler_hide",
-				"OptionsHider() external_scheduler_hide = "
-						+ FileCheck.external_scheduler_hide);
-
-		if (FileCheck.external_scheduler_hide == 1) {
-			Touch_block_ext_scheduler.setVisibility(View.GONE);
-			ExternalValue.setVisibility(View.GONE);
-			textuncompatibel2.setText(R.string.disabled_option_text);
-		}
-		Log.d(TAG, "OptionsHider() vibrator_intensity_hide = "
-				+ FileCheck.vibrator_intensity_hide);
-		if (FileCheck.vibrator_intensity_hide == 1) {
-			seekbar_vibrator.setVisibility(View.GONE);
-			vibratorProgress.setVisibility(View.GONE);
-			textuncompatibel3.setText(R.string.disabled_option_text);
-		}
-		Log.d(TAG, "OptionsHider() Usb_Fast_charge_hide = "
-				+ FileCheck.Usb_Fast_charge_hide);
-		if (FileCheck.Usb_Fast_charge_hide == 1) {
-			usbfastchargeswitch.setVisibility(View.GONE);
-			textuncompatibel4.setText(R.string.disabled_option_text);
-		}
 	}
 
 	// Method Used for retreiving data from the AlertDialog
