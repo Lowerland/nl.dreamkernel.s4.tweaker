@@ -18,13 +18,13 @@ package nl.dreamkernel.s4.tweaker.util;
 
 import nl.dreamkernel.s4.tweaker.R;
 import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
+import nl.dreamkernel.s4.tweaker.misc.Misc;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
 public class OptionsHider {
 	private static final String TAG = "S4Tweaker";
-
 
 	// Methods used for hiding uncompatible options
 
@@ -53,6 +53,37 @@ public class OptionsHider {
 		}
 	}
 
-	
+	public static void MiscTweaksHider(Context context) {
+
+		Log.d(TAG, "OptionsHider() internal_scheduler_hide = "
+				+ FileCheck.internal_scheduler_hide);
+		if (FileCheck.internal_scheduler_hide == 1) {
+			Misc.Touch_block_int_scheduler.setVisibility(View.GONE);
+			Misc.InternalValue.setVisibility(View.GONE);
+			Misc.textuncompatibel.setText(R.string.disabled_option_text);
+		}
+		Log.d("external_scheduler_hide",
+				"OptionsHider() external_scheduler_hide = "
+						+ FileCheck.external_scheduler_hide);
+
+		if (FileCheck.external_scheduler_hide == 1) {
+			Misc.Touch_block_ext_scheduler.setVisibility(View.GONE);
+			Misc.ExternalValue.setVisibility(View.GONE);
+			Misc.textuncompatibel2.setText(R.string.disabled_option_text);
+		}
+		Log.d(TAG, "OptionsHider() vibrator_intensity_hide = "
+				+ FileCheck.vibrator_intensity_hide);
+		if (FileCheck.vibrator_intensity_hide == 1) {
+			Misc.seekbar_vibrator.setVisibility(View.GONE);
+			Misc.vibratorProgress.setVisibility(View.GONE);
+			Misc.textuncompatibel3.setText(R.string.disabled_option_text);
+		}
+		Log.d(TAG, "OptionsHider() Usb_Fast_charge_hide = "
+				+ FileCheck.Usb_Fast_charge_hide);
+		if (FileCheck.Usb_Fast_charge_hide == 1) {
+			Misc.usbfastchargeswitch.setVisibility(View.GONE);
+			Misc.textuncompatibel4.setText(R.string.disabled_option_text);
+		}
+	}
 
 }
