@@ -162,7 +162,6 @@ public class SoundTweaks extends Activity {
 			// so it needs an different aproach
 
 			headphonevalueconvert = vCheck_gpl_headphone_gain.read(rootProcess);
-			// int nLengthOfString = headphonevalueconvert.length();
 			int nStartIndex = 0;
 			int nEndIndex = 2;
 			headphonesubstring = headphonevalueconvert.substring(nStartIndex,
@@ -290,11 +289,7 @@ public class SoundTweaks extends Activity {
 		textuncompatibel5 = (TextView) findViewById(R.id.gpl_spkr_alert5);
 		textuncompatibel6 = (TextView) findViewById(R.id.gpl_spkr_alert6);
 
-		// seek bar settings//
-		// sets the max range to 30 because we add +20 later
-		// seekbar_gpl.setMax(0);
-		// seekbar_gpl.setMax(30);
-
+		// seek bar settings
 		// set the seek bar progress based on the sharedprefs
 		// needs the -20 at the end
 		seekbar_gpl.setKeyProgressIncrement(gpl_speaker_gain - 20);
@@ -375,7 +370,6 @@ public class SoundTweaks extends Activity {
 				String gpl_speaker_gain_sign = gpl_speaker_temp_sign
 						+ gpl_speaker_gain_sign_temp;
 				textProgress.setText("" + gpl_speaker_gain_sign);
-				// textProgress.setText("" +gpl_speaker_gain);
 			}
 		});
 
@@ -437,7 +431,6 @@ public class SoundTweaks extends Activity {
 						String gpl_mic_gain_sign = gpl_mic_temp_sign
 								+ gpl_mic_gain_sign_temp;
 						textgplmicProgress.setText("" + gpl_mic_gain_sign);
-						// textgplmicProgress.setText("" + gpl_mic_gain);
 					}
 				});
 
@@ -502,7 +495,6 @@ public class SoundTweaks extends Activity {
 								+ gpl_cam_mic_gain_sign_temp;
 						textgplcammicProgress.setText(""
 								+ gpl_cam_mic_gain_sign);
-						// textgplcammicProgress.setText("" + gpl_cam_mic_gain);
 					}
 				});
 
@@ -571,8 +563,6 @@ public class SoundTweaks extends Activity {
 								+ gpl_headphone_gain_sign_temp;
 						textgplheadphoneProcess.setText(""
 								+ gpl_headphone_gain_sign);
-						// textgplheadphoneProcess.setText("" +
-						// gpl_headphone_gain);
 					}
 				});
 
@@ -637,8 +627,6 @@ public class SoundTweaks extends Activity {
 								+ gpl_hdmi_spkr_gain_sign_temp;
 						textgplhdmispkrgainProgress.setText(""
 								+ gpl_hdmi_spkr_gain_sign);
-						// textgplhdmispkrgainProgress.setText(""+
-						// gpl_hdmi_spkr_gain);
 					}
 				});
 
@@ -703,8 +691,6 @@ public class SoundTweaks extends Activity {
 								+ gpl_headset_mic_gain_sign_temp;
 						textgplheadsetmicgainProgress.setText(""
 								+ gpl_headset_mic_gain_sign);
-						// textgplheadsetmicgainProgress.setText(""+
-						// gpl_headset_mic_gain);
 					}
 				});
 
@@ -739,16 +725,8 @@ public class SoundTweaks extends Activity {
 		boolean on = ((Switch) view).isChecked();
 		if (on) {
 			Log.d(TAG, "onBoot Enabled for SoundTweaks");
-			// Toast.makeText(this,"Sorry Function is not implemented yet !",Toast.LENGTH_LONG).show();
-			// Toast.makeText(this,"!!!! BE PATIENT !!!!",Toast.LENGTH_SHORT).show();
-			// Toast.makeText(this,"...  xD  ...",Toast.LENGTH_LONG).show();
-			// Enable vibrate
 		} else {
 			Log.d(TAG, "onBoot Disabled for SoundTweaks");
-			// Toast.makeText(this,"Sorry Function is not implemented yet !",Toast.LENGTH_LONG).show();
-			// Toast.makeText(this,"!!!! BE PATIENT !!!!",Toast.LENGTH_SHORT).show();
-			// Toast.makeText(this,"...  xD  ...",Toast.LENGTH_LONG).show();
-			// Disable vibrate
 		}
 	}
 
