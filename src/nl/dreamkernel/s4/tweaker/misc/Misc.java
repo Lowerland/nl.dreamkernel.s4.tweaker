@@ -91,10 +91,6 @@ public class Misc extends Activity {
 	// declare Switch objects
 	public static Switch usbfastchargeswitch;
 
-	// declare the spinners
-	// private static Spinner sInternal;
-	// private static Spinner sExternal;
-
 	// variables to store the shared pref in
 	private int InternalPrefValue;
 	private int ExternalPrefValue;
@@ -185,7 +181,6 @@ public class Misc extends Activity {
 							Log.e(TAG, "Error crashed " + e);
 							Log.d(TAG, "error " + e);
 						}
-
 					}
 
 					@Override
@@ -286,9 +281,6 @@ public class Misc extends Activity {
 			if (usb_switch_value_temp == 0) {
 				usb_switch_value = false;
 			}
-			// usb_switch_value_temp =
-			// Boolean.parseBoolean(vCheck_Usb_Fast_charge.read(rootProcess));
-			// usb_switch_value = usb_switch_value_temp;
 			Log.d(TAG, "Boolean usb_switch_value_temp = "
 					+ usb_switch_value_temp);
 			Log.d(TAG, "Boolean usb_switch_value = " + usb_switch_value);
@@ -298,7 +290,6 @@ public class Misc extends Activity {
 
 		rootProcess.term();
 		rootProcess = null;
-		// //
 
 		// Set current value views
 		InternalValue.setText("" + file_value_internal);
@@ -317,7 +308,6 @@ public class Misc extends Activity {
 				return;
 			}
 			process.write("echo 1 > /sys/kernel/fast_charge/force_fast_charge\n");
-			// process.write("echo 1 > /data/data/nl.dreamkernel.s4.tweaker/files/force_fast_charge\n");
 			Log.d(TAG, "on USB FAST SWITCH Enabled");
 			process.term();
 			ValueReader();
@@ -329,7 +319,6 @@ public class Misc extends Activity {
 				return;
 			}
 			process.write("echo 0 > /sys/kernel/fast_charge/force_fast_charge\n");
-			// process.write("echo 0 > /data/data/nl.dreamkernel.s4.tweaker/files/force_fast_charge\n");
 			Log.d(TAG, "on USB FAST SWITCH Disabled");
 			process.term();
 			ValueReader();
@@ -341,8 +330,6 @@ public class Misc extends Activity {
 		Log.d(TAG, "Internal value clicked");
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		// final FrameLayout frameView = new FrameLayout(this);
-		// builder.setView(frameView);
 		builder.setSingleChoiceItems(R.array.ioInternal, 0,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
@@ -374,13 +361,6 @@ public class Misc extends Activity {
 						ValueReader();
 					}
 				});
-
-		/*
-		 * LayoutInflater inflater = alertDialog.getLayoutInflater();
-		 * 
-		 * @SuppressWarnings("unused") View dialoglayout =
-		 * inflater.inflate(R.layout.dialog_alert, frameView);
-		 */
 		alertDialog.show();
 	}
 
@@ -437,8 +417,6 @@ public class Misc extends Activity {
 		Log.d(TAG, "External value clicked");
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		// final FrameLayout frameView = new FrameLayout(this);
-		// builder.setView(frameView);
 		builder.setSingleChoiceItems(R.array.ioExternal, 0,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
@@ -471,12 +449,6 @@ public class Misc extends Activity {
 					}
 				});
 
-		/*
-		 * LayoutInflater inflater = alertDialog.getLayoutInflater();
-		 * 
-		 * @SuppressWarnings("unused") View dialoglayout =
-		 * inflater.inflate(R.layout.dialog_alert, frameView);
-		 */
 		alertDialog.show();
 	}
 
