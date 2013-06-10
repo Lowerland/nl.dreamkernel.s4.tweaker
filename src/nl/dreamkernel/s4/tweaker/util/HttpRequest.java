@@ -108,7 +108,7 @@ import android.util.Log;
 	            Log.e(TAG, "HttpUtils: " + e);
 	        }
 
-	        Log.d(TAG, "Returning value:" + ret);
+	        //Log.d(TAG, "Returning value:" + ret);
 
 	        return ret;
 	    }
