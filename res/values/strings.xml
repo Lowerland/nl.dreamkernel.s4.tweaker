@@ -49,21 +49,22 @@ Update or Install Latest Dreamkernel
     <string name="menu_soundtweaks">Sound Tweaks</string>
     <string name="menu_misc_tweaks">Misc Tweaks</string>
     <string name="menu_cpu_tweaks">Cpu Tweaks</string>
-    
-    <string name="cpu_governor">CPU Governor</string>
+    <string name="menu_report_bug">Report A Bug</string>
+
+    <string name="cpu_governor">Governor</string>
     <string name="current_cpu_governor">CPU Governor</string>
     <string name="set_cpu_governor">Set CPU Governor:</string>
-    
+
     <string name="cpu_freq_scaling_title">CPU Frequency Scaling</string>
     <string name="min_frequency_scaling">Min Frequency Scaling</string>
     <string name="set_freq_scaling_min">Set Min Scaling Freq:</string>
     <string name="max_fequency_scaling">Max Frequency Scaling</string>
     <string name="set_freq_scaling_max">Set Max Scaling Freq:</string>
-    
+
     <string name="usb_fast_charge">USB Fast Charge</string>
     <string name="current_usb_fast_charge">Current USB Fast Charge</string>
     <string name="set_usb_fast_charge">Set USB Fast Charge</string>
-    
+
     <string name="io_scheduler">I/O-Schedulers</string>
     <string name="internal">Set Int. Scheduler:</string>
     <string name="text_Internal_Scheduler">Internal Scheduler</string>
@@ -71,13 +72,13 @@ Update or Install Latest Dreamkernel
     <string name="external">Set Ext. Scheduler:</string>
     <string name="current_int">Current Int. Scheduler:</string>
     <string name="current_ext">Current Ext. Scheduler:</string>
-    
+
     <string name="spinner_internal">internalspinner</string>
     <string name="spinner_external">externalspinner</string>
-    
+
     <string name="vibrator_intensity">Vibrator Intensity</string>
-    
-    
+
+
     <string name="set_on_boot">Set On Boot:</string>
     <string name="gain_control">Gain Control</string>
     <string name="gpl_speaker_gain">gpl Speaker Gain:</string>
@@ -86,14 +87,12 @@ Update or Install Latest Dreamkernel
     <string name="gpl_headphone_gain">gpl Headphone Gain:</string>
     <string name="gpl_hdmi_spkr_gain">gpl Hdmi Spkr Gain:</string>
     <string name="gpl_headset_mic_gain">gpl Headset Mic Gain:</string>
-    
+
 
     <string name="about_app_name">S4 Tweaker for DreamKernel</string>
-
     <string name="about_coders_app">App Coding:</string>
     <string name="about_lowerland">Lowerland</string>
     <string name="email_lowerland">lowerland@hotmail.com</string>
-
     <string name="about_dreamkernel">DreamKernel, Custom kernel</string>
     <string name="about_dreamkernel2">Samsung Galaxy S4 LTE (GT-I9505)</string>
     <string name="about_talustus">Talustus</string>
@@ -102,5 +101,13 @@ Update or Install Latest Dreamkernel
     <string name="about_coding_kernel">Kernel Maintainer:</string>
     <string name="donate_button">Donate Button</string>
     <string name="donate_text">Please Donate to support our work</string>
-    
+
+    <string name="bugreport_name">Name (Optional)</string>
+    <string name="bugreport_name_hint">Your name</string>
+    <string name="bugreport_email">Email Address (Optional)</string>
+    <string name="bugreport_email_hint">Your Email address</string>
+    <string name="bugreport_hint">Describe your problem</string>
+    <string name="bugreport_btn_submit">Submit Bug Report</string>
+    <string name="bugreport_msg">Message:</string>
+
 </resources>
