@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2013-2014 Jeroen Gorter <Lowerland@hotmail.com>
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="left"
+    android:orientation="vertical" >
+
+    <!-- Logo -->
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="2dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_bug_report" />
+
+    <!-- Logo Text -->
+
+    <TextView
+        android:id="@+id/textlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@+id/logo"
+        android:text="@string/menu_report_bug"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <!-- Line below logo -->
+
+    <View
+        android:id="@+id/iddummy1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="5dp"
+        android:background="#698bdd" />
+
+    <!-- Text Name -->
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/iddummy1"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:text="@string/bugreport_name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/android_blue" />
+
+    <!-- Input field Name -->
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textName"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/back"
+        android:ems="10"
+        android:hint="@string/bugreport_name_hint"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <!-- Text Email -->
+
+    <TextView
+        android:id="@+id/textEmailaddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editName"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/bugreport_email"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/android_blue" />
+
+    <!-- Input field Email -->
+
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textEmailaddress"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/back"
+        android:ems="10"
+        android:hint="@string/bugreport_email_hint"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <!-- Text Message -->
+
+    <TextView
+        android:id="@+id/textMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editEmail"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/bugreport_msg"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/android_blue" />
+
+    <!-- Input field Message -->
+
+    <EditText
+        android:id="@+id/editMsg"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textMsg"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/back"
+        android:ems="10"
+        android:hint="@string/bugreport_hint"
+        android:inputType="textMultiLine"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="14sp" />
+
+    <!-- Button Submit bug -->
+
+    <Button
+        android:id="@+id/btn_submit_bug"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:onClick="onSubmit"
+        android:text="@string/bugreport_btn_submit" />
+
+</RelativeLayout>
