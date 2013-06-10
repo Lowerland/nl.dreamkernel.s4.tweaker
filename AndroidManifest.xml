@@ -34,6 +34,7 @@
         android:xlargeScreens="true" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -53,29 +54,56 @@
         <activity
             android:name="nl.dreamkernel.s4.tweaker.about.About"
             android:icon="@drawable/ic_about"
+            android:parentActivityName="nl.dreamkernel.s4.tweaker.Main"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.dreamkernel.s4.tweaker.Main" />
         </activity>
         <activity
             android:name="nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks"
             android:icon="@drawable/ic_soundtweaks"
+            android:parentActivityName="nl.dreamkernel.s4.tweaker.Main"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.dreamkernel.s4.tweaker.Main" />
         </activity>
         <activity
             android:name="nl.dreamkernel.s4.tweaker.misc.Misc"
             android:icon="@drawable/ic_settings"
+            android:parentActivityName="nl.dreamkernel.s4.tweaker.Main"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.dreamkernel.s4.tweaker.Main" />
         </activity>
         <activity
             android:name="nl.dreamkernel.s4.tweaker.cpu.CpuTweaks"
             android:icon="@drawable/ic_cpu"
+            android:parentActivityName="nl.dreamkernel.s4.tweaker.Main"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.dreamkernel.s4.tweaker.Main" />
         </activity>
         <activity
             android:name="nl.dreamkernel.s4.tweaker.util.DialogActivity"
+            android:parentActivityName="nl.dreamkernel.s4.tweaker.Main"
             android:theme="@android:style/Theme.Holo.Dialog" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.dreamkernel.s4.tweaker.Main" />
         </activity>
-        
-        
+        <activity
+            android:name="nl.dreamkernel.s4.tweaker.bugs.BugsReporter"
+            android:icon="@drawable/ic_bug_report"
+            android:parentActivityName="nl.dreamkernel.s4.tweaker.Main"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.dreamkernel.s4.tweaker.Main" />
+        </activity>
     </application>
 
 </manifest>
