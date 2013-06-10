@@ -17,9 +17,11 @@
 package nl.dreamkernel.s4.tweaker;
 
 import nl.dreamkernel.s4.tweaker.R;
+import nl.dreamkernel.s4.tweaker.bugs.BugsReporter;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 public class Main extends Activity {
 	static final String TAG = "S4Tweaker";
@@ -69,6 +72,13 @@ public class Main extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		// Shows a notice if bug report was succesfull
+		if (BugsReporter.bugrecieved == true) {
+			Toast.makeText(Main.this, "Bug Report Successful",
+					Toast.LENGTH_LONG).show();
+			Toast.makeText(Main.this, "Thank You For Your Support  :)",
+					Toast.LENGTH_LONG).show();
+		}
 		Log.d(TAG, "onResume() " + FileCheck.isRootEnabled());
 		if (!FileCheck.isRootEnabled() == true) {
 			Log.d(TAG,
