@@ -78,6 +78,7 @@ public class Main extends Activity {
 					Toast.LENGTH_LONG).show();
 			Toast.makeText(Main.this, "Thank You For Your Support  :)",
 					Toast.LENGTH_LONG).show();
+
 			BugsReporter.bugrecieved = false;
 		}
 		Log.d(TAG, "onResume() " + FileCheck.isRootEnabled());
