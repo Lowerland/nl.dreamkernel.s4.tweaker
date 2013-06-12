@@ -51,7 +51,7 @@ public class Main extends Activity {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putInt("usage_counter", usage_counter + 1);
 		editor.commit();
-		Log.d(TAG, "Runned This App " + usage_counter + " Times now");
+		Log.d(TAG, "App started " + usage_counter + " times");
 	}
 
 	/*
