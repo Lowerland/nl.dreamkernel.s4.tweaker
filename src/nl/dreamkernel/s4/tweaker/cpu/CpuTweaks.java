@@ -315,7 +315,7 @@ public class CpuTweaks extends Activity {
 						editor.commit();
 
 						MIN_FREQ_DialogSaver();
-						// ValueReader();
+						ValueReader();
 					}
 				});
 		alertDialog.show();
@@ -442,7 +442,7 @@ public class CpuTweaks extends Activity {
 						editor.commit();
 
 						MAX_FREQ_DialogSaver();
-						// ValueReader();
+						ValueReader();
 					}
 				});
 		alertDialog.show();
