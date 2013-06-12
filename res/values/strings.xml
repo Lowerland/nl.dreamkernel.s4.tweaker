@@ -18,8 +18,8 @@
 <resources>
 
     <string name="app_name">S4-Tweaker</string>
-    <string name="version">Beta Version 1.0.1</string>
-    <string name="version_small">v1.0.1</string>
+    <string name="version">Beta Version 1.0.2</string>
+    <string name="version_small">v1.0.2</string>
    
     
     <string name="empty_string"></string>
