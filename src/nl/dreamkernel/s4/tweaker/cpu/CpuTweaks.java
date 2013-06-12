@@ -61,13 +61,24 @@ public class CpuTweaks extends Activity {
 			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
 	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
 			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+	public static final SysFs vCheck_CPU1_ONLINE = new SysFs(
+			"/sys/devices/system/cpu/cpu1/online");
+	public static final SysFs vCheck_CPU2_ONLINE = new SysFs(
+			"/sys/devices/system/cpu/cpu2/online");
+	public static final SysFs vCheck_CPU3_ONLINE = new SysFs(
+			"/sys/devices/system/cpu/cpu3/online");
 	/*
-	 * public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
-	 * "/mnt/sdcard/testfiles/scaling_governor"); public static final SysFs
-	 * vCheck_CPU_CpuMinFREQ = new SysFs(
-	 * "/mnt/sdcard/testfiles/scaling_min_freq"); public static final SysFs
-	 * vCheck_CPU_CpuMaxFREQ = new SysFs(
-	 * "/mnt/sdcard/testfiles/scaling_max_freq");
+	 * public static final SysFs vCheck_CPU_GOVERNOR = new
+	 * SysFs("/mnt/sdcard/testfiles/scaling_governor"); public static final
+	 * SysFs vCheck_CPU_CpuMinFREQ = new
+	 * SysFs("/mnt/sdcard/testfiles/scaling_min_freq"); public static final
+	 * SysFs vCheck_CPU_CpuMaxFREQ = new
+	 * SysFs("/mnt/sdcard/testfiles/scaling_max_freq"); public static final
+	 * SysFs vCheck_CPU1_ONLINE = new
+	 * SysFs("/mnt/sdcard/testfiles/cpu1_online"); public static final SysFs
+	 * vCheck_CPU2_ONLINE = new SysFs("/mnt/sdcard/testfiles/cpu2_online");
+	 * public static final SysFs vCheck_CPU3_ONLINE = new
+	 * SysFs("/mnt/sdcard/testfiles/cpu3_online");
 	 */
 
 	// variables storing the real file values
@@ -77,6 +88,16 @@ public class CpuTweaks extends Activity {
 	private int file_CPU_MinFREQ_temp;
 	private int file_CPU_MaxFREQ;
 	private int file_CPU_MaxFREQ_temp;
+
+	private int file_CPU1_ONLINE;
+	private int file_CPU1_ONLINE_temp;
+	private int file_CPU2_ONLINE;
+	private int file_CPU2_ONLINE_temp;
+	private int file_CPU3_ONLINE;
+	private int file_CPU3_ONLINE_temp;
+	private int CPU1_RETURN_STATE;
+	private int CPU2_RETURN_STATE;
+	private int CPU3_RETURN_STATE;
 
 	// variables to store the shared pref in
 	private int CpuGovernorPrefValue;
@@ -294,7 +315,7 @@ public class CpuTweaks extends Activity {
 						editor.commit();
 
 						MIN_FREQ_DialogSaver();
-						ValueReader();
+						// ValueReader();
 					}
 				});
 		alertDialog.show();
@@ -302,6 +323,13 @@ public class CpuTweaks extends Activity {
 
 	private void MIN_FREQ_DialogSaver() {
 		Log.d(TAG, "DialogSaver intervalue = " + dialog_temp_min_scheduler);
+
+		// read values for cpu's Online check
+		ValueReader();
+
+		// Cpu's Online state and Force Online if the are Offline
+		CpuCurrentState();
+
 		// calls RootProcess
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
@@ -312,35 +340,67 @@ public class CpuTweaks extends Activity {
 		switch (dialog_temp_min_scheduler) {
 		case 0:
 			process.write("echo 162000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			process.write("echo 162000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+			process.write("echo 162000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+			process.write("echo 162000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 			Log.d(TAG, "echo'd 162000 to Cpu Min FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 1:
 			process.write("echo 216000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			process.write("echo 216000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+			process.write("echo 216000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+			process.write("echo 216000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 			Log.d(TAG, "echo'd 216000 to Cpu Min FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 2:
 			process.write("echo 270000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			process.write("echo 270000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+			process.write("echo 270000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+			process.write("echo 270000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 			Log.d(TAG, "echo'd 270000 to Cpu Min FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 3:
 			process.write("echo 324000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			process.write("echo 324000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+			process.write("echo 324000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+			process.write("echo 324000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 			Log.d(TAG, "echo'd 324000 to Cpu Min FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 4:
 			process.write("echo 378000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			process.write("echo 378000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+			process.write("echo 378000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+			process.write("echo 378000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 			Log.d(TAG, "echo'd 378000 to Cpu Min FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 5:
 			process.write("echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			process.write("echo 384000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+			process.write("echo 384000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+			process.write("echo 384000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 			Log.d(TAG, "echo'd 384000 to Cpu Min FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 6:
 			process.write("echo 486000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			process.write("echo 486000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+			process.write("echo 486000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+			process.write("echo 486000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 			Log.d(TAG, "echo'd 486000 to Cpu Min FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 7:
 			process.write("echo 594000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			process.write("echo 594000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+			process.write("echo 594000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+			process.write("echo 594000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 			Log.d(TAG, "echo'd 594000 to Cpu Min FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		default:
 			break;
@@ -382,7 +442,7 @@ public class CpuTweaks extends Activity {
 						editor.commit();
 
 						MAX_FREQ_DialogSaver();
-						ValueReader();
+						// ValueReader();
 					}
 				});
 		alertDialog.show();
@@ -391,6 +451,13 @@ public class CpuTweaks extends Activity {
 	private void MAX_FREQ_DialogSaver() {
 		Log.d(TAG, "MAX_FREQ_DialogSaver intervalue = "
 				+ dialog_temp_max_scheduler);
+
+		// read values for cpu's Online check
+		ValueReader();
+
+		// Cpu's Online state and Force Online if the are Offline
+		CpuCurrentState();
+
 		// calls RootProcess
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
@@ -401,35 +468,67 @@ public class CpuTweaks extends Activity {
 		switch (dialog_temp_max_scheduler) {
 		case 0:
 			process.write("echo 1566000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 1566000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 1566000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 1566000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 			Log.d(TAG, "echo'd 1566000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 1:
 			process.write("echo 1674000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 1674000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 1674000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 1674000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 			Log.d(TAG, "echo'd 1674000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 2:
 			process.write("echo 1782000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 1782000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 1782000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 1782000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 			Log.d(TAG, "echo'd 1782000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 3:
 			process.write("echo 1890000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 1890000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 1890000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 1890000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 			Log.d(TAG, "echo'd 1890000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 4:
 			process.write("echo 1944000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 1944000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 1944000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 1944000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 			Log.d(TAG, "echo'd 1944000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 5:
 			process.write("echo 1998000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 1998000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 1998000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 1998000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 			Log.d(TAG, "echo'd 1998000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 6:
 			process.write("echo 2052000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 2052000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 2052000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 2052000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 			Log.d(TAG, "echo'd 2052000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		case 7:
 			process.write("echo 2106000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 2106000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 2106000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 2106000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 			Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
 			break;
 		default:
 			break;
@@ -439,6 +538,61 @@ public class CpuTweaks extends Activity {
 
 	void showToast(CharSequence msg) {
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+	}
+
+	private void CpuCurrentState() {
+		// calls RootProcess
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+		}
+		if (file_CPU1_ONLINE == 0) {
+			process.write("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
+			CPU1_RETURN_STATE = 0;
+			Log.d(TAG, "Force CPU 1 ONLINE " + CPU1_RETURN_STATE);
+		} else {
+			CPU1_RETURN_STATE = 1;
+			Log.d(TAG, "CPU 1 is ONLINE " + CPU1_RETURN_STATE);
+		}
+		if (file_CPU2_ONLINE == 0) {
+			process.write("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
+			CPU2_RETURN_STATE = 0;
+			Log.d(TAG, "Force CPU 2 ONLINE " + CPU2_RETURN_STATE);
+		} else {
+			CPU2_RETURN_STATE = 1;
+			Log.d(TAG, "CPU 2 is ONLINE " + CPU2_RETURN_STATE);
+		}
+		if (file_CPU3_ONLINE == 0) {
+			process.write("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
+			CPU3_RETURN_STATE = 0;
+			Log.d(TAG, "Force CPU 3 ONLINE " + CPU3_RETURN_STATE);
+		} else {
+			CPU3_RETURN_STATE = 1;
+			Log.d(TAG, "CPU 3 is ONLINE " + CPU3_RETURN_STATE);
+		}
+
+		process.term();
+	}
+
+	private void ReturnCpuState() {
+		// calls RootProcess
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+		}
+		if (CPU1_RETURN_STATE == 0) {
+			process.write("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
+			Log.d(TAG, "Force CPU 1 Back Offline " + CPU1_RETURN_STATE);
+		}
+		if (file_CPU2_ONLINE == 0) {
+			process.write("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
+			Log.d(TAG, "Force CPU 2 Back Offline " + CPU2_RETURN_STATE);
+		}
+		if (file_CPU3_ONLINE == 0) {
+			process.write("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
+			Log.d(TAG, "Force CPU 3 Back Offline " + CPU3_RETURN_STATE);
+		}
+		process.term();
 	}
 
 	private void ValueReader() {
@@ -466,6 +620,27 @@ public class CpuTweaks extends Activity {
 			file_CPU_MaxFREQ_temp = Integer.parseInt(vCheck_CPU_CpuMaxFREQ
 					.read(rootProcess));
 			file_CPU_MaxFREQ = file_CPU_MaxFREQ_temp;
+		} else {
+		}
+		if (vCheck_CPU1_ONLINE.exists()) {
+			file_CPU1_ONLINE_temp = Integer.parseInt(vCheck_CPU1_ONLINE
+					.read(rootProcess));
+			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
+			Log.d(TAG, "Read Cpu 1 State " + file_CPU1_ONLINE);
+		} else {
+		}
+		if (vCheck_CPU2_ONLINE.exists()) {
+			file_CPU2_ONLINE_temp = Integer.parseInt(vCheck_CPU2_ONLINE
+					.read(rootProcess));
+			file_CPU2_ONLINE = file_CPU2_ONLINE_temp;
+			Log.d(TAG, "Read Cpu 2 State " + file_CPU2_ONLINE);
+		} else {
+		}
+		if (vCheck_CPU3_ONLINE.exists()) {
+			file_CPU3_ONLINE_temp = Integer.parseInt(vCheck_CPU3_ONLINE
+					.read(rootProcess));
+			file_CPU3_ONLINE = file_CPU3_ONLINE_temp;
+			Log.d(TAG, "Read Cpu 3 State " + file_CPU3_ONLINE);
 		} else {
 		}
 
