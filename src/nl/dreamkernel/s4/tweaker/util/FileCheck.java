@@ -109,6 +109,22 @@ public class FileCheck {
 			cpuMaxFreq_hide = 1;
 			incompatible = true;
 		}
+		if (!CpuTweaks.vCheck_CPU1_ONLINE.exists()) {
+			cpuMinFreq_hide = 1;
+			cpuMaxFreq_hide = 1;
+			incompatible = true;
+		}
+		if (!CpuTweaks.vCheck_CPU2_ONLINE.exists()) {
+			cpuMinFreq_hide = 1;
+			cpuMaxFreq_hide = 1;
+			incompatible = true;
+		}
+		if (!CpuTweaks.vCheck_CPU3_ONLINE.exists()) {
+			cpuMinFreq_hide = 1;
+			cpuMaxFreq_hide = 1;
+			incompatible = true;
+		}
+
 	}
 
 	// MiscTweaks FileChecking Method
