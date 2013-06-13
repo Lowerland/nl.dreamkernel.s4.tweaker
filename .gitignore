@@ -3,3 +3,6 @@ gen
 doc
 ant.properties
 local.properties
+.idea
+nl.dreamkernel.s4.tweaker.iml
+out
