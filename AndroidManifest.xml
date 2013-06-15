@@ -55,7 +55,7 @@
         </activity>
         <activity
             android:name="nl.dreamkernel.s4.tweaker.about.About"
-            android:icon="@drawable/ic_about"
+            android:icon="@drawable/ic_about2"
             android:parentActivityName="nl.dreamkernel.s4.tweaker.Main"
             android:screenOrientation="portrait" >
             <meta-data
@@ -100,6 +100,15 @@
         <activity
             android:name="nl.dreamkernel.s4.tweaker.bugs.BugsReporter"
             android:icon="@drawable/ic_bug_report"
+            android:parentActivityName="nl.dreamkernel.s4.tweaker.Main"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.dreamkernel.s4.tweaker.Main" />
+        </activity>
+        <activity
+            android:name="nl.dreamkernel.s4.tweaker.systeminfo.SystemInfo"
+            android:icon="@drawable/ic_about"
             android:parentActivityName="nl.dreamkernel.s4.tweaker.Main"
             android:screenOrientation="portrait" >
             <meta-data
