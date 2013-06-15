@@ -50,6 +50,7 @@ Update or Install Latest Dreamkernel
     <string name="menu_misc_tweaks">Misc Tweaks</string>
     <string name="menu_cpu_tweaks">Cpu Tweaks</string>
     <string name="menu_report_bug">Report A Bug</string>
+    <string name="menu_system_info">System Info</string>
 
     <string name="cpu_governor">Governor</string>
     <string name="current_cpu_governor">CPU Governor</string>
@@ -88,6 +89,8 @@ Update or Install Latest Dreamkernel
     <string name="gpl_hdmi_spkr_gain">gpl Hdmi Spkr Gain:</string>
     <string name="gpl_headset_mic_gain">gpl Headset Mic Gain:</string>
 
+    <string name="si_kernel_version">Kernel version</string>
+    <string name="si_gcc_version">GCC version</string>
 
     <string name="about_app_name">S4 Tweaker for DreamKernel</string>
     <string name="about_coders_app">App Coding:</string>
