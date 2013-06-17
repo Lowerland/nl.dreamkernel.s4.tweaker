@@ -21,7 +21,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+
+import nl.dreamkernel.s4.tweaker.systeminfo.SysInfo;
 import nl.dreamkernel.s4.tweaker.util.HttpRequest;
+import nl.dreamkernel.s4.tweaker.util.SysCmds;
 import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
 import android.content.Context;
@@ -43,6 +46,23 @@ public class BugsReporter extends Activity {
 	public static String outputName;
 	public static String outputEmail;
 	public static String outputMsg;
+	public static String outputDeviceInfo;
+	public static String outputCpuHwInfo;
+
+	private static String Kernel_Version = SysInfo.getKernelVersion();
+	private static String kernel_cmdline = SysInfo.getKernelcmdline();
+	private static String Processor = SysCmds.CPUinfo("Processor");
+	private static String BogoMIPS = SysCmds.CPUinfo("BogoMIPS");
+	private static String Features = SysCmds.CPUinfo("Features");
+	private static String CPU_implementer = SysCmds.CPUinfo("CPU implementer");
+	private static String CPU_architecture = SysCmds
+			.CPUinfo("CPU architecture");
+	private static String CPU_variant = SysCmds.CPUinfo("CPU variant");
+	private static String CPU_part = SysCmds.CPUinfo("CPU part");
+	private static String CPU_revision = SysCmds.CPUinfo("CPU revision");
+	private static String Hardware = SysCmds.CPUinfo("Hardware");
+	private static String Revision = SysCmds.CPUinfo("Revision");
+	private static String Serial = SysCmds.CPUinfo("Serial");
 
 	public static boolean http_Connectivity;
 	public static boolean bugrecieved;
@@ -57,6 +77,12 @@ public class BugsReporter extends Activity {
 		editName = (EditText) findViewById(R.id.editName);
 		editEmail = (EditText) findViewById(R.id.editEmail);
 		editMsg = (EditText) findViewById(R.id.editMsg);
+		outputDeviceInfo = "Kernel Version:\n" + Kernel_Version
+				+ "Kernel commandline:\n" + kernel_cmdline + "\n ";
+		outputCpuHwInfo = "Cpu/Hwinfo:\n" + Processor + "\n" + BogoMIPS + "\n"
+				+ Features + "\n" + CPU_implementer + "\n" + CPU_architecture
+				+ "\n" + CPU_variant + "\n" + CPU_part + "\n" + CPU_revision
+				+ "\n" + Hardware + "\n" + Revision + "\n" + Serial + "\n";
 	}
 
 	public boolean isConnectable() {
@@ -153,11 +179,15 @@ public class BugsReporter extends Activity {
 				String data1 = outputName;
 				String data2 = outputEmail;
 				String data3 = outputMsg;
+				String data4 = outputDeviceInfo;
+				String data5 = outputCpuHwInfo;
 
 				@SuppressWarnings("deprecation")
 				String data = "entry_1845673598=" + URLEncoder.encode(data1)
 						+ "&" + "entry_855344491=" + URLEncoder.encode(data2)
-						+ "&" + "entry_1481820931=" + URLEncoder.encode(data3);
+						+ "&" + "entry_1481820931=" + URLEncoder.encode(data3)
+						+ "&" + "entry_833056556=" + URLEncoder.encode(data4)
+						+ "&" + "entry_521168760=" + URLEncoder.encode(data5);
 				String response = mReq.sendPost(fullUrl, data);
 				bugrecieved = true;
 				Log.i(TAG, data);
