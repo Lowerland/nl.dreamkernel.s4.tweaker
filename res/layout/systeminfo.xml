@@ -13,13 +13,14 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-  -->
+-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="left"
     android:orientation="vertical" >
-        <!-- Logo -->
+
+    <!-- Logo -->
 
     <ImageView
         android:id="@+id/logo"
@@ -32,8 +33,6 @@
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
         android:src="@drawable/logo_system_info" />
-    
-
 
     <!-- Line below logo -->
 
@@ -44,5 +43,257 @@
         android:layout_below="@+id/logo"
         android:layout_marginTop="3dp"
         android:background="#698bdd" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iddummy1" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="vertical" >
+
+            <!-- Text Kernel Version -->
+
+            <TextView
+                android:id="@+id/text_kernel_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/si_kernel_version"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
+
+            <!-- Kernel Version -->
+
+            <TextView
+                android:id="@+id/kernel_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_kernel_version"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Text CPU/hardware Info -->
+
+            <TextView
+                android:id="@+id/text_cpu_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_kernel_version"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/si_cpu_info"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
+
+            <!-- Processor Info -->
+
+            <TextView
+                android:id="@+id/Processor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_cpu_info"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- BogoMIPS Info -->
+
+            <TextView
+                android:id="@+id/BogoMIPS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/Processor"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Features Info -->
+
+            <TextView
+                android:id="@+id/Features"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/BogoMIPS"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- CPU_implementer Info -->
+
+            <TextView
+                android:id="@+id/CPU_implementer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/Features"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- CPU_architecture Info -->
+
+            <TextView
+                android:id="@+id/CPU_architecture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/CPU_implementer"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- CPU_variant Info -->
+
+            <TextView
+                android:id="@+id/CPU_variant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/CPU_architecture"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- CPU_part Info -->
+
+            <TextView
+                android:id="@+id/CPU_part"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/CPU_variant"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- CPU_revision Info -->
+
+            <TextView
+                android:id="@+id/CPU_revision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/CPU_part"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Hardware Info -->
+
+            <TextView
+                android:id="@+id/Hardware"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/CPU_revision"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Revision Info -->
+
+            <TextView
+                android:id="@+id/Revision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/Hardware"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Serial Info -->
+
+            <TextView
+                android:id="@+id/Serial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/Revision"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Text kernel commandline -->
+
+            <TextView
+                android:id="@+id/text_kernel_cmdline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/Serial"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/si_kernel_cmdline"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
+
+            <!-- kernel commandline -->
+
+            <TextView
+                android:id="@+id/kernel_cmdline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_kernel_cmdline"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
