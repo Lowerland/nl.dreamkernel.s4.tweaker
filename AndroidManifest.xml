@@ -107,7 +107,7 @@
                 android:value="nl.dreamkernel.s4.tweaker.Main" />
         </activity>
         <activity
-            android:name="nl.dreamkernel.s4.tweaker.systeminfo.SystemInfo"
+            android:name="nl.dreamkernel.s4.tweaker.systeminfo.SysInfo"
             android:icon="@drawable/ic_about"
             android:parentActivityName="nl.dreamkernel.s4.tweaker.Main"
             android:screenOrientation="portrait" >
