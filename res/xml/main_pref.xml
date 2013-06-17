@@ -46,7 +46,7 @@
         android:title="@string/menu_system_info" >
         <intent
             android:action="android.intent.action.MAIN"
-            android:targetClass="nl.dreamkernel.s4.tweaker.systeminfo.SystemInfo"
+            android:targetClass="nl.dreamkernel.s4.tweaker.systeminfo.SysInfo"
             android:targetPackage="nl.dreamkernel.s4.tweaker" />
     </PreferenceScreen>
     <PreferenceScreen
