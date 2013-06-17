@@ -90,7 +90,10 @@ Update or Install Latest Dreamkernel
     <string name="gpl_headset_mic_gain">gpl Headset Mic Gain:</string>
 
     <string name="si_kernel_version">Kernel version</string>
+    <string name="si_hardware_info">Hardware info</string>
+    <string name="si_cpu_info">CPU/HardwareInfo</string>
     <string name="si_gcc_version">GCC version</string>
+    <string name="si_kernel_cmdline">kernel commandline</string>
 
     <string name="about_app_name">S4 Tweaker for DreamKernel</string>
     <string name="about_coders_app">App Coding:</string>
