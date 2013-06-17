@@ -41,7 +41,7 @@
             android:targetClass="nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks"
             android:targetPackage="nl.dreamkernel.s4.tweaker" />
     </PreferenceScreen>
-        <PreferenceScreen
+    <PreferenceScreen
         android:icon="@drawable/ic_about"
         android:title="@string/menu_system_info" >
         <intent
@@ -50,19 +50,19 @@
             android:targetPackage="nl.dreamkernel.s4.tweaker" />
     </PreferenceScreen>
     <PreferenceScreen
-        android:icon="@drawable/ic_about2"
-        android:title="@string/menu_about" >
-        <intent
-            android:action="android.intent.action.MAIN"
-            android:targetClass="nl.dreamkernel.s4.tweaker.about.About"
-            android:targetPackage="nl.dreamkernel.s4.tweaker" />
-    </PreferenceScreen>
-    <PreferenceScreen
         android:icon="@drawable/ic_bug_report"
         android:title="@string/menu_report_bug" >
         <intent
             android:action="android.intent.action.MAIN"
             android:targetClass="nl.dreamkernel.s4.tweaker.bugs.BugsReporter"
+            android:targetPackage="nl.dreamkernel.s4.tweaker" />
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:icon="@drawable/ic_about2"
+        android:title="@string/menu_about" >
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetClass="nl.dreamkernel.s4.tweaker.about.About"
             android:targetPackage="nl.dreamkernel.s4.tweaker" />
     </PreferenceScreen>
 
