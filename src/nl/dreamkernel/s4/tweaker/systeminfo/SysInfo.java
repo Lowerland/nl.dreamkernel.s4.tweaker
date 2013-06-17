@@ -93,8 +93,9 @@ public class SysInfo extends Activity {
 		Hardware.setText(SysCmds.CPUinfo("Hardware"));
 		Revision.setText(SysCmds.CPUinfo("Revision"));
 		Serial.setText(SysCmds.CPUinfo("Serial"));
-		kernel_cmdline.setText(getKernelcmdline());
+
 		Kernel_Version.setText(getKernelVersion());
+		kernel_cmdline.setText(getKernelcmdline() + "\n");
 	}
 
 	@Override
