@@ -45,6 +45,44 @@
         android:layout_marginTop="5dp"
         android:background="#698bdd" />
 
+    <!-- Text Set On Boot -->
+
+    <TextView
+        android:id="@+id/textSetOnBoot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/iddummy1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="3dp"
+        android:text="@string/set_on_boot"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/android_blue" />
+
+    <!-- Line Below Set on boot -->
+
+    <View
+        android:id="@+id/dummyvalue2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/textSetOnBoot"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/android_blue" />
+
+    <!-- Switch onBootCpuTweaks -->
+
+    <Switch
+        android:id="@+id/onBootSwitch_CpuTweaks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dummyvalue2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:onClick="onBootCpuTweaks" />
+
     <!-- Text CPU Governor -->
 
     <TextView
@@ -52,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/logo"
+        android:layout_below="@+id/onBootSwitch_CpuTweaks"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="16dp"
         android:text="@string/cpu_governor"
