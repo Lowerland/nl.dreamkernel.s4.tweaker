@@ -59,7 +59,8 @@ public class SoundTweaks extends Activity {
 	public static TextView textuncompatibel5;
 	public static TextView textuncompatibel6;
 
-	// private Switch sound_tweaks_set_on_boot;
+	public Switch sound_tweaks_set_on_boot;
+	public boolean onBootSoundTweaks_pref;
 
 	// Variables to store the value
 	private int gpl_speaker_gain;
@@ -96,19 +97,19 @@ public class SoundTweaks extends Activity {
 			"/sys/kernel/sound_control/gpl_hdmi_spkr_gain");
 	public static final SysFs vCheck_gpl_headset_mic_gain = new SysFs(
 			"/sys/kernel/sound_control/gpl_headset_mic_gain");
-	/*
-	 * public static final SysFs vCheck_gpl_speaker_gain = new SysFs(
-	 * "/mnt/sdcard/testfiles/gpl_speaker_gain"); public static final SysFs
-	 * vCheck_gpl_mic_gain = new SysFs( "/mnt/sdcard/testfiles/gpl_mic_gain");
-	 * public static final SysFs vCheck_gpl_cam_mic_gain = new SysFs(
-	 * "/mnt/sdcard/testfiles/gpl_cam_mic_gain"); public static final SysFs
-	 * vCheck_gpl_headphone_gain = new SysFs(
-	 * "/mnt/sdcard/testfiles/gpl_headphone_gain"); public static final SysFs
-	 * vCheck_gpl_hdmi_speaker_gain = new SysFs(
-	 * "/mnt/sdcard/testfiles/gpl_hdmi_spkr_gain"); public static final SysFs
-	 * vCheck_gpl_headset_mic_gain = new SysFs(
-	 * "/mnt/sdcard/testfiles/gpl_headset_mic_gain");
-	 */
+
+	// public static final SysFs vCheck_gpl_speaker_gain = new
+	// SysFs("/mnt/sdcard/testfiles/gpl_speaker_gain");
+	// public static final SysFs vCheck_gpl_mic_gain = new
+	// SysFs("/mnt/sdcard/testfiles/gpl_mic_gain");
+	// public static final SysFs vCheck_gpl_cam_mic_gain = new
+	// SysFs("/mnt/sdcard/testfiles/gpl_cam_mic_gain");
+	// public static final SysFs vCheck_gpl_headphone_gain = new
+	// SysFs("/mnt/sdcard/testfiles/gpl_headphone_gain");
+	// public static final SysFs vCheck_gpl_hdmi_speaker_gain = new
+	// SysFs("/mnt/sdcard/testfiles/gpl_hdmi_spkr_gain");
+	// public static final SysFs vCheck_gpl_headset_mic_gain = new
+	// SysFs("/mnt/sdcard/testfiles/gpl_headset_mic_gain");
 
 	private int Value_gpl_speaker_gain;
 	private int Value_gpl_mic_gain;
@@ -192,8 +193,7 @@ public class SoundTweaks extends Activity {
 		rootProcess = null;
 
 		// Start on boot switch
-		// sound_tweaks_set_on_boot = (Switch)
-		// findViewById(R.id.sound_tweaks_on_boot);
+		sound_tweaks_set_on_boot = (Switch) findViewById(R.id.onBootSwitch_SoundTweaks);
 
 		// make text label for progress value
 		textProgress = (TextView) findViewById(R.id.textViewProgress);
@@ -213,6 +213,8 @@ public class SoundTweaks extends Activity {
 
 		// TODO Maybe need this function in the future
 		// get the current settings
+		onBootSoundTweaks_pref = sharedPreferences.getBoolean(
+				"onBootSoundTweaks_pref", false);
 		// SharedPreferences sharedPreferences =
 		// getSharedPreferences("MY_SHARED_PREF", 0);
 		// gpl_speaker_gain = sharedPreferences.getInt("gpl_speaker_gain", 0);
@@ -273,6 +275,9 @@ public class SoundTweaks extends Activity {
 		String gpl_headset_mic_gain_sign = gpl_headset_mic_temp_sign
 				+ gpl_headset_mic_gain_sign_temp;
 
+		// Set on boot switch
+		sound_tweaks_set_on_boot.setChecked(onBootSoundTweaks_pref);
+
 		// set progress text
 		textProgress.setText("" + gpl_speaker_gain_sign);
 		textgplmicProgress.setText("" + gpl_mic_gain_sign);
@@ -321,13 +326,12 @@ public class SoundTweaks extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				// set the preferences using the seekbar_gpl variable value
-				/*
-				 * SharedPreferences sharedPreferences =
-				 * getSharedPreferences("MY_SHARED_PREF", 0);
-				 * SharedPreferences.Editor editor = sharedPreferences.edit();
-				 * editor.putInt("gpl_speaker_gain", gpl_speaker_gain);
-				 * editor.commit();
-				 */
+
+				SharedPreferences sharedPreferences = getSharedPreferences(
+						"MY_SHARED_PREF", 0);
+				SharedPreferences.Editor editor = sharedPreferences.edit();
+				editor.putInt("gpl_speaker_gain_pref", gpl_speaker_gain);
+				editor.commit();
 
 				// Try catch block for if it may go wrong
 				try {
@@ -379,15 +383,12 @@ public class SoundTweaks extends Activity {
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
 						// TODO Maybe no function for this in the future
-						/*
-						 * //set the preferences using the seekbar_gpl variable
-						 * value SharedPreferences sharedPreferences =
-						 * getSharedPreferences("MY_SHARED_PREF", 0);
-						 * SharedPreferences.Editor editor =
-						 * sharedPreferences.edit();
-						 * editor.putInt("gpl_mic_gain", gpl_mic_gain);
-						 * editor.commit();
-						 */
+						SharedPreferences sharedPreferences = getSharedPreferences(
+								"MY_SHARED_PREF", 0);
+						SharedPreferences.Editor editor = sharedPreferences
+								.edit();
+						editor.putInt("gpl_mic_gain_pref", gpl_mic_gain);
+						editor.commit();
 
 						// Try catch block for if it may go wrong
 						try {
@@ -440,15 +441,12 @@ public class SoundTweaks extends Activity {
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
 						// TODO Maybe no function for this in the future
-						/*
-						 * //set the preferences using the seekbar_gpl variable
-						 * value SharedPreferences sharedPreferences =
-						 * getSharedPreferences("MY_SHARED_PREF", 0);
-						 * SharedPreferences.Editor editor =
-						 * sharedPreferences.edit();
-						 * editor.putInt("gpl_cam_mic_gain", gpl_cam_mic_gain);
-						 * editor.commit();
-						 */
+						SharedPreferences sharedPreferences = getSharedPreferences(
+								"MY_SHARED_PREF", 0);
+						SharedPreferences.Editor editor = sharedPreferences
+								.edit();
+						editor.putInt("gpl_cam_mic_gain_pref", gpl_cam_mic_gain);
+						editor.commit();
 
 						// Try catch block for if it may go wrong
 						try {
@@ -504,15 +502,13 @@ public class SoundTweaks extends Activity {
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
 						// TODO Maybe no function for this in the future
-						/*
-						 * //set the preferences using the seekbar_gpl variable
-						 * value SharedPreferences sharedPreferences =
-						 * getSharedPreferences("MY_SHARED_PREF", 0);
-						 * SharedPreferences.Editor editor =
-						 * sharedPreferences.edit();
-						 * editor.putInt("gpl_headphone_gain",
-						 * gpl_headphone_gain); editor.commit();
-						 */
+						SharedPreferences sharedPreferences = getSharedPreferences(
+								"MY_SHARED_PREF", 0);
+						SharedPreferences.Editor editor = sharedPreferences
+								.edit();
+						editor.putInt("gpl_headphone_gain_pref",
+								gpl_headphone_gain);
+						editor.commit();
 
 						// Try catch block for if it may go wrong
 						try {
@@ -572,15 +568,13 @@ public class SoundTweaks extends Activity {
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
 						// TODO Maybe no function for this in the future
-						/*
-						 * //set the preferences using the seekbar_gpl variable
-						 * value SharedPreferences sharedPreferences =
-						 * getSharedPreferences("MY_SHARED_PREF", 0);
-						 * SharedPreferences.Editor editor =
-						 * sharedPreferences.edit();
-						 * editor.putInt("gpl_hdmi_spkr_gain",
-						 * gpl_hdmi_spkr_gain); editor.commit();
-						 */
+						SharedPreferences sharedPreferences = getSharedPreferences(
+								"MY_SHARED_PREF", 0);
+						SharedPreferences.Editor editor = sharedPreferences
+								.edit();
+						editor.putInt("gpl_hdmi_spkr_gain_pref",
+								gpl_hdmi_spkr_gain);
+						editor.commit();
 
 						// Try catch block for if it may go wrong
 						try {
@@ -636,15 +630,13 @@ public class SoundTweaks extends Activity {
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
 						// TODO Maybe no function for this in the future
-						/*
-						 * //set the preferences using the seekbar_gpl variable
-						 * value SharedPreferences sharedPreferences =
-						 * getSharedPreferences("MY_SHARED_PREF", 0);
-						 * SharedPreferences.Editor editor =
-						 * sharedPreferences.edit();
-						 * editor.putInt("gpl_headset_mic_gain",
-						 * gpl_headset_mic_gain); editor.commit();
-						 */
+						SharedPreferences sharedPreferences = getSharedPreferences(
+								"MY_SHARED_PREF", 0);
+						SharedPreferences.Editor editor = sharedPreferences
+								.edit();
+						editor.putInt("gpl_headset_mic_gain_pref",
+								gpl_headset_mic_gain);
+						editor.commit();
 
 						// Try catch block for if it may go wrong
 						try {
@@ -719,13 +711,21 @@ public class SoundTweaks extends Activity {
 		}
 	}
 
-	// Start on boot switch
-	public void onBoot(View view) {
-		// Is the toggle on?
+	// on boot switch
+	// TODO
+	public void onBootSoundTweaks(View view) {
+		SharedPreferences sharedPreferences = getSharedPreferences(
+				"MY_SHARED_PREF", 0);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+
 		boolean on = ((Switch) view).isChecked();
 		if (on) {
+			editor.putBoolean("onBootSoundTweaks_pref", true);
+			editor.commit();
 			Log.d(TAG, "onBoot Enabled for SoundTweaks");
 		} else {
+			editor.putBoolean("onBootSoundTweaks_pref", false);
+			editor.commit();
 			Log.d(TAG, "onBoot Disabled for SoundTweaks");
 		}
 	}
