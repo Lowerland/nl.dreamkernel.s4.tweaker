@@ -64,15 +64,15 @@ public class Misc extends Activity {
 			"/sys/vibrator/pwm_val");
 	public static final SysFs vCheck_Usb_Fast_charge = new SysFs(
 			"/sys/kernel/fast_charge/force_fast_charge");
-	/*
-	 * public static final SysFs vCheck_internalscheduler = new SysFs(
-	 * "/mnt/sdcard/testfiles/internalscheduler"); public static final SysFs
-	 * vCheck_externalscheduler = new SysFs(
-	 * "/mnt/sdcard/testfiles/externalscheduler"); public static final SysFs
-	 * vCheck_vibrator_intensity = new SysFs( "/mnt/sdcard/testfiles/pwm_val");
-	 * public static final SysFs vCheck_Usb_Fast_charge = new SysFs(
-	 * "/mnt/sdcard/testfiles/force_fast_charge");
-	 */
+
+	// public static final SysFs vCheck_internalscheduler = new SysFs(
+	// "/mnt/sdcard/testfiles/internalscheduler");
+	// public static final SysFs vCheck_externalscheduler = new SysFs(
+	// "/mnt/sdcard/testfiles/externalscheduler");
+	// public static final SysFs vCheck_vibrator_intensity = new SysFs(
+	// "/mnt/sdcard/testfiles/pwm_val");
+	// public static final SysFs vCheck_Usb_Fast_charge = new SysFs(
+	// "/mnt/sdcard/testfiles/force_fast_charge");
 
 	// variables storing the real file values
 	private String file_value_internal;
@@ -92,13 +92,17 @@ public class Misc extends Activity {
 	public static Switch usbfastchargeswitch;
 
 	// variables to store the shared pref in
-	private int InternalPrefValue;
-	private int ExternalPrefValue;
+	// private int InternalPrefValue;
+	// private int ExternalPrefValue;
 	public static int misc_hide_dialog;
 
 	// TEMP Int used by dialogs
 	private static int dialog_temp_internal;
 	private static int dialog_temp_external;
+
+	// Variables for setOnBoot
+	public Switch onBootSwitch_MiscTweaks;
+	public boolean onBootMiscTweaks_pref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +128,9 @@ public class Misc extends Activity {
 		// get the seek bar
 		seekbar_vibrator = (SeekBar) findViewById(R.id.sb_vibrator_intensity);
 
-		// Start on boot switch
+		// Find boot switch
+		onBootSwitch_MiscTweaks = (Switch) findViewById(R.id.onBootSwitch_MiscTweaks);
+
 		usbfastchargeswitch = (Switch) findViewById(R.id.usb_fast_charge_switch);
 
 		// Find Thouch Blocks so we can could disable them
@@ -132,8 +138,14 @@ public class Misc extends Activity {
 		Touch_block_ext_scheduler = (View) findViewById(R.id.externaltouchblock);
 
 		// get the Shared Prefs
-		InternalPrefValue = sharedPreferences.getInt("InternalPref", 0);
-		ExternalPrefValue = sharedPreferences.getInt("ExternalPref", 0);
+		// InternalPrefValue = sharedPreferences.getInt("InternalPref", 0);
+		// ExternalPrefValue = sharedPreferences.getInt("ExternalPref", 0);
+		// get onBoot Pref
+		onBootMiscTweaks_pref = sharedPreferences.getBoolean(
+				"onBootMiscTweaks_pref", false);
+
+		// Set on boot switch
+		onBootSwitch_MiscTweaks.setChecked(onBootMiscTweaks_pref);
 
 		// read the files value
 		ValueReader();
@@ -152,16 +164,13 @@ public class Misc extends Activity {
 				.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 					@Override
 					public void onStopTrackingTouch(SeekBar seekBar) {
-						// set the preferences using the seekbar_gpl variable
-						// value
-						/*
-						 * SharedPreferences sharedPreferences =
-						 * getSharedPreferences("MY_SHARED_PREF", 0);
-						 * SharedPreferences.Editor editor =
-						 * sharedPreferences.edit();
-						 * editor.putInt("gpl_speaker_gain", gpl_speaker_gain);
-						 * editor.commit();
-						 */
+						// set the preferences for onBoot Usage
+						SharedPreferences sharedPreferences = getSharedPreferences(
+								"MY_SHARED_PREF", 0);
+						SharedPreferences.Editor editor = sharedPreferences
+								.edit();
+						editor.putInt("value_vibrator", value_vibrator);
+						editor.commit();
 
 						// Try catch block for if it may go wrong
 						try {
@@ -231,6 +240,7 @@ public class Misc extends Activity {
 
 	private void ValueReader() {
 		// Read in the Values from files
+		Log.d(TAG, "Read in the Values from files");
 		RootProcess rootProcess = new RootProcess();
 		Log.d(TAG, "Misc Tweaks, Root init s");
 		rootProcess.init();
@@ -299,31 +309,46 @@ public class Misc extends Activity {
 
 	// Start on boot switch
 	public void onUSBFASTSWITCH(View view) {
-		// Is the toggle on?
+		// set the preferences for onBoot Usage
+		SharedPreferences sharedPreferences = getSharedPreferences(
+				"MY_SHARED_PREF", 0);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+
 		boolean on = ((Switch) view).isChecked();
 		if (on) {
-			// calls RootProcess
-			RootProcess process = new RootProcess();
-			if (!process.init()) {
-				return;
-			}
-			process.write("echo 1 > /sys/kernel/fast_charge/force_fast_charge\n");
+			editor.putInt("usb_fast_charge_pref", 1);
 			Log.d(TAG, "on USB FAST SWITCH Enabled");
-			process.term();
-			ValueReader();
-
+			fast_charge_on();
 		} else {
-			// calls RootProcess
-			RootProcess process = new RootProcess();
-			if (!process.init()) {
-				return;
-			}
-			process.write("echo 0 > /sys/kernel/fast_charge/force_fast_charge\n");
+			editor.putInt("usb_fast_charge_pref", 0);
 			Log.d(TAG, "on USB FAST SWITCH Disabled");
-			process.term();
-			ValueReader();
-
+			fast_charge_off();
 		}
+		editor.commit();
+	}
+
+	public void fast_charge_on() {
+		// calls RootProcess
+		Log.d(TAG, "on USB FAST SWITCH Enabled");
+		ValueReader();
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+		}
+		process.write("echo 1 > /sys/kernel/fast_charge/force_fast_charge\n");
+		process.term();
+	}
+
+	public void fast_charge_off() {
+		// calls RootProcess
+		Log.d(TAG, "on USB FAST SWITCH Disabled");
+		ValueReader();
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+		}
+		process.write("echo 0 > /sys/kernel/fast_charge/force_fast_charge\n");
+		process.term();
 	}
 
 	public void onINTERNAL(View View) {
@@ -371,45 +396,61 @@ public class Misc extends Activity {
 		if (!process.init()) {
 			return;
 		}
-
+		SharedPreferences sharedPreferences = getSharedPreferences(
+				"MY_SHARED_PREF", 0);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 		// Write Values to the filesystem
 		switch (dialog_temp_internal) {
 		case 0:
+			editor.putString("internalscheduler_pref", "noop");
 			Log.d(TAG, "echo'd noop to internalscheduler");
 			process.write("echo noop > /sys/block/mmcblk0/queue/scheduler\n");
 			Log.d(TAG, "echo'd noop to internalscheduler");
 			break;
 		case 1:
+			editor.putString("internalscheduler_pref", "deadline");
 			process.write("echo deadline > /sys/block/mmcblk0/queue/scheduler\n");
 			Log.d(TAG, "echo'd deadline to internalscheduler");
 			break;
 		case 2:
 			process.write("echo cfq > /sys/block/mmcblk0/queue/scheduler\n");
+			editor.putString("internalscheduler_pref", "cfq");
 			Log.d(TAG, "echo'd cfq to internalscheduler");
 			break;
 		case 3:
 			process.write("echo bfq > /sys/block/mmcblk0/queue/scheduler\n");
+			editor.putString("internalscheduler_pref", "bfq");
+
 			Log.d(TAG, "echo'd bfq to internalscheduler");
 			break;
 		case 4:
 			process.write("echo fiops > /sys/block/mmcblk0/queue/scheduler\n");
+			editor.putString("internalscheduler_pref", "fiops");
+
 			Log.d(TAG, "echo'd fiops to internalscheduler");
 			break;
 		case 5:
 			process.write("echo sio > /sys/block/mmcblk0/queue/scheduler\n");
+			editor.putString("internalscheduler_pref", "sio");
+
 			Log.d(TAG, "echo'd sio to internalscheduler");
 			break;
 		case 6:
 			process.write("echo vr > /sys/block/mmcblk0/queue/scheduler\n");
+			editor.putString("internalscheduler_pref", "vr");
+
 			Log.d(TAG, "echo'd vr to internalscheduler");
 			break;
 		case 7:
 			process.write("echo zen > /sys/block/mmcblk0/queue/scheduler\n");
+			editor.putString("internalscheduler_pref", "zen");
+
 			Log.d(TAG, "echo'd zen to internalscheduler");
 			break;
 		default:
 			break;
 		}
+		editor.commit();
 		process.term();
 	}
 
@@ -459,45 +500,84 @@ public class Misc extends Activity {
 		if (!process.init()) {
 			return;
 		}
+		SharedPreferences sharedPreferences = getSharedPreferences(
+				"MY_SHARED_PREF", 0);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
 
 		// Write Values to the filesystem
 		switch (dialog_temp_external) {
 		case 0:
 			process.write("echo noop > /sys/block/mmcblk1/queue/scheduler\n");
+			editor.putString("externalscheduler_pref", "noop");
+
 			Log.d("process", "echo'd noop to externalscheduler");
 			break;
 		case 1:
 			process.write("echo deadline > /sys/block/mmcblk1/queue/scheduler\n");
+			editor.putString("externalscheduler_pref", "deadline");
+
 			Log.d("process", "echo'd deadline to externalscheduler");
 			break;
 		case 2:
 			process.write("echo cfq > /sys/block/mmcblk1/queue/scheduler\n");
+			editor.putString("externalscheduler_pref", "cfq");
+
 			Log.d("process", "echo'd cfq to externalscheduler");
 			break;
 		case 3:
 			process.write("echo bfq > /sys/block/mmcblk1/queue/scheduler\n");
+			editor.putString("externalscheduler_pref", "bfq");
+
 			Log.d("process", "echo'd bfq to externalscheduler");
 			break;
 		case 4:
 			process.write("echo fiops > /sys/block/mmcblk1/queue/scheduler\n");
+			editor.putString("externalscheduler_pref", "fiops");
+
 			Log.d("process", "echo'd fiops to externalscheduler");
 			break;
 		case 5:
 			process.write("echo sio > /sys/block/mmcblk1/queue/scheduler\n");
+			editor.putString("externalscheduler_pref", "sio");
+
 			Log.d("process", "echo'd sio to externalscheduler");
 			break;
 		case 6:
 			process.write("echo vr > /sys/block/mmcblk1/queue/scheduler\n");
+			editor.putString("externalscheduler_pref", "vr");
+
 			Log.d("process", "echo'd vr to externalscheduler");
 			break;
 		case 7:
 			process.write("echo zen > /sys/block/mmcblk1/queue/scheduler\n");
+			editor.putString("externalscheduler_pref", "zen");
+
 			Log.d("process", "echo'd zen to externalscheduler");
 			break;
 		default:
 			break;
 		}
+		editor.commit();
 		process.term();
+	}
+
+	// on boot switch
+	// TODO
+	public void onBootMiscTweaks(View view) {
+		SharedPreferences sharedPreferences = getSharedPreferences(
+				"MY_SHARED_PREF", 0);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+
+		boolean on = ((Switch) view).isChecked();
+		if (on) {
+			editor.putBoolean("onBootMiscTweaks_pref", true);
+			editor.commit();
+			Log.d(TAG, "onBoot Enabled for MiscTweaks");
+		} else {
+			editor.putBoolean("onBootMiscTweaks_pref", false);
+			editor.commit();
+			Log.d(TAG, "onBoot Disabled for MiscTweaks");
+		}
 	}
 
 	// Method Used for retreiving data from the AlertDialog
