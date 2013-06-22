@@ -23,15 +23,16 @@ import android.util.Log;
 
 public class BootReceiver extends BroadcastReceiver {
 	static final String TAG = "S4Tweaker";
-	@Override
-    public void onReceive(Context context, Intent intent) {
-        //Toast.makeText(context, R.string.onboot_msg, Toast.LENGTH_LONG).show();
-        Log.d(TAG, "********* onboot BroadcastReceiver S4Tweaker  ************** ");
-      
-        
-        Intent service = new Intent(context, onBootService.class);
-        context.startService(service);
-    }
 
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		// Toast.makeText(context, R.string.onboot_msg,
+		// Toast.LENGTH_LONG).show();
+		Log.d(TAG,
+				"********* onboot BroadcastReceiver S4Tweaker  ************** ");
+
+		Intent service = new Intent(context, onBootService.class);
+		context.startService(service);
+	}
 
 }
