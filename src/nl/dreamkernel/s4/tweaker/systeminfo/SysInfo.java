@@ -111,13 +111,14 @@ public class SysInfo extends Activity {
 		if (SysInfo.isNullOfEmpty(ret)) {
 			return NoInfo;
 		} else {
-			if (ret.indexOf('-') > 0) {
-				Pattern p = Pattern.compile("\\(((.*)\\))");
+			if (ret.indexOf(' ') > -1) {
+				Pattern p = Pattern.compile("^((.*))");
 				Matcher m = p.matcher(ret);
 				if (m.find()) {
 					kv = m.toMatchResult().group(0);
-					kv = kv.replace(" (gcc", "gcc").replace("(", "")
-							.replace(")", "\n").replace("GCC", "");
+					kv = kv.replace(") )", " ").replace(") (", "\n")
+							.replace("(", "").replace(" #1 ", "\n#1 ");
+					// .replace(") (", "\n").replace("GCC", "");
 					return kv;
 				}
 			} else {
