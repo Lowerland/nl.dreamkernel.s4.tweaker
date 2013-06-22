@@ -181,13 +181,15 @@ public class BugsReporter extends Activity {
 				String data3 = outputMsg;
 				String data4 = outputDeviceInfo;
 				String data5 = outputCpuHwInfo;
+				String data6 = "Open";
 
 				@SuppressWarnings("deprecation")
 				String data = "entry_1845673598=" + URLEncoder.encode(data1)
 						+ "&" + "entry_855344491=" + URLEncoder.encode(data2)
 						+ "&" + "entry_1481820931=" + URLEncoder.encode(data3)
 						+ "&" + "entry_833056556=" + URLEncoder.encode(data4)
-						+ "&" + "entry_521168760=" + URLEncoder.encode(data5);
+						+ "&" + "entry_521168760=" + URLEncoder.encode(data5)
+						+ "&" + "entry_1070295873=" + URLEncoder.encode(data6);
 				String response = mReq.sendPost(fullUrl, data);
 				bugrecieved = true;
 				Log.i(TAG, data);
