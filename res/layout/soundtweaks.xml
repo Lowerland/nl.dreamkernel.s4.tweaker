@@ -34,414 +34,429 @@
         android:src="@drawable/logo_sound_tweaks" />
 
     <View
-        android:id="@+id/dummyvalue"
+        android:id="@+id/iddummy1"
         android:layout_width="fill_parent"
         android:layout_height="1dip"
         android:layout_below="@+id/logo"
         android:layout_marginTop="4dp"
         android:background="#698bdd" />
 
-    <!--
-        <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/logo"
-        android:layout_marginTop="16dp"
-        android:text="@string/set_on_boot"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    -->
-
-
-    <!--
-        <Switch
-        android:id="@+id/sound_tweaks_on_boot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/logo"
-        android:onClick="onBoot"
-        android:layout_marginTop="14dp" />
-    -->
-
-
-    <!--
-        <View
-        android:id="@+id/dummyvalue"
-    	android:layout_width="fill_parent"
-    	android:layout_height="1dip"
-    	android:background="#3b3b3b"
-    	android:layout_below="@+id/textView2"
-    	android:layout_marginTop="8dp"/>
-    -->
-
-
-    <!-- Text Gain Control -->
-
-    <TextView
-        android:id="@+id/gaincontrol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dummyvalue"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/gain_control"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/android_blue" />
-
-    <!-- Line Below Gain Control -->
-    <View
-        android:id="@+id/linebelowgain"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_below="@+id/gaincontrol"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="12dp"
-        android:background="@color/android_blue" />
-
-    <!-- Text gpl Speaker Gain -->
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linebelowgain"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="6dp"
-        android:text="@string/gpl_speaker_gain"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <!-- Not Supported Text -->
-
-    <TextView
-        android:id="@+id/gpl_spkr_alert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linebelowgain"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="6dp"
-        android:layout_toRightOf="@+id/textView1"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red_alert" />
-
-    <!-- Value gpl Speaker Gain -->
-
-    <TextView
-        android:id="@+id/textViewProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/back"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        android:typeface="sans" />
-
-    <!-- Seekbar gpl Speaker Gain -->
-    <SeekBar
-        android:id="@+id/sb_gpl_speaker_gain"
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/textViewProgress"
-        android:max="30" />
+        android:layout_below="@+id/iddummy1" >
 
-    <!-- Text gpl Mic Gain -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/gplmicgain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="35dp"
-        android:text="@string/gpl_mic_gain"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <!-- Text Set On Boot -->
 
-    <!-- Not Supported Text -->
+            <TextView
+                android:id="@+id/textSetOnBoot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/set_on_boot"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
 
-    <TextView
-        android:id="@+id/gpl_spkr_alert2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="35dp"
-        android:layout_toRightOf="@+id/gplmicgain"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red_alert" />
+            <!-- Line Below Set on boot -->
 
-    <!-- Seekbar gpl Mic Gain -->
+            <View
+                android:id="@+id/dummyvalue2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/textSetOnBoot"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/android_blue" />
 
-    <SeekBar
-        android:id="@+id/sb_gpl_mic_gain"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gplmicgain"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/gplmicgainprogress"
-        android:max="30" />
+            <!-- Switch onBootSoundTweaks -->
 
-    <!-- Value gpl Mic Gain -->
+            <Switch
+                android:id="@+id/onBootSwitch_SoundTweaks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/dummyvalue2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="14dp"
+                android:onClick="onBootSoundTweaks" />
 
-    <TextView
-        android:id="@+id/gplmicgainprogress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/gplmicgain"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/back"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        android:typeface="sans" />
+            <!-- Text Gain Control -->
 
-    <!-- Text gpl Cam Mic Gain -->
+            <TextView
+                android:id="@+id/gaincontrol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/onBootSwitch_SoundTweaks"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/gain_control"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
 
-    <TextView
-        android:id="@+id/gplcammicgain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gplmicgain"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="35dp"
-        android:text="@string/gpl_cam_mic_gain"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <!-- Line Below Gain Control -->
 
-    <!-- Not Supported Text -->
+            <View
+                android:id="@+id/linebelowgain"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/gaincontrol"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/android_blue" />
 
-    <TextView
-        android:id="@+id/gpl_spkr_alert3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/gplmicgain"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="35dp"
-        android:layout_toRightOf="@+id/gplcammicgain"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red_alert" />
+            <!-- Text gpl Speaker Gain -->
 
-    <!-- Seekbar gpl Cam Mic Gain -->
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/linebelowgain"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="6dp"
+                android:text="@string/gpl_speaker_gain"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <SeekBar
-        android:id="@+id/sb_gpl_cam_mic_gain"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gplcammicgain"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/gplcammicgainprogress"
-        android:max="30" />
+            <!-- Not Supported Text -->
 
-    <!-- Value gpl Cam Mic Gain -->
+            <TextView
+                android:id="@+id/gpl_spkr_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linebelowgain"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="6dp"
+                android:layout_toRightOf="@+id/textView1"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
 
-    <TextView
-        android:id="@+id/gplcammicgainprogress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/gplcammicgain"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/back"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        android:typeface="sans" />
+            <!-- Value gpl Speaker Gain -->
 
-    <!-- Text gpl Headphone Gain -->
+            <TextView
+                android:id="@+id/textViewProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textView1"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/back"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:typeface="sans" />
 
-    <TextView
-        android:id="@+id/gplheadphonegain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gplcammicgain"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="35dp"
-        android:text="@string/gpl_headphone_gain"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <!-- Seekbar gpl Speaker Gain -->
 
-    <!-- Not Supported Text -->
+            <SeekBar
+                android:id="@+id/sb_gpl_speaker_gain"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView1"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/textViewProgress"
+                android:max="30" />
 
-    <TextView
-        android:id="@+id/gpl_spkr_alert4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/gplcammicgain"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="35dp"
-        android:layout_toRightOf="@+id/gplheadphonegain"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red_alert" />
+            <!-- Text gpl Mic Gain -->
 
-    <!-- Seekbar gpl Headphone Gain -->
+            <TextView
+                android:id="@+id/gplmicgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="35dp"
+                android:text="@string/gpl_mic_gain"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <SeekBar
-        android:id="@+id/sb_gpl_headphone_gain"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gplheadphonegain"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/gplheadphonegainprogress"
-        android:max="30" />
+            <!-- Not Supported Text -->
 
-    <!-- Value gpl Headphone Gain -->
+            <TextView
+                android:id="@+id/gpl_spkr_alert2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView1"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="35dp"
+                android:layout_toRightOf="@+id/gplmicgain"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
 
-    <TextView
-        android:id="@+id/gplheadphonegainprogress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/gplheadphonegain"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/back"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        android:typeface="sans" />
+            <!-- Seekbar gpl Mic Gain -->
 
-    <!-- Text gpl HDMI Speaker Gain -->
+            <SeekBar
+                android:id="@+id/sb_gpl_mic_gain"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/gplmicgain"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/gplmicgainprogress"
+                android:max="30" />
 
-    <TextView
-        android:id="@+id/gplhdmispkrgain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gplheadphonegain"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="35dp"
-        android:text="@string/gpl_hdmi_spkr_gain"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <!-- Value gpl Mic Gain -->
 
-    <!-- Not Supported Text -->
+            <TextView
+                android:id="@+id/gplmicgainprogress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/gplmicgain"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/back"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:typeface="sans" />
 
-    <TextView
-        android:id="@+id/gpl_spkr_alert5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/gplheadphonegain"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="35dp"
-        android:layout_toRightOf="@+id/gplhdmispkrgain"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red_alert" />
+            <!-- Text gpl Cam Mic Gain -->
 
-    <!-- Seekbar gpl HDMI Speaker Gain -->
+            <TextView
+                android:id="@+id/gplcammicgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/gplmicgain"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="35dp"
+                android:text="@string/gpl_cam_mic_gain"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <SeekBar
-        android:id="@+id/sb_gpl_hdmi_spkr_gain"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gplhdmispkrgain"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/gplhdmispkrgainprogress"
-        android:max="30" />
+            <!-- Not Supported Text -->
 
-    <!-- Value gpl HDMI Speaker Gain -->
+            <TextView
+                android:id="@+id/gpl_spkr_alert3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gplmicgain"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="35dp"
+                android:layout_toRightOf="@+id/gplcammicgain"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
 
-    <TextView
-        android:id="@+id/gplhdmispkrgainprogress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/gplhdmispkrgain"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/back"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        android:typeface="sans" />
+            <!-- Seekbar gpl Cam Mic Gain -->
 
+            <SeekBar
+                android:id="@+id/sb_gpl_cam_mic_gain"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/gplcammicgain"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/gplcammicgainprogress"
+                android:max="30" />
 
-    <!-- Text gpl Headset Mic Gain -->
+            <!-- Value gpl Cam Mic Gain -->
 
-    <TextView
-        android:id="@+id/gplheadsetmicgain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gplhdmispkrgain"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="35dp"
-        android:text="@string/gpl_headset_mic_gain"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/gplcammicgainprogress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/gplcammicgain"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/back"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:typeface="sans" />
 
-    <!-- Not Supported Text -->
+            <!-- Text gpl Headphone Gain -->
 
-    <TextView
-        android:id="@+id/gpl_spkr_alert6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/gplhdmispkrgain"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="35dp"
-        android:layout_toRightOf="@+id/gplheadsetmicgain"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red_alert" />
+            <TextView
+                android:id="@+id/gplheadphonegain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/gplcammicgain"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="35dp"
+                android:text="@string/gpl_headphone_gain"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <!-- Seekbar gpl Headset Mic Gain -->
+            <!-- Not Supported Text -->
 
-    <SeekBar
-        android:id="@+id/sb_gpl_headset_mic_gain"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/gplheadsetmicgain"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/gplheadsetmicgainprogress"
-        android:max="30" />
+            <TextView
+                android:id="@+id/gpl_spkr_alert4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gplcammicgain"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="35dp"
+                android:layout_toRightOf="@+id/gplheadphonegain"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
 
-    <!-- Value gpl Headset Mic Gain -->
+            <!-- Seekbar gpl Headphone Gain -->
 
-    <TextView
-        android:id="@+id/gplheadsetmicgainprogress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/gplheadsetmicgain"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/back"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        android:typeface="sans" />
+            <SeekBar
+                android:id="@+id/sb_gpl_headphone_gain"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/gplheadphonegain"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/gplheadphonegainprogress"
+                android:max="30" />
+
+            <!-- Value gpl Headphone Gain -->
+
+            <TextView
+                android:id="@+id/gplheadphonegainprogress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/gplheadphonegain"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/back"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:typeface="sans" />
+
+            <!-- Text gpl HDMI Speaker Gain -->
+
+            <TextView
+                android:id="@+id/gplhdmispkrgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/gplheadphonegain"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="35dp"
+                android:text="@string/gpl_hdmi_spkr_gain"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <!-- Not Supported Text -->
+
+            <TextView
+                android:id="@+id/gpl_spkr_alert5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gplheadphonegain"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="35dp"
+                android:layout_toRightOf="@+id/gplhdmispkrgain"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
+
+            <!-- Seekbar gpl HDMI Speaker Gain -->
+
+            <SeekBar
+                android:id="@+id/sb_gpl_hdmi_spkr_gain"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/gplhdmispkrgain"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/gplhdmispkrgainprogress"
+                android:max="30" />
+
+            <!-- Value gpl HDMI Speaker Gain -->
+
+            <TextView
+                android:id="@+id/gplhdmispkrgainprogress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/gplhdmispkrgain"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/back"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:typeface="sans" />
+
+            <!-- Text gpl Headset Mic Gain -->
+
+            <TextView
+                android:id="@+id/gplheadsetmicgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/gplhdmispkrgain"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="35dp"
+                android:text="@string/gpl_headset_mic_gain"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <!-- Not Supported Text -->
+
+            <TextView
+                android:id="@+id/gpl_spkr_alert6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gplhdmispkrgain"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="35dp"
+                android:layout_toRightOf="@+id/gplheadsetmicgain"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
+
+            <!-- Seekbar gpl Headset Mic Gain -->
+
+            <SeekBar
+                android:id="@+id/sb_gpl_headset_mic_gain"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/gplheadsetmicgain"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/gplheadsetmicgainprogress"
+                android:max="30" />
+
+            <!-- Value gpl Headset Mic Gain -->
+
+            <TextView
+                android:id="@+id/gplheadsetmicgainprogress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/gplheadsetmicgain"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/back"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:typeface="sans" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
