@@ -24,7 +24,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
-import android.util.Log;
 import android.widget.Toast;
 
 public class onBootService extends Service {
@@ -34,14 +33,14 @@ public class onBootService extends Service {
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
-		Log.d(TAG, "*************** onBootService onBind ****************");
+		//Log.d(TAG, "*************** onBootService onBind ****************");
 		return null;
 	}
 
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
-		Log.d(TAG, "*************** Service Created ****************");
+		//Log.d(TAG, "*************** Service Created ****************");
 		super.onCreate();
 
 		final SharedPreferences sharedPreferences = getSharedPreferences(
@@ -82,7 +81,7 @@ public class onBootService extends Service {
 				"gpl_headset_mic_gain_pref", 0);
 
 		if (onBootCpuTweaks_pref == true) {
-			Log.d(TAG, "*************** onBootCpuTweaks ***************");
+			//Log.d(TAG, "*************** onBootCpuTweaks ***************");
 			Toast.makeText(this, "Applying Cpu Tweaks", Toast.LENGTH_SHORT)
 					.show();
 			CpuTweaks.CpuCurrentState();
@@ -91,12 +90,12 @@ public class onBootService extends Service {
 			if (!cpuprocess.init()) {
 				return;
 			}
-			Log.d(TAG, "**** Set Cpu Tweaks ****");
+			//Log.d(TAG, "**** Set Cpu Tweaks ****");
 			if (CpuTweaks.vCheck_CPU_GOVERNOR.exists()) {
 
 				if (sharedPreferences.contains("cpu_scaling_governor_pref") == true) {
-					Log.d(TAG, "set cpu_scaling_governor_pref == "
-							+ cpu_scaling_governor_pref);
+					//Log.d(TAG, "set cpu_scaling_governor_pref == "
+					//		+ cpu_scaling_governor_pref);
 					cpuprocess
 							.write("echo "
 									+ cpu_scaling_governor_pref
@@ -107,8 +106,8 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("scaling_min_freq_pref") == true) {
 
-					Log.d(TAG, "set scaling_min_freq_pref Cpu 0 == "
-							+ scaling_min_freq_pref);
+					//Log.d(TAG, "set scaling_min_freq_pref Cpu 0 == "
+					//		+ scaling_min_freq_pref);
 					cpuprocess
 							.write("echo "
 									+ scaling_min_freq_pref
@@ -119,8 +118,8 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("scaling_max_freq_pref") == true) {
 
-					Log.d(TAG, "set scaling_max_freq_pref Cpu 0 == "
-							+ scaling_max_freq_pref);
+					//Log.d(TAG, "set scaling_max_freq_pref Cpu 0 == "
+					//		+ scaling_max_freq_pref);
 					cpuprocess
 							.write("echo "
 									+ scaling_max_freq_pref
@@ -131,16 +130,16 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("scaling_min_freq_pref") == true) {
 
-					Log.d(TAG, "set scaling_min_freq_pref Cpu 1 == "
-							+ scaling_min_freq_pref);
+					//Log.d(TAG, "set scaling_min_freq_pref Cpu 1 == "
+					//		+ scaling_min_freq_pref);
 					cpuprocess
 							.write("echo "
 									+ scaling_min_freq_pref
 									+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 				}
 				if (sharedPreferences.contains("scaling_max_freq_pref") == true) {
-					Log.d(TAG, "set scaling_max_freq_pref Cpu 1 == "
-							+ scaling_max_freq_pref);
+					//Log.d(TAG, "set scaling_max_freq_pref Cpu 1 == "
+					//		+ scaling_max_freq_pref);
 					cpuprocess
 							.write("echo "
 									+ scaling_max_freq_pref
@@ -151,16 +150,16 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("scaling_min_freq_pref") == true) {
 
-					Log.d(TAG, "set scaling_min_freq_pref Cpu 2 == "
-							+ scaling_min_freq_pref);
+					//Log.d(TAG, "set scaling_min_freq_pref Cpu 2 == "
+					//		+ scaling_min_freq_pref);
 					cpuprocess
 							.write("echo "
 									+ scaling_min_freq_pref
 									+ " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 				}
 				if (sharedPreferences.contains("scaling_max_freq_pref") == true) {
-					Log.d(TAG, "set scaling_max_freq_pref Cpu 2 == "
-							+ scaling_max_freq_pref);
+					//Log.d(TAG, "set scaling_max_freq_pref Cpu 2 == "
+					//		+ scaling_max_freq_pref);
 					cpuprocess
 							.write("echo "
 									+ scaling_max_freq_pref
@@ -171,16 +170,16 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("scaling_min_freq_pref") == true) {
 
-					Log.d(TAG, "set scaling_min_freq_pref Cpu 3 == "
-							+ scaling_min_freq_pref);
+					//Log.d(TAG, "set scaling_min_freq_pref Cpu 3 == "
+					//		+ scaling_min_freq_pref);
 					cpuprocess
 							.write("echo "
 									+ scaling_min_freq_pref
 									+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 				}
 				if (sharedPreferences.contains("scaling_max_freq_pref") == true) {
-					Log.d(TAG, "set scaling_max_freq_pref Cpu 3 == "
-							+ scaling_max_freq_pref);
+					//Log.d(TAG, "set scaling_max_freq_pref Cpu 3 == "
+					//		+ scaling_max_freq_pref);
 					cpuprocess
 							.write("echo "
 									+ scaling_max_freq_pref
@@ -192,7 +191,7 @@ public class onBootService extends Service {
 			cpuprocess.term();
 		}
 		if (onBootMiscTweaks_pref == true) {
-			Log.d(TAG, "*************** onBootMiscTweaks ***************");
+			//Log.d(TAG, "*************** onBootMiscTweaks ***************");
 			Toast.makeText(this, "Applying Misc Tweaks", Toast.LENGTH_SHORT)
 					.show();
 			RootProcess miscprocess = new RootProcess();
@@ -202,8 +201,8 @@ public class onBootService extends Service {
 			if (Misc.vCheck_internalscheduler.exists()) {
 
 				if (sharedPreferences.contains("internalscheduler_pref") == true) {
-					Log.d(TAG, "set internalscheduler_pref == "
-							+ internalscheduler_pref);
+					//Log.d(TAG, "set internalscheduler_pref == "
+					//		+ internalscheduler_pref);
 					miscprocess.write("echo " + internalscheduler_pref
 							+ " > /sys/block/mmcblk0/queue/scheduler\n");
 				}
@@ -212,8 +211,8 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("externalscheduler_pref") == true) {
 
-					Log.d(TAG, "set externalscheduler_pref == "
-							+ externalscheduler_pref);
+					//Log.d(TAG, "set externalscheduler_pref == "
+					//		+ externalscheduler_pref);
 					miscprocess.write("echo " + externalscheduler_pref
 							+ " > /sys/block/mmcblk1/queue/scheduler\n");
 				}
@@ -222,7 +221,7 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("value_vibrator") == true) {
 
-					Log.d(TAG, "set value_vibrator == " + value_vibrator);
+					//Log.d(TAG, "set value_vibrator == " + value_vibrator);
 					miscprocess.write("echo " + value_vibrator
 							+ " > /sys/vibrator/pwm_val\n");
 				}
@@ -231,8 +230,8 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("usb_fast_charge_pref") == true) {
 
-					Log.d(TAG, "set usb_fast_charge_pref == "
-							+ usb_fast_charge_pref);
+					//Log.d(TAG, "set usb_fast_charge_pref == "
+					//		+ usb_fast_charge_pref);
 					miscprocess.write("echo " + usb_fast_charge_pref
 							+ " > /sys/kernel/fast_charge/force_fast_charge\n");
 				}
@@ -240,7 +239,7 @@ public class onBootService extends Service {
 			miscprocess.term();
 		}
 		if (onBootSoundTweaks_pref == true) {
-			Log.d(TAG, "*************** onBootSoundTweaks ***************");
+			//Log.d(TAG, "*************** onBootSoundTweaks ***************");
 			Toast.makeText(this, "Applying Sound Tweaks", Toast.LENGTH_SHORT)
 					.show();
 			RootProcess soundprocess = new RootProcess();
@@ -250,8 +249,8 @@ public class onBootService extends Service {
 			if (SoundTweaks.vCheck_gpl_speaker_gain.exists()) {
 
 				if (sharedPreferences.contains("gpl_speaker_gain_pref") == true) {
-					Log.d(TAG, "set gpl_speaker_gain_pref == "
-							+ gpl_speaker_gain_pref);
+					//Log.d(TAG, "set gpl_speaker_gain_pref == "
+					//		+ gpl_speaker_gain_pref);
 					soundprocess
 							.write("echo "
 									+ gpl_speaker_gain_pref
@@ -262,7 +261,7 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("gpl_mic_gain_pref") == true) {
 
-					Log.d(TAG, "set gpl_mic_gain_pref == " + gpl_mic_gain_pref);
+					//Log.d(TAG, "set gpl_mic_gain_pref == " + gpl_mic_gain_pref);
 					soundprocess.write("echo " + gpl_mic_gain_pref
 							+ " > /sys/kernel/sound_control/gpl_mic_gain\n");
 				}
@@ -271,8 +270,8 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("gpl_cam_mic_gain_pref") == true) {
 
-					Log.d(TAG, "set gpl_cam_mic_gain_pref == "
-							+ gpl_cam_mic_gain_pref);
+					//Log.d(TAG, "set gpl_cam_mic_gain_pref == "
+					//		+ gpl_cam_mic_gain_pref);
 					soundprocess
 							.write("echo "
 									+ gpl_cam_mic_gain_pref
@@ -283,8 +282,8 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("gpl_headphone_gain_pref") == true) {
 
-					Log.d(TAG, "set gpl_headphone_gain_pref == "
-							+ gpl_headphone_gain_pref);
+					//Log.d(TAG, "set gpl_headphone_gain_pref == "
+					//		+ gpl_headphone_gain_pref);
 					soundprocess
 							.write("echo "
 									+ gpl_headphone_gain_pref
@@ -297,8 +296,8 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("gpl_hdmi_spkr_gain_pref") == true) {
 
-					Log.d(TAG, "set gpl_hdmi_spkr_gain_pref == "
-							+ gpl_hdmi_spkr_gain_pref);
+					//Log.d(TAG, "set gpl_hdmi_spkr_gain_pref == "
+					//		+ gpl_hdmi_spkr_gain_pref);
 					soundprocess
 							.write("echo "
 									+ gpl_hdmi_spkr_gain_pref
@@ -309,8 +308,8 @@ public class onBootService extends Service {
 
 				if (sharedPreferences.contains("gpl_headset_mic_gain_pref") == true) {
 
-					Log.d(TAG, "set gpl_headset_mic_gain_pref == "
-							+ gpl_headset_mic_gain_pref);
+					//Log.d(TAG, "set gpl_headset_mic_gain_pref == "
+					//		+ gpl_headset_mic_gain_pref);
 					soundprocess
 							.write("echo "
 									+ gpl_headset_mic_gain_pref
@@ -334,9 +333,9 @@ public class onBootService extends Service {
 	@Override
 	public void onDestroy() {
 		// Tell the user we stopped.
-		Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
 
-		Log.d(TAG, "*************** Service Destroyed ****************");
+		//Log.d(TAG, "*************** Service Destroyed ****************");
 	}
 
 }

@@ -33,7 +33,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 public class Main extends Activity {
-	static final String TAG = "S4Tweaker";
+	//static final String TAG = "S4Tweaker";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class Main extends Activity {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putInt("usage_counter", usage_counter + 1);
 		editor.commit();
-		Log.d(TAG, "App started " + usage_counter + " times");
+		//Log.d(TAG, "App started " + usage_counter + " times");
 	}
 
 	/*
@@ -81,10 +81,10 @@ public class Main extends Activity {
 
 			BugsReporter.bugrecieved = false;
 		}
-		Log.d(TAG, "onResume() " + FileCheck.isRootEnabled());
+		//Log.d(TAG, "onResume() " + FileCheck.isRootEnabled());
 		if (!FileCheck.isRootEnabled() == true) {
-			Log.d(TAG,
-					"FileCheck.isRootEnabled() = " + FileCheck.isRootEnabled());
+			//Log.d(TAG,
+			//		"FileCheck.isRootEnabled() = " + FileCheck.isRootEnabled());
 			// Show Root required alert
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			final FrameLayout frameView = new FrameLayout(this);
@@ -105,7 +105,7 @@ public class Main extends Activity {
 					frameView);
 			norootDialog.show();
 		} else {
-			Log.d(TAG, "Got root access");
+			//Log.d(TAG, "Got root access");
 		}
 	}
 }

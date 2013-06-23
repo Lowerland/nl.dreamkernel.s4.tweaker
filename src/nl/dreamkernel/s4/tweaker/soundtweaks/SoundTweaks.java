@@ -130,9 +130,9 @@ public class SoundTweaks extends Activity {
 
 		// Root init s/e
 		RootProcess rootProcess = new RootProcess();
-		Log.d(TAG, "Root init s");
+		//Log.d(TAG, "Root init s");
 		rootProcess.init();
-		Log.d(TAG, "Root init e");
+		//Log.d(TAG, "Root init e");
 		// Read in the Values from files
 		if (vCheck_gpl_speaker_gain.exists()) {
 			Value_gpl_speaker_gain = Integer.parseInt(vCheck_gpl_speaker_gain
@@ -314,12 +314,12 @@ public class SoundTweaks extends Activity {
 		seekbar_hdmi_spkr_gain.setProgress(gpl_hdmi_spkr_gain - 20);
 		seekbar_headset_mic_gain.setProgress(gpl_headset_mic_gain - 20);
 
-		Log.d(TAG, "SetProgress gpl_speaker_gain: " + gpl_speaker_gain);
-		Log.d(TAG, "SetProgress gpl_mic_gain: " + gpl_mic_gain);
-		Log.d(TAG, "SetProgress gpl_cam_mic_gain: " + gpl_cam_mic_gain);
-		Log.d(TAG, "SetProgress gpl_headphone_gain: " + gpl_headphone_gain);
-		Log.d(TAG, "SetProgress gpl_hdmi_spkr_gain: " + gpl_hdmi_spkr_gain);
-		Log.d(TAG, "SetProgress gpl_headset_mic_gain: " + gpl_headset_mic_gain);
+		//Log.d(TAG, "SetProgress gpl_speaker_gain: " + gpl_speaker_gain);
+		//Log.d(TAG, "SetProgress gpl_mic_gain: " + gpl_mic_gain);
+		//Log.d(TAG, "SetProgress gpl_cam_mic_gain: " + gpl_cam_mic_gain);
+		//Log.d(TAG, "SetProgress gpl_headphone_gain: " + gpl_headphone_gain);
+		//Log.d(TAG, "SetProgress gpl_hdmi_spkr_gain: " + gpl_hdmi_spkr_gain);
+		//Log.d(TAG, "SetProgress gpl_headset_mic_gain: " + gpl_headset_mic_gain);
 
 		// register OnSeekBarChangeListener, so it can actually change values
 		seekbar_gpl.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -335,7 +335,7 @@ public class SoundTweaks extends Activity {
 
 				// Try catch block for if it may go wrong
 				try {
-					Log.d(TAG, "echo gpl speaker gain: " + gpl_speaker_gain);
+					//Log.d(TAG, "echo gpl speaker gain: " + gpl_speaker_gain);
 					// calls RootProcess
 					RootProcess process = new RootProcess();
 					if (!process.init()) {
@@ -344,7 +344,7 @@ public class SoundTweaks extends Activity {
 					// Writing the values to the files
 					process.write("echo " + gpl_speaker_gain
 							+ " > /sys/kernel/sound_control/gpl_speaker_gain\n");
-					Log.d(TAG, "echo gpl speaker gain: " + gpl_speaker_gain);
+					//Log.d(TAG, "echo gpl speaker gain: " + gpl_speaker_gain);
 					process.term();
 				} catch (Exception e) {
 					Log.e(TAG, "Error crashed " + e);
@@ -362,8 +362,8 @@ public class SoundTweaks extends Activity {
 				// sets the minimal level
 				int siz = progress + 20;
 				gpl_speaker_gain = siz;
-				Log.d(TAG, "Progressbar: " + siz);
-				Log.d(TAG, "Progressbar: " + gpl_speaker_gain);
+				//Log.d(TAG, "Progressbar: " + siz);
+				//Log.d(TAG, "Progressbar: " + gpl_speaker_gain);
 
 				// change progress text label with current seekbar value
 				int gpl_speaker_gain_sign_temp = gpl_speaker_gain - 40;
@@ -392,7 +392,7 @@ public class SoundTweaks extends Activity {
 
 						// Try catch block for if it may go wrong
 						try {
-							Log.d(TAG, "echo gpl mic gain: " + gpl_mic_gain);
+							//Log.d(TAG, "echo gpl mic gain: " + gpl_mic_gain);
 							// calls RootProcess
 							RootProcess process = new RootProcess();
 							if (!process.init()) {
@@ -402,7 +402,7 @@ public class SoundTweaks extends Activity {
 							process.write("echo "
 									+ gpl_mic_gain
 									+ " > /sys/kernel/sound_control/gpl_mic_gain\n");
-							Log.d(TAG, "echo gpl mic gain: " + gpl_mic_gain);
+							//Log.d(TAG, "echo gpl mic gain: " + gpl_mic_gain);
 							process.term();
 						} catch (Exception e) {
 							Log.e(TAG, "Error crashed " + e);
@@ -420,8 +420,8 @@ public class SoundTweaks extends Activity {
 						// sets the minimal level
 						int siz = progress + 20;
 						gpl_mic_gain = siz;
-						Log.d(TAG, "Progressbar: " + siz);
-						Log.d(TAG, "Progressbar: " + gpl_mic_gain);
+						//Log.d(TAG, "Progressbar: " + siz);
+						//Log.d(TAG, "Progressbar: " + gpl_mic_gain);
 
 						// change progress text label with current seekbar value
 						int gpl_mic_gain_sign_temp = gpl_mic_gain - 40;
@@ -450,8 +450,8 @@ public class SoundTweaks extends Activity {
 
 						// Try catch block for if it may go wrong
 						try {
-							Log.d(TAG, "echo gpl cam mic gain: "
-									+ gpl_cam_mic_gain);
+							//Log.d(TAG, "echo gpl cam mic gain: "
+							//		+ gpl_cam_mic_gain);
 							// calls RootProcess
 							RootProcess process = new RootProcess();
 							if (!process.init()) {
@@ -461,8 +461,8 @@ public class SoundTweaks extends Activity {
 							process.write("echo "
 									+ gpl_cam_mic_gain
 									+ " > /sys/kernel/sound_control/gpl_cam_mic_gain\n");
-							Log.d(TAG, "echo gpl cam mic gain: "
-									+ gpl_cam_mic_gain);
+							//Log.d(TAG, "echo gpl cam mic gain: "
+							//		+ gpl_cam_mic_gain);
 							process.term();
 						} catch (Exception e) {
 							Log.e(TAG, "Error crashed " + e);
@@ -480,8 +480,8 @@ public class SoundTweaks extends Activity {
 						// sets the minimal level
 						int siz = progress + 20;
 						gpl_cam_mic_gain = siz;
-						Log.d(TAG, "Progressbar: " + siz);
-						Log.d(TAG, "Progressbar: " + gpl_cam_mic_gain);
+						//Log.d(TAG, "Progressbar: " + siz);
+						//Log.d(TAG, "Progressbar: " + gpl_cam_mic_gain);
 
 						// change progress text label with current seekbar value
 						int gpl_cam_mic_gain_sign_temp = gpl_cam_mic_gain - 40;
@@ -512,8 +512,8 @@ public class SoundTweaks extends Activity {
 
 						// Try catch block for if it may go wrong
 						try {
-							Log.d(TAG, "echo gpl_headphone_gain: "
-									+ gpl_headphone_gain);
+							//Log.d(TAG, "echo gpl_headphone_gain: "
+							//		+ gpl_headphone_gain);
 							// calls RootProcess
 							RootProcess process = new RootProcess();
 							if (!process.init()) {
@@ -525,8 +525,8 @@ public class SoundTweaks extends Activity {
 									+ " "
 									+ gpl_headphone_gain
 									+ " > /sys/kernel/sound_control/gpl_headphone_gain\n");
-							Log.d(TAG, "echo gpl_headphone_gain: "
-									+ gpl_headphone_gain);
+							//Log.d(TAG, "echo gpl_headphone_gain: "
+							//		+ gpl_headphone_gain);
 							// Value_gpl_headphone_gain =
 							// Integer.parseInt(vCheck_gpl_headphone_gain.read(rootProcess));
 							process.term();
@@ -546,8 +546,8 @@ public class SoundTweaks extends Activity {
 						// sets the minimal level
 						int siz = progress + 20;
 						gpl_headphone_gain = siz;
-						Log.d(TAG, "Progressbar: " + siz);
-						Log.d(TAG, "Progressbar: " + gpl_headphone_gain);
+						//Log.d(TAG, "Progressbar: " + siz);
+						//Log.d(TAG, "Progressbar: " + gpl_headphone_gain);
 
 						// change progress text label with current seekbar value
 						int gpl_headphone_gain_sign_temp = gpl_headphone_gain - 40;
@@ -578,8 +578,8 @@ public class SoundTweaks extends Activity {
 
 						// Try catch block for if it may go wrong
 						try {
-							Log.d(TAG, "echo gpl hdmi spkr gain: "
-									+ gpl_hdmi_spkr_gain);
+							//Log.d(TAG, "echo gpl hdmi spkr gain: "
+							//		+ gpl_hdmi_spkr_gain);
 							// calls RootProcess
 							RootProcess process = new RootProcess();
 							if (!process.init()) {
@@ -589,8 +589,8 @@ public class SoundTweaks extends Activity {
 							process.write("echo "
 									+ gpl_hdmi_spkr_gain
 									+ " > /sys/kernel/sound_control/gpl_hdmi_spkr_gain\n");
-							Log.d(TAG, "echo gpl hdmi spkr gain: "
-									+ gpl_hdmi_spkr_gain);
+							//Log.d(TAG, "echo gpl hdmi spkr gain: "
+							//		+ gpl_hdmi_spkr_gain);
 							process.term();
 						} catch (Exception e) {
 							Log.e(TAG, "Error crashed " + e);
@@ -608,8 +608,8 @@ public class SoundTweaks extends Activity {
 						// sets the minimal level
 						int siz = progress + 20;
 						gpl_hdmi_spkr_gain = siz;
-						Log.d(TAG, "Progressbar: " + siz);
-						Log.d(TAG, "Progressbar: " + gpl_hdmi_spkr_gain);
+						//Log.d(TAG, "Progressbar: " + siz);
+						//Log.d(TAG, "Progressbar: " + gpl_hdmi_spkr_gain);
 
 						// change progress text label with current seekbar value
 						int gpl_hdmi_spkr_gain_sign_temp = gpl_hdmi_spkr_gain - 40;
@@ -640,8 +640,8 @@ public class SoundTweaks extends Activity {
 
 						// Try catch block for if it may go wrong
 						try {
-							Log.d(TAG, "echo gpl_headset_mic_gain: "
-									+ gpl_headset_mic_gain);
+							//Log.d(TAG, "echo gpl_headset_mic_gain: "
+							//		+ gpl_headset_mic_gain);
 							// calls RootProcess
 							RootProcess process = new RootProcess();
 							if (!process.init()) {
@@ -651,8 +651,8 @@ public class SoundTweaks extends Activity {
 							process.write("echo "
 									+ gpl_headset_mic_gain
 									+ " > /sys/kernel/sound_control/gpl_headset_mic_gain\n");
-							Log.d(TAG, "echo gpl_headset_mic_gain: "
-									+ gpl_headset_mic_gain);
+							//Log.d(TAG, "echo gpl_headset_mic_gain: "
+							//		+ gpl_headset_mic_gain);
 							process.term();
 						} catch (Exception e) {
 							Log.e(TAG, "Error crashed " + e);
@@ -670,8 +670,8 @@ public class SoundTweaks extends Activity {
 						// sets the minimal level
 						int siz = progress + 20;
 						gpl_headset_mic_gain = siz;
-						Log.d(TAG, "Progressbar: " + siz);
-						Log.d(TAG, "Progressbar: " + gpl_headset_mic_gain);
+						//Log.d(TAG, "Progressbar: " + siz);
+						//Log.d(TAG, "Progressbar: " + gpl_headset_mic_gain);
 
 						// change progress text label with current seekbar value
 						int gpl_headset_mic_gain_sign_temp = gpl_headset_mic_gain - 40;
@@ -689,7 +689,7 @@ public class SoundTweaks extends Activity {
 		// Filechecking part
 		soundtweaks_hide_dialog = sharedPreferences.getInt(
 				"soundtweaks_hide_dialog", 0);
-		Log.d(TAG, "onCreate cpu_hide_dialog = " + soundtweaks_hide_dialog);
+		//Log.d(TAG, "onCreate cpu_hide_dialog = " + soundtweaks_hide_dialog);
 
 		// Options Compatible Check
 		FileCheck.CheckSoundOptions(SoundTweaks.this);
@@ -698,16 +698,16 @@ public class SoundTweaks extends Activity {
 
 		if (FileCheck.incompatible == true) {
 			if (soundtweaks_hide_dialog == 1) {
-				Log.d(TAG, "hide the dialog");
+				//Log.d(TAG, "hide the dialog");
 			} else {
-				Log.d(TAG, "show dialog");
+				//Log.d(TAG, "show dialog");
 				Intent intent = new Intent(SoundTweaks.this,
 						DialogActivity.class);
 				startActivityForResult(intent, GET_CODE);
 			}
-			Log.d(TAG, "incompatible = " + FileCheck.incompatible);
+			//Log.d(TAG, "incompatible = " + FileCheck.incompatible);
 		} else {
-			Log.d(TAG, "incompatible = " + FileCheck.incompatible);
+			//Log.d(TAG, "incompatible = " + FileCheck.incompatible);
 		}
 	}
 
@@ -722,11 +722,11 @@ public class SoundTweaks extends Activity {
 		if (on) {
 			editor.putBoolean("onBootSoundTweaks_pref", true);
 			editor.commit();
-			Log.d(TAG, "onBoot Enabled for SoundTweaks");
+			//Log.d(TAG, "onBoot Enabled for SoundTweaks");
 		} else {
 			editor.putBoolean("onBootSoundTweaks_pref", false);
 			editor.commit();
-			Log.d(TAG, "onBoot Disabled for SoundTweaks");
+			//Log.d(TAG, "onBoot Disabled for SoundTweaks");
 		}
 	}
 
@@ -739,7 +739,7 @@ public class SoundTweaks extends Activity {
 				@SuppressWarnings("unused")
 				String resultlog = Integer.toString(resultCode);
 				if (data != null) {
-					Log.d(TAG, "RESULT_DATA = " + data.getAction());
+					//Log.d(TAG, "RESULT_DATA = " + data.getAction());
 					SharedPreferences sharedPreferences = getSharedPreferences(
 							"MY_SHARED_PREF", 0);
 					SharedPreferences.Editor editor = sharedPreferences.edit();

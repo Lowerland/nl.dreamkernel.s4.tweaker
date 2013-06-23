@@ -25,11 +25,10 @@ import nl.dreamkernel.s4.tweaker.util.SysCmds;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 public class SysInfo extends Activity {
-	static final String TAG = "S4Tweaker";
+	//static final String TAG = "S4Tweaker";
 
 	public static TextView Kernel_Version;
 

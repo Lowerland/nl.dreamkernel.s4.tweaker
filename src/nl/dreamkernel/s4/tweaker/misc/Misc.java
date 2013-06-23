@@ -31,7 +31,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -40,7 +39,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 public class Misc extends Activity {
-	static final String TAG = "S4Tweaker";
+	//static final String TAG = "S4Tweaker";
 
 	// variables for the Textviews
 	public static TextView InternalValue;
@@ -174,7 +173,7 @@ public class Misc extends Activity {
 
 						// Try catch block for if it may go wrong
 						try {
-							Log.d(TAG, "vibrator: " + value_vibrator);
+							//Log.d(TAG, "vibrator: " + value_vibrator);
 							// calls RootProcess
 							RootProcess process = new RootProcess();
 							if (!process.init()) {
@@ -183,12 +182,12 @@ public class Misc extends Activity {
 							// Writing the values to the files
 							process.write("echo " + value_vibrator
 									+ " > /sys/vibrator/pwm_val\n");
-							Log.d(TAG, "echo value_vibrator : "
-									+ value_vibrator);
+							//Log.d(TAG, "echo value_vibrator : "
+							//		+ value_vibrator);
 							process.term();
 						} catch (Exception e) {
-							Log.e(TAG, "Error crashed " + e);
-							Log.d(TAG, "error " + e);
+							//Log.e(TAG, "Error crashed " + e);
+							//Log.d(TAG, "error " + e);
 						}
 					}
 
@@ -202,8 +201,8 @@ public class Misc extends Activity {
 						// sets the minimal level
 						int siz = progress;
 						value_vibrator = siz;
-						Log.d(TAG, "Progressbar: " + siz);
-						Log.d(TAG, "Progressbar: " + value_vibrator);
+						//Log.d(TAG, "Progressbar: " + siz);
+						//Log.d(TAG, "Progressbar: " + value_vibrator);
 
 						// change progress text label with current seekbar value
 						vibratorProgress.setText("" + value_vibrator);
@@ -212,7 +211,7 @@ public class Misc extends Activity {
 
 		// Filechecking part
 		misc_hide_dialog = sharedPreferences.getInt("misc_hide_dialog", 0);
-		Log.d(TAG, "onCreate misc_hide_dialog = " + misc_hide_dialog);
+		//Log.d(TAG, "onCreate misc_hide_dialog = " + misc_hide_dialog);
 
 		// Options Compatible Check
 		FileCheck.CheckMiscOptions(Misc.this);
@@ -221,15 +220,15 @@ public class Misc extends Activity {
 
 		if (FileCheck.incompatible == true) {
 			if (misc_hide_dialog == 1) {
-				Log.d(TAG, "hide the dialog");
+				//Log.d(TAG, "hide the dialog");
 			} else {
-				Log.d(TAG, "show dialog");
+				//Log.d(TAG, "show dialog");
 				Intent intent = new Intent(Misc.this, DialogActivity.class);
 				startActivityForResult(intent, GET_CODE);
 			}
-			Log.d(TAG, "incompatible = " + FileCheck.incompatible);
+			//Log.d(TAG, "incompatible = " + FileCheck.incompatible);
 		} else {
-			Log.d(TAG, "incompatible = " + FileCheck.incompatible);
+			//Log.d(TAG, "incompatible = " + FileCheck.incompatible);
 		}
 
 	}
@@ -240,11 +239,11 @@ public class Misc extends Activity {
 
 	private void ValueReader() {
 		// Read in the Values from files
-		Log.d(TAG, "Read in the Values from files");
+		//Log.d(TAG, "Read in the Values from files");
 		RootProcess rootProcess = new RootProcess();
-		Log.d(TAG, "Misc Tweaks, Root init s");
+		//Log.d(TAG, "Misc Tweaks, Root init s");
 		rootProcess.init();
-		Log.d(TAG, "Misc Tweaks, Root init e");
+		//Log.d(TAG, "Misc Tweaks, Root init e");
 
 		if (vCheck_internalscheduler.exists()) {
 			file_value_temp = vCheck_internalscheduler.read(rootProcess);
@@ -291,9 +290,9 @@ public class Misc extends Activity {
 			if (usb_switch_value_temp == 0) {
 				usb_switch_value = false;
 			}
-			Log.d(TAG, "Boolean usb_switch_value_temp = "
-					+ usb_switch_value_temp);
-			Log.d(TAG, "Boolean usb_switch_value = " + usb_switch_value);
+			//Log.d(TAG, "Boolean usb_switch_value_temp = "
+			//		+ usb_switch_value_temp);
+			//Log.d(TAG, "Boolean usb_switch_value = " + usb_switch_value);
 		} else {
 			usb_switch_value = false;
 		}
@@ -317,11 +316,11 @@ public class Misc extends Activity {
 		boolean on = ((Switch) view).isChecked();
 		if (on) {
 			editor.putInt("usb_fast_charge_pref", 1);
-			Log.d(TAG, "on USB FAST SWITCH Enabled");
+			//Log.d(TAG, "on USB FAST SWITCH Enabled");
 			fast_charge_on();
 		} else {
 			editor.putInt("usb_fast_charge_pref", 0);
-			Log.d(TAG, "on USB FAST SWITCH Disabled");
+			//Log.d(TAG, "on USB FAST SWITCH Disabled");
 			fast_charge_off();
 		}
 		editor.commit();
@@ -329,7 +328,7 @@ public class Misc extends Activity {
 
 	public void fast_charge_on() {
 		// calls RootProcess
-		Log.d(TAG, "on USB FAST SWITCH Enabled");
+		//Log.d(TAG, "on USB FAST SWITCH Enabled");
 		ValueReader();
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
@@ -341,7 +340,7 @@ public class Misc extends Activity {
 
 	public void fast_charge_off() {
 		// calls RootProcess
-		Log.d(TAG, "on USB FAST SWITCH Disabled");
+		//Log.d(TAG, "on USB FAST SWITCH Disabled");
 		ValueReader();
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
@@ -352,7 +351,7 @@ public class Misc extends Activity {
 	}
 
 	public void onINTERNAL(View View) {
-		Log.d(TAG, "Internal value clicked");
+		//Log.d(TAG, "Internal value clicked");
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setSingleChoiceItems(R.array.ioInternal, 0,
@@ -360,8 +359,8 @@ public class Misc extends Activity {
 					public void onClick(DialogInterface dialog, int whichButton) {
 
 						/* User clicked on a radio button do some stuff */
-						Log.d(TAG, "User clicked on radio button "
-								+ whichButton);
+						//Log.d(TAG, "User clicked on radio button "
+						//		+ whichButton);
 						dialog_temp_internal = whichButton;
 
 					}
@@ -373,8 +372,8 @@ public class Misc extends Activity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						// Button OK Clicked
-						Log.d(TAG, "Button ok clicked");
-						Log.d(TAG, "Store Selected = " + dialog_temp_internal);
+						//Log.d(TAG, "Button ok clicked");
+						//Log.d(TAG, "Store Selected = " + dialog_temp_internal);
 						SharedPreferences sharedPreferences = getSharedPreferences(
 								"MY_SHARED_PREF", 0);
 						SharedPreferences.Editor editor = sharedPreferences
@@ -390,7 +389,7 @@ public class Misc extends Activity {
 	}
 
 	private void InternalDialogSaver() {
-		Log.d(TAG, "DialogSaver intervalue = " + dialog_temp_internal);
+		//Log.d(TAG, "DialogSaver intervalue = " + dialog_temp_internal);
 		// calls RootProcess
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
@@ -403,49 +402,49 @@ public class Misc extends Activity {
 		switch (dialog_temp_internal) {
 		case 0:
 			editor.putString("internalscheduler_pref", "noop");
-			Log.d(TAG, "echo'd noop to internalscheduler");
+			//Log.d(TAG, "echo'd noop to internalscheduler");
 			process.write("echo noop > /sys/block/mmcblk0/queue/scheduler\n");
-			Log.d(TAG, "echo'd noop to internalscheduler");
+			//Log.d(TAG, "echo'd noop to internalscheduler");
 			break;
 		case 1:
 			editor.putString("internalscheduler_pref", "deadline");
 			process.write("echo deadline > /sys/block/mmcblk0/queue/scheduler\n");
-			Log.d(TAG, "echo'd deadline to internalscheduler");
+			//Log.d(TAG, "echo'd deadline to internalscheduler");
 			break;
 		case 2:
 			process.write("echo cfq > /sys/block/mmcblk0/queue/scheduler\n");
 			editor.putString("internalscheduler_pref", "cfq");
-			Log.d(TAG, "echo'd cfq to internalscheduler");
+			//Log.d(TAG, "echo'd cfq to internalscheduler");
 			break;
 		case 3:
 			process.write("echo bfq > /sys/block/mmcblk0/queue/scheduler\n");
 			editor.putString("internalscheduler_pref", "bfq");
 
-			Log.d(TAG, "echo'd bfq to internalscheduler");
+			//Log.d(TAG, "echo'd bfq to internalscheduler");
 			break;
 		case 4:
 			process.write("echo fiops > /sys/block/mmcblk0/queue/scheduler\n");
 			editor.putString("internalscheduler_pref", "fiops");
 
-			Log.d(TAG, "echo'd fiops to internalscheduler");
+			//Log.d(TAG, "echo'd fiops to internalscheduler");
 			break;
 		case 5:
 			process.write("echo sio > /sys/block/mmcblk0/queue/scheduler\n");
 			editor.putString("internalscheduler_pref", "sio");
 
-			Log.d(TAG, "echo'd sio to internalscheduler");
+			//Log.d(TAG, "echo'd sio to internalscheduler");
 			break;
 		case 6:
 			process.write("echo vr > /sys/block/mmcblk0/queue/scheduler\n");
 			editor.putString("internalscheduler_pref", "vr");
 
-			Log.d(TAG, "echo'd vr to internalscheduler");
+			//Log.d(TAG, "echo'd vr to internalscheduler");
 			break;
 		case 7:
 			process.write("echo zen > /sys/block/mmcblk0/queue/scheduler\n");
 			editor.putString("internalscheduler_pref", "zen");
 
-			Log.d(TAG, "echo'd zen to internalscheduler");
+			//Log.d(TAG, "echo'd zen to internalscheduler");
 			break;
 		default:
 			break;
@@ -455,7 +454,7 @@ public class Misc extends Activity {
 	}
 
 	public void onEXTERNAL(View View) {
-		Log.d(TAG, "External value clicked");
+		//Log.d(TAG, "External value clicked");
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setSingleChoiceItems(R.array.ioExternal, 0,
@@ -463,8 +462,8 @@ public class Misc extends Activity {
 					public void onClick(DialogInterface dialog, int whichButton) {
 
 						/* User clicked on a radio button do some stuff */
-						Log.d(TAG, "User clicked on radio button "
-								+ whichButton);
+						//Log.d(TAG, "User clicked on radio button "
+						//		+ whichButton);
 						dialog_temp_external = whichButton;
 
 					}
@@ -476,8 +475,8 @@ public class Misc extends Activity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						// Button OK Clicked
-						Log.d(TAG, "Button ok clicked");
-						Log.d(TAG, "Store Selected = " + dialog_temp_external);
+						//Log.d(TAG, "Button ok clicked");
+						//Log.d(TAG, "Store Selected = " + dialog_temp_external);
 						SharedPreferences sharedPreferences = getSharedPreferences(
 								"MY_SHARED_PREF", 0);
 						SharedPreferences.Editor editor = sharedPreferences
@@ -494,7 +493,7 @@ public class Misc extends Activity {
 	}
 
 	private void ExternalDialogSaver() {
-		Log.d(TAG, "DialogSaver extervalue = " + dialog_temp_external);
+		//Log.d(TAG, "DialogSaver extervalue = " + dialog_temp_external);
 		// calls RootProcess
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
@@ -510,49 +509,49 @@ public class Misc extends Activity {
 			process.write("echo noop > /sys/block/mmcblk1/queue/scheduler\n");
 			editor.putString("externalscheduler_pref", "noop");
 
-			Log.d("process", "echo'd noop to externalscheduler");
+			//Log.d("process", "echo'd noop to externalscheduler");
 			break;
 		case 1:
 			process.write("echo deadline > /sys/block/mmcblk1/queue/scheduler\n");
 			editor.putString("externalscheduler_pref", "deadline");
 
-			Log.d("process", "echo'd deadline to externalscheduler");
+			//Log.d("process", "echo'd deadline to externalscheduler");
 			break;
 		case 2:
 			process.write("echo cfq > /sys/block/mmcblk1/queue/scheduler\n");
 			editor.putString("externalscheduler_pref", "cfq");
 
-			Log.d("process", "echo'd cfq to externalscheduler");
+			//Log.d("process", "echo'd cfq to externalscheduler");
 			break;
 		case 3:
 			process.write("echo bfq > /sys/block/mmcblk1/queue/scheduler\n");
 			editor.putString("externalscheduler_pref", "bfq");
 
-			Log.d("process", "echo'd bfq to externalscheduler");
+			//Log.d("process", "echo'd bfq to externalscheduler");
 			break;
 		case 4:
 			process.write("echo fiops > /sys/block/mmcblk1/queue/scheduler\n");
 			editor.putString("externalscheduler_pref", "fiops");
 
-			Log.d("process", "echo'd fiops to externalscheduler");
+			//Log.d("process", "echo'd fiops to externalscheduler");
 			break;
 		case 5:
 			process.write("echo sio > /sys/block/mmcblk1/queue/scheduler\n");
 			editor.putString("externalscheduler_pref", "sio");
 
-			Log.d("process", "echo'd sio to externalscheduler");
+			//Log.d("process", "echo'd sio to externalscheduler");
 			break;
 		case 6:
 			process.write("echo vr > /sys/block/mmcblk1/queue/scheduler\n");
 			editor.putString("externalscheduler_pref", "vr");
 
-			Log.d("process", "echo'd vr to externalscheduler");
+			//Log.d("process", "echo'd vr to externalscheduler");
 			break;
 		case 7:
 			process.write("echo zen > /sys/block/mmcblk1/queue/scheduler\n");
 			editor.putString("externalscheduler_pref", "zen");
 
-			Log.d("process", "echo'd zen to externalscheduler");
+			//Log.d("process", "echo'd zen to externalscheduler");
 			break;
 		default:
 			break;
@@ -572,11 +571,11 @@ public class Misc extends Activity {
 		if (on) {
 			editor.putBoolean("onBootMiscTweaks_pref", true);
 			editor.commit();
-			Log.d(TAG, "onBoot Enabled for MiscTweaks");
+			//Log.d(TAG, "onBoot Enabled for MiscTweaks");
 		} else {
 			editor.putBoolean("onBootMiscTweaks_pref", false);
 			editor.commit();
-			Log.d(TAG, "onBoot Disabled for MiscTweaks");
+			//Log.d(TAG, "onBoot Disabled for MiscTweaks");
 		}
 	}
 
@@ -589,7 +588,7 @@ public class Misc extends Activity {
 				@SuppressWarnings("unused")
 				String resultlog = Integer.toString(resultCode);
 				if (data != null) {
-					Log.d(TAG, "RESULT_DATA = " + data.getAction());
+					//Log.d(TAG, "RESULT_DATA = " + data.getAction());
 					SharedPreferences sharedPreferences = getSharedPreferences(
 							"MY_SHARED_PREF", 0);
 					SharedPreferences.Editor editor = sharedPreferences.edit();

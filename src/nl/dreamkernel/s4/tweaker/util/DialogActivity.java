@@ -20,7 +20,6 @@ import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -30,7 +29,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class DialogActivity extends Activity implements OnCheckedChangeListener {
-	static final String TAG = "S4Tweaker";
+	//static final String TAG = "S4Tweaker";
 
 	public static int hidedialog;
 	private CheckBox checkBoxHIDEALERT;
@@ -55,7 +54,7 @@ public class DialogActivity extends Activity implements OnCheckedChangeListener 
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if (isChecked) {
 
-			Log.d(TAG, "isChecked");
+			//Log.d(TAG, "isChecked");
 			hidedialog = 1;
 			// setResult(RESULT_OK, (new
 			// Intent()).setAction("checkbox Corky!"));

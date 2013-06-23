@@ -24,7 +24,7 @@ import android.os.Bundle;
 import android.view.View;
 
 public class About extends Activity {
-	static final String TAG = "S4Tweaker";
+	//static final String TAG = "S4Tweaker";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
