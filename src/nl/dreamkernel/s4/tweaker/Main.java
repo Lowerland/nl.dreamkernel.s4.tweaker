@@ -23,10 +23,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -51,6 +51,15 @@ public class Main extends Activity {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putInt("usage_counter", usage_counter + 1);
 		editor.commit();
+		if(usage_counter == 100){
+			startActivity(new Intent(this, nl.dreamkernel.s4.tweaker.about.About.class));
+		}
+		if(usage_counter == 500){
+			startActivity(new Intent(this, nl.dreamkernel.s4.tweaker.about.About.class));
+		}
+		if(usage_counter == 1000){
+			startActivity(new Intent(this, nl.dreamkernel.s4.tweaker.about.About.class));
+		}
 		//Log.d(TAG, "App started " + usage_counter + " times");
 	}
 
