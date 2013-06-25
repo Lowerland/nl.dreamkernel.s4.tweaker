@@ -45,309 +45,373 @@
         android:layout_marginTop="5dp"
         android:background="#698bdd" />
 
-    <!-- Text Set On Boot -->
-
-    <TextView
-        android:id="@+id/textSetOnBoot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/iddummy1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/set_on_boot"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/android_blue" />
-
-    <!-- Line Below Set on boot -->
-
-    <View
-        android:id="@+id/dummyvalue2"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_below="@+id/textSetOnBoot"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="4dp"
-        android:background="@color/android_blue" />
-
-    <!-- Switch onBootMiscTweaks -->
-
-    <Switch
-        android:id="@+id/onBootSwitch_MiscTweaks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dummyvalue2"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="14dp"
-        android:onClick="onBootMiscTweaks" />
-
-    <!-- Text I/O Schedulers -->
-
-    <TextView
-        android:id="@+id/textIOscheduler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/onBootSwitch_MiscTweaks"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/io_scheduler"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/android_blue" />
-
-    <!-- Line below I/O schedulers -->
-
-    <View
-        android:id="@+id/iddummy2"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_below="@+id/textIOscheduler"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="4dp"
-        android:background="@color/android_blue" />
-
-    <!-- *NEW* Touching BLOCK -->
-
-    <View
-        android:id="@+id/internaltouchblock"
-        android:layout_width="fill_parent"
-        android:layout_height="52dip"
-        android:layout_below="@+id/iddummy2"
-        android:layout_marginTop="0dp"
-        android:background="@drawable/translucent_box"
-        android:onClick="onINTERNAL" />
-
-    <!-- *NEW* Internal Scheduler Text -->
-
-    <TextView
-        android:id="@+id/textInternalschedulerinternalnew"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/iddummy2"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="2dp"
-        android:text="@string/text_Internal_Scheduler"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <!-- *NEW* Internal Value -->
-
-    <TextView
-        android:id="@+id/InternalValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textInternalschedulerinternalnew"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="2dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="16sp"
-        android:typeface="sans" />
-
-    <!-- *NEW* Not Supported Text -->
-
-    <TextView
-        android:id="@+id/internal_scheduler_alert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textInternalschedulerinternalnew"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="2dp"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red_alert" />
-
-    <!-- *NEW* Line -->
-
-    <View
-        android:id="@+id/idline"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_below="@+id/textInternalschedulerinternalnew"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="29dp"
-        android:background="@color/android_blue_dark" />
-
-    <!-- *NEW* External Touching BLOCK -->
-
-    <View
-        android:id="@+id/externaltouchblock"
-        android:layout_width="fill_parent"
-        android:layout_height="52dip"
-        android:layout_below="@+id/idline"
-        android:layout_marginTop="0dp"
-        android:background="@drawable/translucent_box"
-        android:onClick="onEXTERNAL" />
-
-    <!-- *NEW* External Scheduler Text -->
-
-    <TextView
-        android:id="@+id/textExternalschedulerinternalnew"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/idline"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="2dp"
-        android:text="@string/text_External_Scheduler"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <!-- *NEW* External Value -->
-
-    <TextView
-        android:id="@+id/ExternalValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textExternalschedulerinternalnew"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="2dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="16sp"
-        android:typeface="sans" />
-
-    <!-- *NEW* Not Supported Text -->
-
-    <TextView
-        android:id="@+id/external_scheduler_alert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textExternalschedulerinternalnew"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="2dp"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red_alert" />
-
-    <!-- *NEW* Line -->
-
-    <View
-        android:id="@+id/idline2"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_below="@+id/textExternalschedulerinternalnew"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="29dp"
-        android:background="@color/android_blue" />
-
-    <!-- Text vibrator_intensity -->
-
-    <TextView
-        android:id="@+id/textvibrator_intensity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/idline2"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="2dp"
-        android:text="@string/vibrator_intensity"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/android_blue" />
-
-    <!-- Not Supported Text -->
-
-    <TextView
-        android:id="@+id/vibrator_intensity_alert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textvibrator_intensity"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="2dp"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red_alert" />
-
-    <!-- Seekbar vibrator_intensity -->
-
-    <SeekBar
-        android:id="@+id/sb_vibrator_intensity"
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/idline2"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="28dp"
-        android:layout_toLeftOf="@+id/value_vibrator_intensity"
-        android:max="100" />
+        android:layout_below="@+id/iddummy1" >
 
-    <!-- Value displayer -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/value_vibrator_intensity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/idline2"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/back"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        android:typeface="sans" />
+            <!-- Text Set On Boot -->
 
-    <!-- Line below vibrator_intensity -->
+            <TextView
+                android:id="@+id/textSetOnBoot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/set_on_boot"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
 
-    <View
-        android:id="@+id/iddummy5"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_below="@+id/textvibrator_intensity"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="46dp"
-        android:background="@color/android_blue" />
+            <!-- Line Below Set on boot -->
 
-    <!-- USB Fast Charge -->
+            <View
+                android:id="@+id/dummyvalue2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/textSetOnBoot"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/android_blue" />
 
-    <TextView
-        android:id="@+id/usb_fast_charge_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/iddummy5"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/usb_fast_charge"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/android_blue" />
+            <!-- Switch onBootMiscTweaks -->
 
-    <!-- Not Supported Text -->
+            <Switch
+                android:id="@+id/onBootSwitch_MiscTweaks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/dummyvalue2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="14dp"
+                android:onClick="onBootMiscTweaks" />
 
-    <TextView
-        android:id="@+id/usb_fast_charge_alert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/usb_fast_charge_text"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="2dp"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/red_alert" />
+            <!-- Text I/O Schedulers -->
 
-    <!-- USB Fast Charge Switch -->
+            <TextView
+                android:id="@+id/textIOscheduler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/onBootSwitch_MiscTweaks"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/io_scheduler"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
 
-    <Switch
-        android:id="@+id/usb_fast_charge_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/iddummy5"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="8dp"
-        android:onClick="onUSBFASTSWITCH" />
+            <!-- Line below I/O schedulers -->
+
+            <View
+                android:id="@+id/iddummy2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/textIOscheduler"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/android_blue" />
+
+            <!-- *NEW* Touching BLOCK -->
+
+            <View
+                android:id="@+id/internaltouchblock"
+                android:layout_width="fill_parent"
+                android:layout_height="52dip"
+                android:layout_below="@+id/iddummy2"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/translucent_box"
+                android:onClick="onINTERNAL" />
+
+            <!-- *NEW* Internal Scheduler Text -->
+
+            <TextView
+                android:id="@+id/textInternalschedulerinternalnew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/iddummy2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/text_Internal_Scheduler"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <!-- *NEW* Internal Value -->
+
+            <TextView
+                android:id="@+id/InternalValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textInternalschedulerinternalnew"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="2dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="16sp"
+                android:typeface="sans" />
+
+            <!-- *NEW* Not Supported Text -->
+
+            <TextView
+                android:id="@+id/internal_scheduler_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textInternalschedulerinternalnew"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
+
+            <!-- *NEW* Line -->
+
+            <View
+                android:id="@+id/idline"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/textInternalschedulerinternalnew"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="29dp"
+                android:background="@color/android_blue_dark" />
+
+            <!-- *NEW* External Touching BLOCK -->
+
+            <View
+                android:id="@+id/externaltouchblock"
+                android:layout_width="fill_parent"
+                android:layout_height="52dip"
+                android:layout_below="@+id/idline"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/translucent_box"
+                android:onClick="onEXTERNAL" />
+
+            <!-- *NEW* External Scheduler Text -->
+
+            <TextView
+                android:id="@+id/textExternalschedulerinternalnew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/idline"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/text_External_Scheduler"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <!-- *NEW* External Value -->
+
+            <TextView
+                android:id="@+id/ExternalValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textExternalschedulerinternalnew"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="2dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="16sp"
+                android:typeface="sans" />
+
+            <!-- *NEW* Not Supported Text -->
+
+            <TextView
+                android:id="@+id/external_scheduler_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textExternalschedulerinternalnew"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
+
+            <!-- *NEW* Line -->
+
+            <View
+                android:id="@+id/idline2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/textExternalschedulerinternalnew"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="29dp"
+                android:background="@color/android_blue" />
+
+            <!-- Text vibrator_intensity -->
+
+            <TextView
+                android:id="@+id/textvibrator_intensity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/idline2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/vibrator_intensity"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
+
+            <!-- Not Supported Text -->
+
+            <TextView
+                android:id="@+id/vibrator_intensity_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textvibrator_intensity"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
+
+            <!-- Seekbar vibrator_intensity -->
+
+            <SeekBar
+                android:id="@+id/sb_vibrator_intensity"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/idline2"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="28dp"
+                android:layout_toLeftOf="@+id/value_vibrator_intensity"
+                android:max="100" />
+
+            <!-- Value displayer -->
+
+            <TextView
+                android:id="@+id/value_vibrator_intensity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/idline2"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/back"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:typeface="sans" />
+
+            <!-- Line below vibrator_intensity -->
+
+            <View
+                android:id="@+id/iddummy5"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/textvibrator_intensity"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="46dp"
+                android:background="@color/android_blue" />
+
+            <!-- USB Fast Charge -->
+
+            <TextView
+                android:id="@+id/usb_fast_charge_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/iddummy5"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/usb_fast_charge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
+
+            <!-- Not Supported Text -->
+
+            <TextView
+                android:id="@+id/usb_fast_charge_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/usb_fast_charge_text"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
+
+            <!-- USB Fast Charge Switch -->
+
+            <Switch
+                android:id="@+id/usb_fast_charge_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/iddummy5"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="8dp"
+                android:onClick="onUSBFASTSWITCH" />
+
+            <!-- Line below USB Fast Charge -->
+
+            <View
+                android:id="@+id/iddummy6"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/usb_fast_charge_text"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="46dp"
+                android:background="@color/android_blue" />
+
+            <!-- dynamic file system sync -->
+
+            <TextView
+                android:id="@+id/text_dyn_file_sys_sync"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/iddummy6"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/text_dyn_file_sys_sync"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
+
+            <!-- Not Supported Text -->
+
+            <TextView
+                android:id="@+id/dyn_file_sys_sync_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_dyn_file_sys_sync"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
+
+            <!-- dynamic file system sync Switch -->
+
+            <Switch
+                android:id="@+id/dyn_file_sys_sync_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_dyn_file_sys_sync"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="14dp"
+                android:onClick="onDYN_FILE_SYS_SYNC_SWITCH" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
