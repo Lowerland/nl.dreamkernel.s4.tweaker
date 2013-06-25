@@ -18,8 +18,8 @@
 <resources>
 
     <string name="app_name">S4-Tweaker</string>
-    <string name="version">Version 1.1.0</string>
-    <string name="version_small">v1.1.0</string>
+    <string name="version">Alpha Version 1.1.1</string>
+    <string name="version_small">v1.1.1</string>
     <string name="empty_string"></string>
     <string name="no_root_access">ROOT ACCESS NEEDED</string>
     <string name="no_root_alert_body">"Looks like this device ,
@@ -56,6 +56,7 @@ Update or Install Latest Dreamkernel
     <string name="max_fequency_scaling">Max Frequency Scaling</string>
     <string name="set_freq_scaling_max">Set Max Scaling Freq:</string>
     <string name="usb_fast_charge">USB Fast Charge</string>
+    <string name="text_dyn_file_sys_sync">Dynamic File System Sync</string>
     <string name="current_usb_fast_charge">Current USB Fast Charge</string>
     <string name="set_usb_fast_charge">Set USB Fast Charge</string>
     <string name="io_scheduler">I/O-Schedulers</string>
