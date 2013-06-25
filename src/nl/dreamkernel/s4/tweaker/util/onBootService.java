@@ -67,6 +67,8 @@ public class onBootService extends Service {
 				"usb_fast_charge_pref", 0);
 		int dyn_file_sys_sync_pref = sharedPreferences.getInt(
 				"dyn_file_sys_sync_pref", 0);
+		int display_power_reduce_pref = sharedPreferences.getInt(
+				"display_power_reduce_pref", 0);
 
 		boolean onBootSoundTweaks_pref = sharedPreferences.getBoolean(
 				"onBootSoundTweaks_pref", false);
@@ -247,6 +249,18 @@ public class onBootService extends Service {
 							+ dyn_file_sys_sync_pref);
 					miscprocess.write("echo " + dyn_file_sys_sync_pref
 							+ " > /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
+				}
+			}
+			if (Misc.vCheck_Display_Power_Reduce.exists()) {
+
+				if (sharedPreferences.contains("display_power_reduce_pref") == true) {
+
+					Log.d(TAG, "set display_power_reduce_pref == "
+							+ display_power_reduce_pref);
+					miscprocess
+							.write("echo "
+									+ display_power_reduce_pref
+									+ " > /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
 				}
 			}
 			miscprocess.term();
