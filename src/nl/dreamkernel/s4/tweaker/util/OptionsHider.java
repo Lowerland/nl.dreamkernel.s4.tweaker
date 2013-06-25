@@ -92,6 +92,12 @@ public class OptionsHider {
 			Misc.dynamicfilesyssyncswitch.setVisibility(View.GONE);
 			Misc.textuncompatibel5.setText(R.string.disabled_option_text);
 		}
+		Log.d(TAG, "OptionsHider() Display_Power_Reduce_hide = "
+				+ FileCheck.Display_Power_Reduce_hide);
+		if (FileCheck.Display_Power_Reduce_hide == 1) {
+			Misc.displaypowerreduceswitch.setVisibility(View.GONE);
+			Misc.textuncompatibel6.setText(R.string.disabled_option_text);
+		}
 	}
 
 	// Hiding Method for Sound Tweaks
