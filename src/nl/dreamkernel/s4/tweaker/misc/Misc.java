@@ -50,6 +50,7 @@ public class Misc extends Activity {
 	public static TextView textuncompatibel3;
 	public static TextView textuncompatibel4;
 	public static TextView textuncompatibel5;
+	public static TextView textuncompatibel6;
 
 	// variables for touch blocks
 	public static View Touch_block_int_scheduler;
@@ -67,6 +68,8 @@ public class Misc extends Activity {
 			"/sys/kernel/fast_charge/force_fast_charge");
 	public static final SysFs vCheck_Dyn_File_Sys_Sync = new SysFs(
 			"/sys/kernel/dyn_fsync/Dyn_fsync_active");
+	public static final SysFs vCheck_Display_Power_Reduce = new SysFs(
+			"/sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce");
 
 	// public static final SysFs vCheck_internalscheduler = new SysFs(
 	// "/mnt/sdcard/testfiles/internalscheduler");
@@ -78,6 +81,8 @@ public class Misc extends Activity {
 	// SysFs("/mnt/sdcard/testfiles/force_fast_charge");
 	// public static final SysFs vCheck_Dyn_File_Sys_Sync = new
 	// SysFs("/mnt/sdcard/testfiles/Dyn_fsync_active");
+	// public static final SysFs vCheck_Display_Power_Reduce = new SysFs(
+	// "/mnt/sdcard/testfiles/power_reduce");
 
 	// variables storing the real file values
 	private String file_value_internal;
@@ -90,6 +95,8 @@ public class Misc extends Activity {
 	private int usb_switch_value_temp;
 	private boolean dynamic_file_sys_switch_value;
 	private int dynamic_file_sys_switch_value_temp;
+	private boolean display_power_reduce_switch_value;
+	private int display_power_reduce_switch_value_temp;
 
 	// the seek bar variable
 	public static SeekBar seekbar_vibrator;
@@ -98,6 +105,7 @@ public class Misc extends Activity {
 	// declare Switch objects
 	public static Switch usbfastchargeswitch;
 	public static Switch dynamicfilesyssyncswitch;
+	public static Switch displaypowerreduceswitch;
 
 	// variables to store the shared pref in
 	// private int InternalPrefValue;
@@ -133,6 +141,7 @@ public class Misc extends Activity {
 		textuncompatibel3 = (TextView) findViewById(R.id.vibrator_intensity_alert);
 		textuncompatibel4 = (TextView) findViewById(R.id.usb_fast_charge_alert);
 		textuncompatibel5 = (TextView) findViewById(R.id.dyn_file_sys_sync_alert);
+		textuncompatibel6 = (TextView) findViewById(R.id.display_power_reduce_alert);
 
 		// get the seek bar
 		seekbar_vibrator = (SeekBar) findViewById(R.id.sb_vibrator_intensity);
@@ -143,6 +152,8 @@ public class Misc extends Activity {
 		usbfastchargeswitch = (Switch) findViewById(R.id.usb_fast_charge_switch);
 
 		dynamicfilesyssyncswitch = (Switch) findViewById(R.id.dyn_file_sys_sync_switch);
+
+		displaypowerreduceswitch = (Switch) findViewById(R.id.display_power_reduce_switch);
 
 		// Find Thouch Blocks so we can could disable them
 		Touch_block_int_scheduler = (View) findViewById(R.id.internaltouchblock);
@@ -326,6 +337,23 @@ public class Misc extends Activity {
 			dynamic_file_sys_switch_value = false;
 		}
 
+		if (vCheck_Display_Power_Reduce.exists()) {
+			display_power_reduce_switch_value_temp = Integer
+					.parseInt(vCheck_Display_Power_Reduce.read(rootProcess));
+			if (display_power_reduce_switch_value_temp == 1) {
+				display_power_reduce_switch_value = true;
+			}
+			if (display_power_reduce_switch_value_temp == 0) {
+				display_power_reduce_switch_value = false;
+			}
+			Log.d(TAG, "Boolean display_power_reduce_switch_value_temp = "
+					+ display_power_reduce_switch_value_temp);
+			Log.d(TAG, "Boolean display_power_reduce_switch_value = "
+					+ display_power_reduce_switch_value);
+		} else {
+			display_power_reduce_switch_value = false;
+		}
+
 		rootProcess.term();
 		rootProcess = null;
 
@@ -334,6 +362,7 @@ public class Misc extends Activity {
 		ExternalValue.setText("" + file_value_external);
 		usbfastchargeswitch.setChecked(usb_switch_value);
 		dynamicfilesyssyncswitch.setChecked(dynamic_file_sys_switch_value);
+		displaypowerreduceswitch.setChecked(display_power_reduce_switch_value);
 	}
 
 	// Start on boot switch
@@ -424,6 +453,53 @@ public class Misc extends Activity {
 			return;
 		}
 		process.write("echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
+		process.term();
+	}
+
+	// Start onDisplay_Power_Reduce_SWITCH
+	// TODO
+	public void onDisplay_Power_Reduce_SWITCH(View view) {
+		// set the preferences for onBoot Usage
+		SharedPreferences sharedPreferences = getSharedPreferences(
+				"MY_SHARED_PREF", 0);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+
+		boolean on = ((Switch) view).isChecked();
+		if (on) {
+			editor.putInt("display_power_reduce_pref", 1);
+			Log.d(TAG, "on display_power_reduce_pref SWITCH Enabled");
+			DISPLAY_POWER_REDUCE_on();
+		} else {
+			editor.putInt("display_power_reduce_pref", 0);
+			Log.d(TAG, "on display_power_reduce_pref SWITCH Disabled");
+			DISPLAY_POWER_REDUCE_off();
+		}
+		editor.commit();
+	}
+
+	public void DISPLAY_POWER_REDUCE_on() {
+		// calls RootProcess
+		// TODO
+		Log.d(TAG, "on display_power_reduce SWITCH Enabled");
+		ValueReader();
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+		}
+		process.write("echo 1 > /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
+		process.term();
+	}
+
+	public void DISPLAY_POWER_REDUCE_off() {
+		// calls RootProcess
+		// TODO
+		Log.d(TAG, "on display_power_reduce Disabled");
+		ValueReader();
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+		}
+		process.write("echo 0 > /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
 		process.term();
 	}
 
