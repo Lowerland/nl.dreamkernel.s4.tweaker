@@ -411,6 +411,68 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="14dp"
                 android:onClick="onDYN_FILE_SYS_SYNC_SWITCH" />
+
+            <!-- Line below dynamic file system sync -->
+
+            <View
+                android:id="@+id/iddummy7"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/text_dyn_file_sys_sync"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="48dp"
+                android:background="@color/android_blue" />
+
+            <!-- display_power_reduce -->
+
+            <TextView
+                android:id="@+id/text_display_power_reduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/iddummy7"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/text_display_power_reduce"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/android_blue" />
+
+            <!-- Not Supported Text -->
+
+            <TextView
+                android:id="@+id/display_power_reduce_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_display_power_reduce"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/red_alert" />
+
+            <!-- display_power_reduce Switch -->
+
+            <Switch
+                android:id="@+id/display_power_reduce_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_display_power_reduce"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="14dp"
+                android:onClick="onDisplay_Power_Reduce_SWITCH" />
+            <!-- Bottom spacer -->
+
+            <View
+                android:id="@+id/bottomspacer"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_below="@+id/text_display_power_reduce"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="14dp" />
         </RelativeLayout>
     </ScrollView>
 
