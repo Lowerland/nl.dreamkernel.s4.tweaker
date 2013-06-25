@@ -46,6 +46,7 @@ public class FileCheck {
 	public static int vibrator_intensity_hide;
 	public static int Usb_Fast_charge_hide;
 	public static int Dyn_File_Sys_SYNC_hide;
+	public static int Display_Power_Reduce_hide;
 	// Initialize Boolean AlertDialog
 	public static boolean incompatible;
 
@@ -137,6 +138,7 @@ public class FileCheck {
 		vibrator_intensity_hide = 0;
 		Usb_Fast_charge_hide = 0;
 		Dyn_File_Sys_SYNC_hide = 0;
+		Display_Power_Reduce_hide = 0;
 
 		if (!Misc.vCheck_internalscheduler.exists()) {
 			internal_scheduler_hide = 1;
@@ -156,6 +158,10 @@ public class FileCheck {
 		}
 		if (!Misc.vCheck_Dyn_File_Sys_Sync.exists()) {
 			Dyn_File_Sys_SYNC_hide = 1;
+			incompatible = true;
+		}
+		if (!Misc.vCheck_Display_Power_Reduce.exists()) {
+			Display_Power_Reduce_hide = 1;
 			incompatible = true;
 		}
 	}
