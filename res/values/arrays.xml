@@ -79,6 +79,9 @@
         <item>1998 MHz</item>
         <item>2052 MHz</item>
         <item>2106 MHz</item>
+        <item>2160 MHz</item>
+        <item>2214 MHz</item>
+        <item>2268 MHz</item>
     </string-array>
     
 </resources>

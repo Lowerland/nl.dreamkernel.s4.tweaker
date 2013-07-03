@@ -580,6 +580,33 @@ public class CpuTweaks extends Activity {
 			//Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
+		case 8:
+			editor.putString("scaling_max_freq_pref", "2160000");
+			process.write("echo 2160000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 2160000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 2160000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 2160000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
+			//Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
+			break;
+		case 9:
+			editor.putString("scaling_max_freq_pref", "2214000");
+			process.write("echo 2214000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 2214000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 2214000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 2214000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
+			//Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
+			break;
+		case 10:
+			editor.putString("scaling_max_freq_pref", "2268000");
+			process.write("echo 2268000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			process.write("echo 2268000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+			process.write("echo 2268000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+			process.write("echo 2268000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
+			//Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
+			ReturnCpuState(); // Return Cpu State
+			break;
 		default:
 			break;
 		}
