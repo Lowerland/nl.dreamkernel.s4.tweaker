@@ -20,15 +20,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import nl.dreamkernel.s4.tweaker.R;
+import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.util.SysCmds;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.widget.TextView;
 
 public class SysInfo extends Activity {
-	//static final String TAG = "S4Tweaker";
+	static final String TAG = "S4Tweaker";
 
 	public static TextView Kernel_Version;
 
@@ -45,6 +51,16 @@ public class SysInfo extends Activity {
 	public static TextView Revision;
 	public static TextView Serial;
 
+	public static TextView cpu0_status;
+	public static TextView cpu1_status;
+	public static TextView cpu2_status;
+	public static TextView cpu3_status;
+
+	public static TextView cpu0_frequency;
+	public static TextView cpu1_frequency;
+	public static TextView cpu2_frequency;
+	public static TextView cpu3_frequency;
+
 	public static TextView kernel_cmdline;
 
 	public static final SysFs vCheck_Kernel_CMDLine = new SysFs("/proc/cmdline");
@@ -54,6 +70,10 @@ public class SysInfo extends Activity {
 	public static String Kernel_CMDLine_temp;
 	public static String Kernel_CMDLine;
 	public static final String NoInfo = "No Info";
+
+	public static int i;
+
+	// Intent service;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +98,16 @@ public class SysInfo extends Activity {
 		Revision = (TextView) findViewById(R.id.Revision);
 		Serial = (TextView) findViewById(R.id.Serial);
 
+		cpu0_status = (TextView) findViewById(R.id.cpu0_status);
+		cpu1_status = (TextView) findViewById(R.id.cpu1_status);
+		cpu2_status = (TextView) findViewById(R.id.cpu2_status);
+		cpu3_status = (TextView) findViewById(R.id.cpu3_status);
+
+		cpu0_frequency = (TextView) findViewById(R.id.cpu0_frequency);
+		cpu1_frequency = (TextView) findViewById(R.id.cpu1_frequency);
+		cpu2_frequency = (TextView) findViewById(R.id.cpu2_frequency);
+		cpu3_frequency = (TextView) findViewById(R.id.cpu3_frequency);
+
 		// Kernel Commandline
 		kernel_cmdline = (TextView) findViewById(R.id.kernel_cmdline);
 
@@ -95,12 +125,7 @@ public class SysInfo extends Activity {
 
 		Kernel_Version.setText(getKernelVersion());
 		kernel_cmdline.setText(getKernelcmdline() + "\n");
-	}
 
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
 	}
 
 	public static String kv;
@@ -160,10 +185,196 @@ public class SysInfo extends Activity {
 		return (value == null || "".equals(value));
 	}
 
+	private static int file_CPU0_ONLINE;
+	private static int file_CPU1_ONLINE;
+	private static int file_CPU2_ONLINE;
+	private static int file_CPU3_ONLINE;
+
+	public static void Cpu_Status() {
+		// calls RootProcess
+
+		RootProcess process = new RootProcess();
+		if (!process.init()) {
+			return;
+		}
+		if (CpuTweaks.vCheck_CPU0_ONLINE.exists()) {
+			int file_CPU0_ONLINE_temp = Integer
+					.parseInt(CpuTweaks.vCheck_CPU0_ONLINE.read(process));
+			file_CPU0_ONLINE = file_CPU0_ONLINE_temp;
+			Log.d(TAG, "Read Cpu 0 State ");
+		} else {
+			cpu0_status.setText("Offline");
+			cpu0_status.setTextColor(Color.parseColor("#f27474"));
+			cpu0_frequency.setText("");
+		}
+		if (CpuTweaks.vCheck_CPU1_ONLINE.exists()) {
+			int file_CPU1_ONLINE_temp = Integer
+					.parseInt(CpuTweaks.vCheck_CPU1_ONLINE.read(process));
+			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
+			Log.d(TAG, "Read Cpu 1 State ");
+		} else {
+			cpu1_status.setText("Offline");
+			cpu1_status.setTextColor(Color.parseColor("#f27474"));
+			cpu1_frequency.setText("");
+		}
+		if (CpuTweaks.vCheck_CPU2_ONLINE.exists()) {
+			int file_CPU2_ONLINE_temp = Integer
+					.parseInt(CpuTweaks.vCheck_CPU2_ONLINE.read(process));
+			file_CPU2_ONLINE = file_CPU2_ONLINE_temp;
+			Log.d(TAG, "Read Cpu 2 State ");
+		} else {
+			cpu2_status.setText("Offline");
+			cpu2_status.setTextColor(Color.parseColor("#f27474"));
+			cpu2_frequency.setText("");
+		}
+		if (CpuTweaks.vCheck_CPU3_ONLINE.exists()) {
+			int file_CPU3_ONLINE_temp = Integer
+					.parseInt(CpuTweaks.vCheck_CPU3_ONLINE.read(process));
+			file_CPU3_ONLINE = file_CPU3_ONLINE_temp;
+			Log.d(TAG, "Read Cpu 3 State ");
+		} else {
+			cpu3_status.setText("Offline");
+			cpu3_status.setTextColor(Color.parseColor("#f27474"));
+			cpu3_frequency.setText("");
+		}
+		if (file_CPU0_ONLINE == 0) {
+			cpu0_status.setText("Offline");
+			cpu0_status.setTextColor(Color.parseColor("#f27474"));
+			cpu0_frequency.setText("");
+			Log.d(TAG, "Set text cpu 0 offline");
+		} else {
+			cpu0_status.setText("Online");
+			Log.d(TAG, "CPU 0is ONLINE ");
+			if (CpuTweaks.vCheck_CPU0_CUR_FREQ.exists()) {
+				int file_CPU0_CUR_FREQ = Integer
+						.parseInt(CpuTweaks.vCheck_CPU0_CUR_FREQ.read(process));
+				cpu0_frequency.setText("" + file_CPU0_CUR_FREQ);
+			}
+		}
+		if (file_CPU1_ONLINE == 0) {
+			cpu1_status.setText("Offline");
+			cpu1_status.setTextColor(Color.parseColor("#f27474"));
+			cpu1_frequency.setText("");
+			Log.d(TAG, "Set text cpu 1 offline");
+		} else {
+			cpu1_status.setText("Online");
+			Log.d(TAG, "CPU 1 is ONLINE ");
+			if (CpuTweaks.vCheck_CPU1_CUR_FREQ.exists()) {
+				int file_CPU1_CUR_FREQ = Integer
+						.parseInt(CpuTweaks.vCheck_CPU1_CUR_FREQ.read(process));
+				cpu1_frequency.setText("" + file_CPU1_CUR_FREQ);
+			}
+		}
+		if (file_CPU2_ONLINE == 0) {
+			cpu2_status.setText("Offline");
+			cpu2_status.setTextColor(Color.parseColor("#f27474"));
+			cpu2_frequency.setText("");
+			Log.d(TAG, "Set text cpu 2 offline");
+		} else {
+			cpu2_status.setText("Online");
+			Log.d(TAG, "CPU 2 is ONLINE ");
+			if (CpuTweaks.vCheck_CPU2_CUR_FREQ.exists()) {
+				int file_CPU2_CUR_FREQ = Integer
+						.parseInt(CpuTweaks.vCheck_CPU2_CUR_FREQ.read(process));
+				cpu2_frequency.setText("" + file_CPU2_CUR_FREQ);
+			}
+		}
+		if (file_CPU3_ONLINE == 0) {
+			cpu3_status.setText("Offline");
+			cpu3_status.setTextColor(Color.parseColor("#f27474"));
+			cpu3_frequency.setText("");
+			Log.d(TAG, "Set text cpu 3 offline");
+		} else {
+			cpu3_status.setText("Online");
+			Log.d(TAG, "CPU 3 is ONLINE ");
+			if (CpuTweaks.vCheck_CPU3_CUR_FREQ.exists()) {
+				int file_CPU3_CUR_FREQ = Integer
+						.parseInt(CpuTweaks.vCheck_CPU3_CUR_FREQ.read(process));
+				cpu3_frequency.setText("" + file_CPU3_CUR_FREQ);
+			}
+		}
+
+		process.term();
+
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+
+		// inside onCreate:
+		// If you need a timed UI update, create a Runnable with code inside of
+		// run(),
+		// instantiate a Handler as a member variable of your Activity,
+		// and call post(), postDelayed(), or postAtTime() on the Handler
+		// object,
+		// passing the runnable as a parameter value.
+
+		final Handler handler = new Handler();
+		final Runnable updater = new Runnable() {
+			public void run() {
+				Log.d(TAG,
+						"new Handler() final Runnable updater = new Runnable() ");
+				Cpu_Status();
+			}
+		};
+		Thread x = new Thread() {
+			public void run() {
+				i = 0;
+				while (i < 5) {
+
+					try {
+
+						handler.postDelayed(updater, 1000);
+
+						Log.d(TAG, "handler.postDelayed(updater) i= " + i);
+						Thread.sleep(5000); // sleep 5 seconds
+						handler.removeCallbacksAndMessages(updater);
+						// handler.removeCallbacks(updater);
+
+					} catch (Exception e) {
+						Log.e(TAG, "local Thread error", e);
+					}
+					i--;
+
+				}
+			}
+		};
+		x.start();
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		// set int for ending the cpu stats loop
+		i = 10;
+
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		// set int for ending the cpu stats loop
+		// i=10;
+
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		// set int for ending the cpu stats loop
+		i = 10;
+	}
+
 	public static void sleep(long msec) {
 		try {
-			Thread.sleep(60);
+			Thread.sleep(msec);
 		} catch (InterruptedException e) {
+			Log.e(TAG, "Exception", e);
 			e.printStackTrace();
 		}
 	}

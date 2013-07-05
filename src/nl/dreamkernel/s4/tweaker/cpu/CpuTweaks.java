@@ -34,7 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CpuTweaks extends Activity {
-	//static final String TAG = "S4Tweaker";
+	// static final String TAG = "S4Tweaker";
 
 	// variables for the Textviews
 	public static TextView CpuCurrentValue;
@@ -57,12 +57,23 @@ public class CpuTweaks extends Activity {
 			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
 	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
 			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+	public static final SysFs vCheck_CPU0_ONLINE = new SysFs(
+			"/sys/devices/system/cpu/cpu0/online");
 	public static final SysFs vCheck_CPU1_ONLINE = new SysFs(
 			"/sys/devices/system/cpu/cpu1/online");
 	public static final SysFs vCheck_CPU2_ONLINE = new SysFs(
 			"/sys/devices/system/cpu/cpu2/online");
 	public static final SysFs vCheck_CPU3_ONLINE = new SysFs(
 			"/sys/devices/system/cpu/cpu3/online");
+
+	public static final SysFs vCheck_CPU0_CUR_FREQ = new SysFs(
+			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
+	public static final SysFs vCheck_CPU1_CUR_FREQ = new SysFs(
+			"/sys/devices/system/cpu/cpu1/cpufreq/scaling_cur_freq");
+	public static final SysFs vCheck_CPU2_CUR_FREQ = new SysFs(
+			"/sys/devices/system/cpu/cpu2/cpufreq/scaling_cur_freq");
+	public static final SysFs vCheck_CPU3_CUR_FREQ = new SysFs(
+			"/sys/devices/system/cpu/cpu3/cpufreq/scaling_cur_freq");
 
 	// public static final SysFs vCheck_CPU_GOVERNOR = new
 	// SysFs("/mnt/sdcard/testfiles/scaling_governor");
@@ -156,7 +167,7 @@ public class CpuTweaks extends Activity {
 
 		// Filechecking part
 		cpu_hide_dialog = sharedPreferences.getInt("cpu_hide_dialog", 0);
-		//Log.d(TAG, "onCreate cpu_hide_dialog = " + cpu_hide_dialog);
+		// Log.d(TAG, "onCreate cpu_hide_dialog = " + cpu_hide_dialog);
 
 		// Options Compatible Check
 		FileCheck.CheckCPUOptions(CpuTweaks.this);
@@ -166,20 +177,20 @@ public class CpuTweaks extends Activity {
 
 		if (FileCheck.incompatible == true) {
 			if (cpu_hide_dialog == 1) {
-				//Log.d(TAG, "hide the dialog");
+				// Log.d(TAG, "hide the dialog");
 			} else {
-				//Log.d(TAG, "show dialog");
+				// Log.d(TAG, "show dialog");
 				Intent intent = new Intent(CpuTweaks.this, DialogActivity.class);
 				startActivityForResult(intent, GET_CODE);
 			}
-			//Log.d(TAG, "incompatible = " + FileCheck.incompatible);
+			// Log.d(TAG, "incompatible = " + FileCheck.incompatible);
 		} else {
-			//Log.d(TAG, "incompatible = " + FileCheck.incompatible);
+			// Log.d(TAG, "incompatible = " + FileCheck.incompatible);
 		}
 	}
 
 	public void onCPUGOVERNOR(View View) {
-		//Log.d(TAG, "Cpu Governor value clicked");
+		// Log.d(TAG, "Cpu Governor value clicked");
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setSingleChoiceItems(R.array.CPUgovernorArray, 0,
@@ -187,8 +198,8 @@ public class CpuTweaks extends Activity {
 					public void onClick(DialogInterface dialog, int whichButton) {
 
 						/* User clicked on a radio button do some stuff */
-						//Log.d(TAG, "User clicked on radio button "
-						//		+ whichButton);
+						// Log.d(TAG, "User clicked on radio button "
+						// + whichButton);
 						dialog_temp_cpu_gov = whichButton;
 
 					}
@@ -200,8 +211,9 @@ public class CpuTweaks extends Activity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						// Button OK Clicked
-						//Log.d(TAG, "Button ok clicked");
-						//Log.d(TAG, "Store Selected = " + dialog_temp_cpu_gov);
+						// Log.d(TAG, "Button ok clicked");
+						// Log.d(TAG, "Store Selected = " +
+						// dialog_temp_cpu_gov);
 						SharedPreferences sharedPreferences = getSharedPreferences(
 								"MY_SHARED_PREF", 0);
 						SharedPreferences.Editor editor = sharedPreferences
@@ -217,7 +229,7 @@ public class CpuTweaks extends Activity {
 	}
 
 	private void CPUGovernorDialogSaver() {
-		//Log.d(TAG, "CPUGovernorDialogSaver value = " + dialog_temp_cpu_gov);
+		// Log.d(TAG, "CPUGovernorDialogSaver value = " + dialog_temp_cpu_gov);
 		// calls RootProcess
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
@@ -231,77 +243,77 @@ public class CpuTweaks extends Activity {
 		case 0:
 			editor.putString("cpu_scaling_governor_pref", "msm-dcvs");
 			process.write("echo msm-dcvs > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd msm-dcvs to  CPU Governor");
+			// Log.d(TAG, "echo'd msm-dcvs to  CPU Governor");
 			break;
 		case 1:
 			editor.putString("cpu_scaling_governor_pref", "intellidemand");
 			process.write("echo intellidemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd intellidemand to  CPU Governor");
+			// Log.d(TAG, "echo'd intellidemand to  CPU Governor");
 			break;
 		case 2:
 			editor.putString("cpu_scaling_governor_pref", "interactive");
 			process.write("echo interactive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd interactive to  CPU Governor");
+			// Log.d(TAG, "echo'd interactive to  CPU Governor");
 			break;
 		case 3:
 			editor.putString("cpu_scaling_governor_pref", "conservative");
 			process.write("echo conservative > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd conservative to  CPU Governor");
+			// Log.d(TAG, "echo'd conservative to  CPU Governor");
 			break;
 		case 4:
 			editor.putString("cpu_scaling_governor_pref", "ondemand");
 			process.write("echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd ondemand to  CPU Governor");
+			// Log.d(TAG, "echo'd ondemand to  CPU Governor");
 			break;
 		case 5:
 			editor.putString("cpu_scaling_governor_pref", "wheatley");
 			process.write("echo wheatley > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd wheatley to  CPU Governor");
+			// Log.d(TAG, "echo'd wheatley to  CPU Governor");
 			break;
 		case 6:
 			editor.putString("cpu_scaling_governor_pref", "smartmax");
 			process.write("echo smartmax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd smartmax to  CPU Governor");
+			// Log.d(TAG, "echo'd smartmax to  CPU Governor");
 			break;
 		case 7:
 			editor.putString("cpu_scaling_governor_pref", "userspace");
 			process.write("echo userspace > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd userspace to  CPU Governor");
+			// Log.d(TAG, "echo'd userspace to  CPU Governor");
 			break;
 		case 8:
 			editor.putString("cpu_scaling_governor_pref", "powersave");
 			process.write("echo powersave > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd powersave to  CPU Governor");
+			// Log.d(TAG, "echo'd powersave to  CPU Governor");
 			break;
 		case 9:
 			editor.putString("cpu_scaling_governor_pref", "performance");
 			process.write("echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd performance to  CPU Governor");
+			// Log.d(TAG, "echo'd performance to  CPU Governor");
 			break;
 		case 10:
 			editor.putString("cpu_scaling_governor_pref", "adaptive");
 			process.write("echo adaptive > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd adaptive to  CPU Governor");
+			// Log.d(TAG, "echo'd adaptive to  CPU Governor");
 			break;
 		case 11:
 			editor.putString("cpu_scaling_governor_pref", "asswax");
 			process.write("echo asswax > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd asswax to  CPU Governor");
+			// Log.d(TAG, "echo'd asswax to  CPU Governor");
 			break;
 		case 12:
 			editor.putString("cpu_scaling_governor_pref", "badass");
 			process.write("echo badass > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd badass to  CPU Governor");
+			// Log.d(TAG, "echo'd badass to  CPU Governor");
 			break;
 		case 13:
 			editor.putString("cpu_scaling_governor_pref", "dancedance");
 			process.write("echo dancedance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd dancedance to  CPU Governor");
+			// Log.d(TAG, "echo'd dancedance to  CPU Governor");
 			break;
 		case 14:
 			editor.putString("cpu_scaling_governor_pref", "smartassH3");
 			process.write("echo smartassH3 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
-			//Log.d(TAG, "echo'd smartassH3 to  CPU Governor");
+			// Log.d(TAG, "echo'd smartassH3 to  CPU Governor");
 			break;
 		default:
 			break;
@@ -311,15 +323,15 @@ public class CpuTweaks extends Activity {
 	}
 
 	public void onMINFREQSCALING(View View) {
-		//Log.d(TAG, "onMINFREQSCALING value clicked");
+		// Log.d(TAG, "onMINFREQSCALING value clicked");
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setSingleChoiceItems(R.array.CPUminfreqArray, 0,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 
 						/* User clicked on a radio button do some stuff */
-						//Log.d(TAG, "User clicked on radio button "
-						//		+ whichButton);
+						// Log.d(TAG, "User clicked on radio button "
+						// + whichButton);
 						dialog_temp_min_scheduler = whichButton;
 
 					}
@@ -331,9 +343,9 @@ public class CpuTweaks extends Activity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						// Button OK Clicked
-						//Log.d(TAG, "Button ok clicked");
-						//Log.d(TAG, "Store Selected = "
-						//		+ dialog_temp_min_scheduler);
+						// Log.d(TAG, "Button ok clicked");
+						// Log.d(TAG, "Store Selected = "
+						// + dialog_temp_min_scheduler);
 						SharedPreferences sharedPreferences = getSharedPreferences(
 								"MY_SHARED_PREF", 0);
 						SharedPreferences.Editor editor = sharedPreferences
@@ -350,7 +362,7 @@ public class CpuTweaks extends Activity {
 	}
 
 	private void MIN_FREQ_DialogSaver() {
-		//Log.d(TAG, "DialogSaver intervalue = " + dialog_temp_min_scheduler);
+		// Log.d(TAG, "DialogSaver intervalue = " + dialog_temp_min_scheduler);
 
 		// read values for cpu's Online check
 		ValueReader();
@@ -375,7 +387,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 162000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 			process.write("echo 162000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 			process.write("echo 162000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			//Log.d(TAG, "echo'd 162000 to Cpu Min FREQ");
+			// Log.d(TAG, "echo'd 162000 to Cpu Min FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 1:
@@ -384,7 +396,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 216000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 			process.write("echo 216000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 			process.write("echo 216000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			//Log.d(TAG, "echo'd 216000 to Cpu Min FREQ");
+			// Log.d(TAG, "echo'd 216000 to Cpu Min FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 2:
@@ -393,7 +405,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 270000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 			process.write("echo 270000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 			process.write("echo 270000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			//Log.d(TAG, "echo'd 270000 to Cpu Min FREQ");
+			// Log.d(TAG, "echo'd 270000 to Cpu Min FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 3:
@@ -402,7 +414,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 324000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 			process.write("echo 324000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 			process.write("echo 324000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			//Log.d(TAG, "echo'd 324000 to Cpu Min FREQ");
+			// Log.d(TAG, "echo'd 324000 to Cpu Min FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 4:
@@ -411,7 +423,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 378000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 			process.write("echo 378000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 			process.write("echo 378000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			//Log.d(TAG, "echo'd 378000 to Cpu Min FREQ");
+			// Log.d(TAG, "echo'd 378000 to Cpu Min FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 5:
@@ -420,7 +432,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 384000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 			process.write("echo 384000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 			process.write("echo 384000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			//Log.d(TAG, "echo'd 384000 to Cpu Min FREQ");
+			// Log.d(TAG, "echo'd 384000 to Cpu Min FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 6:
@@ -429,7 +441,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 486000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 			process.write("echo 486000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 			process.write("echo 486000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			//Log.d(TAG, "echo'd 486000 to Cpu Min FREQ");
+			// Log.d(TAG, "echo'd 486000 to Cpu Min FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 7:
@@ -438,7 +450,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 594000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 			process.write("echo 594000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 			process.write("echo 594000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			//Log.d(TAG, "echo'd 594000 to Cpu Min FREQ");
+			// Log.d(TAG, "echo'd 594000 to Cpu Min FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		default:
@@ -449,7 +461,7 @@ public class CpuTweaks extends Activity {
 	}
 
 	public void onMAXFREQSCALING(View View) {
-		//Log.d(TAG, "onMAXFREQSCALING value clicked");
+		// Log.d(TAG, "onMAXFREQSCALING value clicked");
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setSingleChoiceItems(R.array.CPUmaxfreqArray, 0,
@@ -457,8 +469,8 @@ public class CpuTweaks extends Activity {
 					public void onClick(DialogInterface dialog, int whichButton) {
 
 						/* User clicked on a radio button do some stuff */
-						//Log.d(TAG, "User clicked on radio button "
-						//		+ whichButton);
+						// Log.d(TAG, "User clicked on radio button "
+						// + whichButton);
 						dialog_temp_max_scheduler = whichButton;
 
 					}
@@ -470,9 +482,9 @@ public class CpuTweaks extends Activity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						// Button OK Clicked
-						//Log.d(TAG, "Button ok clicked");
-						//Log.d(TAG, "Store Selected = "
-						//		+ dialog_temp_max_scheduler);
+						// Log.d(TAG, "Button ok clicked");
+						// Log.d(TAG, "Store Selected = "
+						// + dialog_temp_max_scheduler);
 						SharedPreferences sharedPreferences = getSharedPreferences(
 								"MY_SHARED_PREF", 0);
 						SharedPreferences.Editor editor = sharedPreferences
@@ -489,8 +501,8 @@ public class CpuTweaks extends Activity {
 	}
 
 	private void MAX_FREQ_DialogSaver() {
-		//Log.d(TAG, "MAX_FREQ_DialogSaver intervalue = "
-		//		+ dialog_temp_max_scheduler);
+		// Log.d(TAG, "MAX_FREQ_DialogSaver intervalue = "
+		// + dialog_temp_max_scheduler);
 
 		// read values for cpu's Online check
 		ValueReader();
@@ -514,7 +526,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 1566000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 1566000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 1566000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 1566000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 1566000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 1:
@@ -523,7 +535,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 1674000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 1674000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 1674000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 1674000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 1674000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 2:
@@ -532,7 +544,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 1782000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 1782000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 1782000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 1782000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 1782000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 3:
@@ -541,7 +553,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 1890000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 1890000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 1890000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 1890000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 1890000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 4:
@@ -550,7 +562,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 1944000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 1944000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 1944000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 1944000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 1944000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 5:
@@ -559,7 +571,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 1998000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 1998000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 1998000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 1998000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 1998000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 6:
@@ -568,7 +580,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 2052000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 2052000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 2052000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 2052000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 2052000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 7:
@@ -577,7 +589,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 2106000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 2106000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 2106000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 8:
@@ -586,7 +598,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 2160000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 2160000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 2160000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 9:
@@ -595,7 +607,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 2214000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 2214000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 2214000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		case 10:
@@ -604,7 +616,7 @@ public class CpuTweaks extends Activity {
 			process.write("echo 2268000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 			process.write("echo 2268000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 			process.write("echo 2268000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			//Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
+			// Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
 			ReturnCpuState(); // Return Cpu State
 			break;
 		default:
@@ -629,46 +641,46 @@ public class CpuTweaks extends Activity {
 			file_CPU1_ONLINE_temp = Integer.parseInt(vCheck_CPU1_ONLINE
 					.read(process));
 			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
-			//Log.d(TAG, "Read Cpu 1 State ");
+			// Log.d(TAG, "Read Cpu 1 State ");
 		} else {
 		}
 		if (vCheck_CPU2_ONLINE.exists()) {
 			file_CPU2_ONLINE_temp = Integer.parseInt(vCheck_CPU2_ONLINE
 					.read(process));
 			file_CPU2_ONLINE = file_CPU2_ONLINE_temp;
-			//Log.d(TAG, "Read Cpu 2 State ");
+			// Log.d(TAG, "Read Cpu 2 State ");
 		} else {
 		}
 		if (vCheck_CPU3_ONLINE.exists()) {
 			file_CPU3_ONLINE_temp = Integer.parseInt(vCheck_CPU3_ONLINE
 					.read(process));
 			file_CPU3_ONLINE = file_CPU3_ONLINE_temp;
-			//Log.d(TAG, "Read Cpu 3 State ");
+			// Log.d(TAG, "Read Cpu 3 State ");
 		} else {
 		}
 		if (file_CPU1_ONLINE == 0) {
 			process.write("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
 			CPU1_RETURN_STATE = 0;
-			//Log.d(TAG, "Force CPU 1 ONLINE ");
+			// Log.d(TAG, "Force CPU 1 ONLINE ");
 		} else {
 			CPU1_RETURN_STATE = 1;
-			//Log.d(TAG, "CPU 1 is ONLINE ");
+			// Log.d(TAG, "CPU 1 is ONLINE ");
 		}
 		if (file_CPU2_ONLINE == 0) {
 			process.write("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
 			CPU2_RETURN_STATE = 0;
-			//Log.d(TAG, "Force CPU 2 ONLINE ");
+			// Log.d(TAG, "Force CPU 2 ONLINE ");
 		} else {
 			CPU2_RETURN_STATE = 1;
-			//Log.d(TAG, "CPU 2 is ONLINE ");
+			// Log.d(TAG, "CPU 2 is ONLINE ");
 		}
 		if (file_CPU3_ONLINE == 0) {
 			process.write("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
 			CPU3_RETURN_STATE = 0;
-			//Log.d(TAG, "Force CPU 3 ONLINE ");
+			// Log.d(TAG, "Force CPU 3 ONLINE ");
 		} else {
 			CPU3_RETURN_STATE = 1;
-			//Log.d(TAG, "CPU 3 is ONLINE ");
+			// Log.d(TAG, "CPU 3 is ONLINE ");
 		}
 
 		process.term();
@@ -681,16 +693,16 @@ public class CpuTweaks extends Activity {
 			return;
 		}
 		if (CPU1_RETURN_STATE == 0) {
-			//Log.d(TAG, "Force CPU 1 Back Offline ");
+			// Log.d(TAG, "Force CPU 1 Back Offline ");
 			process.write("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
 
 		}
 		if (file_CPU2_ONLINE == 0) {
-			//Log.d(TAG, "Force CPU 2 Back Offline ");
+			// Log.d(TAG, "Force CPU 2 Back Offline ");
 			process.write("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
 		}
 		if (file_CPU3_ONLINE == 0) {
-			//Log.d(TAG, "Force CPU 3 Back Offline ");
+			// Log.d(TAG, "Force CPU 3 Back Offline ");
 			process.write("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
 		}
 		process.term();
@@ -698,11 +710,11 @@ public class CpuTweaks extends Activity {
 
 	private void ValueReader() {
 		// Read in the Values from files
-		//Log.d(TAG, "Read in the Values from files");
+		// Log.d(TAG, "Read in the Values from files");
 		RootProcess rootProcess = new RootProcess();
-		//Log.d(TAG, "CPU Tweaks, Root init s");
+		// Log.d(TAG, "CPU Tweaks, Root init s");
 		rootProcess.init();
-		//Log.d(TAG, "CPU Tweaks, Root init e");
+		// Log.d(TAG, "CPU Tweaks, Root init e");
 
 		if (vCheck_CPU_GOVERNOR.exists()) {
 			file_CPU_GOVERNOR_temp = vCheck_CPU_GOVERNOR.read(rootProcess);
@@ -728,21 +740,21 @@ public class CpuTweaks extends Activity {
 			file_CPU1_ONLINE_temp = Integer.parseInt(vCheck_CPU1_ONLINE
 					.read(rootProcess));
 			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
-			//Log.d(TAG, "Read Cpu 1 State " + file_CPU1_ONLINE);
+			// Log.d(TAG, "Read Cpu 1 State " + file_CPU1_ONLINE);
 		} else {
 		}
 		if (vCheck_CPU2_ONLINE.exists()) {
 			file_CPU2_ONLINE_temp = Integer.parseInt(vCheck_CPU2_ONLINE
 					.read(rootProcess));
 			file_CPU2_ONLINE = file_CPU2_ONLINE_temp;
-			//Log.d(TAG, "Read Cpu 2 State " + file_CPU2_ONLINE);
+			// Log.d(TAG, "Read Cpu 2 State " + file_CPU2_ONLINE);
 		} else {
 		}
 		if (vCheck_CPU3_ONLINE.exists()) {
 			file_CPU3_ONLINE_temp = Integer.parseInt(vCheck_CPU3_ONLINE
 					.read(rootProcess));
 			file_CPU3_ONLINE = file_CPU3_ONLINE_temp;
-			//Log.d(TAG, "Read Cpu 3 State " + file_CPU3_ONLINE);
+			// Log.d(TAG, "Read Cpu 3 State " + file_CPU3_ONLINE);
 		} else {
 		}
 
@@ -767,11 +779,11 @@ public class CpuTweaks extends Activity {
 		if (on) {
 			editor.putBoolean("onBootCpuTweaks_pref", true);
 			editor.commit();
-			//Log.d(TAG, "onBoot Enabled for CpuTweaks");
+			// Log.d(TAG, "onBoot Enabled for CpuTweaks");
 		} else {
 			editor.putBoolean("onBootCpuTweaks_pref", false);
 			editor.commit();
-			//Log.d(TAG, "onBoot Disabled for CpuTweaks");
+			// Log.d(TAG, "onBoot Disabled for CpuTweaks");
 		}
 	}
 
@@ -784,7 +796,7 @@ public class CpuTweaks extends Activity {
 				@SuppressWarnings("unused")
 				String resultlog = Integer.toString(resultCode);
 				if (data != null) {
-					//Log.d(TAG, "RESULT_DATA = " + data.getAction());
+					// Log.d(TAG, "RESULT_DATA = " + data.getAction());
 					SharedPreferences sharedPreferences = getSharedPreferences(
 							"MY_SHARED_PREF", 0);
 					SharedPreferences.Editor editor = sharedPreferences.edit();
