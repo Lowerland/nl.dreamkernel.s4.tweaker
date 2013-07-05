@@ -99,6 +99,226 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/android_blue" />
 
+            <!-- Cpu Status -->
+
+            <TextView
+                android:id="@+id/text_cpu_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_cpu_info"
+                android:layout_marginLeft="65dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/si_cpu_status"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu Frequency -->
+
+            <TextView
+                android:id="@+id/text_cpu_frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cpu_info"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:layout_toRightOf="@+id/text_cpu_status"
+                android:text="@string/si_cpu_freq"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 0 -->
+
+            <TextView
+                android:id="@+id/text_cpu0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_cpu_status"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/si_cpu1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 0 Status -->
+
+            <TextView
+                android:id="@+id/cpu0_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cpu_status"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/text_cpu0"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 0 Frequency -->
+
+            <TextView
+                android:id="@+id/cpu0_frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cpu_status"
+                android:layout_marginLeft="21dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@+id/cpu0_status"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 1 -->
+
+            <TextView
+                android:id="@+id/text_cpu1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_cpu0"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/si_cpu2"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 1 Status -->
+
+            <TextView
+                android:id="@+id/cpu1_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cpu0"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:layout_toRightOf="@+id/text_cpu1"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 1 Frequency -->
+
+            <TextView
+                android:id="@+id/cpu1_frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cpu0"
+                android:layout_marginLeft="21dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:layout_toRightOf="@+id/cpu1_status"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 2 -->
+
+            <TextView
+                android:id="@+id/text_cpu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_cpu1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/si_cpu3"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 2 Status -->
+
+            <TextView
+                android:id="@+id/cpu2_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cpu1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:layout_toRightOf="@+id/text_cpu2"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 2 Frequency -->
+
+            <TextView
+                android:id="@+id/cpu2_frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cpu1"
+                android:layout_marginLeft="21dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:layout_toRightOf="@+id/cpu2_status"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 3 -->
+
+            <TextView
+                android:id="@+id/text_cpu3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_cpu2"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="-2dp"
+                android:text="@string/si_cpu4"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 3 Status -->
+
+            <TextView
+                android:id="@+id/cpu3_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cpu2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:layout_toRightOf="@+id/text_cpu3"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Cpu 3 Frequency -->
+
+            <TextView
+                android:id="@+id/cpu3_frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_cpu2"
+                android:layout_marginLeft="21dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="-2dp"
+                android:layout_toRightOf="@+id/cpu3_status"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white" />
+
+            <!-- Refreshes info text -->
+
+            <TextView
+                android:id="@+id/text_refresh_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/text_cpu3"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/si_refreshes_cpu"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/gray_line" />
+
             <!-- Processor Info -->
 
             <TextView
@@ -106,10 +326,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/text_cpu_info"
+                android:layout_below="@+id/text_refresh_info"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="12dp"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/empty_string"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/white" />
