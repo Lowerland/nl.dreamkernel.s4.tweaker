@@ -317,7 +317,7 @@
                 android:layout_marginTop="2dp"
                 android:text="@string/si_refreshes_cpu"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/gray_line" />
+                android:textColor="@color/android_blue" />
 
             <!-- Processor Info -->
 
