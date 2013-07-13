@@ -18,6 +18,10 @@ package nl.dreamkernel.s4.tweaker;
 
 import nl.dreamkernel.s4.tweaker.R;
 import nl.dreamkernel.s4.tweaker.bugs.BugsReporter;
+import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
+import nl.dreamkernel.s4.tweaker.misc.Misc;
+import nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks;
+import nl.dreamkernel.s4.tweaker.systeminfo.SysInfo;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,7 +37,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 public class Main extends Activity {
-	//static final String TAG = "S4Tweaker";
+	// static final String TAG = "S4Tweaker";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +55,19 @@ public class Main extends Activity {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putInt("usage_counter", usage_counter + 1);
 		editor.commit();
-		if(usage_counter == 100){
-			startActivity(new Intent(this, nl.dreamkernel.s4.tweaker.about.About.class));
+		if (usage_counter == 100) {
+			startActivity(new Intent(this,
+					nl.dreamkernel.s4.tweaker.about.About.class));
 		}
-		if(usage_counter == 500){
-			startActivity(new Intent(this, nl.dreamkernel.s4.tweaker.about.About.class));
+		if (usage_counter == 500) {
+			startActivity(new Intent(this,
+					nl.dreamkernel.s4.tweaker.about.About.class));
 		}
-		if(usage_counter == 1000){
-			startActivity(new Intent(this, nl.dreamkernel.s4.tweaker.about.About.class));
+		if (usage_counter == 1000) {
+			startActivity(new Intent(this,
+					nl.dreamkernel.s4.tweaker.about.About.class));
 		}
-		//Log.d(TAG, "App started " + usage_counter + " times");
+		// Log.d(TAG, "App started " + usage_counter + " times");
 	}
 
 	/*
@@ -90,10 +97,39 @@ public class Main extends Activity {
 
 			BugsReporter.bugrecieved = false;
 		}
-		//Log.d(TAG, "onResume() " + FileCheck.isRootEnabled());
+		if (CpuTweaks.noRoot == true | Misc.noRoot == true
+				| SoundTweaks.noRoot == true | SysInfo.noRoot == true) {
+			// Log.d(TAG,
+			// "FileCheck.isRootEnabled() = " + FileCheck.isRootEnabled());
+			// Show Root required alert
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			final FrameLayout frameView = new FrameLayout(this);
+			builder.setView(frameView);
+			final AlertDialog norootDialog = builder.create();
+			norootDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							// Button OK Clicked
+							// Exit App
+						}
+					});
+			LayoutInflater inflater = norootDialog.getLayoutInflater();
+			@SuppressWarnings("unused")
+			View dialoglayout = inflater.inflate(R.layout.no_root_alert,
+					frameView);
+			norootDialog.show();
+			CpuTweaks.noRoot = false;
+			Misc.noRoot = false;
+			SoundTweaks.noRoot = false;
+			SysInfo.noRoot = false;
+		} else {
+			// Log.d(TAG, "Got root access");
+		}
+		// Log.d(TAG, "onResume() " + FileCheck.isRootEnabled());
 		if (!FileCheck.isRootEnabled() == true) {
-			//Log.d(TAG,
-			//		"FileCheck.isRootEnabled() = " + FileCheck.isRootEnabled());
+			// Log.d(TAG,
+			// "FileCheck.isRootEnabled() = " + FileCheck.isRootEnabled());
 			// Show Root required alert
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			final FrameLayout frameView = new FrameLayout(this);
@@ -114,7 +150,7 @@ public class Main extends Activity {
 					frameView);
 			norootDialog.show();
 		} else {
-			//Log.d(TAG, "Got root access");
+			// Log.d(TAG, "Got root access");
 		}
 	}
 }
