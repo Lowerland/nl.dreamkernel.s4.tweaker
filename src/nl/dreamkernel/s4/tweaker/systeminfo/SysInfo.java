@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 
 import nl.dreamkernel.s4.tweaker.R;
 import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
+import nl.dreamkernel.s4.tweaker.util.RootCheck;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.util.SysCmds;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
@@ -71,6 +72,8 @@ public class SysInfo extends Activity {
 
 	public static int i;
 
+	public static boolean noRoot;
+
 	// Intent service;
 
 	@Override
@@ -79,6 +82,18 @@ public class SysInfo extends Activity {
 		setContentView(R.layout.systeminfo);
 		setTitle(R.string.menu_system_info);
 		getActionBar().hide();
+
+		noRoot = false;
+
+		RootCheck rootcheck = new RootCheck();
+		if (!rootcheck.init()) {
+			Log.d(TAG, "YOU NOOOOB");
+			noRoot = true;
+			finish();
+			return;
+		} else {
+			Log.d(TAG, "Root ACCESSS BITCH");
+		}
 
 		// Kernel Version
 		Kernel_Version = (TextView) findViewById(R.id.kernel_version);

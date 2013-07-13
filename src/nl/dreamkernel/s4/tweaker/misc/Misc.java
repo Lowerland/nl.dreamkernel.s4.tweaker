@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.OptionsHider;
+import nl.dreamkernel.s4.tweaker.util.RootCheck;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
@@ -120,12 +121,26 @@ public class Misc extends Activity {
 	public Switch onBootSwitch_MiscTweaks;
 	public boolean onBootMiscTweaks_pref;
 
+	public static boolean noRoot;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.misctweaks);
 		setTitle(R.string.menu_misc_tweaks);
 		getActionBar().hide();
+
+		noRoot = false;
+
+		RootCheck rootcheck = new RootCheck();
+		if (!rootcheck.init()) {
+			Log.d(TAG, "YOU NOOOOB");
+			noRoot = true;
+			finish();
+			return;
+		} else {
+			Log.d(TAG, "Root ACCESSS BITCH");
+		}
 
 		final SharedPreferences sharedPreferences = getSharedPreferences(
 				"MY_SHARED_PREF", 0);

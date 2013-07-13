@@ -19,6 +19,8 @@ package nl.dreamkernel.s4.tweaker.cpu;
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.OptionsHider;
+import nl.dreamkernel.s4.tweaker.util.RootCheck;
+import nl.dreamkernel.s4.tweaker.util.SysCmds;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
@@ -28,13 +30,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class CpuTweaks extends Activity {
-	// static final String TAG = "S4Tweaker";
+	static final String TAG = "S4Tweaker";
 
 	// variables for the Textviews
 	public static TextView CpuCurrentValue;
@@ -121,12 +124,25 @@ public class CpuTweaks extends Activity {
 	public Switch onBootSwitch_CpuTweaks;
 	public boolean onBootCpuTweaks_pref;
 
+	public static boolean noRoot;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cputweaks);
 		setTitle(R.string.menu_cpu_tweaks);
 		getActionBar().hide();
+		noRoot = false;
+
+		RootCheck rootcheck = new RootCheck();
+		if (!rootcheck.init()) {
+			Log.d(TAG, "YOU NOOOOB");
+			noRoot = true;
+			finish();
+			return;
+		} else {
+			Log.d(TAG, "Root ACCESSS BITCH");
+		}
 
 		final SharedPreferences sharedPreferences = getSharedPreferences(
 				"MY_SHARED_PREF", 0);
