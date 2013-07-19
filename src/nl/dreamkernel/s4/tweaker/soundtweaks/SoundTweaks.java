@@ -132,12 +132,12 @@ public class SoundTweaks extends Activity {
 
 		RootCheck rootcheck = new RootCheck();
 		if (!rootcheck.init()) {
-			Log.d(TAG, "YOU NOOOOB");
+			//Log.d(TAG, "YOU NOOOOB");
 			noRoot = true;
 			finish();
 			return;
 		} else {
-			Log.d(TAG, "Root ACCESSS BITCH");
+			//Log.d(TAG, "Root ACCESSS BITCH");
 		}
 
 		final SharedPreferences sharedPreferences = getSharedPreferences(
