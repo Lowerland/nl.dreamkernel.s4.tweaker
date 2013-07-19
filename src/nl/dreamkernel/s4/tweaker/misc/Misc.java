@@ -134,12 +134,12 @@ public class Misc extends Activity {
 
 		RootCheck rootcheck = new RootCheck();
 		if (!rootcheck.init()) {
-			Log.d(TAG, "YOU NOOOOB");
+			// Log.d(TAG, "YOU NOOOOB");
 			noRoot = true;
 			finish();
 			return;
 		} else {
-			Log.d(TAG, "Root ACCESSS BITCH");
+			// Log.d(TAG, "Root ACCESSS BITCH");
 		}
 
 		final SharedPreferences sharedPreferences = getSharedPreferences(
@@ -340,9 +340,11 @@ public class Misc extends Activity {
 					.parseInt(vCheck_Dyn_File_Sys_Sync.read(rootProcess));
 			if (dynamic_file_sys_switch_value_temp == 1) {
 				dynamic_file_sys_switch_value = true;
+				dynamicfilesyssyncswitch.setChecked(true);
 			}
 			if (dynamic_file_sys_switch_value_temp == 0) {
 				dynamic_file_sys_switch_value = false;
+				dynamicfilesyssyncswitch.setChecked(false);
 			}
 			Log.d(TAG, "Boolean dynamic_file_sys_switch_value_temp = "
 					+ dynamic_file_sys_switch_value_temp);
@@ -350,6 +352,7 @@ public class Misc extends Activity {
 					+ dynamic_file_sys_switch_value);
 		} else {
 			dynamic_file_sys_switch_value = false;
+			dynamicfilesyssyncswitch.setChecked(false);
 		}
 
 		if (vCheck_Display_Power_Reduce.exists()) {
@@ -392,12 +395,15 @@ public class Misc extends Activity {
 			editor.putInt("usb_fast_charge_pref", 1);
 			// Log.d(TAG, "on USB FAST SWITCH Enabled");
 			fast_charge_on();
+			editor.commit();
+			usbfastchargeswitch.toggle();
 		} else {
 			editor.putInt("usb_fast_charge_pref", 0);
 			// Log.d(TAG, "on USB FAST SWITCH Disabled");
 			fast_charge_off();
+			editor.commit();
+			usbfastchargeswitch.toggle();
 		}
-		editor.commit();
 	}
 
 	public void fast_charge_on() {
@@ -409,6 +415,7 @@ public class Misc extends Activity {
 			return;
 		}
 		process.write("echo 1 > /sys/kernel/fast_charge/force_fast_charge\n");
+		// process.write("echo 1 > /mnt/sdcard/testfiles/force_fast_charge\n");
 		process.term();
 	}
 
@@ -421,6 +428,7 @@ public class Misc extends Activity {
 			return;
 		}
 		process.write("echo 0 > /sys/kernel/fast_charge/force_fast_charge\n");
+		// process.write("echo 0 > /mnt/sdcard/testfiles/force_fast_charge\n");
 		process.term();
 	}
 
@@ -437,12 +445,15 @@ public class Misc extends Activity {
 			editor.putInt("dyn_file_sys_sync_pref", 1);
 			Log.d(TAG, "on dyn_file_sys_sync SWITCH Enabled");
 			DYN_FILE_SYS_SYNC_on();
+			editor.commit();
+			dynamicfilesyssyncswitch.toggle();
 		} else {
 			editor.putInt("dyn_file_sys_sync_pref", 0);
 			Log.d(TAG, "on dyn_file_sys_sync SWITCH Disabled");
 			DYN_FILE_SYS_SYNC_off();
+			editor.commit();
+			dynamicfilesyssyncswitch.toggle();
 		}
-		editor.commit();
 	}
 
 	public void DYN_FILE_SYS_SYNC_on() {
@@ -455,6 +466,8 @@ public class Misc extends Activity {
 			return;
 		}
 		process.write("echo 1 > /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
+		// process.write("echo 1 > /mnt/sdcard/testfiles/Dyn_fsync_active\n");
+
 		process.term();
 	}
 
@@ -468,6 +481,8 @@ public class Misc extends Activity {
 			return;
 		}
 		process.write("echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
+		// process.write("echo 0 > /mnt/sdcard/testfiles/Dyn_fsync_active\n");
+
 		process.term();
 	}
 
@@ -484,12 +499,16 @@ public class Misc extends Activity {
 			editor.putInt("display_power_reduce_pref", 1);
 			Log.d(TAG, "on display_power_reduce_pref SWITCH Enabled");
 			DISPLAY_POWER_REDUCE_on();
+			editor.commit();
+			displaypowerreduceswitch.toggle();
 		} else {
 			editor.putInt("display_power_reduce_pref", 0);
 			Log.d(TAG, "on display_power_reduce_pref SWITCH Disabled");
 			DISPLAY_POWER_REDUCE_off();
+			editor.commit();
+			displaypowerreduceswitch.toggle();
 		}
-		editor.commit();
+
 	}
 
 	public void DISPLAY_POWER_REDUCE_on() {
@@ -502,6 +521,7 @@ public class Misc extends Activity {
 			return;
 		}
 		process.write("echo 1 > /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
+		// process.write("echo 1 > /mnt/sdcard/testfiles/power_reduce\n");
 		process.term();
 	}
 
@@ -515,6 +535,7 @@ public class Misc extends Activity {
 			return;
 		}
 		process.write("echo 0 > /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
+		// process.write("echo 0 > /mnt/sdcard/testfiles/power_reduce\n");
 		process.term();
 	}
 
