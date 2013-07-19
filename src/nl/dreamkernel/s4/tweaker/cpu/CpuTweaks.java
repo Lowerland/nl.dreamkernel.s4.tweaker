@@ -20,7 +20,6 @@ import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.OptionsHider;
 import nl.dreamkernel.s4.tweaker.util.RootCheck;
-import nl.dreamkernel.s4.tweaker.util.SysCmds;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
@@ -30,7 +29,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -136,12 +134,12 @@ public class CpuTweaks extends Activity {
 
 		RootCheck rootcheck = new RootCheck();
 		if (!rootcheck.init()) {
-			Log.d(TAG, "YOU NOOOOB");
+			//Log.d(TAG, "YOU NOOOOB");
 			noRoot = true;
 			finish();
 			return;
 		} else {
-			Log.d(TAG, "Root ACCESSS BITCH");
+			//Log.d(TAG, "Root ACCESSS BITCH");
 		}
 
 		final SharedPreferences sharedPreferences = getSharedPreferences(
