@@ -43,6 +43,7 @@ public class RootCheck {
 				mOutputStream.writeBytes("id\n");
 				mOutputStream.flush();
 
+				@SuppressWarnings("deprecation")
 				String Uid = mInputStream.readLine();
 
 				if (null == Uid) {
