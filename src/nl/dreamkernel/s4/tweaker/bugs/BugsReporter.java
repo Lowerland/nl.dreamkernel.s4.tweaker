@@ -189,6 +189,7 @@ public class BugsReporter extends Activity {
 						+ "&" + "entry_833056556=" + URLEncoder.encode(data4)
 						+ "&" + "entry_521168760=" + URLEncoder.encode(data5)
 						+ "&" + "entry_1070295873=" + URLEncoder.encode(data6);
+				@SuppressWarnings("unused")
 				String response = mReq.sendPost(fullUrl, data);
 				bugrecieved = true;
 				//Log.i(TAG, data);
