@@ -23,89 +23,92 @@ import nl.dreamkernel.s4.tweaker.util.RuntimeExec;
 
 public class SysFs {
 
-	private File mFile;
-	private String mPermission;
+    private File mFile;
+    private String mPermission;
 
-	public SysFs(String path) {
-		this(path, null);
-	}
+    public SysFs(String path) {
 
-	public SysFs(String path, String permission) {
-		mFile = new File(path);
-		mPermission = permission;
-	}
 
-	public boolean exists() {
-		return mFile.exists();
-	}
+        this(path, null);
+    }
 
-	public String read(RootProcess rootProcess) {
-		String[] values = readMuitiLine(rootProcess);
-		if (values != null) {
-			return values[0];
-		}
-		return null;
-	}
+    public SysFs(String path, String permission) {
+        mFile = new File(path);
+        mPermission = permission;
+    }
 
-	public String[] readMuitiLine(RootProcess rootProcess) {
-		if (!mFile.exists()) {
-			return null;
-		}
-		String command = "cat " + mFile.getPath() + "\n";
-		if (!mFile.canRead()) {
-			RootProcess process;
-			if (rootProcess == null) {
-				process = new RootProcess();
-				process.init();
-			} else {
-				process = rootProcess;
-			}
+    public boolean exists() {
+        return mFile.exists();
+    }
 
-			if (mPermission != null) {
-				process.write("chmod " + mPermission + " " + mFile.getPath()
-						+ "\n");
-			}
-			process.write(command);
-			String[] ret = process.read();
+    public String read(RootProcess rootProcess) {
+        String[] values = readMuitiLine(rootProcess);
+        if (values != null && values.length > 0){
+            return values[0];
+        }
+        return null;
+    }
 
-			if (rootProcess == null) {
-				process.term();
-			}
-			return ret;
-		} else {
-			return RuntimeExec.execute(command, true);
-		}
-	}
+    public String[] readMuitiLine(RootProcess rootProcess) {
+        if (!mFile.exists()) {
+            return null;
+        }
+        String command = "cat " + mFile.getPath() + "\n";
+        if (!mFile.canRead()) {
+            RootProcess process;
+            if (rootProcess == null) {
+                process = new RootProcess();
+                process.init();
+            } else {
+                process = rootProcess;
+            }
 
-	public void write(String data, RootProcess rootProcess) {
-		if (!mFile.exists()) {
-			return;
-		}
-		String command = "echo " + data + " > " + mFile.getPath() + "\n";
-		if (!mFile.canWrite()) {
-			RootProcess process;
-			if (rootProcess == null) {
-				process = new RootProcess();
-				process.init();
-			} else {
-				process = rootProcess;
-			}
+            if (mPermission != null) {
+                process.write("chmod " + mPermission + " " + mFile.getPath() + "\n");
+            }
+            process.write(command);
+            String[] ret = process.read();
+            
+            if (rootProcess == null) {
+                process.term();
+            }
+            return ret;
+        } else {
+            return RuntimeExec.execute(command, true);
+        }
+    }
 
-			if (mPermission != null) {
-				process.write("chmod " + mPermission + " " + mFile.getPath()
-						+ "\n");
-			}
-			process.write(command);
+    public void write(String data, RootProcess rootProcess) {
+        if (!mFile.exists()) {
+            return;
+        }
+        String command = "echo " + data + " > " + mFile.getPath() + "\n";
+        if (!mFile.canWrite()) {
+            RootProcess process;
+            if (rootProcess == null) {
+                process = new RootProcess();
+                process.init();
+            } else {
+                process = rootProcess;
+            }
+            
+            if (mPermission != null) {
+                process.write("chmod " + mPermission + " " + mFile.getPath() + "\n");
+            }
+            process.write(command);
+            
+            if (rootProcess == null) {
+                process.term();
+            }
+        } else {
+            RuntimeExec.execute(command, false);
+        }
+    }
 
-			if (rootProcess == null) {
-				process.term();
-			}
-		} else {
-			RuntimeExec.execute(command, false);
-		}
-	}
-
-	public String getPath() {
-		return mFile.getPath();
-	}
+    public String getPath() {
+        return mFile.getPath();
+    }
 }
+
+
+
