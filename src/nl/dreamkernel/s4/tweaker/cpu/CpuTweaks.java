@@ -711,11 +711,11 @@ public class CpuTweaks extends Activity {
 			process.write("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
 
 		}
-		if (file_CPU2_ONLINE == 0) {
+		if (CPU2_RETURN_STATE == 0) {
 			// Log.d(TAG, "Force CPU 2 Back Offline ");
 			process.write("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
 		}
-		if (file_CPU3_ONLINE == 0) {
+		if (CPU3_RETURN_STATE == 0) {
 			// Log.d(TAG, "Force CPU 3 Back Offline ");
 			process.write("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
 		}
