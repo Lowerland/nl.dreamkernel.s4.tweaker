@@ -16,6 +16,8 @@
 
 package nl.dreamkernel.s4.tweaker.about;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import nl.dreamkernel.s4.tweaker.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -24,7 +26,7 @@ import android.os.Bundle;
 import android.view.View;
 
 public class About extends Activity {
-	//static final String TAG = "S4Tweaker";
+	// static final String TAG = "S4Tweaker";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,20 @@ public class About extends Activity {
 		Uri uriUrl = Uri.parse(url);
 		Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
 		startActivity(launchBrowser);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		EasyTracker.getInstance().activityStart(this); // Needs to be last
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+		EasyTracker.getInstance().activityStop(this); // Needs to be last
 	}
 
 }

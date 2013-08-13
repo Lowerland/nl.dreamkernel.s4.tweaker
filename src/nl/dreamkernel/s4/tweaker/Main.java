@@ -16,6 +16,8 @@
 
 package nl.dreamkernel.s4.tweaker;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import nl.dreamkernel.s4.tweaker.R;
 import nl.dreamkernel.s4.tweaker.bugs.BugsReporter;
 import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
@@ -152,4 +154,19 @@ public class Main extends Activity {
 			// Log.d(TAG, "Got root access");
 		}
 	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		EasyTracker.getInstance().activityStart(this); // Needs to be last
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+		EasyTracker.getInstance().activityStop(this); // Needs to be last
+	}
+
 }
