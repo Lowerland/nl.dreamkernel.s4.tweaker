@@ -19,6 +19,8 @@ package nl.dreamkernel.s4.tweaker.systeminfo;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import nl.dreamkernel.s4.tweaker.R;
 import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
 import nl.dreamkernel.s4.tweaker.util.RootCheck;
@@ -88,12 +90,12 @@ public class SysInfo extends Activity {
 
 		RootCheck rootcheck = new RootCheck();
 		if (!rootcheck.init()) {
-			//Log.d(TAG, "YOU NOOOOB");
+			// Log.d(TAG, "YOU NOOOOB");
 			noRoot = true;
 			finish();
 			return;
 		} else {
-			//Log.d(TAG, "Root ACCESSS BITCH");
+			// Log.d(TAG, "Root ACCESSS BITCH");
 		}
 
 		// Kernel Version
@@ -206,16 +208,16 @@ public class SysInfo extends Activity {
 
 	public static void Cpu_Status() {
 		// calls RootProcess
-		//Log.d(TAG, "TEST BRUMM BRUMM TAKEEEE ********************** 2 ");
-		//RootProcess process = new RootProcess();
-		//if (!process.init()) {
-		//	return;
-		//}
+		// Log.d(TAG, "TEST BRUMM BRUMM TAKEEEE ********************** 2 ");
+		// RootProcess process = new RootProcess();
+		// if (!process.init()) {
+		// return;
+		// }
 		if (CpuTweaks.vCheck_CPU0_ONLINE.exists()) {
 			int file_CPU0_ONLINE_temp = Integer
 					.parseInt(CpuTweaks.vCheck_CPU0_ONLINE.read(rootProcess));
 			file_CPU0_ONLINE = file_CPU0_ONLINE_temp;
-			//Log.d(TAG, "Read Cpu 0 State ");
+			// Log.d(TAG, "Read Cpu 0 State ");
 		} else {
 			cpu0_status.setText("Offline");
 			cpu0_status.setTextColor(Color.parseColor("#f27474"));
@@ -225,14 +227,15 @@ public class SysInfo extends Activity {
 			cpu0_status.setText("Offline");
 			cpu0_status.setTextColor(Color.parseColor("#f27474"));
 			cpu0_frequency.setText("");
-			//Log.d(TAG, "Set text cpu 0 offline");
+			// Log.d(TAG, "Set text cpu 0 offline");
 		} else {
 			cpu0_status.setText("Online");
 			cpu0_status.setTextColor(Color.parseColor("#ffffff"));
-			//Log.d(TAG, "CPU 0 is ONLINE ");
+			// Log.d(TAG, "CPU 0 is ONLINE ");
 			if (CpuTweaks.vCheck_CPU0_CUR_FREQ.exists()) {
 				int file_CPU0_CUR_FREQ = Integer
-						.parseInt(CpuTweaks.vCheck_CPU0_CUR_FREQ.read(rootProcess));
+						.parseInt(CpuTweaks.vCheck_CPU0_CUR_FREQ
+								.read(rootProcess));
 				cpu0_frequency.setText("" + file_CPU0_CUR_FREQ);
 			}
 		}
@@ -241,7 +244,7 @@ public class SysInfo extends Activity {
 			int file_CPU1_ONLINE_temp = Integer
 					.parseInt(CpuTweaks.vCheck_CPU1_ONLINE.read(rootProcess));
 			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
-			//Log.d(TAG, "Read Cpu 1 State ");
+			// Log.d(TAG, "Read Cpu 1 State ");
 		} else {
 			cpu1_status.setText("Offline");
 			cpu1_status.setTextColor(Color.parseColor("#f27474"));
@@ -251,14 +254,15 @@ public class SysInfo extends Activity {
 			cpu1_status.setText("Offline");
 			cpu1_status.setTextColor(Color.parseColor("#f27474"));
 			cpu1_frequency.setText("");
-			//Log.d(TAG, "Set text cpu 1 offline");
+			// Log.d(TAG, "Set text cpu 1 offline");
 		} else {
 			cpu1_status.setText("Online");
 			cpu1_status.setTextColor(Color.parseColor("#ffffff"));
-			//Log.d(TAG, "CPU 1 is ONLINE ");
+			// Log.d(TAG, "CPU 1 is ONLINE ");
 			if (CpuTweaks.vCheck_CPU1_CUR_FREQ.exists()) {
 				int file_CPU1_CUR_FREQ = Integer
-						.parseInt(CpuTweaks.vCheck_CPU1_CUR_FREQ.read(rootProcess));
+						.parseInt(CpuTweaks.vCheck_CPU1_CUR_FREQ
+								.read(rootProcess));
 				cpu1_frequency.setText("" + file_CPU1_CUR_FREQ);
 			}
 		}
@@ -267,7 +271,7 @@ public class SysInfo extends Activity {
 			int file_CPU2_ONLINE_temp = Integer
 					.parseInt(CpuTweaks.vCheck_CPU2_ONLINE.read(rootProcess));
 			file_CPU2_ONLINE = file_CPU2_ONLINE_temp;
-			//Log.d(TAG, "Read Cpu 2 State ");
+			// Log.d(TAG, "Read Cpu 2 State ");
 		} else {
 			cpu2_status.setText("Offline");
 			cpu2_status.setTextColor(Color.parseColor("#f27474"));
@@ -277,14 +281,15 @@ public class SysInfo extends Activity {
 			cpu2_status.setText("Offline");
 			cpu2_status.setTextColor(Color.parseColor("#f27474"));
 			cpu2_frequency.setText("");
-			//Log.d(TAG, "Set text cpu 2 offline");
+			// Log.d(TAG, "Set text cpu 2 offline");
 		} else {
 			cpu2_status.setText("Online");
 			cpu2_status.setTextColor(Color.parseColor("#ffffff"));
-			//Log.d(TAG, "CPU 2 is ONLINE ");
+			// Log.d(TAG, "CPU 2 is ONLINE ");
 			if (CpuTweaks.vCheck_CPU2_CUR_FREQ.exists()) {
 				int file_CPU2_CUR_FREQ = Integer
-						.parseInt(CpuTweaks.vCheck_CPU2_CUR_FREQ.read(rootProcess));
+						.parseInt(CpuTweaks.vCheck_CPU2_CUR_FREQ
+								.read(rootProcess));
 				cpu2_frequency.setText("" + file_CPU2_CUR_FREQ);
 			}
 		}
@@ -293,7 +298,7 @@ public class SysInfo extends Activity {
 			int file_CPU3_ONLINE_temp = Integer
 					.parseInt(CpuTweaks.vCheck_CPU3_ONLINE.read(rootProcess));
 			file_CPU3_ONLINE = file_CPU3_ONLINE_temp;
-			//Log.d(TAG, "Read Cpu 3 State ");
+			// Log.d(TAG, "Read Cpu 3 State ");
 		} else {
 			cpu3_status.setText("Offline");
 			cpu3_status.setTextColor(Color.parseColor("#f27474"));
@@ -303,20 +308,21 @@ public class SysInfo extends Activity {
 			cpu3_status.setText("Offline");
 			cpu3_status.setTextColor(Color.parseColor("#f27474"));
 			cpu3_frequency.setText("");
-			//Log.d(TAG, "Set text cpu 3 offline");
+			// Log.d(TAG, "Set text cpu 3 offline");
 		} else {
 			cpu3_status.setText("Online");
 			cpu3_status.setTextColor(Color.parseColor("#ffffff"));
-			//Log.d(TAG, "CPU 3 is ONLINE ");
+			// Log.d(TAG, "CPU 3 is ONLINE ");
 			if (CpuTweaks.vCheck_CPU3_CUR_FREQ.exists()) {
 				int file_CPU3_CUR_FREQ = Integer
-						.parseInt(CpuTweaks.vCheck_CPU3_CUR_FREQ.read(rootProcess));
+						.parseInt(CpuTweaks.vCheck_CPU3_CUR_FREQ
+								.read(rootProcess));
 				cpu3_frequency.setText("" + file_CPU3_CUR_FREQ);
 			}
 		}
 
-		//process.term();
-		//process = null;
+		// process.term();
+		// process = null;
 	}
 
 	@Override
@@ -335,8 +341,8 @@ public class SysInfo extends Activity {
 		final Handler handler = new Handler();
 		final Runnable updater = new Runnable() {
 			public void run() {
-				//Log.d(TAG,
-				//		"new Handler() final Runnable updater = new Runnable() ");
+				// Log.d(TAG,
+				// "new Handler() final Runnable updater = new Runnable() ");
 				try {
 					Cpu_Status();
 				} catch (Exception e) {
@@ -355,7 +361,7 @@ public class SysInfo extends Activity {
 
 						handler.postDelayed(updater, 0);
 
-						//Log.d(TAG, "handler.postDelayed(updater) i= " + i);
+						// Log.d(TAG, "handler.postDelayed(updater) i= " + i);
 						Thread.sleep(1000); // sleep 1 seconds
 						handler.removeCallbacksAndMessages(updater);
 						// handler.removeCallbacks(updater);
@@ -392,11 +398,18 @@ public class SysInfo extends Activity {
 	}
 
 	@Override
+	protected void onStart() {
+		super.onStart();
+
+		EasyTracker.getInstance().activityStart(this); // Needs to be last
+	}
+
+	@Override
 	protected void onStop() {
-		// TODO Auto-generated method stub
 		super.onStop();
 		// set int for ending the cpu stats loop
 		i = 10;
+		EasyTracker.getInstance().activityStop(this); // Needs to be last
 	}
 
 	public static void sleep(long msec) {
