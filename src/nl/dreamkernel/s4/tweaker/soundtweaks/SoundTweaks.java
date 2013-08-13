@@ -16,6 +16,8 @@
 
 package nl.dreamkernel.s4.tweaker.soundtweaks;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.OptionsHider;
@@ -132,12 +134,12 @@ public class SoundTweaks extends Activity {
 
 		RootCheck rootcheck = new RootCheck();
 		if (!rootcheck.init()) {
-			//Log.d(TAG, "YOU NOOOOB");
+			// Log.d(TAG, "YOU NOOOOB");
 			noRoot = true;
 			finish();
 			return;
 		} else {
-			//Log.d(TAG, "Root ACCESSS BITCH");
+			// Log.d(TAG, "Root ACCESSS BITCH");
 		}
 
 		final SharedPreferences sharedPreferences = getSharedPreferences(
@@ -358,6 +360,7 @@ public class SoundTweaks extends Activity {
 						return;
 					}
 					// Writing the values to the files
+					process.write("chmod 664 /sys/kernel/sound_control/gpl_speaker_gain\n");
 					process.write("echo " + gpl_speaker_gain
 							+ " > /sys/kernel/sound_control/gpl_speaker_gain\n");
 					// Log.d(TAG, "echo gpl speaker gain: " + gpl_speaker_gain);
@@ -415,6 +418,7 @@ public class SoundTweaks extends Activity {
 								return;
 							}
 							// Writing the values to the files
+							process.write("chmod 664 /sys/kernel/sound_control/gpl_mic_gain\n");
 							process.write("echo "
 									+ gpl_mic_gain
 									+ " > /sys/kernel/sound_control/gpl_mic_gain\n");
@@ -474,6 +478,7 @@ public class SoundTweaks extends Activity {
 								return;
 							}
 							// Writing the values to the files
+							process.write("chmod 664 /sys/kernel/sound_control/gpl_cam_mic_gain\n");
 							process.write("echo "
 									+ gpl_cam_mic_gain
 									+ " > /sys/kernel/sound_control/gpl_cam_mic_gain\n");
@@ -536,6 +541,7 @@ public class SoundTweaks extends Activity {
 								return;
 							}
 							// Writing the values to the files
+							process.write("chmod 664 /sys/kernel/sound_control/gpl_headphone_gain\n");
 							process.write("echo "
 									+ gpl_headphone_gain
 									+ " "
@@ -602,6 +608,7 @@ public class SoundTweaks extends Activity {
 								return;
 							}
 							// Writing the values to the files
+							process.write("chmod 664 /sys/kernel/sound_control/gpl_hdmi_spkr_gain\n");
 							process.write("echo "
 									+ gpl_hdmi_spkr_gain
 									+ " > /sys/kernel/sound_control/gpl_hdmi_spkr_gain\n");
@@ -664,6 +671,7 @@ public class SoundTweaks extends Activity {
 								return;
 							}
 							// Writing the values to the files
+							process.write("chmod 664 /sys/kernel/sound_control/gpl_headset_mic_gain\n");
 							process.write("echo "
 									+ gpl_headset_mic_gain
 									+ " > /sys/kernel/sound_control/gpl_headset_mic_gain\n");
@@ -769,4 +777,18 @@ public class SoundTweaks extends Activity {
 
 	// Definition of the one requestCode we use for receiving resuls.
 	static final private int GET_CODE = 0;
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		EasyTracker.getInstance().activityStart(this); // Needs to be last
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+		EasyTracker.getInstance().activityStop(this); // Needs to be last
+	}
 }

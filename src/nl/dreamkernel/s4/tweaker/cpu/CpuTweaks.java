@@ -16,6 +16,8 @@
 
 package nl.dreamkernel.s4.tweaker.cpu;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.OptionsHider;
@@ -287,6 +289,8 @@ public class CpuTweaks extends Activity {
 		// if (!process.init()) {
 		// return;
 		// }
+		rootProcess
+				.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 		rootProcess.write("echo " + cpu_scaling_governor_array
 				+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 		// Log.d(TAG, "echo'd "+cpu_scaling_governor_array+" to  CPU Governor");
@@ -434,6 +438,8 @@ public class CpuTweaks extends Activity {
 		SharedPreferences sharedPreferences = getSharedPreferences(
 				"MY_SHARED_PREF", 0);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
+		rootProcess
+				.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
 
 		// Write Values to the filesystem
 		switch (dialog_temp_min_scheduler) {
@@ -622,6 +628,8 @@ public class CpuTweaks extends Activity {
 		SharedPreferences sharedPreferences = getSharedPreferences(
 				"MY_SHARED_PREF", 0);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
+		rootProcess
+				.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
 		// Write Values to the filesystem
 		switch (dialog_temp_max_scheduler) {
 		case 0:
@@ -999,6 +1007,20 @@ public class CpuTweaks extends Activity {
 		// TODO Auto-generated method stub
 		super.onPause();
 		rootProcess.term();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		EasyTracker.getInstance().activityStart(this); // Needs to be last
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+		EasyTracker.getInstance().activityStop(this); // Needs to be last
 	}
 
 }

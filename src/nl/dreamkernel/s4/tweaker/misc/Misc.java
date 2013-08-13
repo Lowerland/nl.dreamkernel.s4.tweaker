@@ -19,6 +19,8 @@ package nl.dreamkernel.s4.tweaker.misc;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.analytics.tracking.android.EasyTracker;
+
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
 import nl.dreamkernel.s4.tweaker.util.FileCheck;
 import nl.dreamkernel.s4.tweaker.util.OptionsHider;
@@ -217,6 +219,7 @@ public class Misc extends Activity {
 							if (!process.init()) {
 								return;
 							}
+							process.write("chmod 664 /sys/vibrator/pwm_val\n");
 							// Writing the values to the files
 							process.write("echo " + value_vibrator
 									+ " > /sys/vibrator/pwm_val\n");
@@ -414,6 +417,7 @@ public class Misc extends Activity {
 		if (!process.init()) {
 			return;
 		}
+		process.write("chmod 664 /sys/kernel/fast_charge/force_fast_charge\n");
 		process.write("echo 1 > /sys/kernel/fast_charge/force_fast_charge\n");
 		// process.write("echo 1 > /mnt/sdcard/testfiles/force_fast_charge\n");
 		process.term();
@@ -427,6 +431,7 @@ public class Misc extends Activity {
 		if (!process.init()) {
 			return;
 		}
+		process.write("chmod 664 /sys/kernel/fast_charge/force_fast_charge\n");
 		process.write("echo 0 > /sys/kernel/fast_charge/force_fast_charge\n");
 		// process.write("echo 0 > /mnt/sdcard/testfiles/force_fast_charge\n");
 		process.term();
@@ -465,6 +470,7 @@ public class Misc extends Activity {
 		if (!process.init()) {
 			return;
 		}
+		process.write("chmod 664 /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
 		process.write("echo 1 > /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
 		// process.write("echo 1 > /mnt/sdcard/testfiles/Dyn_fsync_active\n");
 
@@ -480,6 +486,7 @@ public class Misc extends Activity {
 		if (!process.init()) {
 			return;
 		}
+		process.write("chmod 664 /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
 		process.write("echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
 		// process.write("echo 0 > /mnt/sdcard/testfiles/Dyn_fsync_active\n");
 
@@ -520,6 +527,7 @@ public class Misc extends Activity {
 		if (!process.init()) {
 			return;
 		}
+		process.write("chmod 664 /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
 		process.write("echo 1 > /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
 		// process.write("echo 1 > /mnt/sdcard/testfiles/power_reduce\n");
 		process.term();
@@ -534,6 +542,7 @@ public class Misc extends Activity {
 		if (!process.init()) {
 			return;
 		}
+		process.write("chmod 664 /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
 		process.write("echo 0 > /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
 		// process.write("echo 0 > /mnt/sdcard/testfiles/power_reduce\n");
 		process.term();
@@ -588,6 +597,7 @@ public class Misc extends Activity {
 		SharedPreferences sharedPreferences = getSharedPreferences(
 				"MY_SHARED_PREF", 0);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
+		process.write("chmod 664 /sys/block/mmcblk0/queue/scheduler\n");
 		// Write Values to the filesystem
 		switch (dialog_temp_internal) {
 		case 0:
@@ -693,6 +703,7 @@ public class Misc extends Activity {
 		SharedPreferences sharedPreferences = getSharedPreferences(
 				"MY_SHARED_PREF", 0);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
+		process.write("chmod 664 /sys/block/mmcblk1/queue/scheduler\n");
 
 		// Write Values to the filesystem
 		switch (dialog_temp_external) {
@@ -793,4 +804,18 @@ public class Misc extends Activity {
 
 	// Definition of the one requestCode we use for receiving resuls.
 	static final private int GET_CODE = 0;
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		EasyTracker.getInstance().activityStart(this); // Needs to be last
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+		EasyTracker.getInstance().activityStop(this); // Needs to be last
+	}
 }
