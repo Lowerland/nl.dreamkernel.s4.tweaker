@@ -18,8 +18,8 @@
 <resources>
 
     <string name="app_name">S4-Tweaker</string>
-    <string name="version">Alpha Version 1.2.1</string>
-    <string name="version_small">v1.2.1</string>
+    <string name="version">Alpha Version 1.2.4</string>
+    <string name="version_small">v1.2.4</string>
     <string name="empty_string"></string>
     <string name="no_root_access">ROOT ACCESS NEEDED</string>
     <string name="no_root_alert_body">"Looks like this device ,
