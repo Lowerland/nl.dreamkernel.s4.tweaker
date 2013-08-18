@@ -287,6 +287,7 @@ public class Misc extends Activity {
 		// Log.d(TAG, "Misc Tweaks, Root init e");
 
 		if (vCheck_internalscheduler.exists()) {
+			rootProcess.write("chmod 664 /sys/block/mmcblk0/queue/scheduler\n");
 			file_value_temp = vCheck_internalscheduler.read(rootProcess);
 
 			Pattern p = Pattern.compile("\\[((.*?)\\])");
@@ -301,6 +302,7 @@ public class Misc extends Activity {
 		}
 
 		if (vCheck_externalscheduler.exists()) {
+			rootProcess.write("chmod 664 /sys/block/mmcblk1/queue/scheduler\n");
 			file_value_temp2 = vCheck_externalscheduler.read(rootProcess);
 
 			Pattern a = Pattern.compile("\\[((.*?)\\])");
@@ -315,21 +317,34 @@ public class Misc extends Activity {
 		}
 
 		if (vCheck_vibrator_intensity.exists()) {
-			value_vibrator_temp = Integer.parseInt(vCheck_vibrator_intensity
-					.read(rootProcess));
-			value_vibrator = value_vibrator_temp;
+			rootProcess.write("chmod 664 /sys/vibrator/pwm_val\n");
+			try {
+				value_vibrator_temp = Integer
+						.parseInt(vCheck_vibrator_intensity.read(rootProcess));
+				value_vibrator = value_vibrator_temp;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			value_vibrator = 0;
 		}
 
 		if (vCheck_Usb_Fast_charge.exists()) {
-			usb_switch_value_temp = Integer.parseInt(vCheck_Usb_Fast_charge
-					.read(rootProcess));
-			if (usb_switch_value_temp == 1) {
-				usb_switch_value = true;
-			}
-			if (usb_switch_value_temp == 0) {
-				usb_switch_value = false;
+			rootProcess
+					.write("chmod 664 /sys/kernel/fast_charge/force_fast_charge\n");
+			try {
+				usb_switch_value_temp = Integer.parseInt(vCheck_Usb_Fast_charge
+						.read(rootProcess));
+				if (usb_switch_value_temp == 1) {
+					usb_switch_value = true;
+				}
+				if (usb_switch_value_temp == 0) {
+					usb_switch_value = false;
+				}
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			// Log.d(TAG, "Boolean usb_switch_value_temp = "
 			// + usb_switch_value_temp);
@@ -339,38 +354,52 @@ public class Misc extends Activity {
 		}
 
 		if (vCheck_Dyn_File_Sys_Sync.exists()) {
-			dynamic_file_sys_switch_value_temp = Integer
-					.parseInt(vCheck_Dyn_File_Sys_Sync.read(rootProcess));
-			if (dynamic_file_sys_switch_value_temp == 1) {
-				dynamic_file_sys_switch_value = true;
-				dynamicfilesyssyncswitch.setChecked(true);
+			rootProcess
+					.write("chmod 664 /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
+			try {
+				dynamic_file_sys_switch_value_temp = Integer
+						.parseInt(vCheck_Dyn_File_Sys_Sync.read(rootProcess));
+				if (dynamic_file_sys_switch_value_temp == 1) {
+					dynamic_file_sys_switch_value = true;
+					dynamicfilesyssyncswitch.setChecked(true);
+				}
+				if (dynamic_file_sys_switch_value_temp == 0) {
+					dynamic_file_sys_switch_value = false;
+					dynamicfilesyssyncswitch.setChecked(false);
+				}
+				Log.d(TAG, "Boolean dynamic_file_sys_switch_value_temp = "
+						+ dynamic_file_sys_switch_value_temp);
+				Log.d(TAG, "Boolean dynamic_file_sys_switch_value = "
+						+ dynamic_file_sys_switch_value);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			if (dynamic_file_sys_switch_value_temp == 0) {
-				dynamic_file_sys_switch_value = false;
-				dynamicfilesyssyncswitch.setChecked(false);
-			}
-			Log.d(TAG, "Boolean dynamic_file_sys_switch_value_temp = "
-					+ dynamic_file_sys_switch_value_temp);
-			Log.d(TAG, "Boolean dynamic_file_sys_switch_value = "
-					+ dynamic_file_sys_switch_value);
 		} else {
 			dynamic_file_sys_switch_value = false;
 			dynamicfilesyssyncswitch.setChecked(false);
 		}
 
 		if (vCheck_Display_Power_Reduce.exists()) {
-			display_power_reduce_switch_value_temp = Integer
-					.parseInt(vCheck_Display_Power_Reduce.read(rootProcess));
-			if (display_power_reduce_switch_value_temp == 1) {
-				display_power_reduce_switch_value = true;
+			rootProcess
+					.write("chmod 664 /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
+			try {
+				display_power_reduce_switch_value_temp = Integer
+						.parseInt(vCheck_Display_Power_Reduce.read(rootProcess));
+				if (display_power_reduce_switch_value_temp == 1) {
+					display_power_reduce_switch_value = true;
+				}
+				if (display_power_reduce_switch_value_temp == 0) {
+					display_power_reduce_switch_value = false;
+				}
+				Log.d(TAG, "Boolean display_power_reduce_switch_value_temp = "
+						+ display_power_reduce_switch_value_temp);
+				Log.d(TAG, "Boolean display_power_reduce_switch_value = "
+						+ display_power_reduce_switch_value);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			if (display_power_reduce_switch_value_temp == 0) {
-				display_power_reduce_switch_value = false;
-			}
-			Log.d(TAG, "Boolean display_power_reduce_switch_value_temp = "
-					+ display_power_reduce_switch_value_temp);
-			Log.d(TAG, "Boolean display_power_reduce_switch_value = "
-					+ display_power_reduce_switch_value);
 		} else {
 			display_power_reduce_switch_value = false;
 		}
@@ -818,4 +847,12 @@ public class Misc extends Activity {
 
 		EasyTracker.getInstance().activityStop(this); // Needs to be last
 	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+
+	}
+
 }

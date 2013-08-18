@@ -901,6 +901,8 @@ public class CpuTweaks extends Activity {
 		// Log.d(TAG, "CPU Tweaks, Root init e");
 
 		if (vCheck_CPU_GOVERNOR.exists()) {
+			rootProcess
+					.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 			file_CPU_GOVERNOR_temp = vCheck_CPU_GOVERNOR.read(rootProcess);
 			file_CPU_GOVERNOR = file_CPU_GOVERNOR_temp;
 		} else {
@@ -908,16 +910,30 @@ public class CpuTweaks extends Activity {
 		}
 
 		if (vCheck_CPU_CpuMinFREQ.exists()) {
-			file_CPU_MinFREQ_temp = Integer.parseInt(vCheck_CPU_CpuMinFREQ
-					.read(rootProcess));
-			file_CPU_MinFREQ = file_CPU_MinFREQ_temp;
+			rootProcess
+					.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+			try {
+				file_CPU_MinFREQ_temp = Integer.parseInt(vCheck_CPU_CpuMinFREQ
+						.read(rootProcess));
+				file_CPU_MinFREQ = file_CPU_MinFREQ_temp;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 		}
 
 		if (vCheck_CPU_CpuMaxFREQ.exists()) {
-			file_CPU_MaxFREQ_temp = Integer.parseInt(vCheck_CPU_CpuMaxFREQ
-					.read(rootProcess));
-			file_CPU_MaxFREQ = file_CPU_MaxFREQ_temp;
+			rootProcess
+					.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+			try {
+				file_CPU_MaxFREQ_temp = Integer.parseInt(vCheck_CPU_CpuMaxFREQ
+						.read(rootProcess));
+				file_CPU_MaxFREQ = file_CPU_MaxFREQ_temp;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 		}
 		if (vCheck_CPU1_ONLINE.exists()) {

@@ -176,6 +176,7 @@ public class SysInfo extends Activity {
 		if (vCheck_Kernel_CMDLine.exists()) {
 			RootProcess rootProcess_cmdline = new RootProcess();
 			rootProcess_cmdline.init();
+			rootProcess_cmdline.write("chmod 440 /proc/cmdline\n");
 			ret2 = vCheck_Kernel_CMDLine.read(rootProcess_cmdline);
 			rootProcess_cmdline.term();
 			if (SysInfo.isNullOfEmpty(ret2)) {

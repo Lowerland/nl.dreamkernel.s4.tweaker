@@ -152,25 +152,40 @@ public class SoundTweaks extends Activity {
 		// Log.d(TAG, "Root init e");
 		// Read in the Values from files
 		if (vCheck_gpl_speaker_gain.exists()) {
-			Value_gpl_speaker_gain = Integer.parseInt(vCheck_gpl_speaker_gain
-					.read(rootProcess));
-			gpl_speaker_gain = Value_gpl_speaker_gain;
+			try {
+				Value_gpl_speaker_gain = Integer
+						.parseInt(vCheck_gpl_speaker_gain.read(rootProcess));
+				gpl_speaker_gain = Value_gpl_speaker_gain;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			gpl_speaker_gain = value_default;
 		}
 
 		if (vCheck_gpl_mic_gain.exists()) {
-			Value_gpl_mic_gain = Integer.parseInt(vCheck_gpl_mic_gain
-					.read(rootProcess));
-			gpl_mic_gain = Value_gpl_mic_gain;
+			try {
+				Value_gpl_mic_gain = Integer.parseInt(vCheck_gpl_mic_gain
+						.read(rootProcess));
+				gpl_mic_gain = Value_gpl_mic_gain;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			gpl_mic_gain = value_default;
 		}
 
 		if (vCheck_gpl_cam_mic_gain.exists()) {
-			Value_gpl_cam_mic_gain = Integer.parseInt(vCheck_gpl_cam_mic_gain
-					.read(rootProcess));
-			gpl_cam_mic_gain = Value_gpl_cam_mic_gain;
+			try {
+				Value_gpl_cam_mic_gain = Integer
+						.parseInt(vCheck_gpl_cam_mic_gain.read(rootProcess));
+				gpl_cam_mic_gain = Value_gpl_cam_mic_gain;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			gpl_cam_mic_gain = value_default;
 		}
@@ -179,29 +194,46 @@ public class SoundTweaks extends Activity {
 			// This File hold 2 values example: 20 20
 			// so it needs an different aproach
 
-			headphonevalueconvert = vCheck_gpl_headphone_gain.read(rootProcess);
-			int nStartIndex = 0;
-			int nEndIndex = 2;
-			headphonesubstring = headphonevalueconvert.substring(nStartIndex,
-					nEndIndex);
-			gpl_headphone_gain = Integer.parseInt(headphonesubstring);
+			try {
+				headphonevalueconvert = vCheck_gpl_headphone_gain
+						.read(rootProcess);
+				int nStartIndex = 0;
+				int nEndIndex = 2;
+				headphonesubstring = headphonevalueconvert.substring(
+						nStartIndex, nEndIndex);
+				gpl_headphone_gain = Integer.parseInt(headphonesubstring);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		} else {
 			gpl_headphone_gain = value_default;
 		}
 
 		if (vCheck_gpl_hdmi_speaker_gain.exists()) {
-			Value_gpl_hdmi_speaker_gain = Integer
-					.parseInt(vCheck_gpl_hdmi_speaker_gain.read(rootProcess));
-			gpl_hdmi_spkr_gain = Value_gpl_hdmi_speaker_gain;
+			try {
+				Value_gpl_hdmi_speaker_gain = Integer
+						.parseInt(vCheck_gpl_hdmi_speaker_gain
+								.read(rootProcess));
+				gpl_hdmi_spkr_gain = Value_gpl_hdmi_speaker_gain;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			gpl_hdmi_spkr_gain = value_default;
 		}
 
 		if (vCheck_gpl_headset_mic_gain.exists()) {
-			Value_gpl_headset_mic_gain = Integer
-					.parseInt(vCheck_gpl_headset_mic_gain.read(rootProcess));
-			gpl_headset_mic_gain = Value_gpl_headset_mic_gain;
+			try {
+				Value_gpl_headset_mic_gain = Integer
+						.parseInt(vCheck_gpl_headset_mic_gain.read(rootProcess));
+				gpl_headset_mic_gain = Value_gpl_headset_mic_gain;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			gpl_headset_mic_gain = value_default;
 		}
