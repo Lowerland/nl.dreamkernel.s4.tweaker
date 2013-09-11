@@ -18,8 +18,8 @@
 <resources>
 
     <string name="app_name">S4-Tweaker</string>
-    <string name="version">Version 1.2.6</string>
-    <string name="version_small">v1.2.6</string>
+    <string name="version">Version 1.2.7</string>
+    <string name="version_small">v1.2.7</string>
     <string name="empty_string"></string>
     <string name="no_root_access">ROOT ACCESS NEEDED</string>
     <string name="no_root_alert_body">"Looks like this device ,
@@ -28,10 +28,11 @@ isn't rooted or don't have access to root.
 Root Access is REQUIRED for this app.
 "</string>
     <string name="compatibility_alert_title">Some Options are disabled</string>
-    <string name="compatibility_alert_body">"Uncompatible Dreamkernel Version
+    <string name="compatibility_alert_body">"Uncompatible kernel options
 
 HOWTO Solve this issue:
-Update or Install Latest Dreamkernel
+Update or Install latest
+DreamKernel / Agat_GS4 Kernel
 "</string>
     <string name="disabled_option_text">Not Supported</string>
     <string name="alert_dialog_ok">OK</string>
@@ -93,7 +94,7 @@ Update or Install Latest Dreamkernel
     <string name="si_refreshes_cpu">Cpu stats refreshes each second</string>
     <string name="si_gcc_version">GCC version</string>
     <string name="si_kernel_cmdline">kernel commandline</string>
-    <string name="about_app_name">S4 Tweaker for DreamKernel</string>
+    <string name="about_app_name">DreamKernel / AgatKernel</string>
     <string name="about_coders_app">App Coding:</string>
     <string name="about_lowerland">Lowerland</string>
     <string name="email_lowerland">lowerland@hotmail.com</string>
@@ -102,6 +103,11 @@ Update or Install Latest Dreamkernel
     <string name="about_talustus">Talustus</string>
     <string name="email_talustus">talustus@dream-irc.de</string>
     <string name="website_talustus">http://www.dream-irc.de</string>
+    <string name="about_agatskernel">AGAT_GS4, Custom kernel</string>
+    <string name="about_agatskernel2">"Samsung Galaxy S4 LTE (GT-I9505, SPH-L720)"</string>
+    <string name="about_agat">Agat</string>
+    <string name="email_agat">agat@agat63.com</string>
+    <string name="website_agat"></string>
     <string name="about_coding_kernel">Kernel Maintainer:</string>
     <string name="donate_button">Donate Button</string>
     <string name="donate_text">Please Donate to support our Hard work</string>
