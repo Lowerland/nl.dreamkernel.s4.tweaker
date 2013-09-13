@@ -16,8 +16,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nl.dreamkernel.s4.tweaker"
-    android:versionCode="23"
-    android:versionName="1.2.7" >
+    android:versionCode="24"
+    android:versionName="1.2.8" >
 
     <uses-sdk
         android:minSdkVersion="16"
