@@ -36,6 +36,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -134,6 +135,7 @@ public class Misc extends Activity {
 
 		noRoot = false;
 
+		// TODO
 		RootCheck rootcheck = new RootCheck();
 		if (!rootcheck.init()) {
 			// Log.d(TAG, "YOU NOOOOB");
@@ -188,6 +190,102 @@ public class Misc extends Activity {
 
 		// read the files value
 		ValueReader();
+
+		// Setup the Switch Listeners
+
+		onBootSwitch_MiscTweaks
+				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						if (isChecked) {
+							// The toggle is enabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putBoolean("onBootMiscTweaks_pref", true);
+							editor.commit();
+							Log.d(TAG, "onBoot Enabled for MiscTweaks");
+						} else {
+							// The toggle is disabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putBoolean("onBootMiscTweaks_pref", false);
+							editor.commit();
+							Log.d(TAG, "onBoot Disabled for MiscTweaks");
+						}
+					}
+				});
+
+		usbfastchargeswitch
+				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						if (isChecked) {
+							// The toggle is enabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putInt("usb_fast_charge_pref", 1);
+							editor.commit();
+							fast_charge_on();
+							Log.d(TAG, "USB FAST CHARGE Enabled");
+						} else {
+							// The toggle is disabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putInt("usb_fast_charge_pref", 0);
+							editor.commit();
+							fast_charge_off();
+							Log.d(TAG, "USB FAST CHARGE Disabled");
+						}
+					}
+				});
+
+		dynamicfilesyssyncswitch
+				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						if (isChecked) {
+							// The toggle is enabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putInt("dyn_file_sys_sync_pref", 1);
+							editor.commit();
+							DYN_FILE_SYS_SYNC_on();
+							Log.d(TAG, "DYN_FILE_SYS_SYNC Enabled");
+						} else {
+							// The toggle is disabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putInt("dyn_file_sys_sync_pref", 0);
+							editor.commit();
+							DYN_FILE_SYS_SYNC_off();
+							Log.d(TAG, "DYN_FILE_SYS_SYNC Disabled");
+						}
+					}
+				});
+
+		displaypowerreduceswitch
+				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						if (isChecked) {
+							// The toggle is enabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putInt("display_power_reduce_pref", 1);
+							editor.commit();
+							DISPLAY_POWER_REDUCE_on();
+							Log.d(TAG, "display_power_reduce_pref Enabled");
+						} else {
+							// The toggle is disabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putInt("display_power_reduce_pref", 0);
+							editor.commit();
+							DISPLAY_POWER_REDUCE_off();
+							Log.d(TAG, "display_power_reduce_pref Disabled");
+						}
+					}
+				});
 
 		// set progress text
 		vibratorProgress.setText("" + value_vibrator);
@@ -323,7 +421,6 @@ public class Misc extends Activity {
 						.parseInt(vCheck_vibrator_intensity.read(rootProcess));
 				value_vibrator = value_vibrator_temp;
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -343,7 +440,6 @@ public class Misc extends Activity {
 					usb_switch_value = false;
 				}
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			// Log.d(TAG, "Boolean usb_switch_value_temp = "
@@ -372,7 +468,6 @@ public class Misc extends Activity {
 				Log.d(TAG, "Boolean dynamic_file_sys_switch_value = "
 						+ dynamic_file_sys_switch_value);
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -397,7 +492,6 @@ public class Misc extends Activity {
 				Log.d(TAG, "Boolean display_power_reduce_switch_value = "
 						+ display_power_reduce_switch_value);
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -415,33 +509,33 @@ public class Misc extends Activity {
 		displaypowerreduceswitch.setChecked(display_power_reduce_switch_value);
 	}
 
-	// Start on boot switch
-	public void onUSBFASTSWITCH(View view) {
-		// set the preferences for onBoot Usage
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				"MY_SHARED_PREF", 0);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-
-		boolean on = ((Switch) view).isChecked();
-		if (on) {
-			editor.putInt("usb_fast_charge_pref", 1);
-			// Log.d(TAG, "on USB FAST SWITCH Enabled");
-			fast_charge_on();
-			editor.commit();
-			usbfastchargeswitch.toggle();
-		} else {
-			editor.putInt("usb_fast_charge_pref", 0);
-			// Log.d(TAG, "on USB FAST SWITCH Disabled");
-			fast_charge_off();
-			editor.commit();
-			usbfastchargeswitch.toggle();
-		}
-	}
+	// // Start on boot switch
+	// public void onUSBFASTSWITCH(View view) {
+	// // set the preferences for onBoot Usage
+	// SharedPreferences sharedPreferences = getSharedPreferences(
+	// "MY_SHARED_PREF", 0);
+	// SharedPreferences.Editor editor = sharedPreferences.edit();
+	//
+	// boolean on = ((Switch) view).isChecked();
+	// if (on) {
+	// editor.putInt("usb_fast_charge_pref", 1);
+	// // Log.d(TAG, "on USB FAST SWITCH Enabled");
+	// fast_charge_on();
+	// editor.commit();
+	// usbfastchargeswitch.toggle();
+	// } else {
+	// editor.putInt("usb_fast_charge_pref", 0);
+	// // Log.d(TAG, "on USB FAST SWITCH Disabled");
+	// fast_charge_off();
+	// editor.commit();
+	// usbfastchargeswitch.toggle();
+	// }
+	// }
 
 	public void fast_charge_on() {
 		// calls RootProcess
 		// Log.d(TAG, "on USB FAST SWITCH Enabled");
-		ValueReader();
+
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
 			return;
@@ -449,13 +543,15 @@ public class Misc extends Activity {
 		process.write("chmod 664 /sys/kernel/fast_charge/force_fast_charge\n");
 		process.write("echo 1 > /sys/kernel/fast_charge/force_fast_charge\n");
 		// process.write("echo 1 > /mnt/sdcard/testfiles/force_fast_charge\n");
+		ValueReader();
 		process.term();
+
 	}
 
 	public void fast_charge_off() {
 		// calls RootProcess
 		// Log.d(TAG, "on USB FAST SWITCH Disabled");
-		ValueReader();
+
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
 			return;
@@ -463,38 +559,39 @@ public class Misc extends Activity {
 		process.write("chmod 664 /sys/kernel/fast_charge/force_fast_charge\n");
 		process.write("echo 0 > /sys/kernel/fast_charge/force_fast_charge\n");
 		// process.write("echo 0 > /mnt/sdcard/testfiles/force_fast_charge\n");
+		ValueReader();
 		process.term();
 	}
 
 	// Start on dynamic file system sync switch
 	// TODO
-	public void onDYN_FILE_SYS_SYNC_SWITCH(View view) {
-		// set the preferences for onBoot Usage
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				"MY_SHARED_PREF", 0);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-
-		boolean on = ((Switch) view).isChecked();
-		if (on) {
-			editor.putInt("dyn_file_sys_sync_pref", 1);
-			Log.d(TAG, "on dyn_file_sys_sync SWITCH Enabled");
-			DYN_FILE_SYS_SYNC_on();
-			editor.commit();
-			dynamicfilesyssyncswitch.toggle();
-		} else {
-			editor.putInt("dyn_file_sys_sync_pref", 0);
-			Log.d(TAG, "on dyn_file_sys_sync SWITCH Disabled");
-			DYN_FILE_SYS_SYNC_off();
-			editor.commit();
-			dynamicfilesyssyncswitch.toggle();
-		}
-	}
+	// public void onDYN_FILE_SYS_SYNC_SWITCH(View view) {
+	// // set the preferences for onBoot Usage
+	// SharedPreferences sharedPreferences = getSharedPreferences(
+	// "MY_SHARED_PREF", 0);
+	// SharedPreferences.Editor editor = sharedPreferences.edit();
+	//
+	// boolean on = ((Switch) view).isChecked();
+	// if (on) {
+	// editor.putInt("dyn_file_sys_sync_pref", 1);
+	// Log.d(TAG, "on dyn_file_sys_sync SWITCH Enabled");
+	// DYN_FILE_SYS_SYNC_on();
+	// editor.commit();
+	// dynamicfilesyssyncswitch.toggle();
+	// } else {
+	// editor.putInt("dyn_file_sys_sync_pref", 0);
+	// Log.d(TAG, "on dyn_file_sys_sync SWITCH Disabled");
+	// DYN_FILE_SYS_SYNC_off();
+	// editor.commit();
+	// dynamicfilesyssyncswitch.toggle();
+	// }
+	// }
 
 	public void DYN_FILE_SYS_SYNC_on() {
 		// calls RootProcess
 		// TODO
 		Log.d(TAG, "on dyn_file_sys_sync SWITCH Enabled");
-		ValueReader();
+
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
 			return;
@@ -502,7 +599,7 @@ public class Misc extends Activity {
 		process.write("chmod 664 /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
 		process.write("echo 1 > /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
 		// process.write("echo 1 > /mnt/sdcard/testfiles/Dyn_fsync_active\n");
-
+		ValueReader();
 		process.term();
 	}
 
@@ -510,7 +607,7 @@ public class Misc extends Activity {
 		// calls RootProcess
 		// TODO
 		Log.d(TAG, "on dyn_file_sys_sync Disabled");
-		ValueReader();
+
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
 			return;
@@ -518,40 +615,40 @@ public class Misc extends Activity {
 		process.write("chmod 664 /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
 		process.write("echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active\n");
 		// process.write("echo 0 > /mnt/sdcard/testfiles/Dyn_fsync_active\n");
-
+		ValueReader();
 		process.term();
 	}
 
 	// Start onDisplay_Power_Reduce_SWITCH
 	// TODO
-	public void onDisplay_Power_Reduce_SWITCH(View view) {
-		// set the preferences for onBoot Usage
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				"MY_SHARED_PREF", 0);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-
-		boolean on = ((Switch) view).isChecked();
-		if (on) {
-			editor.putInt("display_power_reduce_pref", 1);
-			Log.d(TAG, "on display_power_reduce_pref SWITCH Enabled");
-			DISPLAY_POWER_REDUCE_on();
-			editor.commit();
-			displaypowerreduceswitch.toggle();
-		} else {
-			editor.putInt("display_power_reduce_pref", 0);
-			Log.d(TAG, "on display_power_reduce_pref SWITCH Disabled");
-			DISPLAY_POWER_REDUCE_off();
-			editor.commit();
-			displaypowerreduceswitch.toggle();
-		}
-
-	}
+	// public void onDisplay_Power_Reduce_SWITCH(View view) {
+	// // set the preferences for onBoot Usage
+	// SharedPreferences sharedPreferences = getSharedPreferences(
+	// "MY_SHARED_PREF", 0);
+	// SharedPreferences.Editor editor = sharedPreferences.edit();
+	//
+	// boolean on = ((Switch) view).isChecked();
+	// if (on) {
+	// editor.putInt("display_power_reduce_pref", 1);
+	// Log.d(TAG, "on display_power_reduce_pref SWITCH Enabled");
+	// DISPLAY_POWER_REDUCE_on();
+	// editor.commit();
+	// displaypowerreduceswitch.toggle();
+	// } else {
+	// editor.putInt("display_power_reduce_pref", 0);
+	// Log.d(TAG, "on display_power_reduce_pref SWITCH Disabled");
+	// DISPLAY_POWER_REDUCE_off();
+	// editor.commit();
+	// displaypowerreduceswitch.toggle();
+	// }
+	//
+	// }
 
 	public void DISPLAY_POWER_REDUCE_on() {
 		// calls RootProcess
 		// TODO
 		Log.d(TAG, "on display_power_reduce SWITCH Enabled");
-		ValueReader();
+
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
 			return;
@@ -559,6 +656,7 @@ public class Misc extends Activity {
 		process.write("chmod 664 /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
 		process.write("echo 1 > /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
 		// process.write("echo 1 > /mnt/sdcard/testfiles/power_reduce\n");
+		ValueReader();
 		process.term();
 	}
 
@@ -566,7 +664,7 @@ public class Misc extends Activity {
 		// calls RootProcess
 		// TODO
 		Log.d(TAG, "on display_power_reduce Disabled");
-		ValueReader();
+
 		RootProcess process = new RootProcess();
 		if (!process.init()) {
 			return;
@@ -574,6 +672,7 @@ public class Misc extends Activity {
 		process.write("chmod 664 /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
 		process.write("echo 0 > /sys/devices/platform/mipi_samsung_full_hd.2305/lcd/panel/power_reduce\n");
 		// process.write("echo 0 > /mnt/sdcard/testfiles/power_reduce\n");
+		ValueReader();
 		process.term();
 	}
 
@@ -793,22 +892,22 @@ public class Misc extends Activity {
 
 	// on boot switch
 	// TODO
-	public void onBootMiscTweaks(View view) {
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				"MY_SHARED_PREF", 0);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-
-		boolean on = ((Switch) view).isChecked();
-		if (on) {
-			editor.putBoolean("onBootMiscTweaks_pref", true);
-			editor.commit();
-			// Log.d(TAG, "onBoot Enabled for MiscTweaks");
-		} else {
-			editor.putBoolean("onBootMiscTweaks_pref", false);
-			editor.commit();
-			// Log.d(TAG, "onBoot Disabled for MiscTweaks");
-		}
-	}
+	// public void onBootMiscTweaks(View view) {
+	// SharedPreferences sharedPreferences = getSharedPreferences(
+	// "MY_SHARED_PREF", 0);
+	// SharedPreferences.Editor editor = sharedPreferences.edit();
+	//
+	// boolean on = ((Switch) view).isChecked();
+	// if (on) {
+	// editor.putBoolean("onBootMiscTweaks_pref", true);
+	// editor.commit();
+	// // Log.d(TAG, "onBoot Enabled for MiscTweaks");
+	// } else {
+	// editor.putBoolean("onBootMiscTweaks_pref", false);
+	// editor.commit();
+	// // Log.d(TAG, "onBoot Disabled for MiscTweaks");
+	// }
+	// }
 
 	// Method Used for retreiving data from the AlertDialog
 	@Override
@@ -850,7 +949,6 @@ public class Misc extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 
 	}

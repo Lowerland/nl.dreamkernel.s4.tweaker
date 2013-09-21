@@ -30,7 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -132,6 +132,7 @@ public class SoundTweaks extends Activity {
 
 		noRoot = false;
 
+		// TODO
 		RootCheck rootcheck = new RootCheck();
 		if (!rootcheck.init()) {
 			// Log.d(TAG, "YOU NOOOOB");
@@ -326,6 +327,30 @@ public class SoundTweaks extends Activity {
 
 		// Set on boot switch
 		sound_tweaks_set_on_boot.setChecked(onBootSoundTweaks_pref);
+
+		// Set Listener for the switch
+
+		sound_tweaks_set_on_boot
+				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						if (isChecked) {
+							// The toggle is enabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putBoolean("onBootSoundTweaks_pref", true);
+							editor.commit();
+							Log.d(TAG, "onBoot Enabled for SoundTweaks");
+						} else {
+							// The toggle is disabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putBoolean("onBootSoundTweaks_pref", false);
+							editor.commit();
+							Log.d(TAG, "onBoot Disabled for SoundTweaks");
+						}
+					}
+				});
 
 		// set progress text
 		textProgress.setText("" + gpl_speaker_gain_sign);
@@ -768,23 +793,23 @@ public class SoundTweaks extends Activity {
 	}
 
 	// on boot switch
-	// TODO
-	public void onBootSoundTweaks(View view) {
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				"MY_SHARED_PREF", 0);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-
-		boolean on = ((Switch) view).isChecked();
-		if (on) {
-			editor.putBoolean("onBootSoundTweaks_pref", true);
-			editor.commit();
-			// Log.d(TAG, "onBoot Enabled for SoundTweaks");
-		} else {
-			editor.putBoolean("onBootSoundTweaks_pref", false);
-			editor.commit();
-			// Log.d(TAG, "onBoot Disabled for SoundTweaks");
-		}
-	}
+	// TODO remove code
+	// public void onBootSoundTweaks(View view) {
+	// SharedPreferences sharedPreferences = getSharedPreferences(
+	// "MY_SHARED_PREF", 0);
+	// SharedPreferences.Editor editor = sharedPreferences.edit();
+	//
+	// boolean on = ((Switch) view).isChecked();
+	// if (on) {
+	// editor.putBoolean("onBootSoundTweaks_pref", true);
+	// editor.commit();
+	// // Log.d(TAG, "onBoot Enabled for SoundTweaks");
+	// } else {
+	// editor.putBoolean("onBootSoundTweaks_pref", false);
+	// editor.commit();
+	// // Log.d(TAG, "onBoot Disabled for SoundTweaks");
+	// }
+	// }
 
 	// Method Used for retreiving data from the AlertDialog
 	@Override

@@ -90,8 +90,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/dummyvalue2"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="14dp"
-                android:onClick="onBootMiscTweaks" />
+                android:layout_marginTop="14dp" />
 
             <!-- Text I/O Schedulers -->
 
@@ -357,8 +356,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/iddummy5"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="8dp"
-                android:onClick="onUSBFASTSWITCH" />
+                android:layout_marginTop="8dp" />
 
             <!-- Line below USB Fast Charge -->
 
@@ -409,8 +407,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/text_dyn_file_sys_sync"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="14dp"
-                android:onClick="onDYN_FILE_SYS_SYNC_SWITCH" />
+                android:layout_marginTop="14dp" />
 
             <!-- Line below dynamic file system sync -->
 
@@ -461,8 +458,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/text_display_power_reduce"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="14dp"
-                android:onClick="onDisplay_Power_Reduce_SWITCH" />
+                android:layout_marginTop="14dp" />
             <!-- Bottom spacer -->
 
             <View

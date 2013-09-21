@@ -86,8 +86,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/dummyvalue2"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="14dp"
-                android:onClick="onBootSoundTweaks" />
+                android:layout_marginTop="14dp" />
 
             <!-- Text Gain Control -->
 

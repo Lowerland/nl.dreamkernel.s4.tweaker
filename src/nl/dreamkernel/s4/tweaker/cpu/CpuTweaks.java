@@ -33,6 +33,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -166,9 +167,6 @@ public class CpuTweaks extends Activity {
 		Touch_block_min_freq = (View) findViewById(R.id.minfreqscalingtouchblock);
 		Touch_block_max_freq = (View) findViewById(R.id.maxfreqscalingtouchblock);
 
-		// Find boot switch
-		onBootSwitch_CpuTweaks = (Switch) findViewById(R.id.onBootSwitch_CpuTweaks);
-
 		// get the Shared Prefs
 		CpuGovernorPrefValue = sharedPreferences.getInt("CpuGovernorPref", 0);
 
@@ -179,8 +177,35 @@ public class CpuTweaks extends Activity {
 		onBootCpuTweaks_pref = sharedPreferences.getBoolean(
 				"onBootCpuTweaks_pref", false);
 
+		// Find boot switch
+		// onBootSwitch_CpuTweaks = (Switch)
+		// findViewById(R.id.onBootSwitch_CpuTweaks);
 		// Set on boot switch
+
+		// TODO
+		onBootSwitch_CpuTweaks = (Switch) findViewById(R.id.onBootSwitch_CpuTweaks);
 		onBootSwitch_CpuTweaks.setChecked(onBootCpuTweaks_pref);
+		onBootSwitch_CpuTweaks
+				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						if (isChecked) {
+							// The toggle is enabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putBoolean("onBootCpuTweaks_pref", true);
+							editor.commit();
+							Log.d(TAG, "onBoot Enabled");
+						} else {
+							// The toggle is disabled
+							SharedPreferences.Editor editor = sharedPreferences
+									.edit();
+							editor.putBoolean("onBootCpuTweaks_pref", false);
+							editor.commit();
+							Log.d(TAG, "onBoot Disabled");
+						}
+					}
+				});
 
 		// read the files value
 		ValueReader();
@@ -917,7 +942,6 @@ public class CpuTweaks extends Activity {
 						.read(rootProcess));
 				file_CPU_MinFREQ = file_CPU_MinFREQ_temp;
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -931,7 +955,6 @@ public class CpuTweaks extends Activity {
 						.read(rootProcess));
 				file_CPU_MaxFREQ = file_CPU_MaxFREQ_temp;
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -969,23 +992,18 @@ public class CpuTweaks extends Activity {
 	}
 
 	// on boot switch
-	// TODO
-	public void onBootCpuTweaks(View view) {
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				"MY_SHARED_PREF", 0);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-
-		boolean on = ((Switch) view).isChecked();
-		if (on) {
-			editor.putBoolean("onBootCpuTweaks_pref", true);
-			editor.commit();
-			// Log.d(TAG, "onBoot Enabled for CpuTweaks");
-		} else {
-			editor.putBoolean("onBootCpuTweaks_pref", false);
-			editor.commit();
-			// Log.d(TAG, "onBoot Disabled for CpuTweaks");
-		}
-	}
+	// TODO Remove this code
+	/*
+	 * public void onBootCpuTweaks(View view) { SharedPreferences
+	 * sharedPreferences = getSharedPreferences( "MY_SHARED_PREF", 0);
+	 * SharedPreferences.Editor editor = sharedPreferences.edit();
+	 * 
+	 * boolean on = ((Switch) view).isChecked(); if (on) {
+	 * editor.putBoolean("onBootCpuTweaks_pref", true); editor.commit(); //
+	 * Log.d(TAG, "onBoot Enabled for CpuTweaks"); } else {
+	 * editor.putBoolean("onBootCpuTweaks_pref", false); editor.commit(); //
+	 * Log.d(TAG, "onBoot Disabled for CpuTweaks"); } }
+	 */
 
 	// Method Used for retreiving data from the AlertDialog
 	@Override
@@ -1013,14 +1031,12 @@ public class CpuTweaks extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		rootProcess.init();
 	}
 
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 		rootProcess.term();
 	}
