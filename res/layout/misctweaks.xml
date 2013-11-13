@@ -152,7 +152,7 @@
                 android:layout_below="@+id/textInternalschedulerinternalnew"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="2dp"
-                android:text=""
+                android:text="@string/empty_string"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textSize="16sp"
                 android:typeface="sans" />
@@ -217,7 +217,7 @@
                 android:layout_below="@+id/textExternalschedulerinternalnew"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="2dp"
-                android:text=""
+                android:text="@string/empty_string"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textSize="16sp"
                 android:typeface="sans" />
@@ -301,7 +301,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="28dp"
                 android:background="@drawable/back"
-                android:text=""
+                android:text="@string/empty_string"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="16sp"
                 android:textStyle="normal"
