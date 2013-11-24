@@ -18,8 +18,6 @@ package nl.dreamkernel.s4.tweaker.util;
 
 import java.io.File;
 
-import android.util.Log;
-
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.util.RuntimeExec;
 
