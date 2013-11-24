@@ -19,6 +19,7 @@ package nl.dreamkernel.s4.tweaker.util;
 import java.io.File;
 
 import android.content.Context;
+import android.util.Log;
 import nl.dreamkernel.s4.tweaker.cpu.CpuTweaks;
 import nl.dreamkernel.s4.tweaker.misc.Misc;
 import nl.dreamkernel.s4.tweaker.soundtweaks.SoundTweaks;
@@ -102,6 +103,17 @@ public class FileCheck {
 		if (!CpuTweaks.vCheck_CPU_GOVERNOR.exists()) {
 			cpuGovernor_hide = 1;
 			incompatible = true;
+		}
+		if (!CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
+			Log.d("S4Tweaker",
+					"CPU_AVAILABLE_FREQ_PATH Doesn't exist trying AVAILABLE_FREQ_OPTIONAL_PATH");
+			if (!CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.exists()) {
+				Log.d("S4Tweaker",
+						"CPU_AVAILABLE_FREQ_OPTIONAL_PATH Doesn't exist!, disabling options");
+				cpuMinFreq_hide = 1;
+				cpuMaxFreq_hide = 1;
+				incompatible = true;
+			}
 		}
 		if (!CpuTweaks.vCheck_CPU_CpuMinFREQ.exists()) {
 			cpuMinFreq_hide = 1;
