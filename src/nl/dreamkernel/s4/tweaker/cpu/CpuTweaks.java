@@ -16,6 +16,7 @@
 
 package nl.dreamkernel.s4.tweaker.cpu;
 
+import java.util.ArrayList;
 import com.google.analytics.tracking.android.EasyTracker;
 
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
@@ -61,18 +62,24 @@ public class CpuTweaks extends Activity {
 			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors");
 	public static final SysFs vCheck_CPU_GOVERNOR = new SysFs(
 			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor");
-	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
-			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
-	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
-			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+
+	public static final SysFs vCheck_CPU_AVAILABLE_FREQ_PATH = new SysFs(
+			"/sys/power/cpufreq_table");
+	public static final SysFs vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH = new SysFs(
+			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
+	// public static final SysFs vCheck_CPU_CpuMinFREQ = new
+	// SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+	// public static final SysFs vCheck_CPU_CpuMaxFREQ = new
+	// SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+
 	public static final SysFs vCheck_CPU0_ONLINE = new SysFs(
 			"/sys/devices/system/cpu/cpu0/online");
-	public static final SysFs vCheck_CPU1_ONLINE = new SysFs(
-			"/sys/devices/system/cpu/cpu1/online");
-	public static final SysFs vCheck_CPU2_ONLINE = new SysFs(
-			"/sys/devices/system/cpu/cpu2/online");
-	public static final SysFs vCheck_CPU3_ONLINE = new SysFs(
-			"/sys/devices/system/cpu/cpu3/online");
+	// public static final SysFs vCheck_CPU1_ONLINE = new
+	// SysFs("/sys/devices/system/cpu/cpu1/online");
+	// public static final SysFs vCheck_CPU2_ONLINE = new
+	// SysFs("/sys/devices/system/cpu/cpu2/online");
+	// public static final SysFs vCheck_CPU3_ONLINE = new
+	// SysFs("/sys/devices/system/cpu/cpu3/online");
 
 	public static final SysFs vCheck_CPU0_CUR_FREQ = new SysFs(
 			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
@@ -85,16 +92,21 @@ public class CpuTweaks extends Activity {
 
 	// public static final SysFs vCheck_CPU_GOVERNOR = new
 	// SysFs("/mnt/sdcard/testfiles/scaling_governor");
-	// public static final SysFs vCheck_CPU_CpuMinFREQ = new
-	// SysFs("/mnt/sdcard/testfiles/scaling_min_freq");
-	// public static final SysFs vCheck_CPU_CpuMaxFREQ = new
-	// SysFs("/mnt/sdcard/testfiles/scaling_max_freq");
-	// public static final SysFs vCheck_CPU1_ONLINE = new
-	// SysFs("/mnt/sdcard/testfiles/cpu1_online");
-	// public static final SysFs vCheck_CPU2_ONLINE = new
-	// SysFs("/mnt/sdcard/testfiles/cpu2_online");
-	// public static final SysFs vCheck_CPU3_ONLINE = new
-	// SysFs("/mnt/sdcard/testfiles/cpu3_online");
+	// public static final SysFs vCheck_CPU_AVAILABLE_FREQ_PATH = new
+	// SysFs("/storage/sdcard1/testfiles/cpufreq_table");
+	// public static final SysFs vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH = new
+	// SysFs("/storage/sdcard1/testfiles/scaling_available_frequencies");
+	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
+			"/storage/sdcard1/testfiles/scaling_min_freq");
+	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
+			"/storage/sdcard1/testfiles/scaling_max_freq");
+
+	public static final SysFs vCheck_CPU1_ONLINE = new SysFs(
+			"/storage/sdcard1/testfiles/cpu1_online");
+	public static final SysFs vCheck_CPU2_ONLINE = new SysFs(
+			"/storage/sdcard1/testfiles/cpu2_online");
+	public static final SysFs vCheck_CPU3_ONLINE = new SysFs(
+			"/storage/sdcard1/testfiles/cpu3_online");
 
 	// variables storing the real file values
 	private static String file_CPU_GOVERNOR;
@@ -187,8 +199,7 @@ public class CpuTweaks extends Activity {
 		onBootSwitch_CpuTweaks.setChecked(onBootCpuTweaks_pref);
 		onBootSwitch_CpuTweaks
 				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
+					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 						if (isChecked) {
 							// The toggle is enabled
 							SharedPreferences.Editor editor = sharedPreferences
@@ -407,17 +418,57 @@ public class CpuTweaks extends Activity {
 		 */
 	}
 
+	public static String cpu_min_freq_array;
+	String[] AvailableMinFrequencies = getAvailableMinFrequencies();
+	String[] availableMinFreqEntries = getFrequencyMinEntries(AvailableMinFrequencies);
+
+	// Making the Freqs more human readable
+	public static String[] getFrequencyMinEntries(String[] frequencyValues) {
+		ArrayList<String> list = new ArrayList<String>();
+		if (frequencyValues != null) {
+			for (String freq : frequencyValues) {
+				list.add(String.valueOf(Integer.parseInt(freq) / 1000) + " MHz");
+			}
+			return list.toArray(new String[0]);
+		}
+		return null;
+	}
+
+	// First we check the most common used path else we try to use the optional
+	// path
+	public String[] getAvailableMinFrequencies() {
+		if (CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
+			rootProcess.write("chmod 664 /sys/power/cpufreq_table\n");
+			String values = vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess);
+			if (values != null) {
+				return values.split(" ");
+			}
+		} else if (CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.exists()) {
+			rootProcess
+					.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n");
+			String values = vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH
+					.read(rootProcess);
+			if (values != null) {
+				return values.split(" ");
+			}
+		}
+		return null;
+	}
+
 	public void onMINFREQSCALING(View View) {
 		// Log.d(TAG, "onMINFREQSCALING value clicked");
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setSingleChoiceItems(R.array.CPUminfreqArray,
+		builder.setSingleChoiceItems(availableMinFreqEntries,
 				CpuMinFREQPrefValue, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 
 						/* User clicked on a radio button do some stuff */
-						// Log.d(TAG, "User clicked on radio button "
-						// + whichButton);
+						Log.d(TAG, "User clicked on radio button "
+								+ whichButton);
 						dialog_temp_min_scheduler = whichButton;
+						cpu_min_freq_array = AvailableMinFrequencies[whichButton];
+						// cpu_min_freq_array =
+						// availableFreqEntries[whichButton];
 
 					}
 				});
@@ -437,6 +488,8 @@ public class CpuTweaks extends Activity {
 								.edit();
 						editor.putInt("CpuMinFREQPref",
 								dialog_temp_min_scheduler);
+						editor.putString("cpu_min_freq_array",
+								cpu_min_freq_array);
 						editor.commit();
 
 						MIN_FREQ_DialogSaver();
@@ -446,6 +499,7 @@ public class CpuTweaks extends Activity {
 		alertDialog.show();
 	}
 
+	// TODO
 	private void MIN_FREQ_DialogSaver() {
 		// Log.d(TAG, "DialogSaver intervalue = " + dialog_temp_min_scheduler);
 
@@ -460,153 +514,179 @@ public class CpuTweaks extends Activity {
 		// if (!process.init()) {
 		// return;
 		// }
+
+		rootProcess
+		// .write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+				.write("chmod 664 storage/sdcard1/testfiles/scaling_min_freq\n");
+
+		// Write Values to the filesystem
+		// rootProcess.write("echo " + cpu_min_freq_array +
+		// " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+		// rootProcess.write("echo " + cpu_min_freq_array +
+		// " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+		// rootProcess.write("echo " + cpu_min_freq_array +
+		// " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+		// rootProcess.write("echo " + cpu_min_freq_array +
+		// " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
+		rootProcess.write("echo " + cpu_min_freq_array
+				+ " > storage/sdcard1/testfiles/scaling_min_freq\n");
+
 		SharedPreferences sharedPreferences = getSharedPreferences(
 				"MY_SHARED_PREF", 0);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
-		rootProcess
-				.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+		editor.putString("scaling_min_freq_pref", cpu_min_freq_array);
+		editor.commit();
+		ReturnCpuState(); // Return Cpu State
+		ValueReader(); // read values for Gui
 
-		// Write Values to the filesystem
-		switch (dialog_temp_min_scheduler) {
-		case 0:
-			editor.putString("scaling_min_freq_pref", "162000");
-			rootProcess
-					.write("echo 162000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 162000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 162000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 162000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			// Log.d(TAG, "echo'd 162000 to Cpu Min FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 1:
-			editor.putString("scaling_min_freq_pref", "216000");
-			rootProcess
-					.write("echo 216000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 216000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 216000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 216000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			// Log.d(TAG, "echo'd 216000 to Cpu Min FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 2:
-			editor.putString("scaling_min_freq_pref", "270000");
-			rootProcess
-					.write("echo 270000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 270000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 270000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 270000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			// Log.d(TAG, "echo'd 270000 to Cpu Min FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 3:
-			editor.putString("scaling_min_freq_pref", "324000");
-			rootProcess
-					.write("echo 324000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 324000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 324000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 324000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			// Log.d(TAG, "echo'd 324000 to Cpu Min FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 4:
-			editor.putString("scaling_min_freq_pref", "378000");
-			rootProcess
-					.write("echo 378000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 378000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 378000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 378000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			// Log.d(TAG, "echo'd 378000 to Cpu Min FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 5:
-			editor.putString("scaling_min_freq_pref", "384000");
-			rootProcess
-					.write("echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 384000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 384000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 384000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			// Log.d(TAG, "echo'd 384000 to Cpu Min FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 6:
-			editor.putString("scaling_min_freq_pref", "486000");
-			rootProcess
-					.write("echo 486000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 486000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 486000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 486000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			// Log.d(TAG, "echo'd 486000 to Cpu Min FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 7:
-			editor.putString("scaling_min_freq_pref", "594000");
-			rootProcess
-					.write("echo 594000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 594000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 594000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-			rootProcess
-					.write("echo 594000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-			// Log.d(TAG, "echo'd 594000 to Cpu Min FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		default:
-			break;
-		}
+		/*
+		 * switch (dialog_temp_min_scheduler) { case 0:
+		 * editor.putString("scaling_min_freq_pref", "162000"); rootProcess
+		 * .write
+		 * ("echo 162000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 162000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 162000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 162000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n"
+		 * ); // Log.d(TAG, "echo'd 162000 to Cpu Min FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 1: editor.putString("scaling_min_freq_pref",
+		 * "216000"); rootProcess .write(
+		 * "echo 216000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 216000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 216000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 216000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n"
+		 * ); // Log.d(TAG, "echo'd 216000 to Cpu Min FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 2: editor.putString("scaling_min_freq_pref",
+		 * "270000"); rootProcess .write(
+		 * "echo 270000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 270000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 270000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 270000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n"
+		 * ); // Log.d(TAG, "echo'd 270000 to Cpu Min FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 3: editor.putString("scaling_min_freq_pref",
+		 * "324000"); rootProcess .write(
+		 * "echo 324000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 324000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 324000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 324000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n"
+		 * ); // Log.d(TAG, "echo'd 324000 to Cpu Min FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 4: editor.putString("scaling_min_freq_pref",
+		 * "378000"); rootProcess .write(
+		 * "echo 378000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 378000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 378000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 378000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n"
+		 * ); // Log.d(TAG, "echo'd 378000 to Cpu Min FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 5: editor.putString("scaling_min_freq_pref",
+		 * "384000"); rootProcess .write(
+		 * "echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 384000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 384000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 384000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n"
+		 * ); // Log.d(TAG, "echo'd 384000 to Cpu Min FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 6: editor.putString("scaling_min_freq_pref",
+		 * "486000"); rootProcess .write(
+		 * "echo 486000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 486000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 486000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 486000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n"
+		 * ); // Log.d(TAG, "echo'd 486000 to Cpu Min FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 7: editor.putString("scaling_min_freq_pref",
+		 * "594000"); rootProcess .write(
+		 * "echo 594000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 594000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 594000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 594000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n"
+		 * ); // Log.d(TAG, "echo'd 594000 to Cpu Min FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; default: break; }
+		 */
 		// editor.commit();
 		// process.term();
+	}
+
+	public static String cpu_max_freq_array;
+	String[] AvailableMaxFrequencies = getAvailableMaxFrequencies();
+	String[] availableMaxFreqEntries = getFrequencyMaxEntries(AvailableMaxFrequencies);
+
+	// Making the Freqs more human readable
+	public static String[] getFrequencyMaxEntries(String[] frequencyValues) {
+		ArrayList<String> list = new ArrayList<String>();
+		if (frequencyValues != null) {
+			for (String freq : frequencyValues) {
+				list.add(String.valueOf(Integer.parseInt(freq) / 1000) + " MHz");
+			}
+			return list.toArray(new String[0]);
+		}
+		return null;
+	}
+
+	// First we check the most common used path else we try to use the optional
+	// path
+	public String[] getAvailableMaxFrequencies() {
+		if (CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
+			rootProcess.write("chmod 664 /sys/power/cpufreq_table\n");
+			String values = vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess);
+			if (values != null) {
+				return values.split(" ");
+			}
+		} else if (CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.exists()) {
+			rootProcess
+					.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n");
+			String values = vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH
+					.read(rootProcess);
+			if (values != null) {
+				return values.split(" ");
+			}
+		}
+		return null;
 	}
 
 	public void onMAXFREQSCALING(View View) {
 		// Log.d(TAG, "onMAXFREQSCALING value clicked");
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setSingleChoiceItems(R.array.CPUmaxfreqArray,
+		builder.setSingleChoiceItems(availableMaxFreqEntries,
 				CpuMaxFREQPrefValue, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 
 						/* User clicked on a radio button do some stuff */
 						// Log.d(TAG, "User clicked on radio button "
 						// + whichButton);
+						Log.d(TAG, "User clicked on radio button "
+								+ whichButton);
 						dialog_temp_max_scheduler = whichButton;
+						cpu_max_freq_array = AvailableMaxFrequencies[whichButton];
 
 					}
 				});
@@ -626,6 +706,8 @@ public class CpuTweaks extends Activity {
 								.edit();
 						editor.putInt("CpuMaxFREQPref",
 								dialog_temp_max_scheduler);
+						editor.putString("cpu_max_freq_array",
+								cpu_max_freq_array);
 						editor.commit();
 
 						MAX_FREQ_DialogSaver();
@@ -635,6 +717,7 @@ public class CpuTweaks extends Activity {
 		alertDialog.show();
 	}
 
+	// TODO
 	private void MAX_FREQ_DialogSaver() {
 		// Log.d(TAG, "MAX_FREQ_DialogSaver intervalue = "
 		// + dialog_temp_max_scheduler);
@@ -650,183 +733,159 @@ public class CpuTweaks extends Activity {
 		// if (!process.init()) {
 		// return;
 		// }
+
+		rootProcess
+		// .write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+				.write("chmod 664 storage/sdcard1/testfiles/scaling_max_freq\n");
+
+		// Write Values to the filesystem
+		// rootProcess.write("echo " + cpu_max_freq_array +
+		// " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+		// rootProcess.write("echo " + cpu_max_freq_array +
+		// " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+		// rootProcess.write("echo " + cpu_max_freq_array +
+		// " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+		// rootProcess.write("echo " + cpu_max_freq_array +
+		// " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
+		rootProcess.write("echo " + cpu_max_freq_array
+				+ " > storage/sdcard1/testfiles/scaling_max_freq\n");
+
 		SharedPreferences sharedPreferences = getSharedPreferences(
 				"MY_SHARED_PREF", 0);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
-		rootProcess
-				.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+
+		editor.putString("scaling_max_freq_pref", cpu_max_freq_array);
+		editor.commit();
+		ReturnCpuState(); // Return Cpu State
+		ValueReader(); // read values for Gui
+
 		// Write Values to the filesystem
-		switch (dialog_temp_max_scheduler) {
-		case 0:
-			editor.putString("scaling_max_freq_pref", "1566000");
-			rootProcess
-					.write("echo 1566000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1566000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1566000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1566000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 1566000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 1:
-			editor.putString("scaling_max_freq_pref", "1674000");
-			rootProcess
-					.write("echo 1674000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1674000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1674000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1674000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 1674000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 2:
-			editor.putString("scaling_max_freq_pref", "1782000");
-			rootProcess
-					.write("echo 1782000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1782000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1782000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1782000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 1782000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 3:
-			editor.putString("scaling_max_freq_pref", "1890000");
-			rootProcess
-					.write("echo 1890000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1890000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1890000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1890000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 1890000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 4:
-			editor.putString("scaling_max_freq_pref", "1944000");
-			rootProcess
-					.write("echo 1944000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1944000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1944000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1944000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 1944000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 5:
-			editor.putString("scaling_max_freq_pref", "1998000");
-			rootProcess
-					.write("echo 1998000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1998000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1998000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 1998000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 1998000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 6:
-			editor.putString("scaling_max_freq_pref", "2052000");
-			rootProcess
-					.write("echo 2052000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2052000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2052000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2052000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 2052000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 7:
-			editor.putString("scaling_max_freq_pref", "2106000");
-			rootProcess
-					.write("echo 2106000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2106000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2106000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2106000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 8:
-			editor.putString("scaling_max_freq_pref", "2160000");
-			rootProcess
-					.write("echo 2160000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2160000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2160000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2160000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 9:
-			editor.putString("scaling_max_freq_pref", "2214000");
-			rootProcess
-					.write("echo 2214000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2214000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2214000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2214000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		case 10:
-			editor.putString("scaling_max_freq_pref", "2268000");
-			rootProcess
-					.write("echo 2268000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2268000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2268000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-			rootProcess
-					.write("echo 2268000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-			// Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ");
-			editor.commit();
-			ReturnCpuState(); // Return Cpu State
-			ValueReader(); // read values for Gui
-			break;
-		default:
-			break;
-		}
-		// editor.commit();
-		// process.term();
+		/*
+		 * switch (dialog_temp_max_scheduler) { case 0:
+		 * editor.putString("scaling_max_freq_pref", "1566000"); rootProcess
+		 * .write
+		 * ("echo 1566000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1566000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1566000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1566000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 1566000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 1: editor.putString("scaling_max_freq_pref",
+		 * "1674000"); rootProcess .write(
+		 * "echo 1674000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1674000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1674000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1674000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 1674000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 2: editor.putString("scaling_max_freq_pref",
+		 * "1782000"); rootProcess .write(
+		 * "echo 1782000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1782000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1782000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1782000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 1782000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 3: editor.putString("scaling_max_freq_pref",
+		 * "1890000"); rootProcess .write(
+		 * "echo 1890000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1890000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1890000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1890000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 1890000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 4: editor.putString("scaling_max_freq_pref",
+		 * "1944000"); rootProcess .write(
+		 * "echo 1944000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1944000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1944000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1944000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 1944000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 5: editor.putString("scaling_max_freq_pref",
+		 * "1998000"); rootProcess .write(
+		 * "echo 1998000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1998000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1998000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 1998000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 1998000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 6: editor.putString("scaling_max_freq_pref",
+		 * "2052000"); rootProcess .write(
+		 * "echo 2052000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2052000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2052000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2052000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 2052000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 7: editor.putString("scaling_max_freq_pref",
+		 * "2106000"); rootProcess .write(
+		 * "echo 2106000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2106000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2106000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2106000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 8: editor.putString("scaling_max_freq_pref",
+		 * "2160000"); rootProcess .write(
+		 * "echo 2160000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2160000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2160000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2160000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 9: editor.putString("scaling_max_freq_pref",
+		 * "2214000"); rootProcess .write(
+		 * "echo 2214000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2214000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2214000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2214000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; case 10: editor.putString("scaling_max_freq_pref",
+		 * "2268000"); rootProcess .write(
+		 * "echo 2268000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2268000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2268000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n"
+		 * ); rootProcess .write(
+		 * "echo 2268000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n"
+		 * ); // Log.d(TAG, "echo'd 2106000 to Cpu Max FREQ"); editor.commit();
+		 * ReturnCpuState(); // Return Cpu State ValueReader(); // read values
+		 * for Gui break; default: break; } // editor.commit(); //
+		 * process.term();
+		 */
 	}
 
 	void showToast(CharSequence msg) {
