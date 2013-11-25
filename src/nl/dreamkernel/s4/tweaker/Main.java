@@ -30,6 +30,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
@@ -43,6 +44,21 @@ public class Main extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// getting versionCode declared in the manifest
+		// must be called before accessing any preferenes.
+		int version = 1;
+		try {
+			version = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		if (version == 26) {
+			// This Build Version requires Clean CPU Freq config
+			// Else weird things can happen :-)
+			updatePreferences();
+		}
+
 		getFragmentManager().beginTransaction()
 				.replace(android.R.id.content, new MyPreferenceFragment())
 				.commit();
@@ -85,6 +101,35 @@ public class Main extends Activity {
 		}
 	}
 
+	void updatePreferences() {
+		SharedPreferences prefs = getSharedPreferences("MY_SHARED_PREF", 0);
+		if (prefs.getBoolean("update_required", true)) {
+			SharedPreferences.Editor editor = prefs.edit();
+
+			// editor.clear();
+
+			/* ....make the updates.... */
+
+			Toast.makeText(Main.this, "For System Safety Reasons",
+					Toast.LENGTH_LONG).show();
+			Toast.makeText(Main.this, "Update has cleared the config",
+					Toast.LENGTH_LONG).show();
+
+			editor.remove("CpuMinFREQPref");
+			editor.remove("cpu_min_freq_array");
+			editor.remove("scaling_min_freq_pref");
+			editor.remove("CpuMaxFREQPref");
+			editor.remove("cpu_max_freq_array");
+			editor.remove("scaling_max_freq_pref");
+			editor.remove("onBootCpuTweaks_pref");
+
+			// TODO
+			// FIXME uncomment THIS !!
+			editor.putBoolean("update_required", false);
+			editor.commit();
+		}
+	}
+
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
@@ -109,8 +154,7 @@ public class Main extends Activity {
 			final AlertDialog norootDialog = builder.create();
 			norootDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
 					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,
-								int whichButton) {
+						public void onClick(DialogInterface dialog, int whichButton) {
 							// Button OK Clicked
 							// Exit App
 						}
@@ -138,8 +182,7 @@ public class Main extends Activity {
 			final AlertDialog norootDialog = builder.create();
 			norootDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
 					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,
-								int whichButton) {
+						public void onClick(DialogInterface dialog, int whichButton) {
 							// Button OK Clicked
 							// Exit App
 							finish();
