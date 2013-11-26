@@ -110,11 +110,6 @@ public class Main extends Activity {
 
 			/* ....make the updates.... */
 
-			Toast.makeText(Main.this, "For System Safety Reasons",
-					Toast.LENGTH_LONG).show();
-			Toast.makeText(Main.this, "Update has cleared the config",
-					Toast.LENGTH_LONG).show();
-
 			editor.remove("CpuMinFREQPref");
 			editor.remove("cpu_min_freq_array");
 			editor.remove("scaling_min_freq_pref");
