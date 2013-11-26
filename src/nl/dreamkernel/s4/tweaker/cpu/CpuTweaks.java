@@ -67,10 +67,10 @@ public class CpuTweaks extends Activity {
 			"/sys/power/cpufreq_table");
 	public static final SysFs vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH = new SysFs(
 			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies");
-	// public static final SysFs vCheck_CPU_CpuMinFREQ = new
-	// SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
-	// public static final SysFs vCheck_CPU_CpuMaxFREQ = new
-	// SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
+	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
+			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
+	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
+			"/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
 
 	public static final SysFs vCheck_CPU0_ONLINE = new SysFs(
 			"/sys/devices/system/cpu/cpu0/online");
@@ -96,10 +96,10 @@ public class CpuTweaks extends Activity {
 	// SysFs("/storage/sdcard1/testfiles/cpufreq_table");
 	// public static final SysFs vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH = new
 	// SysFs("/storage/sdcard1/testfiles/scaling_available_frequencies");
-	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
-			"/storage/sdcard1/testfiles/scaling_min_freq");
-	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
-			"/storage/sdcard1/testfiles/scaling_max_freq");
+	// public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs(
+	// "/storage/sdcard1/testfiles/scaling_min_freq");
+	// public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs(
+	// "/storage/sdcard1/testfiles/scaling_max_freq");
 
 	// public static final SysFs vCheck_CPU1_ONLINE = new SysFs(
 	// "/storage/sdcard1/testfiles/cpu1_online");
@@ -392,20 +392,20 @@ public class CpuTweaks extends Activity {
 		CpuCurrentState();
 
 		rootProcess
-		// .write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-				.write("chmod 664 storage/sdcard1/testfiles/scaling_min_freq\n");
+				.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+		// .write("chmod 664 storage/sdcard1/testfiles/scaling_min_freq\n");
 
 		// Write Values to the filesystem
-		// rootProcess.write("echo " + cpu_min_freq_array +
-		// " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-		// rootProcess.write("echo " + cpu_min_freq_array +
-		// " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-		// rootProcess.write("echo " + cpu_min_freq_array +
-		// " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-		// rootProcess.write("echo " + cpu_min_freq_array +
-		// " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 		rootProcess.write("echo " + cpu_min_freq_array
-				+ " > storage/sdcard1/testfiles/scaling_min_freq\n");
+				+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+		rootProcess.write("echo " + cpu_min_freq_array
+				+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+		rootProcess.write("echo " + cpu_min_freq_array
+				+ " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+		rootProcess.write("echo " + cpu_min_freq_array
+				+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
+		// rootProcess.write("echo " + cpu_min_freq_array
+		// + " > storage/sdcard1/testfiles/scaling_min_freq\n");
 
 		SharedPreferences sharedPreferences = getSharedPreferences(
 				"MY_SHARED_PREF", 0);
@@ -501,20 +501,20 @@ public class CpuTweaks extends Activity {
 		CpuCurrentState();
 
 		rootProcess
-		// .write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-				.write("chmod 664 storage/sdcard1/testfiles/scaling_max_freq\n");
+				.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+		// .write("chmod 664 storage/sdcard1/testfiles/scaling_max_freq\n");
 
 		// Write Values to the filesystem
-		// rootProcess.write("echo " + cpu_max_freq_array +
-		// " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-		// rootProcess.write("echo " + cpu_max_freq_array +
-		// " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-		// rootProcess.write("echo " + cpu_max_freq_array +
-		// " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-		// rootProcess.write("echo " + cpu_max_freq_array +
-		// " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 		rootProcess.write("echo " + cpu_max_freq_array
-				+ " > storage/sdcard1/testfiles/scaling_max_freq\n");
+				+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+		rootProcess.write("echo " + cpu_max_freq_array
+				+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+		rootProcess.write("echo " + cpu_max_freq_array
+				+ " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+		rootProcess.write("echo " + cpu_max_freq_array
+				+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
+		// rootProcess.write("echo " + cpu_max_freq_array
+		// + " > storage/sdcard1/testfiles/scaling_max_freq\n");
 
 		SharedPreferences sharedPreferences = getSharedPreferences(
 				"MY_SHARED_PREF", 0);
