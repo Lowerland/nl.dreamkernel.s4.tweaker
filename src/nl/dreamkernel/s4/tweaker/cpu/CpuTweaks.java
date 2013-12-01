@@ -66,6 +66,7 @@ public class CpuTweaks extends Activity {
 	public static final SysFs vCheck_CPU_CpuMinFREQ = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq");
 	public static final SysFs vCheck_CPU_CpuMaxFREQ = new SysFs("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq");
 
+	public static final SysFs vCheck_CPU_AVAILABLE = new SysFs("/sys/devices/system/cpu/present");
 	public static final SysFs vCheck_CPU0_ONLINE = new SysFs("/sys/devices/system/cpu/cpu0/online");
 	public static final SysFs vCheck_CPU1_ONLINE = new SysFs("/sys/devices/system/cpu/cpu1/online");
 	public static final SysFs vCheck_CPU2_ONLINE = new SysFs("/sys/devices/system/cpu/cpu2/online");
@@ -116,6 +117,7 @@ public class CpuTweaks extends Activity {
 	public static int CpuGovernorPrefValue;
 	public static int CpuMinFREQPrefValue;
 	public static int CpuMaxFREQPrefValue;
+	public static int Cpu_Available;
 	public static int cpu_hide_dialog;
 
 	// TEMP Int used by dialogs
@@ -146,7 +148,7 @@ public class CpuTweaks extends Activity {
 		} else {
 		}
 
-		rootProcess.init(); // Most be initialized here
+		rootProcess.init(); // Must be initialized here
 
 		final SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 
@@ -170,6 +172,8 @@ public class CpuTweaks extends Activity {
 
 		CpuMinFREQPrefValue = sharedPreferences.getInt("CpuMinFREQPref", -1);	// -1 so if no value nothing gets selected
 		CpuMaxFREQPrefValue = sharedPreferences.getInt("CpuMaxFREQPref", -1);	// -1 so if no value nothing gets selected
+
+		Cpu_Available = sharedPreferences.getInt("Cpu_Available", 0);
 
 		// get onBoot Pref
 		onBootCpuTweaks_pref = sharedPreferences.getBoolean("onBootCpuTweaks_pref", false);
@@ -264,7 +268,7 @@ public class CpuTweaks extends Activity {
 						SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 						SharedPreferences.Editor editor = sharedPreferences.edit();
 						editor.putInt("CpuGovernorPref", dialog_temp_cpu_gov);
-						editor.putString("cpu_scaling_governor_array", cpu_scaling_governor_array);
+						//editor.putString("cpu_scaling_governor_array", cpu_scaling_governor_array);
 						editor.commit();
 
 						CPUGovernorDialogSaver();
@@ -353,7 +357,7 @@ public class CpuTweaks extends Activity {
 						SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 						SharedPreferences.Editor editor = sharedPreferences.edit();
 						editor.putInt("CpuMinFREQPref",dialog_temp_min_scheduler);
-						editor.putString("cpu_min_freq_array",cpu_min_freq_array);
+						//editor.putString("cpu_min_freq_array",cpu_min_freq_array);
 						editor.commit();
 
 						MIN_FREQ_DialogSaver();
@@ -375,15 +379,36 @@ public class CpuTweaks extends Activity {
 		rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
 		// .write("chmod 664 storage/sdcard1/testfiles/scaling_min_freq\n");
 
+		SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+		Cpu_Available = sharedPreferences.getInt("Cpu_Available", 0);
+
 		// Write Values to the filesystem
-		rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
-		rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-		rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-		rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
+		if (Cpu_Available > -1){
+			Log.d(TAG, "Writing to cpu0 *");
+			rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+		}
+		if (Cpu_Available > 0){
+			Log.d(TAG, "Writing to cpu1 **");
+			rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+		}
+		if (Cpu_Available > 1){
+			Log.d(TAG, "Writing to cpu2 ***");
+			rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+		}
+		if (Cpu_Available > 2){
+			Log.d(TAG, "Writing to cpu3 ****");
+			rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
+		}
+
+
+		//rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+		//rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+		//rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+		//rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 		// rootProcess.write("echo " + cpu_min_freq_array
 		// + " > storage/sdcard1/testfiles/scaling_min_freq\n");
 
-		SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+		//SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putString("scaling_min_freq_pref", cpu_min_freq_array);
 		editor.commit();
@@ -457,7 +482,7 @@ public class CpuTweaks extends Activity {
 						SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 						SharedPreferences.Editor editor = sharedPreferences.edit();
 						editor.putInt("CpuMaxFREQPref",dialog_temp_max_scheduler);
-						editor.putString("cpu_max_freq_array",cpu_max_freq_array);
+						//editor.putString("cpu_max_freq_array",cpu_max_freq_array);
 						editor.commit();
 
 						MAX_FREQ_DialogSaver();
@@ -472,21 +497,41 @@ public class CpuTweaks extends Activity {
 		// read values for cpu's Online check
 		ValueReader();
 
-		// Cpu's Online state and Force Online if the are Offline
+		// Cpu's Online state and Force Online if they are Offline
 		CpuCurrentState();
 
 		rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
 		// .write("chmod 664 storage/sdcard1/testfiles/scaling_max_freq\n");
 
+		SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+		Cpu_Available = sharedPreferences.getInt("Cpu_Available", 0);
+
 		// Write Values to the filesystem
-		rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
-		rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-		rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-		rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
+		if (Cpu_Available > -1){
+			Log.d(TAG, "Writing to cpu0 *");
+			rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+		}
+		if (Cpu_Available > 0){
+			Log.d(TAG, "Writing to cpu1 **");
+			rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+		}
+		if (Cpu_Available > 1){
+			Log.d(TAG, "Writing to cpu2 ***");
+			rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+		}
+		if (Cpu_Available > 2){
+			Log.d(TAG, "Writing to cpu3 ****");
+			rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
+		}
+
+		//rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+		//rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+		//rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+		//rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 		// rootProcess.write("echo " + cpu_max_freq_array
 		// + " > storage/sdcard1/testfiles/scaling_max_freq\n");
 
-		SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
+
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 
 		editor.putString("scaling_max_freq_pref", cpu_max_freq_array);
@@ -501,62 +546,118 @@ public class CpuTweaks extends Activity {
 
 	public static void CpuCurrentState() {
 
-		if (vCheck_CPU1_ONLINE.exists()) {
+		// FIXME
+		if (Cpu_Available > 0){
 			file_CPU1_ONLINE_temp = Integer.parseInt(vCheck_CPU1_ONLINE.read(rootProcess));
 			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
 			Log.d(TAG, "Read Cpu 1 State ");
-		} else {
+
+			if (file_CPU1_ONLINE == 0) {
+				rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
+				CPU1_RETURN_STATE = 0;
+				Log.d(TAG, "Force CPU 1 ONLINE ");
+			} else {
+				CPU1_RETURN_STATE = 1;
+				Log.d(TAG, "CPU 1 is ONLINE ");
+			}
 		}
-		if (vCheck_CPU2_ONLINE.exists()) {
+		if (Cpu_Available > 1){
 			file_CPU2_ONLINE_temp = Integer.parseInt(vCheck_CPU2_ONLINE.read(rootProcess));
 			file_CPU2_ONLINE = file_CPU2_ONLINE_temp;
 			Log.d(TAG, "Read Cpu 2 State ");
-		} else {
+
+			if (file_CPU2_ONLINE == 0) {
+				rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
+				CPU2_RETURN_STATE = 0;
+				Log.d(TAG, "Force CPU 2 ONLINE ");
+			} else {
+				CPU2_RETURN_STATE = 1;
+				Log.d(TAG, "CPU 2 is ONLINE ");
+			}
 		}
-		if (vCheck_CPU3_ONLINE.exists()) {
+		if (Cpu_Available > 2){
 			file_CPU3_ONLINE_temp = Integer.parseInt(vCheck_CPU3_ONLINE.read(rootProcess));
 			file_CPU3_ONLINE = file_CPU3_ONLINE_temp;
 			Log.d(TAG, "Read Cpu 3 State ");
-		} else {
+
+			if (file_CPU3_ONLINE == 0) {
+				rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
+				CPU3_RETURN_STATE = 0;
+				Log.d(TAG, "Force CPU 3 ONLINE ");
+			} else {
+				CPU3_RETURN_STATE = 1;
+				Log.d(TAG, "CPU 3 is ONLINE ");
+			}
 		}
-		if (file_CPU1_ONLINE == 0) {
-			rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
-			CPU1_RETURN_STATE = 0;
-			Log.d(TAG, "Force CPU 1 ONLINE ");
+		// TODO REMOVE
+		/*if (vCheck_CPU1_ONLINE.exists()) {
+			file_CPU1_ONLINE_temp = Integer.parseInt(vCheck_CPU1_ONLINE.read(rootProcess));
+			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
+			Log.d(TAG, "Read Cpu 1 State ");
+
+			if (file_CPU1_ONLINE == 0) {
+				rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
+				CPU1_RETURN_STATE = 0;
+				Log.d(TAG, "Force CPU 1 ONLINE ");
+			} else {
+				CPU1_RETURN_STATE = 1;
+				Log.d(TAG, "CPU 1 is ONLINE ");
+			}
 		} else {
-			CPU1_RETURN_STATE = 1;
-			Log.d(TAG, "CPU 1 is ONLINE ");
-		}
-		if (file_CPU2_ONLINE == 0) {
-			rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
-			CPU2_RETURN_STATE = 0;
-			Log.d(TAG, "Force CPU 2 ONLINE ");
+		}*/
+		/*if (vCheck_CPU2_ONLINE.exists()) {
+			file_CPU2_ONLINE_temp = Integer.parseInt(vCheck_CPU2_ONLINE.read(rootProcess));
+			file_CPU2_ONLINE = file_CPU2_ONLINE_temp;
+			Log.d(TAG, "Read Cpu 2 State ");
+
+			if (file_CPU2_ONLINE == 0) {
+				rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
+				CPU2_RETURN_STATE = 0;
+				Log.d(TAG, "Force CPU 2 ONLINE ");
+			} else {
+				CPU2_RETURN_STATE = 1;
+				Log.d(TAG, "CPU 2 is ONLINE ");
+			}
 		} else {
-			CPU2_RETURN_STATE = 1;
-			Log.d(TAG, "CPU 2 is ONLINE ");
-		}
-		if (file_CPU3_ONLINE == 0) {
-			rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
-			CPU3_RETURN_STATE = 0;
-			Log.d(TAG, "Force CPU 3 ONLINE ");
+		}*/
+		/*if (vCheck_CPU3_ONLINE.exists()) {
+			file_CPU3_ONLINE_temp = Integer.parseInt(vCheck_CPU3_ONLINE.read(rootProcess));
+			file_CPU3_ONLINE = file_CPU3_ONLINE_temp;
+			Log.d(TAG, "Read Cpu 3 State ");
+
+			if (file_CPU3_ONLINE == 0) {
+				rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
+				CPU3_RETURN_STATE = 0;
+				Log.d(TAG, "Force CPU 3 ONLINE ");
+			} else {
+				CPU3_RETURN_STATE = 1;
+				Log.d(TAG, "CPU 3 is ONLINE ");
+			}
 		} else {
-			CPU3_RETURN_STATE = 1;
-			Log.d(TAG, "CPU 3 is ONLINE ");
-		}
+		}*/
+
+
+
 	}
 
 	public static void ReturnCpuState() {
-		if (CPU1_RETURN_STATE == 0) {
-			Log.d(TAG, "Force CPU 1 Back Offline ");
-			rootProcess.write("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
+		if (Cpu_Available > 0){
+			if (CPU1_RETURN_STATE == 0) {
+				Log.d(TAG, "Force CPU 1 Back Offline ");
+				rootProcess.write("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
+			}
 		}
-		if (CPU2_RETURN_STATE == 0) {
-			Log.d(TAG, "Force CPU 2 Back Offline ");
-			rootProcess.write("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
+		if (Cpu_Available > 1){
+			if (CPU2_RETURN_STATE == 0) {
+				Log.d(TAG, "Force CPU 2 Back Offline ");
+				rootProcess.write("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
+			}
 		}
-		if (CPU3_RETURN_STATE == 0) {
-			Log.d(TAG, "Force CPU 3 Back Offline ");
-			rootProcess.write("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
+		if (Cpu_Available > 2){
+			if (CPU3_RETURN_STATE == 0) {
+				Log.d(TAG, "Force CPU 3 Back Offline ");
+				rootProcess.write("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
+			}
 		}
 	}
 
@@ -567,9 +668,38 @@ public class CpuTweaks extends Activity {
 		CpuGovernorPrefValue = sharedPreferences.getInt("CpuGovernorPref", -1); // -1 so if no value nothing gets selected
 		CpuMinFREQPrefValue = sharedPreferences.getInt("CpuMinFREQPref", -1); // -1 so if no value nothing gets selected
 		CpuMaxFREQPrefValue = sharedPreferences.getInt("CpuMaxFREQPref", -1); // -1 so if no value nothing gets selected
+		Cpu_Available = sharedPreferences.getInt("Cpu_Available", 0);
+
+		// Check how much cpu's are present
+		if (vCheck_CPU_AVAILABLE.exists()) {
+			SharedPreferences.Editor editor = sharedPreferences.edit();
+
+			String temp = vCheck_CPU_AVAILABLE.read(rootProcess);
+			if (temp.length() == 0) {
+				editor.putInt("Cpu_Available", 0);
+			}
+			if (temp.length() > 0) {
+				// This File hold 2 values example: 0-1
+				// so it needs an different aproach
+				try {
+					//headphonevalueconvert = vCheck_gpl_headphone_gain
+					//		.read(rootProcess);
+					int nStartIndex = 2;
+					int nEndIndex = 3;
+					String substring = temp.substring(nStartIndex, nEndIndex);
+					int temp_int = Integer.parseInt(substring);
+					editor.putInt("Cpu_Available", temp_int);
+
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+			}
+			editor.commit();
+		}
+
+
 
 		// Read in the Values from files
-
 		if (vCheck_CPU_GOVERNOR.exists()) {
 			//rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 			try {
@@ -586,8 +716,7 @@ public class CpuTweaks extends Activity {
 			}
 		}
 
-		// FIXME
-		// Only when read errors accure
+
 		if (vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
 			//rootProcess.write("chmod 444 /sys/power/cpufreq_table\n");
 
@@ -603,8 +732,6 @@ public class CpuTweaks extends Activity {
 			}
 		}
 
-		// FIXME
-		// Only when read errors accure
 		if (vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.exists()) {
 			//rootProcess.write("chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n");
 
@@ -620,8 +747,6 @@ public class CpuTweaks extends Activity {
 			}
 		}
 
-		// FIXME
-		// Only when read errors accure
 		if (vCheck_CPU_CpuMinFREQ.exists()) {
 			//rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
 
@@ -639,8 +764,6 @@ public class CpuTweaks extends Activity {
 			}
 		}
 
-		// FIXME
-		// Only when read errors accure
 		if (vCheck_CPU_CpuMaxFREQ.exists()) {
 			//rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
 
