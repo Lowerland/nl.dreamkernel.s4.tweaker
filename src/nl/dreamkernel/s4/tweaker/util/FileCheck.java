@@ -104,7 +104,7 @@ public class FileCheck {
 			cpuGovernor_hide = 1;
 			incompatible = true;
 		}
-		if (!CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
+		/*if (!CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
 			Log.d("S4Tweaker",
 					"CPU_AVAILABLE_FREQ_PATH Doesn't exist trying AVAILABLE_FREQ_OPTIONAL_PATH");
 			if (!CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.exists()) {
@@ -114,26 +114,31 @@ public class FileCheck {
 				cpuMaxFreq_hide = 1;
 				incompatible = true;
 			}
-		}
+		}*/
 		if (!CpuTweaks.vCheck_CPU_CpuMinFREQ.exists()) {
+			Log.d("S4Tweaker","vCheck_CPU_CpuMinFREQ Wasn't found disabling options  ****");
 			cpuMinFreq_hide = 1;
 			incompatible = true;
 		}
 		if (!CpuTweaks.vCheck_CPU_CpuMaxFREQ.exists()) {
+			Log.d("S4Tweaker","vCheck_CPU_CpuMaxFREQ Wasn't found disabling options  ****");
 			cpuMaxFreq_hide = 1;
 			incompatible = true;
 		}
 		if (!CpuTweaks.vCheck_CPU1_ONLINE.exists()) {
+			Log.d("S4Tweaker","vCheck_CPU1_ONLINE Wasn't found disabling options  ****");
 			cpuMinFreq_hide = 1;
 			cpuMaxFreq_hide = 1;
 			incompatible = true;
 		}
 		if (!CpuTweaks.vCheck_CPU2_ONLINE.exists()) {
+			Log.d("S4Tweaker","vCheck_CPU2_ONLINE Wasn't found disabling options  ****");
 			cpuMinFreq_hide = 1;
 			cpuMaxFreq_hide = 1;
 			incompatible = true;
 		}
 		if (!CpuTweaks.vCheck_CPU3_ONLINE.exists()) {
+			Log.d("S4Tweaker","vCheck_CPU3_ONLINE Wasn't found disabling options  ****");
 			cpuMinFreq_hide = 1;
 			cpuMaxFreq_hide = 1;
 			incompatible = true;
