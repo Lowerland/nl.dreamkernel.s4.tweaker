@@ -33,14 +33,12 @@ public class onBootService extends Service {
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
 		// Log.d(TAG, "*************** onBootService onBind ****************");
 		return null;
 	}
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		// Log.d(TAG, "*************** Service Created ****************");
 		super.onCreate();
 
@@ -55,6 +53,7 @@ public class onBootService extends Service {
 				"scaling_min_freq_pref", "");
 		String scaling_max_freq_pref = sharedPreferences.getString(
 				"scaling_max_freq_pref", "");
+		int Cpu_Available = sharedPreferences.getInt("Cpu_Available", 0);
 
 		boolean onBootMiscTweaks_pref = sharedPreferences.getBoolean(
 				"onBootMiscTweaks_pref", false);
@@ -86,16 +85,17 @@ public class onBootService extends Service {
 				"gpl_headset_mic_gain_pref", 0);
 
 		if (onBootCpuTweaks_pref == true) {
-			// Log.d(TAG, "*************** onBootCpuTweaks ***************");
+			Log.d(TAG, "*************** onBootCpuTweaks ***************");
 			Toast.makeText(this, "Applying Cpu Tweaks", Toast.LENGTH_SHORT)
 					.show();
 			CpuTweaks.CpuCurrentState();
 			sleep(500);
 			RootProcess cpuprocess = new RootProcess();
 			if (!cpuprocess.init()) {
+				cpuprocess.init();
 				return;
 			}
-			// Log.d(TAG, "**** Set Cpu Tweaks ****");
+			Log.d(TAG, "**** Set Cpu Tweaks ****");
 			if (CpuTweaks.vCheck_CPU_GOVERNOR.exists()) {
 
 				if (sharedPreferences.contains("cpu_scaling_governor_pref") == true) {
@@ -108,89 +108,50 @@ public class onBootService extends Service {
 				}
 			}
 			if (CpuTweaks.vCheck_CPU_CpuMinFREQ.exists()) {
-
 				if (sharedPreferences.contains("scaling_min_freq_pref") == true) {
-
-					// Log.d(TAG, "set scaling_min_freq_pref Cpu 0 == "
-					// + scaling_min_freq_pref);
-					cpuprocess
-							.write("echo "
-									+ scaling_min_freq_pref
-									+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+					if (scaling_min_freq_pref != null && scaling_min_freq_pref.length() > 0) {
+						if (Cpu_Available > -1){
+							Log.d(TAG, "set scaling_min_freq_pref Cpu 0 == "+ scaling_min_freq_pref);
+							cpuprocess.write("echo " + scaling_min_freq_pref + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+						}
+						if (Cpu_Available > 0){
+							Log.d(TAG, "set scaling_min_freq_pref Cpu 1 == "+ scaling_min_freq_pref);
+							cpuprocess.write("echo " + scaling_min_freq_pref + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
+						}
+						if (Cpu_Available > 1){
+							Log.d(TAG, "set scaling_min_freq_pref Cpu 2 == "+ scaling_min_freq_pref);
+							cpuprocess.write("echo " + scaling_min_freq_pref + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
+						}
+						if (Cpu_Available > 2){
+							Log.d(TAG, "set scaling_min_freq_pref Cpu 3 == "+ scaling_min_freq_pref);
+							cpuprocess.write("echo " + scaling_min_freq_pref + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
+						}
+					}
 				}
 			}
 			if (CpuTweaks.vCheck_CPU_CpuMaxFREQ.exists()) {
-
 				if (sharedPreferences.contains("scaling_max_freq_pref") == true) {
-
-					// Log.d(TAG, "set scaling_max_freq_pref Cpu 0 == "
-					// + scaling_max_freq_pref);
-					cpuprocess
-							.write("echo "
-									+ scaling_max_freq_pref
-									+ " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+					if (scaling_max_freq_pref != null && scaling_max_freq_pref.length() > 0) {
+						if (Cpu_Available > -1){
+							Log.d(TAG, "set scaling_max_freq_pref Cpu 0 == "+ scaling_max_freq_pref);
+							cpuprocess.write("echo " + scaling_max_freq_pref + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+						}
+						if (Cpu_Available > 0){
+							Log.d(TAG, "set scaling_max_freq_pref Cpu 1 == "+ scaling_max_freq_pref);
+							cpuprocess.write("echo " + scaling_max_freq_pref + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
+						}
+						if (Cpu_Available > 1){
+							Log.d(TAG, "set scaling_max_freq_pref Cpu 2 == "+ scaling_max_freq_pref);
+							cpuprocess.write("echo " + scaling_max_freq_pref + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
+						}
+						if (Cpu_Available > 2){
+							Log.d(TAG, "set scaling_max_freq_pref Cpu 3 == "+ scaling_max_freq_pref);
+							cpuprocess.write("echo " + scaling_max_freq_pref + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
+						}
+					}
 				}
 			}
-			if (CpuTweaks.vCheck_CPU1_ONLINE.exists()) {
 
-				if (sharedPreferences.contains("scaling_min_freq_pref") == true) {
-
-					// Log.d(TAG, "set scaling_min_freq_pref Cpu 1 == "
-					// + scaling_min_freq_pref);
-					cpuprocess
-							.write("echo "
-									+ scaling_min_freq_pref
-									+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
-				}
-				if (sharedPreferences.contains("scaling_max_freq_pref") == true) {
-					// Log.d(TAG, "set scaling_max_freq_pref Cpu 1 == "
-					// + scaling_max_freq_pref);
-					cpuprocess
-							.write("echo "
-									+ scaling_max_freq_pref
-									+ " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
-				}
-			}
-			if (CpuTweaks.vCheck_CPU2_ONLINE.exists()) {
-
-				if (sharedPreferences.contains("scaling_min_freq_pref") == true) {
-
-					// Log.d(TAG, "set scaling_min_freq_pref Cpu 2 == "
-					// + scaling_min_freq_pref);
-					cpuprocess
-							.write("echo "
-									+ scaling_min_freq_pref
-									+ " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
-				}
-				if (sharedPreferences.contains("scaling_max_freq_pref") == true) {
-					// Log.d(TAG, "set scaling_max_freq_pref Cpu 2 == "
-					// + scaling_max_freq_pref);
-					cpuprocess
-							.write("echo "
-									+ scaling_max_freq_pref
-									+ " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
-				}
-			}
-			if (CpuTweaks.vCheck_CPU3_ONLINE.exists()) {
-
-				if (sharedPreferences.contains("scaling_min_freq_pref") == true) {
-
-					// Log.d(TAG, "set scaling_min_freq_pref Cpu 3 == "
-					// + scaling_min_freq_pref);
-					cpuprocess
-							.write("echo "
-									+ scaling_min_freq_pref
-									+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
-				}
-				if (sharedPreferences.contains("scaling_max_freq_pref") == true) {
-					// Log.d(TAG, "set scaling_max_freq_pref Cpu 3 == "
-					// + scaling_max_freq_pref);
-					cpuprocess
-							.write("echo "
-									+ scaling_max_freq_pref
-									+ " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
-				}
-			}
 			CpuTweaks.ReturnCpuState();
 			sleep(100);
 			cpuprocess.term();
@@ -201,6 +162,7 @@ public class onBootService extends Service {
 					.show();
 			RootProcess miscprocess = new RootProcess();
 			if (!miscprocess.init()) {
+				miscprocess.init();
 				return;
 			}
 			if (Misc.vCheck_internalscheduler.exists()) {
@@ -271,6 +233,7 @@ public class onBootService extends Service {
 					.show();
 			RootProcess soundprocess = new RootProcess();
 			if (!soundprocess.init()) {
+				soundprocess.init();
 				return;
 			}
 			if (SoundTweaks.vCheck_gpl_speaker_gain.exists()) {
