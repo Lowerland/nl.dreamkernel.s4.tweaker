@@ -17,6 +17,9 @@
 package nl.dreamkernel.s4.tweaker.cpu;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.google.analytics.tracking.android.EasyTracker;
 
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
@@ -26,6 +29,7 @@ import nl.dreamkernel.s4.tweaker.util.RootCheck;
 import nl.dreamkernel.s4.tweaker.util.SysFs;
 import nl.dreamkernel.s4.tweaker.util.RootProcess;
 import nl.dreamkernel.s4.tweaker.R;
+//import nl.dreamkernel.s4.tweaker.cpu.CpuFreqSorting;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -98,9 +102,9 @@ public class CpuTweaks extends Activity {
 	// variables storing the real file values
 	private static String file_CPU_GOVERNOR;
 	private static String file_CPU_GOVERNOR_temp;
-	private static int file_CPU_MinFREQ;
+	private static String file_CPU_MinFREQ;
 	private static int file_CPU_MinFREQ_temp;
-	private static int file_CPU_MaxFREQ;
+	private static String file_CPU_MaxFREQ;
 	private static int file_CPU_MaxFREQ_temp;
 
 	private static int file_CPU1_ONLINE;
@@ -290,50 +294,108 @@ public class CpuTweaks extends Activity {
 		editor.commit();
 	}
 
-	public static String cpu_min_freq_array;
-	String[] AvailableMinFrequencies;
-	String[] availableMinFreqEntries;
-
-	//String[] AvailableMinFrequencies = getAvailableMinFrequencies();
-	//String[] availableMinFreqEntries = getFrequencyMinEntries(AvailableMinFrequencies);
-
-	// Making the Freqs more human readable
-	public static String[] getFrequencyMinEntries(String[] frequencyValues) {
-		ArrayList<String> list = new ArrayList<String>();
-		if (frequencyValues != null) {
-			for (String freq : frequencyValues) {
-				list.add(String.valueOf(Integer.parseInt(freq) / 1000) + " MHz");
-			}
-			return list.toArray(new String[0]);
-		}
-		return null;
-	}
 
 	// First we check the most common used path else we try to use the optional
 	// path
 	// Then Split results
+	String AvailableFrequencies;
+	// FIXME
+
+	public static String cpu_min_freq_array;
+	String[] AvailableMinFrequencies;
+	String[] availableMinFreqEntries;
+	String[] Sorted_Min_Freq_Entries_Array;
+	String[] Sorted_Min_Frequencies_Array;
+
 	public String[] getAvailableMinFrequencies() {
+		String values = null;
 		if (CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
 			//rootProcess.write("chmod 664 /sys/power/cpufreq_table\n");
-			String values = vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess);
-			if (values != null) {
-				return values.split(" ");
-			}
+			values = vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess);
 		}
+
 		if (CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.exists()) {
 			//rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n");
-			String values = vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.read(rootProcess);
-			if (values != null) {
-				return values.split(" ");
+			values = vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.read(rootProcess);
+		}
+
+		if (values != null) {
+			String[] items = values.replaceAll(" ", ",").split(",");
+			int[] results = new int[items.length];
+
+			// Convert String array to int array
+			for (int i = 0; i < items.length; i++) {
+			    try {
+			        results[i] = Integer.parseInt(items[i]);
+			    } catch (NumberFormatException nfe) {};
 			}
+
+			// Sorting the new int array
+			int j=0;
+			int hold;
+			boolean looper= false;
+
+			//sort the array low to high
+			//using a bubble sort method
+			while((looper==false)&&(j<results.length)){
+				for(int i=0; i<results.length-1;i++){
+					if(results[i]>results[i+1]){
+						hold=results[i];
+						results[i]=results[i+1];
+						results[i+1]=hold;
+					}
+				}
+
+				// If it is done shifting numbers
+				// between the list slots and the hold slot
+				if(j==results.length-1) {
+					looper=true;
+				} else {
+					j++; // If list was shifted then keep shifting until everything is in place
+				}
+			}
+
+			// Convert int array back to a String array
+			String[] results2 = new String[results.length];
+			for (int i = 0; i < results.length; i++) {
+			    try {
+			        results2[i] = String.valueOf(results[i]);
+			    } catch (NumberFormatException nfe) {};
+			}
+			return results2;
 		}
 		return null;
 	}
 
-	public void onMINFREQSCALING(View View) {
+	// Making the Freqs more human readable
+	public static String[] getFrequencyMinEntries(String[] availableMinFrequencies2) {
+		ArrayList<String> list = new ArrayList<String>();
+        if (availableMinFrequencies2 != null) {
+                for (String freq : availableMinFrequencies2) {
+                        list.add(String.valueOf(Integer.parseInt(freq) / 1000) + " MHz");
+                }
+                return list.toArray(new String[0]);
+        }
+        return null;
+	}
 
+	/*public static String[] getAvailableMinFrequencies(int[] availableFrequencies2) {
+		ArrayList<String> list = new ArrayList<String>();
+		if (availableFrequencies2 != null) {
+			for (int freq : availableFrequencies2) {
+				//Collections.sort(list, Collections.reverseOrder());  //Reverses the cpu freq list
+				list.add(String.valueOf(freq));
+			}
+			return list.toArray(new String[0]);
+		}
+		return null;
+	}*/
+
+	public void onMINFREQSCALING(View View) {
+//TODO
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setSingleChoiceItems(availableMinFreqEntries,
+		builder.setSingleChoiceItems(Sorted_Min_Freq_Entries_Array,
+		//builder.setSingleChoiceItems(availableMinFreqEntries,
 				CpuMinFREQPrefValue, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int whichButton) {
@@ -341,8 +403,8 @@ public class CpuTweaks extends Activity {
 						/* User clicked on a radio button do some stuff */
 						Log.d(TAG, "User clicked on radio button "+ whichButton);
 						dialog_temp_min_scheduler = whichButton;
-						cpu_min_freq_array = AvailableMinFrequencies[whichButton];
-						Log.d(TAG,"cpu_min_freq_array = "+AvailableMinFrequencies[whichButton]);
+						cpu_min_freq_array = Sorted_Min_Frequencies_Array[whichButton];
+						Log.d(TAG,"cpu_min_freq_array = "+Sorted_Min_Frequencies_Array[whichButton]);
 
 					}
 				});
@@ -381,7 +443,7 @@ public class CpuTweaks extends Activity {
 
 		SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 		Cpu_Available = sharedPreferences.getInt("Cpu_Available", 0);
-
+/*
 		// Write Values to the filesystem
 		if (Cpu_Available > -1){
 			Log.d(TAG, "Writing to cpu0 *");
@@ -399,7 +461,7 @@ public class CpuTweaks extends Activity {
 			Log.d(TAG, "Writing to cpu3 ****");
 			rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 		}
-
+*/
 
 		//rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
 		//rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
@@ -420,14 +482,14 @@ public class CpuTweaks extends Activity {
 	String[] AvailableMaxFrequencies;
 	String[] availableMaxFreqEntries;
 
-	//String[] AvailableMaxFrequencies = getAvailableMaxFrequencies();
-	//String[] availableMaxFreqEntries = getFrequencyMaxEntries(AvailableMaxFrequencies);
+	String[] Sorted_Max_Freq_Entries_Array;
+	String[] Sorted_Max_Frequencies_Array;
 
 	// Making the Freqs more human readable
-	public static String[] getFrequencyMaxEntries(String[] frequencyValues) {
+	public static String[] getFrequencyMaxEntries(String[] availableMaxFrequencies2) {
 		ArrayList<String> list = new ArrayList<String>();
-		if (frequencyValues != null) {
-			for (String freq : frequencyValues) {
+		if (availableMaxFrequencies2 != null) {
+			for (String freq : availableMaxFrequencies2) {
 				list.add(String.valueOf(Integer.parseInt(freq) / 1000) + " MHz");
 			}
 			return list.toArray(new String[0]);
@@ -435,40 +497,79 @@ public class CpuTweaks extends Activity {
 		return null;
 	}
 
-
-	// First we check the most common used path else we try to use the optional
-	// path
-	// Then Split results
 	public String[] getAvailableMaxFrequencies() {
+		String values = null;
 		if (CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
 			//rootProcess.write("chmod 664 /sys/power/cpufreq_table\n");
-			String values = vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess);
-			if (values != null) {
-				return values.split(" ");
-			}
+			values = vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess);
 		}
+
 		if (CpuTweaks.vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.exists()) {
 			//rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n");
-			String values = vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.read(rootProcess);
-			if (values != null) {
-				return values.split(" ");
+			values = vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.read(rootProcess);
+		}
+
+		if (values != null) {
+			String[] items = values.replaceAll(" ", ",").split(",");
+			int[] results = new int[items.length];
+
+			// Convert String array to int array
+			for (int i = 0; i < items.length; i++) {
+			    try {
+			        results[i] = Integer.parseInt(items[i]);
+			    } catch (NumberFormatException nfe) {};
 			}
+
+			// Sorting the new int array
+			int j=0;
+			int hold;
+			boolean looper= false;
+
+			//sort the array high to low
+			//using a bubble sort method
+			while((looper==false)&&(j<results.length)){
+				for(int i=0; i<results.length-1;i++){
+					if(results[i]<results[i+1]){
+						hold=results[i];
+						results[i]=results[i+1];
+						results[i+1]=hold;
+					}
+				}
+
+				// If it is done shifting numbers
+				// between the list slots and the hold slot
+				if(j==results.length-1) {
+					looper=true;
+				} else {
+					j++; // If list was shifted then keep shifting until everything is in place
+				}
+			}
+
+			// Convert int array back to a String array
+			String[] results2 = new String[results.length];
+			for (int i = 0; i < results.length; i++) {
+			    try {
+			        results2[i] = String.valueOf(results[i]);
+			    } catch (NumberFormatException nfe) {};
+			}
+			return results2;
 		}
 		return null;
 	}
 
 	public void onMAXFREQSCALING(View View) {
-
+		// FIXME
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setSingleChoiceItems(availableMaxFreqEntries,
+		builder.setSingleChoiceItems(Sorted_Max_Freq_Entries_Array,
+		//builder.setSingleChoiceItems(availableMaxFreqEntries,
 				CpuMaxFREQPrefValue, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int whichButton) {
 
 						Log.d(TAG, "User clicked on radio button " + whichButton);
 						dialog_temp_max_scheduler = whichButton;
-						cpu_max_freq_array = AvailableMaxFrequencies[whichButton];
-						Log.d(TAG,"cpu_max_freq_array = "+AvailableMaxFrequencies[whichButton]);
+						cpu_max_freq_array = Sorted_Max_Frequencies_Array[whichButton];
+						Log.d(TAG,"cpu_max_freq_array = "+Sorted_Max_Frequencies_Array[whichButton]);
 					}
 				});
 		final AlertDialog alertDialog = builder.create();
@@ -505,7 +606,7 @@ public class CpuTweaks extends Activity {
 
 		SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 		Cpu_Available = sharedPreferences.getInt("Cpu_Available", 0);
-
+/*
 		// Write Values to the filesystem
 		if (Cpu_Available > -1){
 			Log.d(TAG, "Writing to cpu0 *");
@@ -523,7 +624,7 @@ public class CpuTweaks extends Activity {
 			Log.d(TAG, "Writing to cpu3 ****");
 			rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 		}
-
+*/
 		//rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
 		//rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 		//rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
@@ -546,7 +647,7 @@ public class CpuTweaks extends Activity {
 
 	public static void CpuCurrentState() {
 
-		// FIXME
+
 		if (Cpu_Available > 0){
 			file_CPU1_ONLINE_temp = Integer.parseInt(vCheck_CPU1_ONLINE.read(rootProcess));
 			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
@@ -589,7 +690,7 @@ public class CpuTweaks extends Activity {
 				Log.d(TAG, "CPU 3 is ONLINE ");
 			}
 		}
-		// TODO REMOVE
+
 		/*if (vCheck_CPU1_ONLINE.exists()) {
 			file_CPU1_ONLINE_temp = Integer.parseInt(vCheck_CPU1_ONLINE.read(rootProcess));
 			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
@@ -717,15 +818,52 @@ public class CpuTweaks extends Activity {
 		}
 
 
+
 		if (vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
 			//rootProcess.write("chmod 444 /sys/power/cpufreq_table\n");
-
+			//TODO
 			try {
 				if (vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess) != null && vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess).length() > 0) {
 					AvailableMinFrequencies = getAvailableMinFrequencies();
 					availableMinFreqEntries = getFrequencyMinEntries(AvailableMinFrequencies);
 					AvailableMaxFrequencies = getAvailableMaxFrequencies();
 					availableMaxFreqEntries = getFrequencyMaxEntries(AvailableMaxFrequencies);
+
+					Sorted_Min_Frequencies_Array = new String [5];
+					{
+						Sorted_Min_Frequencies_Array[0] = AvailableMinFrequencies[0];
+						Sorted_Min_Frequencies_Array[1] = AvailableMinFrequencies[1];
+						Sorted_Min_Frequencies_Array[2] = AvailableMinFrequencies[2];
+						Sorted_Min_Frequencies_Array[3] = AvailableMinFrequencies[3];
+						Sorted_Min_Frequencies_Array[4] = AvailableMinFrequencies[4];
+					}
+
+					Sorted_Max_Frequencies_Array = new String [5];
+					{
+						Sorted_Max_Frequencies_Array[0] = AvailableMaxFrequencies[4];
+						Sorted_Max_Frequencies_Array[1] = AvailableMaxFrequencies[3];
+						Sorted_Max_Frequencies_Array[2] = AvailableMaxFrequencies[2];
+						Sorted_Max_Frequencies_Array[3] = AvailableMaxFrequencies[1];
+						Sorted_Max_Frequencies_Array[4] = AvailableMaxFrequencies[0];
+					}
+
+					Sorted_Min_Freq_Entries_Array = new String [5];
+					{
+						Sorted_Min_Freq_Entries_Array[0] = availableMinFreqEntries[0];
+						Sorted_Min_Freq_Entries_Array[1] = availableMinFreqEntries[1];
+						Sorted_Min_Freq_Entries_Array[2] = availableMinFreqEntries[2];
+						Sorted_Min_Freq_Entries_Array[3] = availableMinFreqEntries[3];
+						Sorted_Min_Freq_Entries_Array[4] = availableMinFreqEntries[4];
+					}
+
+					Sorted_Max_Freq_Entries_Array = new String [5];
+					{
+						Sorted_Max_Freq_Entries_Array[0] = availableMaxFreqEntries[4];
+						Sorted_Max_Freq_Entries_Array[1] = availableMaxFreqEntries[3];
+						Sorted_Max_Freq_Entries_Array[2] = availableMaxFreqEntries[2];
+						Sorted_Max_Freq_Entries_Array[3] = availableMaxFreqEntries[1];
+						Sorted_Max_Freq_Entries_Array[4] = availableMaxFreqEntries[0];
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -734,13 +872,49 @@ public class CpuTweaks extends Activity {
 
 		if (vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.exists()) {
 			//rootProcess.write("chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n");
-
+			//TODO
 			try {
 				if (vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.read(rootProcess) != null && vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.read(rootProcess).length() > 0) {
 					AvailableMinFrequencies = getAvailableMinFrequencies();
 					availableMinFreqEntries = getFrequencyMinEntries(AvailableMinFrequencies);
 					AvailableMaxFrequencies = getAvailableMaxFrequencies();
 					availableMaxFreqEntries = getFrequencyMaxEntries(AvailableMaxFrequencies);
+
+					Sorted_Min_Frequencies_Array = new String [5];
+					{
+						Sorted_Min_Frequencies_Array[0] = AvailableMinFrequencies[0];
+						Sorted_Min_Frequencies_Array[1] = AvailableMinFrequencies[1];
+						Sorted_Min_Frequencies_Array[2] = AvailableMinFrequencies[2];
+						Sorted_Min_Frequencies_Array[3] = AvailableMinFrequencies[3];
+						Sorted_Min_Frequencies_Array[4] = AvailableMinFrequencies[4];
+					}
+
+					Sorted_Max_Frequencies_Array = new String [5];
+					{
+						Sorted_Max_Frequencies_Array[0] = AvailableMaxFrequencies[4];
+						Sorted_Max_Frequencies_Array[1] = AvailableMaxFrequencies[3];
+						Sorted_Max_Frequencies_Array[2] = AvailableMaxFrequencies[2];
+						Sorted_Max_Frequencies_Array[3] = AvailableMaxFrequencies[1];
+						Sorted_Max_Frequencies_Array[4] = AvailableMaxFrequencies[0];
+					}
+
+					Sorted_Min_Freq_Entries_Array = new String [5];
+					{
+						Sorted_Min_Freq_Entries_Array[0] = availableMinFreqEntries[0];
+						Sorted_Min_Freq_Entries_Array[1] = availableMinFreqEntries[1];
+						Sorted_Min_Freq_Entries_Array[2] = availableMinFreqEntries[2];
+						Sorted_Min_Freq_Entries_Array[3] = availableMinFreqEntries[3];
+						Sorted_Min_Freq_Entries_Array[4] = availableMinFreqEntries[4];
+					}
+
+					Sorted_Max_Freq_Entries_Array = new String [5];
+					{
+						Sorted_Max_Freq_Entries_Array[0] = availableMaxFreqEntries[4];
+						Sorted_Max_Freq_Entries_Array[1] = availableMaxFreqEntries[3];
+						Sorted_Max_Freq_Entries_Array[2] = availableMaxFreqEntries[2];
+						Sorted_Max_Freq_Entries_Array[3] = availableMaxFreqEntries[1];
+						Sorted_Max_Freq_Entries_Array[4] = availableMaxFreqEntries[0];
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -753,10 +927,10 @@ public class CpuTweaks extends Activity {
 			try {
 				if (vCheck_CPU_CpuMinFREQ.read(rootProcess) != null && vCheck_CPU_CpuMinFREQ.read(rootProcess).length() > 0) {
 				file_CPU_MinFREQ_temp = Integer.parseInt(vCheck_CPU_CpuMinFREQ.read(rootProcess));
-				file_CPU_MinFREQ = file_CPU_MinFREQ_temp;
+				file_CPU_MinFREQ = file_CPU_MinFREQ_temp / 1000 + " MHz";
 				CpuMinFREQValue.setText("" + file_CPU_MinFREQ);
 				} else {
-					file_CPU_MinFREQ = 0;
+					file_CPU_MinFREQ = "0";
 					CpuMinFREQValue.setText("Problems Reading File value  :-/");
 				}
 			} catch (NumberFormatException e) {
@@ -770,7 +944,7 @@ public class CpuTweaks extends Activity {
 			try {
 				if (vCheck_CPU_CpuMaxFREQ.read(rootProcess) != null && vCheck_CPU_CpuMaxFREQ.read(rootProcess).length() > 0) {
 				file_CPU_MaxFREQ_temp = Integer.parseInt(vCheck_CPU_CpuMaxFREQ.read(rootProcess));
-				file_CPU_MaxFREQ = file_CPU_MaxFREQ_temp;
+				file_CPU_MaxFREQ = file_CPU_MaxFREQ_temp / 1000 + " MHz";
 				CpuMaxFREQValue.setText("" + file_CPU_MaxFREQ);
 				} else {
 					file_CPU_MaxFREQ_temp = 0;
@@ -858,3 +1032,4 @@ public class CpuTweaks extends Activity {
 	}
 
 }
+
