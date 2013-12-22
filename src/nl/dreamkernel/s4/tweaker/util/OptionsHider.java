@@ -71,7 +71,7 @@ public class OptionsHider {
 		if (FileCheck.external_scheduler_hide == 1) {
 			Misc.Touch_block_ext_scheduler.setVisibility(View.GONE);
 			Misc.ExternalValue.setVisibility(View.GONE);
-			Misc.textuncompatibel2.setText(R.string.disabled_option_text);
+			Misc.textuncompatibel2.setText(R.string.no_sd_card);
 		}
 		// Log.d(TAG, "OptionsHider() vibrator_intensity_hide = "
 		// + FileCheck.vibrator_intensity_hide);
