@@ -17,9 +17,6 @@
 package nl.dreamkernel.s4.tweaker.cpu;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.google.analytics.tracking.android.EasyTracker;
 
 import nl.dreamkernel.s4.tweaker.util.DialogActivity;
@@ -295,15 +292,13 @@ public class CpuTweaks extends Activity {
 	}
 
 
-	// First we check the most common used path else we try to use the optional
-	// path
-	// Then Split results
-	String AvailableFrequencies;
-	// FIXME
+	//String AvailableFrequencies;
 
 	public static String cpu_min_freq_array;
+
 	String[] AvailableMinFrequencies;
 	String[] availableMinFreqEntries;
+
 	String[] Sorted_Min_Freq_Entries_Array;
 	String[] Sorted_Min_Frequencies_Array;
 
@@ -404,7 +399,8 @@ public class CpuTweaks extends Activity {
 						Log.d(TAG, "User clicked on radio button "+ whichButton);
 						dialog_temp_min_scheduler = whichButton;
 						cpu_min_freq_array = Sorted_Min_Frequencies_Array[whichButton];
-						Log.d(TAG,"cpu_min_freq_array = "+Sorted_Min_Frequencies_Array[whichButton]);
+						Log.d(TAG,"Sorted_Min_Frequencies_Array = "+Sorted_Min_Frequencies_Array[whichButton]);
+						Log.d(TAG,"Sorted_Min_Freq_Entries_Array = "+Sorted_Min_Freq_Entries_Array[whichButton]);
 
 					}
 				});
@@ -443,7 +439,7 @@ public class CpuTweaks extends Activity {
 
 		SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 		Cpu_Available = sharedPreferences.getInt("Cpu_Available", 0);
-/*
+
 		// Write Values to the filesystem
 		if (Cpu_Available > -1){
 			Log.d(TAG, "Writing to cpu0 *");
@@ -461,7 +457,7 @@ public class CpuTweaks extends Activity {
 			Log.d(TAG, "Writing to cpu3 ****");
 			rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 		}
-*/
+
 
 		//rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
 		//rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
@@ -569,7 +565,8 @@ public class CpuTweaks extends Activity {
 						Log.d(TAG, "User clicked on radio button " + whichButton);
 						dialog_temp_max_scheduler = whichButton;
 						cpu_max_freq_array = Sorted_Max_Frequencies_Array[whichButton];
-						Log.d(TAG,"cpu_max_freq_array = "+Sorted_Max_Frequencies_Array[whichButton]);
+						Log.d(TAG,"Sorted_Max_Frequencies_Array = "+Sorted_Max_Frequencies_Array[whichButton]);
+						Log.d(TAG,"Sorted_Max_Freq_Entries_Array = "+Sorted_Max_Freq_Entries_Array[whichButton]);
 					}
 				});
 		final AlertDialog alertDialog = builder.create();
@@ -606,7 +603,7 @@ public class CpuTweaks extends Activity {
 
 		SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 		Cpu_Available = sharedPreferences.getInt("Cpu_Available", 0);
-/*
+
 		// Write Values to the filesystem
 		if (Cpu_Available > -1){
 			Log.d(TAG, "Writing to cpu0 *");
@@ -624,7 +621,7 @@ public class CpuTweaks extends Activity {
 			Log.d(TAG, "Writing to cpu3 ****");
 			rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 		}
-*/
+
 		//rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
 		//rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 		//rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
@@ -838,15 +835,6 @@ public class CpuTweaks extends Activity {
 						Sorted_Min_Frequencies_Array[4] = AvailableMinFrequencies[4];
 					}
 
-					Sorted_Max_Frequencies_Array = new String [5];
-					{
-						Sorted_Max_Frequencies_Array[0] = AvailableMaxFrequencies[4];
-						Sorted_Max_Frequencies_Array[1] = AvailableMaxFrequencies[3];
-						Sorted_Max_Frequencies_Array[2] = AvailableMaxFrequencies[2];
-						Sorted_Max_Frequencies_Array[3] = AvailableMaxFrequencies[1];
-						Sorted_Max_Frequencies_Array[4] = AvailableMaxFrequencies[0];
-					}
-
 					Sorted_Min_Freq_Entries_Array = new String [5];
 					{
 						Sorted_Min_Freq_Entries_Array[0] = availableMinFreqEntries[0];
@@ -854,6 +842,15 @@ public class CpuTweaks extends Activity {
 						Sorted_Min_Freq_Entries_Array[2] = availableMinFreqEntries[2];
 						Sorted_Min_Freq_Entries_Array[3] = availableMinFreqEntries[3];
 						Sorted_Min_Freq_Entries_Array[4] = availableMinFreqEntries[4];
+					}
+
+					Sorted_Max_Frequencies_Array = new String [5];
+					{
+						Sorted_Max_Frequencies_Array[0] = AvailableMaxFrequencies[4];
+						Sorted_Max_Frequencies_Array[1] = AvailableMaxFrequencies[3];
+						Sorted_Max_Frequencies_Array[2] = AvailableMaxFrequencies[2];
+						Sorted_Max_Frequencies_Array[3] = AvailableMaxFrequencies[1];
+						Sorted_Max_Frequencies_Array[4] = AvailableMaxFrequencies[0];
 					}
 
 					Sorted_Max_Freq_Entries_Array = new String [5];
@@ -889,15 +886,6 @@ public class CpuTweaks extends Activity {
 						Sorted_Min_Frequencies_Array[4] = AvailableMinFrequencies[4];
 					}
 
-					Sorted_Max_Frequencies_Array = new String [5];
-					{
-						Sorted_Max_Frequencies_Array[0] = AvailableMaxFrequencies[4];
-						Sorted_Max_Frequencies_Array[1] = AvailableMaxFrequencies[3];
-						Sorted_Max_Frequencies_Array[2] = AvailableMaxFrequencies[2];
-						Sorted_Max_Frequencies_Array[3] = AvailableMaxFrequencies[1];
-						Sorted_Max_Frequencies_Array[4] = AvailableMaxFrequencies[0];
-					}
-
 					Sorted_Min_Freq_Entries_Array = new String [5];
 					{
 						Sorted_Min_Freq_Entries_Array[0] = availableMinFreqEntries[0];
@@ -905,6 +893,15 @@ public class CpuTweaks extends Activity {
 						Sorted_Min_Freq_Entries_Array[2] = availableMinFreqEntries[2];
 						Sorted_Min_Freq_Entries_Array[3] = availableMinFreqEntries[3];
 						Sorted_Min_Freq_Entries_Array[4] = availableMinFreqEntries[4];
+					}
+
+					Sorted_Max_Frequencies_Array = new String [5];
+					{
+						Sorted_Max_Frequencies_Array[0] = AvailableMaxFrequencies[4];
+						Sorted_Max_Frequencies_Array[1] = AvailableMaxFrequencies[3];
+						Sorted_Max_Frequencies_Array[2] = AvailableMaxFrequencies[2];
+						Sorted_Max_Frequencies_Array[3] = AvailableMaxFrequencies[1];
+						Sorted_Max_Frequencies_Array[4] = AvailableMaxFrequencies[0];
 					}
 
 					Sorted_Max_Freq_Entries_Array = new String [5];
