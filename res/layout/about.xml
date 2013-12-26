@@ -20,7 +20,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <ImageView
@@ -209,98 +209,15 @@
             android:textIsSelectable="true"
             android:textSize="15sp" />
 
-        <!-- About Agat -->
-
-        <TextView
-            android:id="@+id/aboutagatskernel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/texwebsite"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="@string/about_agatskernel"
-            android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textIsSelectable="true"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/aboutagatskernel2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/aboutagatskernel"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-2dp"
-            android:text="@string/about_agatskernel2"
-            android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textIsSelectable="true"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/dummyvalue44"
-            android:layout_width="254dp"
-            android:layout_height="2dip"
-            android:layout_below="@+id/aboutagatskernel2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="3dp"
-            android:background="@color/blue_line" />
-
-        <TextView
-            android:id="@+id/textView66"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/dummyvalue44"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="1dp"
-            android:text="@string/about_coding_kernel"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textIsSelectable="true"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <View
-            android:id="@+id/kernelmaintainerline2"
-            android:layout_width="126dp"
-            android:layout_height="1dip"
-            android:layout_below="@+id/textView66"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-2dp"
-            android:background="@color/blue_line" />
-
-        <TextView
-            android:id="@+id/textView55"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/kernelmaintainerline2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="0dp"
-            android:text="@string/about_agat"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textIsSelectable="true"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/emailagat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView55"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-4dp"
-            android:text="@string/email_agat"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textIsSelectable="true"
-            android:textSize="15sp" />
+        
 
         <TextView
             android:id="@+id/donation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/emailagat"
+            android:layout_below="@+id/texwebsite"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="30dp"
             android:text="@string/donate_text"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textIsSelectable="true"

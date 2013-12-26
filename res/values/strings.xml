@@ -32,7 +32,7 @@ Root Access is REQUIRED for this app.
 
 HOWTO Solve this issue:
 Update or Install latest
-DreamKernel / Agat_GS4 Kernel
+DreamKernel
 "</string>
     <string name="disabled_option_text">Not Supported</string>
     <string name="no_sd_card">No SD card inserted</string>
@@ -95,7 +95,7 @@ DreamKernel / Agat_GS4 Kernel
     <string name="si_refreshes_cpu">Cpu stats refreshes each second</string>
     <string name="si_gcc_version">GCC version</string>
     <string name="si_kernel_cmdline">kernel commandline</string>
-    <string name="about_app_name">DreamKernel / AgatKernel</string>
+    <string name="about_app_name">DreamKernel</string>
     <string name="about_coders_app">App Coding:</string>
     <string name="about_lowerland">Lowerland</string>
     <string name="email_lowerland">lowerland@hotmail.com</string>
@@ -104,11 +104,6 @@ DreamKernel / Agat_GS4 Kernel
     <string name="about_talustus">Talustus</string>
     <string name="email_talustus">talustus@dream-irc.de</string>
     <string name="website_talustus">http://www.dream-irc.de</string>
-    <string name="about_agatskernel">AGAT_GS4, Custom kernel</string>
-    <string name="about_agatskernel2">"Samsung Galaxy S4 LTE (SPH-L720)"</string>
-    <string name="about_agat">Agat</string>
-    <string name="email_agat">agat@agat63.com</string>
-    <string name="website_agat"></string>
     <string name="about_coding_kernel">Kernel Maintainer:</string>
     <string name="donate_button">Donate Button</string>
     <string name="donate_text">Please buy me a cup of Coffee  :-)</string>
