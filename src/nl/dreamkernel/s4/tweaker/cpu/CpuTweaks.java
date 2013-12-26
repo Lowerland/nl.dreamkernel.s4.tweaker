@@ -206,6 +206,7 @@ public class CpuTweaks extends Activity {
 
 		// read the files value
 		ValueReader();
+		AvailableFreqReader();
 
 		// Filechecking part
 		cpu_hide_dialog = sharedPreferences.getInt("cpu_hide_dialog", 0);
@@ -434,7 +435,7 @@ public class CpuTweaks extends Activity {
 		// Cpu's Online state and Force Online if the are Offline
 		CpuCurrentState();
 
-		rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
+		//rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
 		// .write("chmod 664 storage/sdcard1/testfiles/scaling_min_freq\n");
 
 		SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
@@ -598,7 +599,7 @@ public class CpuTweaks extends Activity {
 		// Cpu's Online state and Force Online if they are Offline
 		CpuCurrentState();
 
-		rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
+		//rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
 		// .write("chmod 664 storage/sdcard1/testfiles/scaling_max_freq\n");
 
 		SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
@@ -801,135 +802,32 @@ public class CpuTweaks extends Activity {
 		if (vCheck_CPU_GOVERNOR.exists()) {
 			//rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor\n");
 			try {
-				if (vCheck_CPU_GOVERNOR.read(rootProcess) != null && vCheck_CPU_GOVERNOR.read(rootProcess).length() > 0) {
+				//if (vCheck_CPU_GOVERNOR.read(rootProcess) != null && vCheck_CPU_GOVERNOR.read(rootProcess).length() > 0) {
 				file_CPU_GOVERNOR_temp = vCheck_CPU_GOVERNOR.read(rootProcess);
 				file_CPU_GOVERNOR = file_CPU_GOVERNOR_temp;
 				CpuCurrentValue.setText("" + file_CPU_GOVERNOR);
-				} else {
-					file_CPU_GOVERNOR = "";
-					CpuCurrentValue.setText("Problems Reading File value  :-/");
-				}
+				//} else {
+				//	file_CPU_GOVERNOR = "";
+				//	CpuCurrentValue.setText("Problems Reading File value  :-/");
+				//}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-
-
-		if (vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
-			//rootProcess.write("chmod 444 /sys/power/cpufreq_table\n");
-			//TODO
-			try {
-				if (vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess) != null && vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess).length() > 0) {
-					AvailableMinFrequencies = getAvailableMinFrequencies();
-					availableMinFreqEntries = getFrequencyMinEntries(AvailableMinFrequencies);
-					AvailableMaxFrequencies = getAvailableMaxFrequencies();
-					availableMaxFreqEntries = getFrequencyMaxEntries(AvailableMaxFrequencies);
-
-					Sorted_Min_Frequencies_Array = new String [5];
-					{
-						Sorted_Min_Frequencies_Array[0] = AvailableMinFrequencies[0];
-						Sorted_Min_Frequencies_Array[1] = AvailableMinFrequencies[1];
-						Sorted_Min_Frequencies_Array[2] = AvailableMinFrequencies[2];
-						Sorted_Min_Frequencies_Array[3] = AvailableMinFrequencies[3];
-						Sorted_Min_Frequencies_Array[4] = AvailableMinFrequencies[4];
-					}
-
-					Sorted_Min_Freq_Entries_Array = new String [5];
-					{
-						Sorted_Min_Freq_Entries_Array[0] = availableMinFreqEntries[0];
-						Sorted_Min_Freq_Entries_Array[1] = availableMinFreqEntries[1];
-						Sorted_Min_Freq_Entries_Array[2] = availableMinFreqEntries[2];
-						Sorted_Min_Freq_Entries_Array[3] = availableMinFreqEntries[3];
-						Sorted_Min_Freq_Entries_Array[4] = availableMinFreqEntries[4];
-					}
-
-					Sorted_Max_Frequencies_Array = new String [5];
-					{
-						Sorted_Max_Frequencies_Array[0] = AvailableMaxFrequencies[4];
-						Sorted_Max_Frequencies_Array[1] = AvailableMaxFrequencies[3];
-						Sorted_Max_Frequencies_Array[2] = AvailableMaxFrequencies[2];
-						Sorted_Max_Frequencies_Array[3] = AvailableMaxFrequencies[1];
-						Sorted_Max_Frequencies_Array[4] = AvailableMaxFrequencies[0];
-					}
-
-					Sorted_Max_Freq_Entries_Array = new String [5];
-					{
-						Sorted_Max_Freq_Entries_Array[0] = availableMaxFreqEntries[4];
-						Sorted_Max_Freq_Entries_Array[1] = availableMaxFreqEntries[3];
-						Sorted_Max_Freq_Entries_Array[2] = availableMaxFreqEntries[2];
-						Sorted_Max_Freq_Entries_Array[3] = availableMaxFreqEntries[1];
-						Sorted_Max_Freq_Entries_Array[4] = availableMaxFreqEntries[0];
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		if (vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.exists()) {
-			//rootProcess.write("chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n");
-			//TODO
-			try {
-				if (vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.read(rootProcess) != null && vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.read(rootProcess).length() > 0) {
-					AvailableMinFrequencies = getAvailableMinFrequencies();
-					availableMinFreqEntries = getFrequencyMinEntries(AvailableMinFrequencies);
-					AvailableMaxFrequencies = getAvailableMaxFrequencies();
-					availableMaxFreqEntries = getFrequencyMaxEntries(AvailableMaxFrequencies);
-
-					Sorted_Min_Frequencies_Array = new String [5];
-					{
-						Sorted_Min_Frequencies_Array[0] = AvailableMinFrequencies[0];
-						Sorted_Min_Frequencies_Array[1] = AvailableMinFrequencies[1];
-						Sorted_Min_Frequencies_Array[2] = AvailableMinFrequencies[2];
-						Sorted_Min_Frequencies_Array[3] = AvailableMinFrequencies[3];
-						Sorted_Min_Frequencies_Array[4] = AvailableMinFrequencies[4];
-					}
-
-					Sorted_Min_Freq_Entries_Array = new String [5];
-					{
-						Sorted_Min_Freq_Entries_Array[0] = availableMinFreqEntries[0];
-						Sorted_Min_Freq_Entries_Array[1] = availableMinFreqEntries[1];
-						Sorted_Min_Freq_Entries_Array[2] = availableMinFreqEntries[2];
-						Sorted_Min_Freq_Entries_Array[3] = availableMinFreqEntries[3];
-						Sorted_Min_Freq_Entries_Array[4] = availableMinFreqEntries[4];
-					}
-
-					Sorted_Max_Frequencies_Array = new String [5];
-					{
-						Sorted_Max_Frequencies_Array[0] = AvailableMaxFrequencies[4];
-						Sorted_Max_Frequencies_Array[1] = AvailableMaxFrequencies[3];
-						Sorted_Max_Frequencies_Array[2] = AvailableMaxFrequencies[2];
-						Sorted_Max_Frequencies_Array[3] = AvailableMaxFrequencies[1];
-						Sorted_Max_Frequencies_Array[4] = AvailableMaxFrequencies[0];
-					}
-
-					Sorted_Max_Freq_Entries_Array = new String [5];
-					{
-						Sorted_Max_Freq_Entries_Array[0] = availableMaxFreqEntries[4];
-						Sorted_Max_Freq_Entries_Array[1] = availableMaxFreqEntries[3];
-						Sorted_Max_Freq_Entries_Array[2] = availableMaxFreqEntries[2];
-						Sorted_Max_Freq_Entries_Array[3] = availableMaxFreqEntries[1];
-						Sorted_Max_Freq_Entries_Array[4] = availableMaxFreqEntries[0];
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 
 		if (vCheck_CPU_CpuMinFREQ.exists()) {
 			//rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
 
 			try {
-				if (vCheck_CPU_CpuMinFREQ.read(rootProcess) != null && vCheck_CPU_CpuMinFREQ.read(rootProcess).length() > 0) {
+				//if (vCheck_CPU_CpuMinFREQ.read(rootProcess) != null && vCheck_CPU_CpuMinFREQ.read(rootProcess).length() > 0) {
 				file_CPU_MinFREQ_temp = Integer.parseInt(vCheck_CPU_CpuMinFREQ.read(rootProcess));
 				file_CPU_MinFREQ = file_CPU_MinFREQ_temp / 1000 + " MHz";
 				CpuMinFREQValue.setText("" + file_CPU_MinFREQ);
-				} else {
-					file_CPU_MinFREQ = "0";
-					CpuMinFREQValue.setText("Problems Reading File value  :-/");
-				}
+				//} else {
+				//	file_CPU_MinFREQ = "0";
+				//	CpuMinFREQValue.setText("Problems Reading File value  :-/");
+				//}
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
@@ -939,14 +837,14 @@ public class CpuTweaks extends Activity {
 			//rootProcess.write("chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
 
 			try {
-				if (vCheck_CPU_CpuMaxFREQ.read(rootProcess) != null && vCheck_CPU_CpuMaxFREQ.read(rootProcess).length() > 0) {
+				//if (vCheck_CPU_CpuMaxFREQ.read(rootProcess) != null && vCheck_CPU_CpuMaxFREQ.read(rootProcess).length() > 0) {
 				file_CPU_MaxFREQ_temp = Integer.parseInt(vCheck_CPU_CpuMaxFREQ.read(rootProcess));
 				file_CPU_MaxFREQ = file_CPU_MaxFREQ_temp / 1000 + " MHz";
 				CpuMaxFREQValue.setText("" + file_CPU_MaxFREQ);
-				} else {
-					file_CPU_MaxFREQ_temp = 0;
-					CpuMaxFREQValue.setText("Problems Reading File value  :-/");
-				}
+				//} else {
+				//	file_CPU_MaxFREQ_temp = 0;
+				//	CpuMaxFREQValue.setText("Problems Reading File value  :-/");
+				//}
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
@@ -974,6 +872,110 @@ public class CpuTweaks extends Activity {
 
 	}
 
+	private void AvailableFreqReader() {
+		if (vCheck_CPU_AVAILABLE_FREQ_PATH.exists()) {
+			//rootProcess.write("chmod 444 /sys/power/cpufreq_table\n");
+			//TODO
+			try {
+				//if (vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess) != null && vCheck_CPU_AVAILABLE_FREQ_PATH.read(rootProcess).length() > 0) {
+					AvailableMinFrequencies = getAvailableMinFrequencies();
+					availableMinFreqEntries = getFrequencyMinEntries(AvailableMinFrequencies);
+					AvailableMaxFrequencies = getAvailableMaxFrequencies();
+					availableMaxFreqEntries = getFrequencyMaxEntries(AvailableMaxFrequencies);
+
+					Sorted_Min_Frequencies_Array = new String [5];
+					{
+						Sorted_Min_Frequencies_Array[0] = AvailableMinFrequencies[0];
+						Sorted_Min_Frequencies_Array[1] = AvailableMinFrequencies[1];
+						Sorted_Min_Frequencies_Array[2] = AvailableMinFrequencies[2];
+						Sorted_Min_Frequencies_Array[3] = AvailableMinFrequencies[3];
+						Sorted_Min_Frequencies_Array[4] = AvailableMinFrequencies[4];
+					}
+
+					Sorted_Min_Freq_Entries_Array = new String [5];
+					{
+						Sorted_Min_Freq_Entries_Array[0] = availableMinFreqEntries[0];
+						Sorted_Min_Freq_Entries_Array[1] = availableMinFreqEntries[1];
+						Sorted_Min_Freq_Entries_Array[2] = availableMinFreqEntries[2];
+						Sorted_Min_Freq_Entries_Array[3] = availableMinFreqEntries[3];
+						Sorted_Min_Freq_Entries_Array[4] = availableMinFreqEntries[4];
+					}
+
+					Sorted_Max_Frequencies_Array = new String [5];
+					{
+						Sorted_Max_Frequencies_Array[0] = AvailableMaxFrequencies[4];
+						Sorted_Max_Frequencies_Array[1] = AvailableMaxFrequencies[3];
+						Sorted_Max_Frequencies_Array[2] = AvailableMaxFrequencies[2];
+						Sorted_Max_Frequencies_Array[3] = AvailableMaxFrequencies[1];
+						Sorted_Max_Frequencies_Array[4] = AvailableMaxFrequencies[0];
+					}
+
+					Sorted_Max_Freq_Entries_Array = new String [5];
+					{
+						Sorted_Max_Freq_Entries_Array[0] = availableMaxFreqEntries[4];
+						Sorted_Max_Freq_Entries_Array[1] = availableMaxFreqEntries[3];
+						Sorted_Max_Freq_Entries_Array[2] = availableMaxFreqEntries[2];
+						Sorted_Max_Freq_Entries_Array[3] = availableMaxFreqEntries[1];
+						Sorted_Max_Freq_Entries_Array[4] = availableMaxFreqEntries[0];
+					}
+				//}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.exists()) {
+			//rootProcess.write("chmod 444 /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies\n");
+			//TODO
+			try {
+				//if (vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.read(rootProcess) != null && vCheck_CPU_AVAILABLE_FREQ_OPTIONAL_PATH.read(rootProcess).length() > 0) {
+					AvailableMinFrequencies = getAvailableMinFrequencies();
+					availableMinFreqEntries = getFrequencyMinEntries(AvailableMinFrequencies);
+					AvailableMaxFrequencies = getAvailableMaxFrequencies();
+					availableMaxFreqEntries = getFrequencyMaxEntries(AvailableMaxFrequencies);
+
+					Sorted_Min_Frequencies_Array = new String [5];
+					{
+						Sorted_Min_Frequencies_Array[0] = AvailableMinFrequencies[0];
+						Sorted_Min_Frequencies_Array[1] = AvailableMinFrequencies[1];
+						Sorted_Min_Frequencies_Array[2] = AvailableMinFrequencies[2];
+						Sorted_Min_Frequencies_Array[3] = AvailableMinFrequencies[3];
+						Sorted_Min_Frequencies_Array[4] = AvailableMinFrequencies[4];
+					}
+
+					Sorted_Min_Freq_Entries_Array = new String [5];
+					{
+						Sorted_Min_Freq_Entries_Array[0] = availableMinFreqEntries[0];
+						Sorted_Min_Freq_Entries_Array[1] = availableMinFreqEntries[1];
+						Sorted_Min_Freq_Entries_Array[2] = availableMinFreqEntries[2];
+						Sorted_Min_Freq_Entries_Array[3] = availableMinFreqEntries[3];
+						Sorted_Min_Freq_Entries_Array[4] = availableMinFreqEntries[4];
+					}
+
+					Sorted_Max_Frequencies_Array = new String [5];
+					{
+						Sorted_Max_Frequencies_Array[0] = AvailableMaxFrequencies[4];
+						Sorted_Max_Frequencies_Array[1] = AvailableMaxFrequencies[3];
+						Sorted_Max_Frequencies_Array[2] = AvailableMaxFrequencies[2];
+						Sorted_Max_Frequencies_Array[3] = AvailableMaxFrequencies[1];
+						Sorted_Max_Frequencies_Array[4] = AvailableMaxFrequencies[0];
+					}
+
+					Sorted_Max_Freq_Entries_Array = new String [5];
+					{
+						Sorted_Max_Freq_Entries_Array[0] = availableMaxFreqEntries[4];
+						Sorted_Max_Freq_Entries_Array[1] = availableMaxFreqEntries[3];
+						Sorted_Max_Freq_Entries_Array[2] = availableMaxFreqEntries[2];
+						Sorted_Max_Freq_Entries_Array[3] = availableMaxFreqEntries[1];
+						Sorted_Max_Freq_Entries_Array[4] = availableMaxFreqEntries[0];
+					}
+				//}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 	// Method Used for retreiving data from the AlertDialog
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -1005,6 +1007,15 @@ public class CpuTweaks extends Activity {
 			rootProcess.init();
 			return;
 		} else {
+		}
+		if (Sorted_Min_Frequencies_Array == null && Sorted_Min_Frequencies_Array.length < 0) {
+			AvailableFreqReader();
+			Log.d(TAG,"Sorted_Min_Frequencies_Array == null ");
+			} else {
+			if (Sorted_Max_Frequencies_Array == null && Sorted_Max_Frequencies_Array.length < 0) {
+				AvailableFreqReader();
+			Log.d(TAG,"Sorted_Min_Frequencies_Array == null ");
+			}
 		}
 	}
 
