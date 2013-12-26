@@ -192,14 +192,14 @@ public class CpuTweaks extends Activity {
 									.edit();
 							editor.putBoolean("onBootCpuTweaks_pref", true);
 							editor.commit();
-							Log.d(TAG, "onBoot Enabled");
+							//Log.d(TAG, "onBoot Enabled");
 						} else {
 							// The toggle is disabled
 							SharedPreferences.Editor editor = sharedPreferences
 									.edit();
 							editor.putBoolean("onBootCpuTweaks_pref", false);
 							editor.commit();
-							Log.d(TAG, "onBoot Disabled");
+							//Log.d(TAG, "onBoot Disabled");
 						}
 					}
 				});
@@ -210,7 +210,7 @@ public class CpuTweaks extends Activity {
 
 		// Filechecking part
 		cpu_hide_dialog = sharedPreferences.getInt("cpu_hide_dialog", 0);
-		Log.d(TAG, "onCreate cpu_hide_dialog = " + cpu_hide_dialog);
+		//Log.d(TAG, "onCreate cpu_hide_dialog = " + cpu_hide_dialog);
 
 		// Options Compatible Check
 		FileCheck.CheckCPUOptions(CpuTweaks.this);
@@ -226,9 +226,9 @@ public class CpuTweaks extends Activity {
 				Intent intent = new Intent(CpuTweaks.this, DialogActivity.class);
 				startActivityForResult(intent, GET_CODE);
 			}
-			Log.d(TAG, "incompatible = " + FileCheck.incompatible);
+			//Log.d(TAG, "incompatible = " + FileCheck.incompatible);
 		} else {
-			Log.d(TAG, "incompatible = " + FileCheck.incompatible);
+			//Log.d(TAG, "incompatible = " + FileCheck.incompatible);
 		}
 	}
 
@@ -253,7 +253,7 @@ public class CpuTweaks extends Activity {
 					public void onClick(DialogInterface dialog, int whichButton) {
 
 						/* User clicked on a radio button do some stuff */
-						Log.d(TAG, "User clicked on radio button "+ whichButton);
+						//Log.d(TAG, "User clicked on radio button "+ whichButton);
 						dialog_temp_cpu_gov = whichButton;
 						cpu_scaling_governor_array = AvailableGovernors[whichButton];
 
@@ -397,11 +397,11 @@ public class CpuTweaks extends Activity {
 					public void onClick(DialogInterface dialog, int whichButton) {
 
 						/* User clicked on a radio button do some stuff */
-						Log.d(TAG, "User clicked on radio button "+ whichButton);
+						//Log.d(TAG, "User clicked on radio button "+ whichButton);
 						dialog_temp_min_scheduler = whichButton;
 						cpu_min_freq_array = Sorted_Min_Frequencies_Array[whichButton];
-						Log.d(TAG,"Sorted_Min_Frequencies_Array = "+Sorted_Min_Frequencies_Array[whichButton]);
-						Log.d(TAG,"Sorted_Min_Freq_Entries_Array = "+Sorted_Min_Freq_Entries_Array[whichButton]);
+						//Log.d(TAG,"Sorted_Min_Frequencies_Array = "+Sorted_Min_Frequencies_Array[whichButton]);
+						//Log.d(TAG,"Sorted_Min_Freq_Entries_Array = "+Sorted_Min_Freq_Entries_Array[whichButton]);
 
 					}
 				});
@@ -443,19 +443,19 @@ public class CpuTweaks extends Activity {
 
 		// Write Values to the filesystem
 		if (Cpu_Available > -1){
-			Log.d(TAG, "Writing to cpu0 *");
+			//Log.d(TAG, "Writing to cpu0 *");
 			rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq\n");
 		}
 		if (Cpu_Available > 0){
-			Log.d(TAG, "Writing to cpu1 **");
+			//Log.d(TAG, "Writing to cpu1 **");
 			rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq\n");
 		}
 		if (Cpu_Available > 1){
-			Log.d(TAG, "Writing to cpu2 ***");
+			//Log.d(TAG, "Writing to cpu2 ***");
 			rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq\n");
 		}
 		if (Cpu_Available > 2){
-			Log.d(TAG, "Writing to cpu3 ****");
+			//Log.d(TAG, "Writing to cpu3 ****");
 			rootProcess.write("echo " + cpu_min_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq\n");
 		}
 
@@ -563,11 +563,11 @@ public class CpuTweaks extends Activity {
 					@Override
 					public void onClick(DialogInterface dialog, int whichButton) {
 
-						Log.d(TAG, "User clicked on radio button " + whichButton);
+						//Log.d(TAG, "User clicked on radio button " + whichButton);
 						dialog_temp_max_scheduler = whichButton;
 						cpu_max_freq_array = Sorted_Max_Frequencies_Array[whichButton];
-						Log.d(TAG,"Sorted_Max_Frequencies_Array = "+Sorted_Max_Frequencies_Array[whichButton]);
-						Log.d(TAG,"Sorted_Max_Freq_Entries_Array = "+Sorted_Max_Freq_Entries_Array[whichButton]);
+						//Log.d(TAG,"Sorted_Max_Frequencies_Array = "+Sorted_Max_Frequencies_Array[whichButton]);
+						//Log.d(TAG,"Sorted_Max_Freq_Entries_Array = "+Sorted_Max_Freq_Entries_Array[whichButton]);
 					}
 				});
 		final AlertDialog alertDialog = builder.create();
@@ -607,19 +607,19 @@ public class CpuTweaks extends Activity {
 
 		// Write Values to the filesystem
 		if (Cpu_Available > -1){
-			Log.d(TAG, "Writing to cpu0 *");
+			//Log.d(TAG, "Writing to cpu0 *");
 			rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq\n");
 		}
 		if (Cpu_Available > 0){
-			Log.d(TAG, "Writing to cpu1 **");
+			//Log.d(TAG, "Writing to cpu1 **");
 			rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq\n");
 		}
 		if (Cpu_Available > 1){
-			Log.d(TAG, "Writing to cpu2 ***");
+			//Log.d(TAG, "Writing to cpu2 ***");
 			rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq\n");
 		}
 		if (Cpu_Available > 2){
-			Log.d(TAG, "Writing to cpu3 ****");
+			//Log.d(TAG, "Writing to cpu3 ****");
 			rootProcess.write("echo " + cpu_max_freq_array + " > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq\n");
 		}
 
@@ -649,43 +649,43 @@ public class CpuTweaks extends Activity {
 		if (Cpu_Available > 0){
 			file_CPU1_ONLINE_temp = Integer.parseInt(vCheck_CPU1_ONLINE.read(rootProcess));
 			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
-			Log.d(TAG, "Read Cpu 1 State ");
+			//Log.d(TAG, "Read Cpu 1 State ");
 
 			if (file_CPU1_ONLINE == 0) {
 				rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu1/online\n");
 				CPU1_RETURN_STATE = 0;
-				Log.d(TAG, "Force CPU 1 ONLINE ");
+				//Log.d(TAG, "Force CPU 1 ONLINE ");
 			} else {
 				CPU1_RETURN_STATE = 1;
-				Log.d(TAG, "CPU 1 is ONLINE ");
+				//Log.d(TAG, "CPU 1 is ONLINE ");
 			}
 		}
 		if (Cpu_Available > 1){
 			file_CPU2_ONLINE_temp = Integer.parseInt(vCheck_CPU2_ONLINE.read(rootProcess));
 			file_CPU2_ONLINE = file_CPU2_ONLINE_temp;
-			Log.d(TAG, "Read Cpu 2 State ");
+			//Log.d(TAG, "Read Cpu 2 State ");
 
 			if (file_CPU2_ONLINE == 0) {
 				rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu2/online\n");
 				CPU2_RETURN_STATE = 0;
-				Log.d(TAG, "Force CPU 2 ONLINE ");
+				//Log.d(TAG, "Force CPU 2 ONLINE ");
 			} else {
 				CPU2_RETURN_STATE = 1;
-				Log.d(TAG, "CPU 2 is ONLINE ");
+				//Log.d(TAG, "CPU 2 is ONLINE ");
 			}
 		}
 		if (Cpu_Available > 2){
 			file_CPU3_ONLINE_temp = Integer.parseInt(vCheck_CPU3_ONLINE.read(rootProcess));
 			file_CPU3_ONLINE = file_CPU3_ONLINE_temp;
-			Log.d(TAG, "Read Cpu 3 State ");
+			//Log.d(TAG, "Read Cpu 3 State ");
 
 			if (file_CPU3_ONLINE == 0) {
 				rootProcess.write("echo 1 > /sys/devices/system/cpu/cpu3/online\n");
 				CPU3_RETURN_STATE = 0;
-				Log.d(TAG, "Force CPU 3 ONLINE ");
+				//Log.d(TAG, "Force CPU 3 ONLINE ");
 			} else {
 				CPU3_RETURN_STATE = 1;
-				Log.d(TAG, "CPU 3 is ONLINE ");
+				//Log.d(TAG, "CPU 3 is ONLINE ");
 			}
 		}
 
@@ -742,19 +742,19 @@ public class CpuTweaks extends Activity {
 	public static void ReturnCpuState() {
 		if (Cpu_Available > 0){
 			if (CPU1_RETURN_STATE == 0) {
-				Log.d(TAG, "Force CPU 1 Back Offline ");
+				//Log.d(TAG, "Force CPU 1 Back Offline ");
 				rootProcess.write("echo 0 > /sys/devices/system/cpu/cpu1/online\n");
 			}
 		}
 		if (Cpu_Available > 1){
 			if (CPU2_RETURN_STATE == 0) {
-				Log.d(TAG, "Force CPU 2 Back Offline ");
+				//Log.d(TAG, "Force CPU 2 Back Offline ");
 				rootProcess.write("echo 0 > /sys/devices/system/cpu/cpu2/online\n");
 			}
 		}
 		if (Cpu_Available > 2){
 			if (CPU3_RETURN_STATE == 0) {
-				Log.d(TAG, "Force CPU 3 Back Offline ");
+				//Log.d(TAG, "Force CPU 3 Back Offline ");
 				rootProcess.write("echo 0 > /sys/devices/system/cpu/cpu3/online\n");
 			}
 		}
@@ -852,17 +852,17 @@ public class CpuTweaks extends Activity {
 		if (vCheck_CPU1_ONLINE.exists()) {
 			file_CPU1_ONLINE_temp = Integer.parseInt(vCheck_CPU1_ONLINE.read(rootProcess));
 			file_CPU1_ONLINE = file_CPU1_ONLINE_temp;
-			Log.d(TAG, "Read Cpu 1 State " + file_CPU1_ONLINE);
+			//Log.d(TAG, "Read Cpu 1 State " + file_CPU1_ONLINE);
 		}
 		if (vCheck_CPU2_ONLINE.exists()) {
 			file_CPU2_ONLINE_temp = Integer.parseInt(vCheck_CPU2_ONLINE.read(rootProcess));
 			file_CPU2_ONLINE = file_CPU2_ONLINE_temp;
-			Log.d(TAG, "Read Cpu 2 State " + file_CPU2_ONLINE);
+			//Log.d(TAG, "Read Cpu 2 State " + file_CPU2_ONLINE);
 		}
 		if (vCheck_CPU3_ONLINE.exists()) {
 			file_CPU3_ONLINE_temp = Integer.parseInt(vCheck_CPU3_ONLINE.read(rootProcess));
 			file_CPU3_ONLINE = file_CPU3_ONLINE_temp;
-			Log.d(TAG, "Read Cpu 3 State " + file_CPU3_ONLINE);
+			//Log.d(TAG, "Read Cpu 3 State " + file_CPU3_ONLINE);
 		}
 
 		// Set current value views
@@ -985,7 +985,7 @@ public class CpuTweaks extends Activity {
 				@SuppressWarnings("unused")
 				String resultlog = Integer.toString(resultCode);
 				if (data != null) {
-					Log.d(TAG, "RESULT_DATA = " + data.getAction());
+					//Log.d(TAG, "RESULT_DATA = " + data.getAction());
 					SharedPreferences sharedPreferences = getSharedPreferences("MY_SHARED_PREF", 0);
 					SharedPreferences.Editor editor = sharedPreferences.edit();
 					editor.putInt("cpu_hide_dialog", Integer.parseInt(data.getAction()));
@@ -1010,11 +1010,11 @@ public class CpuTweaks extends Activity {
 		}
 		if (Sorted_Min_Frequencies_Array == null && Sorted_Min_Frequencies_Array.length < 0) {
 			AvailableFreqReader();
-			Log.d(TAG,"Sorted_Min_Frequencies_Array == null ");
+			//Log.d(TAG,"Sorted_Min_Frequencies_Array == null ");
 			} else {
 			if (Sorted_Max_Frequencies_Array == null && Sorted_Max_Frequencies_Array.length < 0) {
 				AvailableFreqReader();
-			Log.d(TAG,"Sorted_Min_Frequencies_Array == null ");
+			//Log.d(TAG,"Sorted_Min_Frequencies_Array == null ");
 			}
 		}
 	}
