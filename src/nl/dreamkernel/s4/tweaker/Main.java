@@ -53,7 +53,7 @@ public class Main extends Activity {
 			e.printStackTrace();
 		}
 
-		if (version == 26) {
+		if (version == 29) {
 			// This Build Version requires Clean CPU Freq config
 			// Else weird things can happen :-)
 			updatePreferences();
@@ -103,7 +103,7 @@ public class Main extends Activity {
 
 	void updatePreferences() {
 		SharedPreferences prefs = getSharedPreferences("MY_SHARED_PREF", 0);
-		if (prefs.getBoolean("update_required", true)) {
+		if (prefs.getBoolean("update_required2", true)) {
 			SharedPreferences.Editor editor = prefs.edit();
 
 			// editor.clear();
@@ -120,7 +120,7 @@ public class Main extends Activity {
 
 			// TODO
 			// FIXME uncomment THIS !!
-			editor.putBoolean("update_required", false);
+			editor.putBoolean("update_required2", false);
 			editor.commit();
 		}
 	}
@@ -149,6 +149,7 @@ public class Main extends Activity {
 			final AlertDialog norootDialog = builder.create();
 			norootDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
 					new DialogInterface.OnClickListener() {
+						@Override
 						public void onClick(DialogInterface dialog, int whichButton) {
 							// Button OK Clicked
 							// Exit App
@@ -177,6 +178,7 @@ public class Main extends Activity {
 			final AlertDialog norootDialog = builder.create();
 			norootDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK",
 					new DialogInterface.OnClickListener() {
+						@Override
 						public void onClick(DialogInterface dialog, int whichButton) {
 							// Button OK Clicked
 							// Exit App
