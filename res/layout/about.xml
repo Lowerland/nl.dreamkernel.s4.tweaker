@@ -217,18 +217,33 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/texwebsite"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="60dp"
             android:text="@string/donate_text"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textIsSelectable="true"
-            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/donation2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/donation"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:text="@string/donate_text2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textIsSelectable="true"
+            android:textAlignment="center"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/donatebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/donation"
+            android:layout_below="@+id/donation2"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:autoLink="web"

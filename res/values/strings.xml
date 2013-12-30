@@ -106,7 +106,8 @@ DreamKernel
     <string name="website_talustus">http://www.dream-irc.de</string>
     <string name="about_coding_kernel">Kernel Maintainer:</string>
     <string name="donate_button">Donate Button</string>
-    <string name="donate_text">Please buy me a cup of Coffee  :-)</string>
+    <string name="donate_text">KARMA\'S ONLY A BITCH</string>
+    <string name="donate_text2">IF YOU ARE ..</string>
     <string name="bugreport_name">Name (Optional)</string>
     <string name="bugreport_name_hint">Your name</string>
     <string name="bugreport_email">Email Address (Optional)</string>
